@@ -1,0 +1,68 @@
+#pontuacao {
+	float: left;
+	text-align: center;
+	font-size: 14pt;	
+}
+
+#principal {
+	margin: 10px auto;
+	border: solid 15px;
+	position: relative;
+}
+
+/**********************/
+
+.fase {
+	display: none;
+}
+
+/**********************/
+
+.PERSONAGEM {
+	background: url('../imagens/andre.png') repeat;
+	/*
+	background-color: blue;
+	*/
+	position: absolute;
+	z-index: 1;
+}
+
+.celula {
+	position: absolute;
+	background-color: #CCCCCC;
+}
+
+.NADA {
+}
+
+.OBSTACULO {
+	background: navy;
+}
+
+.SETA_ESQUERDA {
+	background-image: url('../imagens/seta-esquerda.png');
+}
+
+.SETA_CIMA {
+	background-image: url('../imagens/seta-cima.png');
+}
+
+.SETA_DIREITA {
+	background-image: url('../imagens/seta-direita.png');
+}
+
+.SETA_BAIXO {
+	background-image: url('../imagens/seta-baixo.png');
+}
+
+.ITEM {
+	background: green;
+}
+
+.SAIDA {
+	background: yellow;
+}
+
+.COLA {
+	background: white;
+}
