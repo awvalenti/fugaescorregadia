@@ -1,9 +1,5 @@
 /*
  * TODO
- * - Tirar MAPA_CONSTRUCAO_FASE, associando o caractere
- * 		diretamente ao Elemento
- * - Criar classe Enum, principalmente para poder fazer a classe
- * 		Evento sem precisar replicar o nome dos nego
  * - Criar atributo HTML chamado elemento, abolindo o uso
  * 		de classes CSS para os Elementos
  */
@@ -20,68 +16,69 @@ Constantes = {
 	TEMPO_UM_PASSO: 30
 };
 
-Evento = {
-	CONTINUAR_ANDANDO: 'CONTINUAR_ANDANDO',
-	BLOQUEAR: 'BLOQUEAR',
-	PEGAR_ITEM: 'PEGAR_ITEM',
-	PASSAR_DE_FASE: 'PASSAR_DE_FASE'
-};
+function Enum(listaDeConstantes) {
+	for (var i in listaDeConstantes) {
+		this[listaDeConstantes[i]] = i;
+	}
+}
+
+Evento = new Enum(['CONTINUAR_ANDANDO', 'BLOQUEAR', 'PEGAR_ITEM', 'PASSAR_DE_FASE']);
 
 Elemento = {
 	NADA: {
-		classeCss: 'NADA',
+		caractere: '_',
 		aoTentarPassar: function() { return Evento.CONTINUAR_ANDANDO; },
 		emPassagem: function() { return Evento.CONTINUAR_ANDANDO; },
 		toString: function() { return this.classeCss; }
 	},
 	OBSTACULO: {
-		classeCss: 'OBSTACULO',
+		caractere: 'o',
 		aoTentarPassar: function() { return Evento.BLOQUEAR; },
 		toString: function() { return this.classeCss; }
 	},
 	SETA_ESQUERDA: {
-		classeCss: 'SETA_ESQUERDA',
+		caractere: '[',
 		aoTentarPassar: function(direcao) { return direcao == Direcao.ESQUERDA ? Evento.CONTINUAR_ANDANDO : Evento.BLOQUEAR; },
 		emPassagem: function() { return Evento.CONTINUAR_ANDANDO; },
 		toString: function() { return this.classeCss; }
 	},
 	SETA_CIMA: {
-		classeCss: 'SETA_CIMA',
+		caractere: '^',
 		aoTentarPassar: function(direcao) { return direcao == Direcao.CIMA ? Evento.CONTINUAR_ANDANDO : Evento.BLOQUEAR; },
 		emPassagem: function() { return Evento.CONTINUAR_ANDANDO; },
 		toString: function() { return this.classeCss; }
 	},
 	SETA_DIREITA: {
-		classeCss: 'SETA_DIREITA',
+		caractere: ']',
 		aoTentarPassar: function(direcao) { return direcao == Direcao.DIREITA ? Evento.CONTINUAR_ANDANDO : Evento.BLOQUEAR; },
 		emPassagem: function() { return Evento.CONTINUAR_ANDANDO; },
 		toString: function() { return this.classeCss; }
 	},
 	SETA_BAIXO: {
-		classeCss: 'SETA_BAIXO',
+		caractere: 'v',
 		aoTentarPassar: function(direcao) { return direcao == Direcao.BAIXO ? Evento.CONTINUAR_ANDANDO : Evento.BLOQUEAR; },
 		emPassagem: function() { return Evento.CONTINUAR_ANDANDO; },
 		toString: function() { return this.classeCss; }
 	},
 	COLA: {
-		classeCss: 'COLA',
+		caractere: 'c',
 		aoTentarPassar: function() { return Evento.CONTINUAR_ANDANDO; },
 		emPassagem: function() { return Evento.BLOQUEAR; },
 		toString: function() { return this.classeCss; }
 	},
 	ITEM: {
-		classeCss: 'ITEM',
+		caractere: 'i',
 		aoTentarPassar: function() { return Evento.PEGAR_ITEM; },
 		emPassagem: function() { return Evento.CONTINUAR_ANDANDO; },
 		toString: function() { return this.classeCss; }
 	},
 	PERSONAGEM: {
-		classeCss: 'PERSONAGEM',
+		caractere: 'p',
 		sohUmPorFase: true,
 		toString: function() { return this.classeCss; }
 	},
 	SAIDA: {
-		classeCss: 'SAIDA',
+		caractere: 's',
 		aoTentarPassar: function() { return Evento.PASSAR_DE_FASE; },
 		emPassagem: function() { return Evento.BLOQUEAR; },
 		sohUmPorFase: true,
@@ -90,8 +87,12 @@ Elemento = {
 };
 
 TODAS_AS_CLASSES_CSS = '';
-for (var elemento in Elemento) {
-	TODAS_AS_CLASSES_CSS += elemento + ' ';
+MAPA_CONSTRUCAO_FASE = {};
+for (var nomeElemento in Elemento) {
+	var elemento = Elemento[nomeElemento];
+	elemento.classeCss = nomeElemento;
+	TODAS_AS_CLASSES_CSS += nomeElemento + ' ';
+	MAPA_CONSTRUCAO_FASE[elemento.caractere] = elemento;
 }
 
 ///////////////////////////////////////////////
@@ -128,9 +129,7 @@ Personagem.prototype.setPosicaoInicial = function(linha, coluna) {
 };
 
 Personagem.prototype.andar = function(direcao, jogo) {
-	var filaEventos = new Array();
-	
-	var podeAndar = true;
+	var filaEventos = [];
 	
 	for (;;) {
 	
@@ -170,8 +169,8 @@ Personagem.prototype.andar = function(direcao, jogo) {
 	}
 };
 ///////////////////////////////////////////////
-function Tabuleiro(nLinhas, nColunas, idFase, personagem) {
-	this.matriz = new Array();
+function Tabuleiro(nLinhas, nColunas, fase, personagem) {
+	this.matriz = [];
 	this.nLinhas = nLinhas;
 	this.nColunas = nColunas;
 
@@ -183,7 +182,7 @@ function Tabuleiro(nLinhas, nColunas, idFase, personagem) {
 
 	for (var linha = 0; linha < this.nLinhas; ++linha) {
 		for (var coluna = 0; coluna < this.nColunas; ++coluna) {
-			var novaDiv = $(document.createElement('div'))
+			var novaDiv = $('<div>')
 				.addClass('NADA celula linha' + linha + ' coluna' + coluna)
 				.css({
 					'top': linha * Constantes.ALTURA_CELULA + 'px',
@@ -195,27 +194,14 @@ function Tabuleiro(nLinhas, nColunas, idFase, personagem) {
 		}
 	}
 	
-	divPrincipal.append($(document.createElement('div'))
+	divPrincipal.append($('<div>')
 		.addClass('PERSONAGEM')
 		.css({
 			'width': Constantes.LARGURA_CELULA + 'px',
 			'height': Constantes.ALTURA_CELULA + 'px'
 		}));
 	
-	MAPA_CONSTRUCAO_FASE = {
-		'_': Elemento.NADA,
-		'c': Elemento.COLA,
-		'i': Elemento.ITEM,
-		'o': Elemento.OBSTACULO,
-		'[': Elemento.SETA_ESQUERDA,
-		']': Elemento.SETA_DIREITA,
-		'^': Elemento.SETA_CIMA,
-		'v': Elemento.SETA_BAIXO,
-		's': Elemento.SAIDA,
-		'p': Elemento.PERSONAGEM
-	};
-
-	var stringFase = $('#' + idFase).html().replace(/\s+/g, '');
+	var stringFase = $('.fase').eq(fase).html().replace(/\s+/g, '');
 	
 	var tamanhoStringFase = stringFase.length;
 	var tamanhoEsperado = this.nLinhas * this.nColunas;
@@ -226,7 +212,7 @@ function Tabuleiro(nLinhas, nColunas, idFase, personagem) {
 	var mapaSohUmPorFase = {};
 	var indice = 0;
 	for (var linha = 0; linha < this.nLinhas; ++linha) {
-		this.matriz[linha] = new Array();
+		this.matriz[linha] = [];
 		
 		for (var coluna = 0; coluna < this.nColunas; ++coluna, ++indice) {
 			var caractereElemento = stringFase.charAt(indice);
@@ -278,7 +264,7 @@ Tabuleiro.prototype.get = function(posicao) {
 function Jogo() {
 	this.personagem = new Personagem();
 	this.setPontos(0);
-	this.setFase(1);
+	this.setFase(0);
 };
 
 Jogo.prototype.passarDeFase = function() {
@@ -287,7 +273,7 @@ Jogo.prototype.passarDeFase = function() {
 
 Jogo.prototype.setFase = function(fase) {
 	this.fase = fase;
-	this.tabuleiro = new Tabuleiro(12, 16, 'fase' + this.fase, this.personagem);
+	this.tabuleiro = new Tabuleiro(12, 16, this.fase, this.personagem);
 };
 
 Jogo.prototype.ouvirTeclado = function() {
