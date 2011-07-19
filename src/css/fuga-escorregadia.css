@@ -18,51 +18,48 @@
 
 /**********************/
 
-.PERSONAGEM {
-	background: url('../imagens/andre.png') repeat;
-	/*
-	background-color: blue;
-	*/
+.celula {
+	position: absolute;
+	background: #DDDDDD;
+}
+
+[elemento="NADA"] {
+}
+
+[elemento="PERSONAGEM"] {
+	background: red;
 	position: absolute;
 	z-index: 1;
 }
 
-.celula {
-	position: absolute;
-	background-color: #CCCCCC;
-}
-
-.NADA {
-}
-
-.OBSTACULO {
+[elemento="OBSTACULO"] {
 	background: navy;
 }
 
-.SETA_ESQUERDA {
+[elemento="SETA_ESQUERDA"] {
 	background-image: url('../imagens/seta-esquerda.png');
 }
 
-.SETA_CIMA {
+[elemento="SETA_CIMA"] {
 	background-image: url('../imagens/seta-cima.png');
 }
 
-.SETA_DIREITA {
+[elemento="SETA_DIREITA"] {
 	background-image: url('../imagens/seta-direita.png');
 }
 
-.SETA_BAIXO {
+[elemento="SETA_BAIXO"] {
 	background-image: url('../imagens/seta-baixo.png');
 }
 
-.ITEM {
+[elemento="ITEM"] {
 	background: green;
 }
 
-.SAIDA {
+[elemento="SAIDA"] {
 	background: yellow;
 }
 
-.COLA {
+[elemento="COLA"] {
 	background: white;
 }

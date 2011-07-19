@@ -1,12 +1,6 @@
-/*
- * TODO
- * - Criar atributo HTML chamado elemento, abolindo o uso
- * 		de classes CSS para os Elementos
- */
-
 ///////////////////////////////////////////////
 
-$(window).load(iniciar);
+$(iniciar);
 
 ///////////////////////////////////////////////
 Constantes = {
@@ -28,72 +22,64 @@ Elemento = {
 	NADA: {
 		caractere: '_',
 		aoTentarPassar: function() { return Evento.CONTINUAR_ANDANDO; },
-		emPassagem: function() { return Evento.CONTINUAR_ANDANDO; },
-		toString: function() { return this.classeCss; }
+		emPassagem: function() { return Evento.CONTINUAR_ANDANDO; }
 	},
 	OBSTACULO: {
 		caractere: 'o',
-		aoTentarPassar: function() { return Evento.BLOQUEAR; },
-		toString: function() { return this.classeCss; }
+		aoTentarPassar: function() { return Evento.BLOQUEAR; }
 	},
 	SETA_ESQUERDA: {
 		caractere: '[',
 		aoTentarPassar: function(direcao) { return direcao == Direcao.ESQUERDA ? Evento.CONTINUAR_ANDANDO : Evento.BLOQUEAR; },
-		emPassagem: function() { return Evento.CONTINUAR_ANDANDO; },
-		toString: function() { return this.classeCss; }
+		emPassagem: function() { return Evento.CONTINUAR_ANDANDO; }
 	},
 	SETA_CIMA: {
 		caractere: '^',
 		aoTentarPassar: function(direcao) { return direcao == Direcao.CIMA ? Evento.CONTINUAR_ANDANDO : Evento.BLOQUEAR; },
-		emPassagem: function() { return Evento.CONTINUAR_ANDANDO; },
-		toString: function() { return this.classeCss; }
+		emPassagem: function() { return Evento.CONTINUAR_ANDANDO; }
 	},
 	SETA_DIREITA: {
 		caractere: ']',
 		aoTentarPassar: function(direcao) { return direcao == Direcao.DIREITA ? Evento.CONTINUAR_ANDANDO : Evento.BLOQUEAR; },
-		emPassagem: function() { return Evento.CONTINUAR_ANDANDO; },
-		toString: function() { return this.classeCss; }
+		emPassagem: function() { return Evento.CONTINUAR_ANDANDO; }
 	},
 	SETA_BAIXO: {
 		caractere: 'v',
 		aoTentarPassar: function(direcao) { return direcao == Direcao.BAIXO ? Evento.CONTINUAR_ANDANDO : Evento.BLOQUEAR; },
-		emPassagem: function() { return Evento.CONTINUAR_ANDANDO; },
-		toString: function() { return this.classeCss; }
+		emPassagem: function() { return Evento.CONTINUAR_ANDANDO; }
 	},
 	COLA: {
 		caractere: 'c',
 		aoTentarPassar: function() { return Evento.CONTINUAR_ANDANDO; },
-		emPassagem: function() { return Evento.BLOQUEAR; },
-		toString: function() { return this.classeCss; }
+		emPassagem: function() { return Evento.BLOQUEAR; }
 	},
 	ITEM: {
 		caractere: 'i',
 		aoTentarPassar: function() { return Evento.PEGAR_ITEM; },
-		emPassagem: function() { return Evento.CONTINUAR_ANDANDO; },
-		toString: function() { return this.classeCss; }
+		emPassagem: function() { return Evento.CONTINUAR_ANDANDO; }
 	},
 	PERSONAGEM: {
 		caractere: 'p',
-		sohUmPorFase: true,
-		toString: function() { return this.classeCss; }
+		sohUmPorFase: true
 	},
 	SAIDA: {
 		caractere: 's',
 		aoTentarPassar: function() { return Evento.PASSAR_DE_FASE; },
 		emPassagem: function() { return Evento.BLOQUEAR; },
-		sohUmPorFase: true,
-		toString: function() { return this.classeCss; }
+		sohUmPorFase: true
 	}
 };
 
-TODAS_AS_CLASSES_CSS = '';
 MAPA_CONSTRUCAO_FASE = {};
-for (var nomeElemento in Elemento) {
-	var elemento = Elemento[nomeElemento];
-	elemento.classeCss = nomeElemento;
-	TODAS_AS_CLASSES_CSS += nomeElemento + ' ';
-	MAPA_CONSTRUCAO_FASE[elemento.caractere] = elemento;
-}
+
+(function() {
+	for (var nomeElemento in Elemento) {
+		var elemento = Elemento[nomeElemento];
+		elemento.nome = nomeElemento;
+		elemento.toString = function() { return this.nome; };
+		MAPA_CONSTRUCAO_FASE[elemento.caractere] = elemento;
+	}
+})();
 
 ///////////////////////////////////////////////
 Direcao = {
@@ -121,7 +107,7 @@ function Personagem() {
 
 Personagem.prototype.setPosicaoInicial = function(linha, coluna) {
 	this.posicao = new Posicao(linha, coluna);
-	$('.PERSONAGEM')
+	$('[elemento="PERSONAGEM"]')
 		.css({
 			top: this.posicao.linha * Constantes.ALTURA_CELULA + 'px',
 			left: this.posicao.coluna * Constantes.LARGURA_CELULA + 'px'
@@ -145,7 +131,7 @@ Personagem.prototype.andar = function(direcao, jogo) {
 		// Prepara fila de eventos para processar
 		filaEventos.push({ qual: eventoAoTentarPassar, posicao: this.posicao });
 		
-		$('.PERSONAGEM')
+		$('[elemento="PERSONAGEM"]')
 			.animate({
 				top: this.posicao.linha * Constantes.ALTURA_CELULA + 'px',
 				left: this.posicao.coluna * Constantes.LARGURA_CELULA + 'px'
@@ -182,8 +168,8 @@ function Tabuleiro(nLinhas, nColunas, fase, personagem) {
 
 	for (var linha = 0; linha < this.nLinhas; ++linha) {
 		for (var coluna = 0; coluna < this.nColunas; ++coluna) {
-			var novaDiv = $('<div>')
-				.addClass('NADA celula linha' + linha + ' coluna' + coluna)
+			var novaDiv = $('<div elemento="NADA"' + ' class="celula linha'
+					+ linha + ' coluna' + coluna + '">')
 				.css({
 					'top': linha * Constantes.ALTURA_CELULA + 'px',
 					'left': coluna * Constantes.LARGURA_CELULA + 'px',
@@ -194,8 +180,7 @@ function Tabuleiro(nLinhas, nColunas, fase, personagem) {
 		}
 	}
 	
-	divPrincipal.append($('<div>')
-		.addClass('PERSONAGEM')
+	divPrincipal.append($('<div elemento="PERSONAGEM">')
 		.css({
 			'width': Constantes.LARGURA_CELULA + 'px',
 			'height': Constantes.ALTURA_CELULA + 'px'
@@ -218,7 +203,7 @@ function Tabuleiro(nLinhas, nColunas, fase, personagem) {
 			var caractereElemento = stringFase.charAt(indice);
 			var elemento = MAPA_CONSTRUCAO_FASE[caractereElemento];
 			
-			if (elemento == null) {
+			if (!elemento) {
 				throw "Caractere nao reconhecido: '" + caractereElemento + "'";
 			}
 			if (elemento.sohUmPorFase && mapaSohUmPorFase[elemento]) {
@@ -244,8 +229,7 @@ function Tabuleiro(nLinhas, nColunas, fase, personagem) {
 Tabuleiro.prototype.setAux = function(linha, coluna, elemento) {
 	this.matriz[linha][coluna] = elemento;
 	$('.linha' + linha + '.coluna' + coluna)
-		.removeClass(TODAS_AS_CLASSES_CSS)
-		.addClass(elemento.classeCss);
+		.attr('elemento', elemento.nome);
 };
 
 Tabuleiro.prototype.set = function(posicao, objeto) {
