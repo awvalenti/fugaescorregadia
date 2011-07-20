@@ -5,7 +5,11 @@
 	<title>Fuga Escorregadia</title>
 
 	<script type="text/javascript" src="js/lib/jquery-1.6.2.min.js"></script>
-
+	<script type="text/javascript" src="js/posicao.js"></script>
+	<script type="text/javascript" src="js/constantes.js"></script>
+	<script type="text/javascript" src="js/tabuleiro.js"></script>
+	<script type="text/javascript" src="js/personagem.js"></script>
+	<script type="text/javascript" src="js/jogo.js"></script>
 	<script type="text/javascript" src="js/fuga-escorregadia.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="css/fuga-escorregadia.css" />
@@ -34,18 +38,18 @@
 	</div>
 
 	<div class="fase">
-		_ _ _ _ _ _ _ _ _ _ _ o _ _ _ _ 
-		_ _ s _ _ _ _ _ _ _ [ _ _ _ _ _ 
-		_ _ _ _ _ _ _ _ _ _ o _ _ _ _ _ 
-		_ _ _ _ _ _ ^ _ _ v o _ _ _ _ _ 
 		_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-		_ _ _ _ _ _ _ _ _ _ _ _ _ _ o o 
-		_ _ _ _ _ _ p _ _ _ _ _ ] ] _ _ 
-		_ _ _ _ _ _ _ _ ] ] ] _ _ _ _ _ 
-		_ _ _ _ _ _ _ _ _ _ ] _ _ _ _ _ 
-		_ _ _ _ _ _ _ _ _ _ ] _ _ _ _ _ 
+		_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+		_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+		_ _ _ _ _ _ ^ _ _ v _ _ _ _ _ _ 
+		_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+		_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ o 
+		_ _ [ _ _ _ p _ _ _ _ _ ] ] _ _ 
+		_ _ _ _ _ _ o o ] ] ] _ _ _ ] ] 
+		_ _ _ _ o o _ _ _ _ ] _ _ _ _ _ 
+		_ _ _ o o o o _ _ _ ] _ _ _ _ _ 
 		_ _ _ _ _ _ _ _ _ _ _ _ _ _ o _ 
-		_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+		o _ _ _ _ _ _ _ ] _ _ _ ] ] _ s 
 	</div>
 
 	<div class="fase">
