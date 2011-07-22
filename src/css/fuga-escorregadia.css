@@ -6,7 +6,7 @@
 
 #principal {
 	margin: 10px auto;
-	border: solid 15px;
+	border: solid 30px #333333;
 	position: relative;
 }
 
@@ -20,20 +20,20 @@
 
 .celula {
 	position: absolute;
-	background: #DDDDDD;
+	background-color: black;
 }
 
 .NADA {
 }
 
 .PERSONAGEM {
-	background: red;
+	background-color: red;
 	position: absolute;
 	z-index: 1;
 }
 
 .OBSTACULO {
-	background: navy;
+	background-color: navy;
 }
 
 .SETA_ESQUERDA {
@@ -53,13 +53,13 @@
 }
 
 .ITEM {
-	background: green;
+	background-color: green;
 }
 
 .SAIDA {
-	background: yellow;
+	background-color: yellow;
 }
 
 .COLA {
-	background: white;
+	background-color: white;
 }
