@@ -23,43 +23,43 @@
 	background: #DDDDDD;
 }
 
-[elemento="NADA"] {
+.NADA {
 }
 
-[elemento="PERSONAGEM"] {
+.PERSONAGEM {
 	background: red;
 	position: absolute;
 	z-index: 1;
 }
 
-[elemento="OBSTACULO"] {
+.OBSTACULO {
 	background: navy;
 }
 
-[elemento="SETA_ESQUERDA"] {
+.SETA_ESQUERDA {
 	background-image: url('../imagens/seta-esquerda.png');
 }
 
-[elemento="SETA_CIMA"] {
+.SETA_CIMA {
 	background-image: url('../imagens/seta-cima.png');
 }
 
-[elemento="SETA_DIREITA"] {
+.SETA_DIREITA {
 	background-image: url('../imagens/seta-direita.png');
 }
 
-[elemento="SETA_BAIXO"] {
+.SETA_BAIXO {
 	background-image: url('../imagens/seta-baixo.png');
 }
 
-[elemento="ITEM"] {
+.ITEM {
 	background: green;
 }
 
-[elemento="SAIDA"] {
+.SAIDA {
 	background: yellow;
 }
 
-[elemento="COLA"] {
+.COLA {
 	background: white;
 }

@@ -12,7 +12,7 @@ function Tabuleiro(nLinhas, nColunas, fase, personagem, readyCallback) {
 	for (var linha = 0; linha < this.nLinhas; ++linha) {
 		for (var coluna = 0; coluna < this.nColunas; ++coluna) {
 			var novaDiv = $('<div elemento="NADA"' + ' class="celula linha'
-					+ linha + ' coluna' + coluna + '">')
+					+ linha + ' coluna' + coluna + ' NADA">')
 				.css({
 					'top': linha * Constantes.ALTURA_CELULA + 'px',
 					'left': coluna * Constantes.LARGURA_CELULA + 'px',
@@ -23,7 +23,7 @@ function Tabuleiro(nLinhas, nColunas, fase, personagem, readyCallback) {
 		}
 	}
 	
-	divPrincipal.append($('<div elemento="PERSONAGEM">')
+	divPrincipal.append($('<div class="PERSONAGEM" elemento="PERSONAGEM">')
 		.css({
 			'width': Constantes.LARGURA_CELULA + 'px',
 			'height': Constantes.ALTURA_CELULA + 'px'
@@ -71,8 +71,10 @@ function Tabuleiro(nLinhas, nColunas, fase, personagem, readyCallback) {
 
 Tabuleiro.prototype.setAux = function(linha, coluna, elemento) {
 	this.matriz[linha][coluna] = elemento;
-	$('.linha' + linha + '.coluna' + coluna).toggle().toggle()
-		.attr('elemento', elemento.nome);
+	$('.linha' + linha + '.coluna' + coluna)
+		.removeClass($('.linha' + linha + '.coluna' + coluna).attr('elemento'))
+		.attr('elemento', elemento.nome)
+		.addClass(elemento.nome);
 };
 
 Tabuleiro.prototype.set = function(posicao, objeto) {
