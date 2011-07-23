@@ -68,7 +68,7 @@ function Tabuleiro(nLinhas, nColunas, fase, personagem, readyCallback) {
 		}
 	}
 	
-	$('#principal').fadeIn(1000, null, readyCallback);
+	$('#principal').fadeIn(1500, null, readyCallback);
 }
 
 Tabuleiro.prototype.setAux = function(linha, coluna, elemento) {
