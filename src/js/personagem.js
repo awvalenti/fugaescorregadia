@@ -1,52 +1,41 @@
-function Personagem() {
+function Personagem(processadorEventos) {
+	this.processadorEventos = processadorEventos;
 }
 
 Personagem.prototype.setPosicaoInicial = function(linha, coluna) {
 	this.posicao = new Posicao(linha, coluna);
-	$('.PERSONAGEM')
-		.css({
-			top: this.posicao.linha * Constantes.ALTURA_CELULA + 'px',
-			left: this.posicao.coluna * Constantes.LARGURA_CELULA + 'px'
-		});
+	$('.PERSONAGEM').css({
+		top: this.posicao.linha * Constantes.ALTURA_CELULA + 'px',
+		left: this.posicao.coluna * Constantes.LARGURA_CELULA + 'px'
+	});
 };
 
 Personagem.prototype.andar = function(direcao, jogo) {
-	var filaEventos = [];
-	
+	var processadorEventos = this.processadorEventos;
+
+	function gerarCallbackProcessarEvento(evento, posicao) {
+		return function() {
+			processadorEventos[evento] && processadorEventos[evento](posicao);
+		};
+	}
+
 	for (;;) {
-	
-		var eventoAoTentarPassar = jogo.tabuleiro.get(this.posicao.somar(direcao)).aoTentarPassar(direcao);
-		
-		if (eventoAoTentarPassar == Evento.BLOQUEAR) {
-			break;
-		}
-		
-		// Atualiza posicao
-		this.posicao = this.posicao.somar(direcao);
-		
-		// Prepara fila de eventos para processar
-		filaEventos.push({ qual: eventoAoTentarPassar, posicao: this.posicao });
-		
-		$('.PERSONAGEM')
-			.animate({
+		var evento = jogo.tabuleiro.get(this.posicao.somar(direcao)).aoTentarPassar(direcao);
+
+		if (evento == Evento.BLOQUEAR) {
+			return;
+
+		} else {
+			this.posicao = this.posicao.somar(direcao);
+
+			$('.PERSONAGEM').animate({
 				top: this.posicao.linha * Constantes.ALTURA_CELULA + 'px',
 				left: this.posicao.coluna * Constantes.LARGURA_CELULA + 'px'
-			}, Constantes.TEMPO_UM_PASSO, 'linear', function() {
-				var evento = filaEventos.shift(); 
-				
-				switch (evento.qual) {
-				case Evento.PEGAR_ITEM:
-					jogo.subirPontuacaoPorItem();
-					jogo.tabuleiro.set(evento.posicao, Elemento.NADA);
-					break;
-				case Evento.PASSAR_DE_FASE:
-					alert('Passou!');
-					jogo.passarDeFase();
-				}
-			});
-		
-		if (jogo.tabuleiro.get(this.posicao).emPassagem() == Evento.BLOQUEAR) {
-			break;
+			}, Constantes.TEMPO_UM_PASSO, 'linear', gerarCallbackProcessarEvento(evento, this.posicao));
+
+			if (jogo.tabuleiro.get(this.posicao).emPassagem() == Evento.BLOQUEAR) {
+				return;
+			}
 		}
 	}
 };
