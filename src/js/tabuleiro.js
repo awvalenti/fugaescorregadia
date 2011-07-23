@@ -18,7 +18,8 @@ function Tabuleiro(nLinhas, nColunas, fase, personagem, readyCallback) {
 		.empty()
 		.css({
 			'width': Constantes.LARGURA_CELULA * this.nColunas + 'px',
-			'height': Constantes.ALTURA_CELULA * this.nLinhas + 'px'
+			'height': Constantes.ALTURA_CELULA * this.nLinhas + 'px',
+			'border-width': Math.min(Constantes.LARGURA_CELULA, Constantes.ALTURA_CELULA)
 		});
 
 	for (var linha = 0; linha < this.nLinhas; ++linha) {
@@ -49,11 +50,13 @@ function Tabuleiro(nLinhas, nColunas, fase, personagem, readyCallback) {
 			if (!elemento) {
 				throw "Caractere nao reconhecido: '" + caractereElemento + "'";
 			}
-			if (elemento.sohUmPorFase && mapaSohUmPorFase[elemento]) {
-				throw elemento + ' ja definido em ' + mapaSohUmPorFase[elemento];
-			}
 			
-			mapaSohUmPorFase[elemento] = new Posicao(linha, coluna);
+			if (elemento.sohUmPorFase) {
+				if (mapaSohUmPorFase[elemento]) { 
+					throw elemento + ' ja definido em ' + mapaSohUmPorFase[elemento];
+				}
+				mapaSohUmPorFase[elemento] = new Posicao(linha, coluna);
+			}
 			
 			switch (elemento) {
 			case Elemento.PERSONAGEM:

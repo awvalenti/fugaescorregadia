@@ -2,6 +2,12 @@
 	background-color: black;
 }
 
+.fase {
+	display: none;
+}
+
+/**********************/
+
 #pontuacao {
 	text-align: center;
 	font-size: 14pt;
@@ -10,23 +16,19 @@
 
 #principal {
 	margin: auto;
-	border: 30px solid transparent;
-	background-image: url('../img/borda.png');
 	position: relative;
-}
-
-/**********************/
-
-.fase {
-	display: none;
+	border-style: solid;
+	border-color: transparent;
+	background-image: url('../img/borda.png');
 }
 
 /**********************/
 
 .celula {
 	float: left;
-	background-color: black;
 	background-size: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
 }
 
 .NADA {
@@ -69,3 +71,6 @@
 .COLA {
 	background-color: white;
 }
+
+/**********************/
+
