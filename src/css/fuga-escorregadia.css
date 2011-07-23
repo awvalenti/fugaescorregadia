@@ -11,7 +11,7 @@
 #principal {
 	margin: auto;
 	border: 30px solid transparent;
-	background-image: url('../imagens/borda.png');
+	background-image: url('../img/borda.png');
 	position: relative;
 }
 
@@ -43,19 +43,19 @@
 }
 
 .SETA_ESQUERDA {
-	background-image: url('../imagens/seta-esquerda.png');
+	background-image: url('../img/seta-esquerda.png');
 }
 
 .SETA_CIMA {
-	background-image: url('../imagens/seta-cima.png');
+	background-image: url('../img/seta-cima.png');
 }
 
 .SETA_DIREITA {
-	background-image: url('../imagens/seta-direita.png');
+	background-image: url('../img/seta-direita.png');
 }
 
 .SETA_BAIXO {
-	background-image: url('../imagens/seta-baixo.png');
+	background-image: url('../img/seta-baixo.png');
 }
 
 .ITEM {
