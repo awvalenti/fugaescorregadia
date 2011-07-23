@@ -10,13 +10,14 @@ Constantes = {
 
 //////////////////////////////////////
 
-function Enum(listaDeConstantes) {
-	for (var i in listaDeConstantes) {
-		this[listaDeConstantes[i]] = i;
+function Enum() {
+	// for (var i in arguments) nao funciona no IE
+	for (var i = 0; i < arguments.length; ++i) {
+		this[arguments[i]] = i;
 	}
 }
 
-Evento = new Enum(['CONTINUAR_ANDANDO', 'BLOQUEAR', 'PEGAR_ITEM', 'PASSAR_DE_FASE', 'ALTERNAR_LUZ']);
+Evento = new Enum('CONTINUAR_ANDANDO', 'BLOQUEAR', 'PEGAR_ITEM', 'PASSAR_DE_FASE', 'ALTERNAR_LUZ');
 
 Elemento = {
 	NADA: {

@@ -1,3 +1,9 @@
+function gerarCallback(objeto, funcao) {
+	return function() {
+		funcao.apply(objeto, arguments);
+	};
+};
+
 function Jogo() {
 	this.personagem = new Personagem();
 	this.setPontos(0);
@@ -9,14 +15,10 @@ Jogo.prototype.passarDeFase = function() {
 };
 
 Jogo.prototype.setFase = function(fase) {
-	var jogoThis = this;
-
 	this.fase = fase;
 	this.tabuleiro = new Tabuleiro(Constantes.NUM_LINHAS,
 			Constantes.NUM_COLUNAS, this.fase, this.personagem,
-			function() {
-				jogoThis.iniciar();
-			});
+			gerarCallback(this, this.iniciar));
 };
 
 Jogo.prototype.iniciar = function() {
@@ -32,13 +34,13 @@ Jogo.MAPA_TECLAS = {
 };
 
 Jogo.prototype.ouvirTeclado = function() {
-	var jogoThis = this;
+	$(document).unbind().keydown(gerarCallback(this, this.tratarTeclas));
+};
 
-	$(document).unbind().keydown(function(e) {
-		if (Jogo.MAPA_TECLAS[e.which]) {
-			jogoThis.personagem.andar(Jogo.MAPA_TECLAS[e.which], jogoThis);
-		}
-	});
+Jogo.prototype.tratarTeclas = function(e) {
+	if (Jogo.MAPA_TECLAS[e.which]) {
+		this.personagem.andar(Jogo.MAPA_TECLAS[e.which], this);
+	}
 };
 
 Jogo.prototype.subirPontuacaoPorItem = function() {
