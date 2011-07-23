@@ -13,7 +13,11 @@ Constantes = {
 function Enum() {
 	// for (var i in arguments) nao funciona no IE
 	for (var i = 0; i < arguments.length; ++i) {
-		this[arguments[i]] = i;
+		this[arguments[i]] = {
+			ordinal: i,
+			name: arguments[i],
+			toString: function() { return this.name; }
+		};
 	}
 }
 

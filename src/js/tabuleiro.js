@@ -1,4 +1,4 @@
-function Tabuleiro(nLinhas, nColunas, fase, personagem, readyCallback) {
+function Tabuleiro(nLinhas, nColunas, fase, personagem, aoFinalizar) {
 	function criarElemento(elemento) {
 		return $('<div>')
 			.attr('elemento', elemento.nome)
@@ -29,9 +29,8 @@ function Tabuleiro(nLinhas, nColunas, fase, personagem, readyCallback) {
 	}
 	
 	divPrincipal.append(criarElemento(Elemento.PERSONAGEM));
-	
+
 	var stringFase = $('.fase').eq(fase).text().replace(/\s+/g, '');
-	
 	var tamanhoStringFase = stringFase.length;
 	var tamanhoEsperado = this.nLinhas * this.nColunas;
 	if (tamanhoStringFase != tamanhoEsperado) {
@@ -69,7 +68,9 @@ function Tabuleiro(nLinhas, nColunas, fase, personagem, readyCallback) {
 		}
 	}
 	
-	$('#principal').fadeIn(1500, 'swing', readyCallback);
+	$('#principal').fadeIn(1500, 'swing');
+	
+	aoFinalizar();
 }
 
 Tabuleiro.prototype.setAux = function(linha, coluna, elemento) {
