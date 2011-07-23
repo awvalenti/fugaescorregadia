@@ -1,9 +1,12 @@
 function Tabuleiro(nLinhas, nColunas, fase, personagem, readyCallback) {
 	function criarElemento(elemento) {
-		return $('<div elemento="' + elemento.nome + '" class="celula ' + elemento.nome + '">')		.css({
-			'width': Constantes.LARGURA_CELULA + 'px',
-			'height': Constantes.ALTURA_CELULA + 'px'
-		});
+		return $('<div>')
+			.attr('elemento', elemento.nome)
+			.addClass('celula').addClass(elemento.nome)
+			.css({
+				'width': Constantes.LARGURA_CELULA + 'px',
+				'height': Constantes.ALTURA_CELULA + 'px'
+			});
 	}
 	
 	this.matriz = [];
@@ -13,13 +16,14 @@ function Tabuleiro(nLinhas, nColunas, fase, personagem, readyCallback) {
 	var divPrincipal = $('#principal')
 		.hide()
 		.empty()
-		.css('width', Constantes.LARGURA_CELULA * this.nColunas + 'px')
-		.css('height', Constantes.ALTURA_CELULA * this.nLinhas + 'px');
+		.css({
+			'width': Constantes.LARGURA_CELULA * this.nColunas + 'px',
+			'height': Constantes.ALTURA_CELULA * this.nLinhas + 'px'
+		});
 
 	for (var linha = 0; linha < this.nLinhas; ++linha) {
 		for (var coluna = 0; coluna < this.nColunas; ++coluna) {
-			divPrincipal.append(criarElemento(Elemento.NADA).addClass(
-					'linha' + linha + ' coluna' + coluna));
+			divPrincipal.append(criarElemento(Elemento.NADA).addClass('linha' + linha + ' coluna' + coluna));
 		}
 	}
 	
@@ -67,8 +71,9 @@ function Tabuleiro(nLinhas, nColunas, fase, personagem, readyCallback) {
 
 Tabuleiro.prototype.setAux = function(linha, coluna, elemento) {
 	this.matriz[linha][coluna] = elemento;
-	$('.linha' + linha + '.coluna' + coluna)
-		.removeClass($('.linha' + linha + '.coluna' + coluna).attr('elemento'))
+	var divElemento = $('.linha' + linha + '.coluna' + coluna);
+	divElemento
+		.removeClass(divElemento.attr('elemento'))
 		.attr('elemento', elemento.nome)
 		.addClass(elemento.nome);
 };
