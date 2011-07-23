@@ -1,4 +1,11 @@
 function Tabuleiro(nLinhas, nColunas, fase, personagem, readyCallback) {
+	function criarElemento(elemento) {
+		return $('<div elemento="' + elemento.nome + '" class="celula ' + elemento.nome + '">')		.css({
+			'width': Constantes.LARGURA_CELULA + 'px',
+			'height': Constantes.ALTURA_CELULA + 'px'
+		});
+	}
+	
 	this.matriz = [];
 	this.nLinhas = nLinhas;
 	this.nColunas = nColunas;
@@ -11,23 +18,18 @@ function Tabuleiro(nLinhas, nColunas, fase, personagem, readyCallback) {
 
 	for (var linha = 0; linha < this.nLinhas; ++linha) {
 		for (var coluna = 0; coluna < this.nColunas; ++coluna) {
-			var novaDiv = $('<div elemento="NADA"' + ' class="celula linha'
-					+ linha + ' coluna' + coluna + ' NADA">')
-				.css({
-					'top': linha * Constantes.ALTURA_CELULA + 'px',
-					'left': coluna * Constantes.LARGURA_CELULA + 'px',
-					'width': Constantes.LARGURA_CELULA + 'px',
-					'height': Constantes.ALTURA_CELULA + 'px'
-				});
-			divPrincipal.append(novaDiv);
+			divPrincipal.append(
+					criarElemento(Elemento.NADA)
+						.addClass('linha' + linha + ' coluna' + coluna)
+						.css({
+							'top': linha * Constantes.ALTURA_CELULA + 'px',
+							'left': coluna * Constantes.LARGURA_CELULA + 'px'
+						})
+					);
 		}
 	}
 	
-	divPrincipal.append($('<div class="PERSONAGEM" elemento="PERSONAGEM">')
-		.css({
-			'width': Constantes.LARGURA_CELULA + 'px',
-			'height': Constantes.ALTURA_CELULA + 'px'
-		}));
+	divPrincipal.append(criarElemento(Elemento.PERSONAGEM));
 	
 	var stringFase = $('.fase').eq(fase).html().replace(/\s+/g, '');
 	

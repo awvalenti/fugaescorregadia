@@ -1,11 +1,15 @@
+* {
+	background-color: black;
+}
+
 #pontuacao {
-	float: left;
 	text-align: center;
-	font-size: 14pt;	
+	font-size: 14pt;
+	color: white;	
 }
 
 #principal {
-	margin: 10px auto;
+	margin: auto;
 	border: solid 30px #333333;
 	position: relative;
 }
@@ -21,6 +25,7 @@
 .celula {
 	position: absolute;
 	background-color: black;
+	background-size: 100%;
 }
 
 .NADA {
