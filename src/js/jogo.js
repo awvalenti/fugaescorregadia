@@ -2,7 +2,6 @@ function Jogo() {
 	this.personagem = new Personagem();
 	this.setPontos(0);
 	this.setFase(0);
-	this.ouvirTeclado();
 };
 
 Jogo.prototype.passarDeFase = function() {
@@ -10,13 +9,19 @@ Jogo.prototype.passarDeFase = function() {
 };
 
 Jogo.prototype.setFase = function(fase) {
+	var jogoThis = this;
+
 	this.fase = fase;
 	this.tabuleiro = new Tabuleiro(Constantes.NUM_LINHAS,
-			Constantes.NUM_COLUNAS, this.fase, this.personagem, this.iniciar);
+			Constantes.NUM_COLUNAS, this.fase, this.personagem,
+			function() {
+				jogoThis.iniciar();
+			});
 };
 
 Jogo.prototype.iniciar = function() {
 	$(window).focus();
+	this.ouvirTeclado();
 };
 
 Jogo.MAPA_TECLAS = {
