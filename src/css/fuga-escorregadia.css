@@ -24,7 +24,7 @@
 /**********************/
 
 .celula {
-	position: absolute;
+	float: left;
 	background-color: black;
 	background-size: 100%;
 }

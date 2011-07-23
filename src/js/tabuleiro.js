@@ -18,14 +18,8 @@ function Tabuleiro(nLinhas, nColunas, fase, personagem, readyCallback) {
 
 	for (var linha = 0; linha < this.nLinhas; ++linha) {
 		for (var coluna = 0; coluna < this.nColunas; ++coluna) {
-			divPrincipal.append(
-					criarElemento(Elemento.NADA)
-						.addClass('linha' + linha + ' coluna' + coluna)
-						.css({
-							'top': linha * Constantes.ALTURA_CELULA + 'px',
-							'left': coluna * Constantes.LARGURA_CELULA + 'px'
-						})
-					);
+			divPrincipal.append(criarElemento(Elemento.NADA).addClass(
+					'linha' + linha + ' coluna' + coluna));
 		}
 	}
 	

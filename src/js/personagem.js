@@ -3,7 +3,7 @@ function Personagem() {
 
 Personagem.prototype.setPosicaoInicial = function(linha, coluna) {
 	this.posicao = new Posicao(linha, coluna);
-	$('[elemento="PERSONAGEM"]')
+	$('.PERSONAGEM')
 		.css({
 			top: this.posicao.linha * Constantes.ALTURA_CELULA + 'px',
 			left: this.posicao.coluna * Constantes.LARGURA_CELULA + 'px'
@@ -27,7 +27,7 @@ Personagem.prototype.andar = function(direcao, jogo) {
 		// Prepara fila de eventos para processar
 		filaEventos.push({ qual: eventoAoTentarPassar, posicao: this.posicao });
 		
-		$('[elemento="PERSONAGEM"]')
+		$('.PERSONAGEM')
 			.animate({
 				top: this.posicao.linha * Constantes.ALTURA_CELULA + 'px',
 				left: this.posicao.coluna * Constantes.LARGURA_CELULA + 'px'
