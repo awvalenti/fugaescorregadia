@@ -1,13 +1,13 @@
-function gerarCallback(objeto, funcao) {
-	return function() {
-		funcao.apply(objeto, arguments);
-	};
-};
-
 function Jogo() {
 	this.personagem = new Personagem(this.tratadorEventos());
 	this.setPontos(0);
 	this.setFase(0);
+};
+
+function gerarCallback(objeto, funcao) {
+	return function() {
+		funcao.apply(objeto, arguments);
+	};
 };
 
 Jogo.prototype.tratadorEventos = function() {
@@ -18,20 +18,25 @@ Jogo.prototype.tratadorEventos = function() {
 			jogo.tabuleiro.set(posicao, Elemento.NADA);
 		},
 		PASSAR_DE_FASE: function(posicao) {
-			alert('Passou!');
 			jogo.passarDeFase();
 		}
 	};
 };
 
 Jogo.prototype.passarDeFase = function() {
+	alert('Passou!');
 	this.setFase(this.fase + 1);
 };
 
 Jogo.prototype.setFase = function(fase) {
 	this.fase = fase;
-	this.tabuleiro = new Tabuleiro(Constantes.NUM_LINHAS, Constantes.NUM_COLUNAS, this.fase, this.personagem,
-			gerarCallback(this, this.iniciar));
+	if (fase >= $('.fase').size()) {
+		alert('Terminou!');
+		$('body').fadeOut(1500);
+	} else {
+		this.tabuleiro = new Tabuleiro(Constantes.NUM_LINHAS, Constantes.NUM_COLUNAS, this.fase, this.personagem,
+				gerarCallback(this, this.iniciar));
+	}
 };
 
 Jogo.prototype.iniciar = function() {
