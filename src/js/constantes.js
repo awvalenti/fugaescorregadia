@@ -1,10 +1,10 @@
 Constantes = {
 	LARGURA_CELULA: 30,
 	ALTURA_CELULA: 30,
-	
+
 	NUM_LINHAS: 12,
 	NUM_COLUNAS: 16,
-	
+
 	TEMPO_UM_PASSO: 40
 };
 
@@ -20,6 +20,8 @@ function Enum() {
 		};
 	}
 }
+
+Comando = new Enum('ESQUERDA', 'CIMA', 'DIREITA', 'BAIXO', 'ENTER', 'ESC');
 
 Evento = new Enum('CONTINUAR_ANDANDO', 'BLOQUEAR', 'PEGAR_ITEM', 'PASSAR_DE_FASE', 'ALTERNAR_LUZ');
 

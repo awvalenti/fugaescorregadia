@@ -36,24 +36,32 @@ Jogo.prototype.setFase = function(fase) {
 
 Jogo.prototype.iniciar = function() {
 	$(window).focus();
-	this.ouvirTeclado();
+	this.escutarComandos();
 };
 
-Jogo.MAPA_TECLAS = {
-	37: Direcao.ESQUERDA,
-	38: Direcao.CIMA,
-	39: Direcao.DIREITA,
-	40: Direcao.BAIXO
-};
-
-Jogo.prototype.ouvirTeclado = function() {
+Jogo.prototype.escutarComandos = function() {
 	$(document).unbind().keydown(gerarCallback(this, this.tratarTeclas));
+	var jogo = this;
+	$('button').unbind().click(function() {
+		jogo.executarComando(Comando[$(this).val()]);
+	});
+
 };
 
 Jogo.prototype.tratarTeclas = function(e) {
-	if (Jogo.MAPA_TECLAS[e.which]) {
-		this.personagem.andar(Jogo.MAPA_TECLAS[e.which], this);
-	}
+	var teclasComandos = {
+		37: Comando.ESQUERDA,
+		38: Comando.CIMA,
+		39: Comando.DIREITA,
+		40: Comando.BAIXO
+	};
+
+	teclasComandos[e.which] && this.executarComando(teclasComandos[e.which]);
+};
+
+Jogo.prototype.executarComando = function(comando) {
+	var direcaoCoresspondente = Direcao[comando];
+	this.personagem.andar(direcaoCoresspondente, this);
 };
 
 Jogo.prototype.subirPontuacaoPorItem = function() {

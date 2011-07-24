@@ -8,13 +8,24 @@
 
 /**********************/
 
-#pontuacao {
+div#botoes {
 	text-align: center;
-	font-size: 14pt;
-	color: white;	
+	float: left;
+/* 	Se for horizontal, float: left; senao, nada */
 }
 
-#principal {
+div#botoes button {
+	background-color: white;	
+	font-size: 20pt;
+}
+
+div#pontuacao {
+	text-align: center;
+	font-size: 14pt;
+	color: white;
+}
+
+div#principal {
 	margin: auto;
 	position: relative;
 	border-style: solid;
