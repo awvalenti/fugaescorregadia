@@ -5,8 +5,8 @@ function Tabuleiro(nLinhas, nColunas, fase, personagem) {
 
 	function criarElemento(elemento) {
 		return $('<div>')
-			.attr('elemento', elemento.nome)
-			.addClass('celula').addClass(elemento.nome);
+			.data('elemento', elemento.nome)
+			.addClass('celula ' + elemento.nome);
 	}
 
 	var divPrincipal = $('div#principal').hide().empty();
@@ -62,8 +62,8 @@ Tabuleiro.prototype.setAux = function(linha, coluna, elemento) {
 	this.matriz[linha][coluna] = elemento;
 	var divElemento = $('.linha' + linha + '.coluna' + coluna);
 	divElemento
-		.removeClass(divElemento.attr('elemento'))
-		.attr('elemento', elemento.nome)
+		.removeClass(divElemento.data('elemento'))
+		.data('elemento', elemento.nome)
 		.addClass(elemento.nome);
 };
 

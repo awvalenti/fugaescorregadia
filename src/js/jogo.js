@@ -40,7 +40,7 @@ Jogo.prototype.iniciarFase = function(fase) {
 
 		var jogo = this;
 		function redimensionar() {
-			Constantes.LARGURA_CELULA = Constantes.ALTURA_CELULA = Math.ceil(Math.min($(window).height()
+			Tela.larguraCelula = Tela.alturaCelula = Math.ceil(Math.min($(window).height()
 					/ (Constantes.NUM_LINHAS + 4), $(window).width() / (Constantes.NUM_COLUNAS + 3)));
 
 			aplicarCssDinamico('#meta #css-dinamico');

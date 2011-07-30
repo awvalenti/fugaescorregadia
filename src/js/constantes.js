@@ -1,7 +1,4 @@
 Constantes = {
-	LARGURA_CELULA: 30,
-	ALTURA_CELULA: 30,
-
 	NUM_LINHAS: 12,
 	NUM_COLUNAS: 16,
 

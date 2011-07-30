@@ -9,8 +9,8 @@ Personagem.prototype.setPosicaoInicial = function(linha, coluna) {
 
 Personagem.prototype.posicionarNaTela = function() {
 	$('.PERSONAGEM').css({
-		top: this.posicao.linha * Constantes.ALTURA_CELULA + 'px',
-		left: this.posicao.coluna * Constantes.LARGURA_CELULA + 'px'
+		top: this.posicao.linha * Tela.alturaCelula + 'px',
+		left: this.posicao.coluna * Tela.larguraCelula + 'px'
 	});
 };
 
@@ -33,8 +33,8 @@ Personagem.prototype.andar = function(direcao, jogo) {
 			this.posicao = this.posicao.somar(direcao);
 
 			$('.PERSONAGEM').animate({
-				top: this.posicao.linha * Constantes.ALTURA_CELULA + 'px',
-				left: this.posicao.coluna * Constantes.LARGURA_CELULA + 'px'
+				top: this.posicao.linha * Tela.alturaCelula + 'px',
+				left: this.posicao.coluna * Tela.larguraCelula + 'px'
 			}, Constantes.TEMPO_UM_PASSO, 'linear', gerarCallbackProcessarEvento(evento, this.posicao));
 
 			if (jogo.tabuleiro.get(this.posicao).emPassagem() == Evento.BLOQUEAR) {
