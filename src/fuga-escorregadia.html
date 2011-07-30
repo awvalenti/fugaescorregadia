@@ -6,6 +6,7 @@
 	<title>Fuga Escorregadia</title>
 
 	<script type="text/javascript" src="js/lib/jquery-1.6.2.js"></script>
+	<script type="text/javascript" src="js/lib/css-dinamico.js"></script>
 	<script type="text/javascript" src="js/posicao.js"></script>
 	<script type="text/javascript" src="js/constantes.js"></script>
 	<script type="text/javascript" src="js/tabuleiro.js"></script>
@@ -17,6 +18,7 @@
 	
 	<style type="text/css">
 	</style>
+	
 </head>
 <body>
 	<div id="botoes">
@@ -32,50 +34,69 @@
 		<span id="pontos"></span>
 	</div>
 
-	<div class="fase">
-		_ _ _ _ _ _ _ _ _ o _ _ _ _ _ _ 
-		_ _ _ _ i [ _ _ _ _ _ _ _ _ _ _ 
-		_ o _ _ _ _ _ _ _ _ _ s o _ _ _ 
-		_ o o _ _ _ _ _ _ _ _ _ _ _ _ _ 
-		_ o _ _ _ c _ i _ _ _ _ _ _ i _ 
-		_ o _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-		_ _ o _ _ _ _ _ _ _ _ _ ^ _ _ _ 
-		_ _ _ ] _ c _ _ _ _ _ _ ^ _ _ _ 
-		_ _ i o _ _ _ _ _ _ _ _ ^ p _ o 
-		o o o o _ _ _ _ _ _ _ _ o o o _ 
-		o o o o _ _ _ _ _ _ _ _ o o o _ 
-		o o o o _ _ _ _ o _ _ _ o o o _ 
+	<div id="meta">
+		<div id="css-dinamico">
+			div#botoes {
+				float: `$(window).width() &gt; $(window).height() ? 'left' : 'none'`
+			}
+			
+			div#principal {
+				width: `Constantes.LARGURA_CELULA * Constantes.NUM_COLUNAS`px;
+				height: `Constantes.ALTURA_CELULA * Constantes.NUM_LINHAS`px;
+				border-width: `Math.min(Constantes.LARGURA_CELULA, Constantes.ALTURA_CELULA)`px;
+			}
+			
+			.celula {
+				width: `Constantes.LARGURA_CELULA`px;
+				height: `Constantes.ALTURA_CELULA`px;
+			}
+		</div>
+		
+		<div class="fase">
+			_ _ _ _ _ _ _ _ _ o _ _ _ _ _ _ 
+			_ _ _ _ i [ _ _ _ _ _ _ _ _ _ _ 
+			_ o _ _ _ _ _ _ _ _ _ s o _ _ _ 
+			_ o o _ _ _ _ _ _ _ _ _ _ _ _ _ 
+			_ o _ _ _ c _ i _ _ _ _ _ _ i _ 
+			_ o _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+			_ _ o _ _ _ _ _ _ _ _ _ ^ _ _ _ 
+			_ _ _ ] _ c _ _ _ _ _ _ ^ _ _ _ 
+			_ _ i o _ _ _ _ _ _ _ _ ^ p _ o 
+			o o o o _ _ _ _ _ _ _ _ o o o _ 
+			o o o o _ _ _ _ _ _ _ _ o o o _ 
+			o o o o _ _ _ _ o _ _ _ o o o _ 
+		</div>
+	
+		<div class="fase">
+			_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+			_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+			_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+			_ _ _ _ _ _ ^ _ _ v _ _ _ _ _ _ 
+			_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+			_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ o 
+			_ _ [ _ _ _ p _ _ _ _ _ ] ] _ _ 
+			_ _ _ _ _ _ o o ] ] ] _ _ _ ] ] 
+			_ _ _ _ o o _ _ _ _ ] _ _ _ _ _ 
+			_ _ _ o o o o _ _ _ ] _ _ _ _ _ 
+			_ _ _ _ _ _ _ _ _ _ _ _ _ _ o _ 
+			o _ _ _ _ _ _ _ ] _ _ _ ] ] _ s 
+		</div>
+	
+		<div class="fase">
+			_ _ _ o _ _ _ _ _ _ o _ _ _ _ _ 
+			_ _ _ _ _ _ _ _ _ _ o _ o _ _ _ 
+			_ _ _ p _ _ _ _ _ o _ _ o _ _ _ 
+			_ _ _ _ _ _ _ _ _ o ^ _ o ] _ [ 
+			_ _ _ _ _ _ _ _ _ o _ _ o _ _ o 
+			_ o _ _ _ _ _ _ _ o _ ^ o _ _ o 
+			_ o o o o _ _ _ o o _ _ _ _ _ _ 
+			_ o _ _ _ _ _ _ _ _ ^ _ o _ _ _ 
+			_ o _ o _ _ _ _ _ _ _ _ [ _ _ _ 
+			_ o _ _ _ _ _ _ s _ _ _ o _ o _ 
+			_ o _ _ _ _ o ^ ^ ^ _ _ _ _ _ _ 
+			_ _ _ _ _ _ _ _ _ _ _ [ ] _ [ _ 
+		</div>
 	</div>
-
-	<div class="fase">
-		_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-		_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-		_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-		_ _ _ _ _ _ ^ _ _ v _ _ _ _ _ _ 
-		_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
-		_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ o 
-		_ _ [ _ _ _ p _ _ _ _ _ ] ] _ _ 
-		_ _ _ _ _ _ o o ] ] ] _ _ _ ] ] 
-		_ _ _ _ o o _ _ _ _ ] _ _ _ _ _ 
-		_ _ _ o o o o _ _ _ ] _ _ _ _ _ 
-		_ _ _ _ _ _ _ _ _ _ _ _ _ _ o _ 
-		o _ _ _ _ _ _ _ ] _ _ _ ] ] _ s 
-	</div>
-
-	<div class="fase">
-		_ _ _ o _ _ _ _ _ _ o _ _ _ _ _ 
-		_ _ _ _ _ _ _ _ _ _ o _ o _ _ _ 
-		_ _ _ p _ _ _ _ _ o _ _ o _ _ _ 
-		_ _ _ _ _ _ _ _ _ o ^ _ o ] _ [ 
-		_ _ _ _ _ _ _ _ _ o _ _ o _ _ o 
-		_ o _ _ _ _ _ _ _ o _ ^ o _ _ o 
-		_ o o o o _ _ _ o o _ _ _ _ _ _ 
-		_ o _ _ _ _ _ _ _ _ ^ _ o _ _ _ 
-		_ o _ o _ _ _ _ _ _ _ _ [ _ _ _ 
-		_ o _ _ _ _ _ _ s _ _ _ o _ o _ 
-		_ o _ _ _ _ o ^ ^ ^ _ _ _ _ _ _ 
-		_ _ _ _ _ _ _ _ _ _ _ [ ] _ [ _ 
-	</div>
-
+	
 </body>
 </html>

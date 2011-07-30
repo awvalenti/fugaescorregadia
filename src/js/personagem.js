@@ -4,6 +4,10 @@ function Personagem(processadorEventos) {
 
 Personagem.prototype.setPosicaoInicial = function(linha, coluna) {
 	this.posicao = new Posicao(linha, coluna);
+	this.posicionarNaTela();
+};
+
+Personagem.prototype.posicionarNaTela = function() {
 	$('.PERSONAGEM').css({
 		top: this.posicao.linha * Constantes.ALTURA_CELULA + 'px',
 		left: this.posicao.coluna * Constantes.LARGURA_CELULA + 'px'

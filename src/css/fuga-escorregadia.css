@@ -2,7 +2,7 @@
 	background-color: black;
 }
 
-.fase {
+div#meta {
 	display: none;
 }
 
@@ -10,8 +10,6 @@
 
 div#botoes {
 	text-align: center;
-	float: left;
-/* 	Se for horizontal, float: left; senao, nada */
 }
 
 div#botoes button {
@@ -26,6 +24,7 @@ div#pontuacao {
 }
 
 div#principal {
+	display: none;
 	margin: auto;
 	position: relative;
 	border-style: solid;
