@@ -1,15 +1,15 @@
 function aplicarCssDinamico(seletor) {
-	codigo = $(seletor).text();
+	var cssDinamico = $(seletor).text();
 
 	var regExp = /`(.*?)`/m;
 	var match;
-	while ((match = codigo.match(regExp)) != null) {
-		var grupo1 = match[1];
-		codigo = codigo.replace(regExp, eval(grupo1));
+	while ((match = cssDinamico.match(regExp)) != null) {
+		var codigoJs = match[1];
+		cssDinamico = cssDinamico.replace(regExp, eval(codigoJs));
 	}
 
 	$('style').remove();
 
 	// TODO escapar
-	$('head').append('<style>' + codigo + '</style>');
+	$('head').append('<style>' + cssDinamico + '</style>');
 }
