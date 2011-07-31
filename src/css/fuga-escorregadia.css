@@ -8,15 +8,6 @@ div#meta {
 
 /**********************/
 
-div#botoes {
-	text-align: center;
-}
-
-div#botoes button {
-	background-color: white;	
-	font-size: 20pt;
-}
-
 div#pontuacao {
 	text-align: center;
 	font-size: 14pt;

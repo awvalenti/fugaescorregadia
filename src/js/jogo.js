@@ -36,12 +36,12 @@ Jogo.prototype.iniciarFase = function(fase) {
 		$('body').fadeOut(1500);
 
 	} else {
-		this.tabuleiro = new Tabuleiro(Constantes.NUM_LINHAS, Constantes.NUM_COLUNAS, this.fase, this.personagem);
+		this.tabuleiro = new Tabuleiro(Tela.numLinhas, Tela.numColunas, this.fase, this.personagem);
 
 		var jogo = this;
 		function redimensionar() {
 			Tela.larguraCelula = Tela.alturaCelula = Math.ceil(Math.min($(window).height()
-					/ (Constantes.NUM_LINHAS + 4), $(window).width() / (Constantes.NUM_COLUNAS + 3)));
+					/ (Tela.numLinhas + 4), $(window).width() / (Tela.numColunas + 3)));
 
 			aplicarCssDinamico('#meta #css-dinamico');
 
@@ -49,13 +49,36 @@ Jogo.prototype.iniciarFase = function(fase) {
 		}
 		redimensionar();
 
-		$('div#principal').fadeIn(1500, 'swing');
+		$('.celula').unbind('click').click(function() {
+			var classesElemento = $(this).attr('class');
 
+			var linha = /linha(\d+)/.exec(classesElemento)[1];
+			var coluna = /coluna(\d+)/.exec(classesElemento)[1];
+
+			var linhaDiagonal1 = Math.round(Tela.numLinhas / Tela.numColunas * coluna);
+			var linhaDiagonal2 = Math.round(Tela.numLinhas - Tela.numLinhas / Tela.numColunas * coluna);
+
+			var direcao;
+			if (linha < linhaDiagonal1) {
+				if (linha < linhaDiagonal2) {
+					direcao = Comando.CIMA;
+				} else {
+					direcao = Comando.DIREITA;
+				}
+			} else {
+				if (linha < linhaDiagonal2) {
+					direcao = Comando.ESQUERDA;
+				} else {
+					direcao = Comando.BAIXO;
+				}
+			}
+
+			jogo.executarComando(direcao);
+		});
 		$(window).unbind('resize').resize(redimensionar);
 		$(document).unbind('keydown').keydown(gerarCallback(this, this.tratarTeclas));
-		$('div#botoes button').unbind('click').click(function() {
-			jogo.executarComando(Comando[$(this).val()]);
-		});
+
+		$('div#principal').fadeIn(1500, 'swing');
 
 		$(window).focus();
 	}

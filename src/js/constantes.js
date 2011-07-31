@@ -1,7 +1,4 @@
 Constantes = {
-	NUM_LINHAS: 12,
-	NUM_COLUNAS: 16,
-
 	TEMPO_UM_PASSO: 40
 };
 

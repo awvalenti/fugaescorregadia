@@ -21,12 +21,6 @@
 	
 </head>
 <body>
-	<div id="botoes">
-		<button value="CIMA">&uArr;</button> <br /><br />
-		<button value="ESQUERDA">&lArr;</button>&nbsp;&nbsp;&nbsp;&nbsp;<button value="DIREITA">&rArr;</button> <br /><br />
-		<button value="BAIXO">&dArr;</button> <br /><br />
-	</div>
-	
 	<div id="principal">
 	</div>
 	
@@ -36,13 +30,9 @@
 
 	<div id="meta">
 		<div id="css-dinamico">
-			div#botoes {
-				float: `$(window).width() &gt; $(window).height() ? 'left' : 'none'`
-			}
-			
 			div#principal {
-				width: `Tela.larguraCelula * Constantes.NUM_COLUNAS`px;
-				height: `Tela.alturaCelula * Constantes.NUM_LINHAS`px;
+				width: `Tela.larguraCelula * Tela.numColunas`px;
+				height: `Tela.alturaCelula * Tela.numLinhas`px;
 				border-width: `Math.min(Tela.larguraCelula, Tela.alturaCelula)`px;
 			}
 			
