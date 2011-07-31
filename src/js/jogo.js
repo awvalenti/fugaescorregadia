@@ -49,7 +49,7 @@ Jogo.prototype.iniciarFase = function(fase) {
 		}
 		redimensionar();
 
-		$('.celula').unbind('click').click(function() {
+		$('.celula').not('.PERSONAGEM').unbind('click').click(function() {
 			var classesElemento = $(this).attr('class');
 
 			var linha = /linha(\d+)/.exec(classesElemento)[1];

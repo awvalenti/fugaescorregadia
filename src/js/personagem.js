@@ -3,7 +3,7 @@ function Personagem(processadorEventos) {
 }
 
 Personagem.prototype.setPosicaoInicial = function(linha, coluna) {
-	this.posicao = new Posicao(linha, coluna);
+	this.posicao = Posicao(linha, coluna);
 	this.posicionarNaTela();
 };
 

@@ -88,8 +88,8 @@ MAPA_CONSTRUCAO_FASE = {};
 })();
 
 Direcao = {
-	ESQUERDA: new Posicao(0, -1),
-	CIMA: new Posicao(-1, 0),
-	DIREITA: new Posicao(0, +1),
-	BAIXO: new Posicao(+1, 0)
+	ESQUERDA: Posicao(0, -1),
+	CIMA: Posicao(-1, 0),
+	DIREITA: Posicao(0, +1),
+	BAIXO: Posicao(+1, 0)
 };

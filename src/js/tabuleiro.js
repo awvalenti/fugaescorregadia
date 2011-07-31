@@ -43,7 +43,7 @@ function Tabuleiro(nLinhas, nColunas, fase, personagem) {
 				if (mapaSohUmPorFase[elemento]) {
 					throw elemento + ' ja definido em ' + mapaSohUmPorFase[elemento];
 				}
-				mapaSohUmPorFase[elemento] = new Posicao(linha, coluna);
+				mapaSohUmPorFase[elemento] = Posicao(linha, coluna);
 			}
 
 			switch (elemento) {
