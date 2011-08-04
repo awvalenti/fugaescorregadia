@@ -22,7 +22,7 @@ function Tabuleiro(nLinhas, nColunas, fase, personagem) {
 	var stringFase = $('#meta .fase').eq(fase).text().replace(/\s+/g, '');
 	var tamanhoStringFase = stringFase.length;
 	var tamanhoEsperado = this.nLinhas * this.nColunas;
-	if (tamanhoStringFase != tamanhoEsperado) {
+	if (tamanhoStringFase != tamanhoEsperado && OpcoesGlobais.rejeitarFaseTamanhoIncorreto) {
 		throw 'Tamanho da matriz inesperado: ' + tamanhoStringFase + '. Esperado: ' + tamanhoEsperado;
 	}
 
@@ -36,7 +36,11 @@ function Tabuleiro(nLinhas, nColunas, fase, personagem) {
 			var elemento = MAPA_CONSTRUCAO_FASE[caractereElemento];
 
 			if (!elemento) {
-				throw "Caractere nao reconhecido: '" + caractereElemento + "'";
+				if (OpcoesGlobais.rejeitarFaseTamanhoIncorreto) {
+					throw "Caractere nao reconhecido: '" + caractereElemento + "'";
+				} else {
+					elemento = Elemento.NADA;
+				}
 			}
 
 			if (elemento.sohUmPorFase) {
