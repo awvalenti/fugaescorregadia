@@ -1,5 +1,6 @@
 * {
 	background-color: black;
+	color: white;
 }
 
 div#meta {
@@ -11,7 +12,6 @@ div#meta {
 div#pontuacao {
 	text-align: center;
 	font-size: 14pt;
-	color: white;
 }
 
 div#principal {

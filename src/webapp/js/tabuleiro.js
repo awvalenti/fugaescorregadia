@@ -5,19 +5,24 @@ function Tabuleiro(nLinhas, nColunas, fase, personagem) {
 
 	function criarElemento(elemento) {
 		return $('<div>')
-			.data('elemento', elemento.nome)
+			.data('elemento', Elemento[elemento.nome])
 			.addClass('celula ' + elemento.nome);
 	}
 
 	var divPrincipal = $('div#principal').hide().empty();
 
+	con.debug('Criando elementos...');
 	for (var linha = 0; linha < this.nLinhas; ++linha) {
+		this.matriz[linha] = [];
 		for (var coluna = 0; coluna < this.nColunas; ++coluna) {
-			divPrincipal.append(criarElemento(Elemento.NADA).addClass('linha' + linha + ' coluna' + coluna));
+			var divElemento = criarElemento(Elemento.NADA).addClass('linha' + linha + ' coluna' + coluna);
+			divPrincipal.append(divElemento);
+			this.matriz[linha][coluna] = divElemento;
 		}
 	}
 
 	divPrincipal.append(criarElemento(Elemento.PERSONAGEM));
+	con.debug('Criou.');
 
 	var stringFase = $('#meta .fase').eq(fase).text().replace(/\s+/g, '');
 	var tamanhoStringFase = stringFase.length;
@@ -29,8 +34,6 @@ function Tabuleiro(nLinhas, nColunas, fase, personagem) {
 	var mapaSohUmPorFase = {};
 	var indice = 0;
 	for (var linha = 0; linha < this.nLinhas; ++linha) {
-		this.matriz[linha] = [];
-
 		for (var coluna = 0; coluna < this.nColunas; ++coluna, ++indice) {
 			var caractereElemento = stringFase.charAt(indice);
 			var elemento = MAPA_CONSTRUCAO_FASE[caractereElemento];
@@ -60,14 +63,14 @@ function Tabuleiro(nLinhas, nColunas, fase, personagem) {
 			}
 		}
 	}
+	con.debug('ok Tabuleiro');
 }
 
 Tabuleiro.prototype.setAux = function(linha, coluna, elemento) {
-	this.matriz[linha][coluna] = elemento;
-	var divElemento = $('.linha' + linha + '.coluna' + coluna);
+	var divElemento = this.matriz[linha][coluna];
 	divElemento
 		.removeClass(divElemento.data('elemento'))
-		.data('elemento', elemento.nome)
+		.data('elemento', Elemento[elemento.nome])
 		.addClass(elemento.nome);
 };
 
@@ -79,6 +82,6 @@ Tabuleiro.prototype.get = function(posicao) {
 	if (posicao.linha < 0 || posicao.coluna < 0 || posicao.linha >= this.nLinhas || posicao.coluna >= this.nColunas) {
 		return Elemento.OBSTACULO;
 	} else {
-		return this.matriz[posicao.linha][posicao.coluna];
+		return this.matriz[posicao.linha][posicao.coluna].data('elemento');
 	}
 };
