@@ -1,14 +1,15 @@
-function Personagem(processadorEventos) {
-	this.processadorEventos = processadorEventos;
-}
-
-Personagem.prototype.setPosicaoInicial = function(linha, coluna) {
+function Personagem(linha, coluna, processadorEventos) {
 	this.posicao = Posicao(linha, coluna);
+	this.processadorEventos = processadorEventos;
+};
+
+Personagem.prototype.setElementoHtml = function($personagem) {
+	this.$personagem = $personagem;
 	this.posicionarNaTela();
 };
 
 Personagem.prototype.posicionarNaTela = function() {
-	$('.PERSONAGEM').css({
+	this.$personagem.css({
 		top: this.posicao.linha * Tela.alturaCelula + 'px',
 		left: this.posicao.coluna * Tela.larguraCelula + 'px'
 	});
@@ -32,7 +33,7 @@ Personagem.prototype.andar = function(direcao, jogo) {
 		} else {
 			this.posicao = this.posicao.somar(direcao);
 
-			$('.PERSONAGEM').animate({
+			this.$personagem.animate({
 				top: this.posicao.linha * Tela.alturaCelula + 'px',
 				left: this.posicao.coluna * Tela.larguraCelula + 'px'
 			}, Constantes.TEMPO_UM_PASSO, 'linear', gerarCallbackProcessarEvento(evento, this.posicao));

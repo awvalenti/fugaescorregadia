@@ -1,4 +1,4 @@
-function Tabuleiro(nLinhas, nColunas, fase, personagem) {
+function Tabuleiro(nLinhas, nColunas, fase, processadorEventos) {
 	this.matriz = [];
 	this.nLinhas = nLinhas;
 	this.nColunas = nColunas;
@@ -47,7 +47,7 @@ function Tabuleiro(nLinhas, nColunas, fase, personagem) {
 
 			switch (elemento) {
 			case Elemento.PERSONAGEM:
-				personagem.setPosicaoInicial(linha, coluna);
+				this.personagem = new Personagem(linha, coluna, processadorEventos);
 				this.matriz[linha][coluna] = acrescentarElemento(Elemento.NADA);
 				break;
 			default:
@@ -56,8 +56,7 @@ function Tabuleiro(nLinhas, nColunas, fase, personagem) {
 		}
 	}
 
-	acrescentarElemento(Elemento.PERSONAGEM);
-
+	this.personagem.setElementoHtml(acrescentarElemento(Elemento.PERSONAGEM));
 	con.debug('Criou.');
 }
 

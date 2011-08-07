@@ -1,5 +1,4 @@
 function Jogo() {
-	this.personagem = new Personagem(this.tratadorEventos());
 	this.setPontos(0);
 	this.iniciarFase(0);
 };
@@ -10,7 +9,7 @@ function gerarCallback(objeto, funcao) {
 	};
 };
 
-Jogo.prototype.tratadorEventos = function() {
+Jogo.prototype.gerarProcessadorEventos = function() {
 	var jogo = this;
 	return {
 		PEGAR_ITEM: function(posicao) {
@@ -36,7 +35,7 @@ Jogo.prototype.iniciarFase = function(fase) {
 		$('body').fadeOut(1500);
 
 	} else {
-		this.tabuleiro = new Tabuleiro(Tela.numLinhas, Tela.numColunas, this.fase, this.personagem);
+		this.tabuleiro = new Tabuleiro(Tela.numLinhas, Tela.numColunas, this.fase, this.gerarProcessadorEventos());
 
 		var jogo = this;
 		function redimensionar() {
@@ -45,29 +44,47 @@ Jogo.prototype.iniciarFase = function(fase) {
 
 			aplicarCssDinamico('#meta #css-dinamico');
 
-			jogo.personagem.posicionarNaTela();
+			jogo.tabuleiro.personagem.posicionarNaTela();
 		}
 		redimensionar();
 
-		$('.celula').not('.PERSONAGEM').unbind('click').click(function() {
-			var classesElemento = $(this).attr('class');
+		$('body').unbind('mousedown').mousedown(function(e) {
+//			// Calculo por meio das diagonais
+//			var linhaDiagonal1 = Math.round(Tela.numLinhas / Tela.numColunas * coluna);
+//			var linhaDiagonal2 = Math.round(Tela.numLinhas - Tela.numLinhas / Tela.numColunas * coluna);
+//
+//			var direcao;
+//			if (linha < linhaDiagonal1) {
+//				if (linha < linhaDiagonal2) {
+//					direcao = Comando.CIMA;
+//				} else {
+//					direcao = Comando.DIREITA;
+//				}
+//			} else {
+//				if (linha < linhaDiagonal2) {
+//					direcao = Comando.ESQUERDA;
+//				} else {
+//					direcao = Comando.BAIXO;
+//				}
+//			}
+//
+			var xClique = e.pageX;
+			var yClique = e.pageY;
 
-			var linha = /linha(\d+)/.exec(classesElemento)[1];
-			var coluna = /coluna(\d+)/.exec(classesElemento)[1];
+			var personagem = jogo.tabuleiro.personagem.$personagem;
+			var offset = personagem.offset();
+			var xCentroPersonagem = offset.left + personagem.width() / 2;
+			var yCentroPersonagem = offset.top + personagem.height() / 2;
 
-			var linhaDiagonal1 = Math.round(Tela.numLinhas / Tela.numColunas * coluna);
-			var linhaDiagonal2 = Math.round(Tela.numLinhas - Tela.numLinhas / Tela.numColunas * coluna);
-
-			var direcao;
-			if (linha < linhaDiagonal1) {
-				if (linha < linhaDiagonal2) {
-					direcao = Comando.CIMA;
+			if (Math.abs(yClique - yCentroPersonagem) < Math.abs(xClique - xCentroPersonagem)) {
+				if (xClique < xCentroPersonagem) {
+					direcao = Comando.ESQUERDA;
 				} else {
 					direcao = Comando.DIREITA;
 				}
 			} else {
-				if (linha < linhaDiagonal2) {
-					direcao = Comando.ESQUERDA;
+				if (yClique < yCentroPersonagem) {
+					direcao = Comando.CIMA;
 				} else {
 					direcao = Comando.BAIXO;
 				}
@@ -96,8 +113,8 @@ Jogo.prototype.tratarTeclas = function(e) {
 };
 
 Jogo.prototype.executarComando = function(comando) {
-	var direcaoCoresspondente = Direcao[comando];
-	this.personagem.andar(direcaoCoresspondente, this);
+	var direcaoCorrespondente = Direcao[comando];
+	this.tabuleiro.personagem.andar(direcaoCorrespondente, this);
 };
 
 Jogo.prototype.subirPontuacaoPorItem = function() {
