@@ -21,7 +21,6 @@ function Tabuleiro(nLinhas, nColunas, fase, processadorEventos) {
 		throw 'Tamanho da matriz inesperado: ' + tamanhoStringFase + '. Esperado: ' + tamanhoEsperado;
 	}
 
-	con.debug('Criando elementos...');
 	var mapaSohUmPorFase = {};
 	var indice = 0;
 	for (var linha = 0; linha < this.nLinhas; ++linha) {
@@ -57,7 +56,6 @@ function Tabuleiro(nLinhas, nColunas, fase, processadorEventos) {
 	}
 
 	this.personagem.setElementoHtml(acrescentarElemento(Elemento.PERSONAGEM));
-	con.debug('Criou.');
 }
 
 Tabuleiro.prototype.setAux = function(linha, coluna, novoElemento) {

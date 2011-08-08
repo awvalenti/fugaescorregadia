@@ -5,7 +5,7 @@ function Jogo() {
 
 function gerarCallback(objeto, funcao) {
 	return function() {
-		funcao.apply(objeto, arguments);
+		return funcao.apply(objeto, arguments);
 	};
 };
 
@@ -93,7 +93,13 @@ Jogo.prototype.iniciarFase = function(fase) {
 			jogo.executarComando(direcao);
 		});
 		$(window).unbind('resize').resize(redimensionar);
-		$(document).unbind('keydown').keydown(gerarCallback(this, this.tratarTeclas));
+
+		// Ao pressionar uma tecla, primeiro e' gerado um evento
+		// keydown, depois e' gerado um evento keypress. O tratamento
+		// e' feito no evento keydown. No keypress, somente anulamos
+		// o efeito da tecla, para evitar que o navegador role a tela.
+		$(document).unbind('keydown').keydown(gerarCallback(this, this.tratarTecla));
+		$(document).unbind('keypress').keypress(gerarCallback(this, this.anularTecla));
 
 		$('div#principal').fadeIn(1500, 'swing');
 
@@ -101,15 +107,37 @@ Jogo.prototype.iniciarFase = function(fase) {
 	}
 };
 
-Jogo.prototype.tratarTeclas = function(e) {
+Jogo.prototype.tratarTecla = function(e) {
 	var teclasComandos = {
+		// PC
 		37: Comando.ESQUERDA,
 		38: Comando.CIMA,
 		39: Comando.DIREITA,
-		40: Comando.BAIXO
+		40: Comando.BAIXO,
+
+		// Wii
+		178: Comando.ESQUERDA,
+		175: Comando.CIMA,
+		177: Comando.DIREITA,
+		176: Comando.BAIXO
 	};
 
-	teclasComandos[e.which] && this.executarComando(teclasComandos[e.which]);
+	if (teclasComandos[e.which]) {
+		this.executarComando(teclasComandos[e.which]);
+		this.anularEventoKeyPress = true;
+
+		// Anula acoes do navegador (necessario para IE/Safari; uma das opcoes para FF/Opera)
+		return false;
+	} else {
+		this.anularEventoKeyPress = false;
+	}
+};
+
+Jogo.prototype.anularTecla = function(e) {
+	if (this.anularEventoKeyPress) {
+		// Anula acoes do navegador (necessario para Wii; uma das opcoes para FF/Opera)
+		return false;
+	}
 };
 
 Jogo.prototype.executarComando = function(comando) {
