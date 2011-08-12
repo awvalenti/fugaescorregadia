@@ -1,4 +1,4 @@
-Constantes = {
+var Constantes = {
 	TEMPO_UM_PASSO: 40
 };
 
@@ -15,11 +15,11 @@ function Enum() {
 	}
 }
 
-Comando = new Enum('ESQUERDA', 'CIMA', 'DIREITA', 'BAIXO', 'ENTER', 'ESC');
+var Comando = new Enum('ESQUERDA', 'CIMA', 'DIREITA', 'BAIXO', 'ENTER', 'ESC');
 
-Evento = new Enum('CONTINUAR_ANDANDO', 'BLOQUEAR', 'PEGAR_ITEM', 'PASSAR_DE_FASE', 'ALTERNAR_LUZ');
+var Evento = new Enum('CONTINUAR_ANDANDO', 'BLOQUEAR', 'PEGAR_ITEM', 'PASSAR_DE_FASE', 'ALTERNAR_LUZ');
 
-Elemento = {
+var Elemento = {
 	NADA: {
 		caractere: '_',
 		aoTentarPassar: function() { return Evento.CONTINUAR_ANDANDO; },
@@ -76,18 +76,20 @@ Elemento = {
 	}
 };
 
-MAPA_CONSTRUCAO_FASE = {};
-
 (function() {
+	var mapa = {};
+
 	for (var nomeElemento in Elemento) {
 		var elemento = Elemento[nomeElemento];
 		elemento.nome = nomeElemento;
 		elemento.toString = function() { return this.nome; };
-		MAPA_CONSTRUCAO_FASE[elemento.caractere] = elemento;
+		mapa[elemento.caractere] = elemento;
 	}
+
+	Elemento.mapa = mapa;
 })();
 
-Direcao = {
+var Direcao = {
 	ESQUERDA: Posicao(0, -1),
 	CIMA: Posicao(-1, 0),
 	DIREITA: Posicao(0, +1),

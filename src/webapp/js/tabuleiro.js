@@ -27,7 +27,7 @@ function Tabuleiro(nLinhas, nColunas, fase, processadorEventos) {
 		this.matriz[linha] = [];
 		for (var coluna = 0; coluna < this.nColunas; ++coluna, ++indice) {
 			var caractereElemento = stringFase.charAt(indice);
-			var elemento = MAPA_CONSTRUCAO_FASE[caractereElemento];
+			var elemento = Elemento.mapa[caractereElemento];
 
 			if (!elemento) {
 				if (OpcoesGlobais.rejeitarFaseTamanhoIncorreto) {

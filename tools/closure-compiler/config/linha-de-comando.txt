@@ -1,0 +1,1 @@
+java -jar ../../../tools/closure-compiler/compiler.jar --compilation_level=SIMPLE_OPTIMIZATIONS --js=lib/console.js --js=lib/css-dinamico.js --js=posicao.js --js=constantes.js --js=tabuleiro.js --js=personagem.js --js=jogo.js --js=fuga-escorregadia.js --js_output_file=fe.js

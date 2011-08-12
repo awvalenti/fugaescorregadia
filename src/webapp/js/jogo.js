@@ -1,13 +1,13 @@
 function Jogo() {
 	this.setPontos(0);
 	this.iniciarFase(0);
-};
+}
 
 function gerarCallback(objeto, funcao) {
 	return function() {
 		return funcao.apply(objeto, arguments);
 	};
-};
+}
 
 Jogo.prototype.gerarProcessadorEventos = function() {
 	var jogo = this;

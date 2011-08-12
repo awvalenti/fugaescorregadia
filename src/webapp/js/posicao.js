@@ -1,4 +1,4 @@
-Posicao = (function() {
+var Posicao = (function() {
 	function PosicaoUnica(linha, coluna) {
 		this.linha = linha;
 		this.coluna = coluna;
