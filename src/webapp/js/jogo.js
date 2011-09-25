@@ -40,7 +40,7 @@ Jogo.prototype.iniciarFase = function(fase) {
 		var jogo = this;
 		function redimensionar() {
 			Tela.larguraCelula = Tela.alturaCelula = Math.ceil(Math.min($(window).height()
-					/ (Tela.numLinhas + 5), $(window).width() / (Tela.numColunas + 4)));
+					/ (Tela.numLinhas + 1), $(window).width() / (Tela.numColunas + 4)));
 
 			aplicarCssDinamico('#meta #css-dinamico');
 
@@ -48,50 +48,47 @@ Jogo.prototype.iniciarFase = function(fase) {
 		}
 		redimensionar();
 
-		$('body').unbind('mousedown').mousedown(function(e) {
-//			// Calculo por meio das diagonais
-//			var linhaDiagonal1 = Math.round(Tela.numLinhas / Tela.numColunas * coluna);
-//			var linhaDiagonal2 = Math.round(Tela.numLinhas - Tela.numLinhas / Tela.numColunas * coluna);
-//
-//			var direcao;
-//			if (linha < linhaDiagonal1) {
-//				if (linha < linhaDiagonal2) {
-//					direcao = Comando.CIMA;
-//				} else {
-//					direcao = Comando.DIREITA;
-//				}
-//			} else {
-//				if (linha < linhaDiagonal2) {
-//					direcao = Comando.ESQUERDA;
-//				} else {
-//					direcao = Comando.BAIXO;
-//				}
-//			}
-//
-			var xClique = e.pageX;
-			var yClique = e.pageY;
+		var toqueInicial = {};
+		document.addEventListener('touchstart', function(e) {
+			e.preventDefault();
 
-			var personagem = jogo.tabuleiro.personagem.$personagem;
-			var offset = personagem.offset();
-			var xCentroPersonagem = offset.left + personagem.width() / 2;
-			var yCentroPersonagem = offset.top + personagem.height() / 2;
-
-			if (Math.abs(yClique - yCentroPersonagem) < Math.abs(xClique - xCentroPersonagem)) {
-				if (xClique < xCentroPersonagem) {
-					direcao = Comando.ESQUERDA;
-				} else {
-					direcao = Comando.DIREITA;
-				}
-			} else {
-				if (yClique < yCentroPersonagem) {
-					direcao = Comando.CIMA;
-				} else {
-					direcao = Comando.BAIXO;
-				}
-			}
-
-			jogo.executarComando(direcao);
+			var toque = e.touches[0];
+			toqueInicial.x = toque.pageX;
+			toqueInicial.y = toque.pageY;
 		});
+		document.addEventListener('touchmove', function(e) {
+
+			var toque = e.touches[0];
+
+			var difX = toque.pageX - toqueInicial.x;
+			var difY = toque.pageY - toqueInicial.y;
+
+			var absDifX = Math.abs(difX);
+			var absDifY = Math.abs(difY);
+
+			if (Math.max(absDifX, absDifY) >= Constantes.SENSIBILIDADE_MOVIMENTO) {
+				var direcao;
+				if (absDifX > absDifY) {
+					if (difX < 0) {
+						direcao = Comando.ESQUERDA;
+					} else {
+						direcao = Comando.DIREITA;
+					}
+				} else {
+					if (difY < 0) {
+						direcao = Comando.CIMA;
+					} else  {
+						direcao = Comando.BAIXO;
+					}
+				}
+
+				jogo.executarComando(direcao);
+
+				toqueInicial.x = toque.pageX;
+				toqueInicial.y = toque.pageY;
+			}
+		});
+
 		$(window).unbind('resize').resize(redimensionar);
 
 		// Ao pressionar uma tecla, primeiro e' gerado um evento
