@@ -5,20 +5,29 @@
 	<meta http-equiv="Content-type" content="text/html;charset=iso-8859-1" />
 	<title>Fuga Escorregadia</title>
 
-	<script type="text/javascript" src="js/lib/jquery-1.6.2.min.js"></script>
+	<script src="js/lib/head.min.js"></script>
 
-	<script type="text/javascript" src="js/lib/css-dinamico.js"></script>
-	<script type="text/javascript" src="js/lib/console.js"></script>
-
-	<script type="text/javascript" src="js/posicao.js"></script>
-	<script type="text/javascript" src="js/constantes.js"></script>
-	<script type="text/javascript" src="js/tabuleiro.js"></script>
-	<script type="text/javascript" src="js/personagem.js"></script>
-	<script type="text/javascript" src="js/jogo.js"></script>
-	<script type="text/javascript" src="js/fuga-escorregadia.js"></script>
-
-	<script type="text/javascript" src="js/ios.js"></script>
-
+	<script>
+		head.js(
+			"js/lib/jquery-1.6.2.min.js",
+			
+			"js/lib/css-dinamico.js",
+			"js/lib/console.js",
+			
+			"js/posicao.js",
+			"js/constantes.js",
+			"js/tabuleiro.js",
+			"js/personagem.js",
+			"js/jogo.js",
+			"js/fuga-escorregadia.js",
+			
+			"js/plataformas/ios.js",
+			
+			function() {
+				iniciar();
+			});
+	</script>	
+	
 	<link rel="stylesheet" type="text/css" href="css/fuga-escorregadia.css" />
 	
 	<style type="text/css">

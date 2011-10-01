@@ -21,13 +21,13 @@ function Tabuleiro(nLinhas, nColunas, fase, processadorEventos) {
 		throw 'Tamanho da matriz inesperado: ' + tamanhoStringFase + '. Esperado: ' + tamanhoEsperado;
 	}
 
-	var mapaSohUmPorFase = {};
+	var elementosSohUmPorFase = {};
 	var indice = 0;
 	for (var linha = 0; linha < this.nLinhas; ++linha) {
 		this.matriz[linha] = [];
 		for (var coluna = 0; coluna < this.nColunas; ++coluna, ++indice) {
 			var caractereElemento = stringFase.charAt(indice);
-			var elemento = Elemento.mapa[caractereElemento];
+			var elemento = Elemento.mapaDeNomeParaObjeto[caractereElemento];
 
 			if (!elemento) {
 				if (OpcoesGlobais.rejeitarFaseTamanhoIncorreto) {
@@ -38,10 +38,10 @@ function Tabuleiro(nLinhas, nColunas, fase, processadorEventos) {
 			}
 
 			if (elemento.sohUmPorFase) {
-				if (mapaSohUmPorFase[elemento]) {
-					throw elemento + ' ja definido em ' + mapaSohUmPorFase[elemento];
+				if (elementosSohUmPorFase[elemento]) {
+					throw elemento + ' ja definido em ' + elementosSohUmPorFase[elemento];
 				}
-				mapaSohUmPorFase[elemento] = Posicao(linha, coluna);
+				elementosSohUmPorFase[elemento] = Posicao(linha, coluna);
 			}
 
 			switch (elemento) {

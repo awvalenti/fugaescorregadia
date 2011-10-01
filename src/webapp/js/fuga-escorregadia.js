@@ -1,4 +1,4 @@
-$(function() {
+function iniciar() {
 	Tela = {
 		numLinhas: 16,
 		numColunas: 38,
@@ -14,4 +14,4 @@ $(function() {
 
 	OpcoesGlobais = ModoDebug;
 	new Jogo();
-});
+}

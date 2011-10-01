@@ -1,4 +1,4 @@
-// Codigo especifico para iPhone / iPod Touch
+// Codigo especifico para iPhone / iPod Touch / iPad
 $(function() {
 	$('head')
 			.append(

@@ -77,16 +77,16 @@ var Elemento = {
 };
 
 (function() {
-	var mapa = {};
+	var mapaDeNomeParaObjeto = {};
 
 	for (var nomeElemento in Elemento) {
 		var elemento = Elemento[nomeElemento];
 		elemento.nome = nomeElemento;
 		elemento.toString = function() { return this.nome; };
-		mapa[elemento.caractere] = elemento;
+		mapaDeNomeParaObjeto[elemento.caractere] = elemento;
 	}
 
-	Elemento.mapa = mapa;
+	Elemento.mapaDeNomeParaObjeto = mapaDeNomeParaObjeto;
 })();
 
 var Direcao = {
