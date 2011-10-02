@@ -1,6 +1,8 @@
 * {
 	background-color: black;
 	color: white;
+	margin: 0;
+	padding: 0;
 }
 
 div#meta {
@@ -9,7 +11,7 @@ div#meta {
 
 /**********************/
 
-div#pontuacao {
+div#painel {
 	text-align: center;
 	font-size: 14pt;
 }
@@ -21,6 +23,11 @@ div#principal {
 	border-style: solid;
 	border-color: transparent;
 	background-image: url('../img/borda.png');
+}
+
+ul#console li {
+	float: left;
+	margin-left: 2em;
 }
 
 /**********************/
