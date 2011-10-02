@@ -1,5 +1,5 @@
 (function() {
-	function gerarCallback(nivelLog) {
+	function gerarCallbackEscrever(nivelLog) {
 		return function() {
 			escrever(nivelLog, arguments);
 		};
@@ -18,9 +18,9 @@
 	}
 
 	console2 = {
-		debug: gerarCallback('DEBUG'),
-		info: gerarCallback('INFO'),
-		error: gerarCallback('ERROR'),
+		debug: gerarCallbackEscrever('DEBUG'),
+		info: gerarCallbackEscrever('INFO'),
+		error: gerarCallbackEscrever('ERROR'),
 	};
 
 })();

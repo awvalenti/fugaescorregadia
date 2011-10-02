@@ -5,30 +5,32 @@
 	<meta http-equiv="Content-type" content="text/html;charset=iso-8859-1" />
 	<title>Fuga Escorregadia</title>
 
+	<link rel="stylesheet" type="text/css" href="css/fuga-escorregadia.css" />
+	
 	<script src="js/lib/head.min.js"></script>
 
 	<script>
-		head.js(
-			'js/lib/jquery-1.6.2.min.js',
+		head
+			.js('js/lib/jquery-1.6.2.min.js')
+			.js('js/lib/utils.js')
+			.js('js/lib/css-dinamico.js')
+			.js('js/lib/console2.js')
 			
-			'js/lib/css-dinamico.js',
-			'js/lib/console2.js',
+			.js('js/posicao.js')
+			.js('js/constantes.js')
 			
-			'js/plataformas/plataforma.js',
-
-			'js/posicao.js',
-			'js/constantes.js',
-			'js/tabuleiro.js',
-			'js/personagem.js',
-			'js/jogo.js',
-			'js/fuga-escorregadia.js',
+			.js('js/tabuleiro.js')
+			.js('js/personagem.js')
+			.js('js/jogo.js')
 			
-			function() {
+			.js('js/plataformas/plataforma.js')
+			
+			.js('js/fuga-escorregadia.js')
+			
+			.ready(function() {
 				iniciar();
 			});
 	</script>	
-	
-	<link rel="stylesheet" type="text/css" href="css/fuga-escorregadia.css" />
 	
 	<style type="text/css">
 	</style>
@@ -51,9 +53,10 @@
 				width: `Tela.larguraCelula * Tela.numColunas`px;
 				height: `Tela.alturaCelula * Tela.numLinhas`px;
 				border-width: `Math.min(Tela.larguraCelula, Tela.alturaCelula)`px;
+				border-radius: `Math.min(Tela.larguraCelula, Tela.alturaCelula) / 2`px;
 			}
 			
-			.celula {
+			div.celula {
 				width: `Tela.larguraCelula`px;
 				height: `Tela.alturaCelula`px;
 			}

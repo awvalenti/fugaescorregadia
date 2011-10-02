@@ -3,12 +3,6 @@ function Jogo() {
 	this.iniciarFase(0);
 }
 
-function gerarCallback(objeto, funcao) {
-	return function() {
-		return funcao.apply(objeto, arguments);
-	};
-}
-
 Jogo.prototype.gerarProcessadorEventos = function() {
 	var jogo = this;
 	return {
@@ -49,56 +43,9 @@ Jogo.prototype.iniciarFase = function(fase) {
 			jogo.tabuleiro.personagem.posicionarNaTela();
 		}
 		redimensionar();
-
-		var toqueInicial = {};
-		document.addEventListener('touchstart', function(e) {
-			e.preventDefault();
-
-			var toque = e.touches[0];
-			toqueInicial.x = toque.pageX;
-			toqueInicial.y = toque.pageY;
-		});
-		document.addEventListener('touchmove', function(e) {
-
-			var toque = e.touches[0];
-
-			var difX = toque.pageX - toqueInicial.x;
-			var difY = toque.pageY - toqueInicial.y;
-
-			var absDifX = Math.abs(difX);
-			var absDifY = Math.abs(difY);
-
-			if (Math.max(absDifX, absDifY) >= Constantes.SENSIBILIDADE_MOVIMENTO) {
-				var direcao;
-				if (absDifX > absDifY) {
-					if (difX < 0) {
-						direcao = Comando.ESQUERDA;
-					} else {
-						direcao = Comando.DIREITA;
-					}
-				} else {
-					if (difY < 0) {
-						direcao = Comando.CIMA;
-					} else  {
-						direcao = Comando.BAIXO;
-					}
-				}
-
-				jogo.executarComando(direcao);
-
-				toqueInicial.x = toque.pageX;
-				toqueInicial.y = toque.pageY;
-			}
-		});
-
 		$(window).unbind('resize').resize(redimensionar);
 
-		// Ao pressionar uma tecla, primeiro e' gerado um evento
-		// keydown, depois e' gerado um evento keypress. O tratamento
-		// e' feito no evento keydown. No keypress, somente anulamos
-		// o efeito da tecla, para evitar que o navegador role a tela.
-		$(document).unbind('keydown').keydown(gerarCallback(this, this.tratarTecla));
-		$(document).unbind('keypress').keypress(gerarCallback(this, this.anularTecla));
+		Plataforma.tratarEntradaJogador(jogo);
 
 		$('div#principal').fadeIn(1500, 'swing');
 
@@ -106,40 +53,8 @@ Jogo.prototype.iniciarFase = function(fase) {
 	}
 };
 
-Jogo.prototype.tratarTecla = function(e) {
-	var teclasComandos = {
-		// PC
-		37: Comando.ESQUERDA,
-		38: Comando.CIMA,
-		39: Comando.DIREITA,
-		40: Comando.BAIXO,
-
-		// Wii
-		178: Comando.ESQUERDA,
-		175: Comando.CIMA,
-		177: Comando.DIREITA,
-		176: Comando.BAIXO
-	};
-
-	if (teclasComandos[e.which]) {
-		this.executarComando(teclasComandos[e.which]);
-		this.anularEventoKeyPress = true;
-
-		// Anula acoes do navegador (necessario para IE/Safari; uma das opcoes para FF/Opera)
-		return false;
-	} else {
-		this.anularEventoKeyPress = false;
-	}
-};
-
-Jogo.prototype.anularTecla = function(e) {
-	if (this.anularEventoKeyPress) {
-		// Anula acoes do navegador (necessario para Wii; uma das opcoes para FF/Opera)
-		return false;
-	}
-};
-
 Jogo.prototype.executarComando = function(comando) {
+	// TODO outros comandos, como reiniciar jogo, voltar para menu principal etc.
 	var direcaoCorrespondente = Direcao[comando];
 	this.tabuleiro.personagem.andar(direcaoCorrespondente, this);
 };
