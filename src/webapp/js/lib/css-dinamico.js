@@ -1,5 +1,5 @@
 function aplicarCssDinamico(seletor) {
-	var cssDinamico = $(seletor).text();
+	var cssDinamico = $(seletor).html();
 
 	var regExp = /`(.*?)`/m;
 	var match;
@@ -8,8 +8,7 @@ function aplicarCssDinamico(seletor) {
 		cssDinamico = cssDinamico.replace(regExp, eval(codigoJs));
 	}
 
-	$('style').remove();
+	$('head style').remove();
 
-	// TODO escapar
 	$('head').append('<style>' + cssDinamico + '</style>');
 }
