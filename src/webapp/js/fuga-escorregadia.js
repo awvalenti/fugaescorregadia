@@ -1,13 +1,5 @@
 function iniciar() {
 
-	function determinarDispositivo() {
-		var ios;
-//		ios = true;
-		if (ios) {
-			head.js('js/plataformas/ios.js');
-		}
-	}
-
 	Tela = {
 		numLinhas: 16,
 		numColunas: 38,
@@ -23,7 +15,6 @@ function iniciar() {
 
 	OpcoesGlobais = ModoDebug;
 
-	determinarDispositivo();
-
+	Plataforma.aoIniciar();
 	new Jogo();
 }

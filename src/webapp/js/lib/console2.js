@@ -11,7 +11,7 @@
 
 		var textoCorrido = '';
 		for (var i = 0; i < texto.length; ++i) {
-			textoCorrido += texto + ' ';
+			textoCorrido += texto[i] + ' ';
 		}
 
 		ulConsole.append($('<li>').text('[' + nivel + '] ' + textoCorrido));

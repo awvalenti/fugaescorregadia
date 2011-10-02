@@ -39,6 +39,8 @@ Jogo.prototype.iniciarFase = function(fase) {
 
 		var jogo = this;
 		function redimensionar() {
+			Plataforma.aoRedimensionar();
+
 			Tela.larguraCelula = Tela.alturaCelula = Math.floor(Math.min($(window).width() / (Tela.numColunas + 2),
 					($(window).height() - $('div#painel').height()) / (Tela.numLinhas + 2)));
 
