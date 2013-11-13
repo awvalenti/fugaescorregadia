@@ -1,0 +1,16 @@
+2013-11-13
+==========
+- Inaugurei a nova fase do projeto Fuga Escorregadia!
+- Criei a estrutura básica do projeto
+- Estou fazendo TDD/BDD direitinho, do zero
+- Criei o assert
+
+Reflexões
+---------
+- Gastei bastante tempo criando a estrutura básica e o assert
+
+Retrospecto
+-----------
+- Melhorei um pouco o foco em resultado, mas ainda preciso melhorar mais
+
+
