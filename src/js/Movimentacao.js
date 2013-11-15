@@ -1,28 +1,49 @@
 define([
-  'Posicao'
+  'assert'
 ],
 function(
-  Posicao
+  assert
 ) {
   'use strict';
 
-  function Movimentacao(largura, altura, linha, coluna) {
+  function Movimentacao(params) {
+    assert.args(params.posicao, 'function', params.posicaoPersonagem, 'object', params.largura, 'number', params.altura, 'number');
+
+    this._posicao = params.posicao;
+    this._largura = params.largura;
+    this._altura = params.altura;
+    this._posicaoPersonagem = params.posicaoPersonagem;
   }
 
   Movimentacao.prototype.posicaoPersonagem = function() {
-    return Posicao(2, 2);
+    return this._posicaoPersonagem;
   };
 
-  function MovimentacaoBuilder() {}
+  Movimentacao.prototype.andarPara = function(direcao) {
+    while (this._posicaoPersonagem.somar(direcao).estaContidaEm(this._altura, this._largura)) {
+      this._posicaoPersonagem = this._posicaoPersonagem.somar(direcao);
+    }
+  };
 
-  MovimentacaoBuilder.paraTabuleiro = function(largura, altura) {
+  function MovimentacaoFactory() {}
+
+  MovimentacaoFactory.paraTabuleiro = function(largura, altura) {
     return {
-      comPersonagemEm: function(linha, coluna) {
-        return new Movimentacao(largura, altura, linha, coluna);
+      comPersonagemEm: function(posicaoPersonagem) {
+        return {
+          comDependencias: function(dependencias) {
+            return new Movimentacao({
+              posicao: dependencias.posicao,
+              posicaoPersonagem: posicaoPersonagem,
+              largura: largura,
+              altura: altura
+            });
+          }
+        }
       }
     };
   };
 
-  return MovimentacaoBuilder;
+  return MovimentacaoFactory;
 
 });

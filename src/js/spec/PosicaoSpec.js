@@ -1,8 +1,16 @@
 define([
-  'Posicao'
+  'Posicao',
+  'Direcao/BAIXO',
+  'Direcao/CIMA',
+  'Direcao/DIREITA',
+  'Direcao/ESQUERDA',
 ],
 function(
-  Posicao
+  Posicao,
+  BAIXO,
+  CIMA,
+  DIREITA,
+  ESQUERDA
 ) {
   'use strict';
 
@@ -13,9 +21,37 @@ function(
       posicao = Posicao.criarFabrica();
     });
 
-    it('deve conter propriedades linha e coluna', function() {
+    it('deve oferecer propriedades linha e coluna', function() {
       expect(posicao(1, 2).linha).toBe(1);
       expect(posicao(1, 2).coluna).toBe(2);
+    });
+
+    it('deve somar e subtrair direcao', function() {
+      expect(posicao(10, 20).somar(BAIXO)).toBe(posicao(11, 20));
+      expect(posicao(10, 20).subtrair(CIMA)).toBe(posicao(11, 20));
+
+      expect(posicao(10, 20).somar(CIMA)).toBe(posicao(9, 20));
+      expect(posicao(10, 20).subtrair(BAIXO)).toBe(posicao(9, 20));
+
+      expect(posicao(10, 20).somar(ESQUERDA)).toBe(posicao(10, 19));
+      expect(posicao(10, 20).subtrair(DIREITA)).toBe(posicao(10, 19));
+
+      expect(posicao(10, 20).somar(DIREITA)).toBe(posicao(10, 21));
+      expect(posicao(10, 20).subtrair(ESQUERDA)).toBe(posicao(10, 21));
+    });
+
+    it('deve reconhecer limites', function() {
+      expect(posicao(0, 0).estaContidaEm(10, 10)).toBe(true);
+      expect(posicao(5, 5).estaContidaEm(10, 10)).toBe(true);
+      expect(posicao(9, 9).estaContidaEm(10, 10)).toBe(true);
+
+      expect(posicao(10, 9).estaContidaEm(10, 10)).toBe(false);
+      expect(posicao(9, 10).estaContidaEm(10, 10)).toBe(false);
+      expect(posicao(10, 10).estaContidaEm(10, 10)).toBe(false);
+      expect(posicao(11, 11).estaContidaEm(10, 10)).toBe(false);
+
+      expect(posicao(-1, 9).estaContidaEm(10, 10)).toBe(false);
+      expect(posicao(-2, 9).estaContidaEm(10, 10)).toBe(false);
     });
 
     it('usando mesma fabrica, deve reaproveitar instancias', function() {
@@ -26,7 +62,7 @@ function(
       expect(posicao(5, 6)).not.toBe(Posicao.criarFabrica()(5, 6));
     });
 
-    it('deve proibir argumentos nao-inteiros', function() {
+    it('deve proibir argumentos nao-numericos', function() {
       expect(function() { posicao('hasOwnProperty', 5); }).toThrow();
       expect(function() { posicao(5, 'constructor');    }).toThrow();
     });

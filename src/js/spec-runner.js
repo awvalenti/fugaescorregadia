@@ -9,8 +9,8 @@ requirejs(['lib/non-amd/jasmine-1.3.1/jasmine-html'], function() {
 
 requirejs([
   'spec/assertSpec',
-  'spec/PosicaoSpec',
   'spec/MovimentacaoSpec',
+  'spec/PosicaoSpec',
 ],
 function() {
   'use strict';

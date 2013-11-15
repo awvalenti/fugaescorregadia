@@ -8,6 +8,26 @@ function(
 ) {
   'use strict';
 
+  function Posicao(linha, coluna, fabrica) {
+    this.linha = linha;
+    this.coluna = coluna;
+    this._fabrica = fabrica;
+  }
+
+  Posicao.prototype.somar = function(direcao) {
+    return this._fabrica.criarPosicao(this.linha + direcao.linha, this.coluna + direcao.coluna);
+  };
+
+  Posicao.prototype.subtrair = function(direcao) {
+    return this._fabrica.criarPosicao(this.linha - direcao.linha, this.coluna - direcao.coluna);
+  };
+
+  Posicao.prototype.estaContidaEm = function(quantidadeLinhas, quantidadeColunas) {
+    return this.linha >= 0 && this.linha < quantidadeLinhas && this.coluna >= 0 && this.coluna < quantidadeColunas;
+  };
+
+  Posicao.prototype.toString = function() { return '(' + this._linha + ', ' + this._coluna + ')'; };
+
   function Fabrica() {
     this._cache = {};
   }
@@ -16,7 +36,7 @@ function(
     assert.args(linha, 'number', coluna, 'number');
 
     if (!(linha in this._cache)) this._cache[linha] = {};
-    if (!(coluna in this._cache[linha])) this._cache[linha][coluna] = { linha: linha, coluna: coluna };
+    if (!(coluna in this._cache[linha])) this._cache[linha][coluna] = new Posicao(linha, coluna, this);
 
     return this._cache[linha][coluna];
   };
