@@ -19,7 +19,7 @@ function(
       expect(mov.posicaoPersonagem()).toBe(Posicao(2, 2));
     });
 
-    it('deve permitir andar nas quatro direcoes', function() {
+    xit('deve permitir andar nas quatro direcoes', function() {
       mov.andarPara('DIREITA');
       expect(mov.posicaoPersonagem()).toBe(Posicao(2, 4));
     });

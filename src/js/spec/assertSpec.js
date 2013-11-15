@@ -30,27 +30,54 @@ function(
     });
 
     describe('.args (for validation of function arguments)', function() {
+      describe('when used correctly, e.g.:', function() {
+        describe("assert.args(username, 'string', amount, 'number', useOverdraft, 'boolean');", function() {
 
-      function withdrawMoney(username, amount, useOverdraft) {
-        assert.args(username, 'string', amount, 'number', useOverdraft, 'boolean');
-      }
+          function withdrawMoney(username, amount, useOverdraft) {
+            assert.args(username, 'string', amount, 'number', useOverdraft, 'boolean');
+          }
 
-      function strNumBool() {
-        var args = arguments;
-        return function() { withdrawMoney.apply(null, args); };
-      }
+          function strNumBool() {
+            var args = arguments;
+            return function() { withdrawMoney.apply(null, args); };
+          }
 
-      describe('when arguments types are correct', function() {
-        it('should not throw error', function() {
-          expect(strNumBool('eddie', 5.00, false)).not.toThrow();
-          expect(strNumBool('rose', 200000, true)).not.toThrow();
+          describe('with valid arguments types', function() {
+            it('should not throw error', function() {
+              expect(strNumBool('eddie', 5.00, false)).not.toThrow();
+              expect(strNumBool('rose', 200000, true)).not.toThrow();
+            });
+          });
+
+          describe('with invalid arguments types', function() {
+            it('should throw error describing divergences', function() {
+              expect(strNumBool('andre', 'oops', false)).toThrow('Expected arg[1] number, got string.');
+              expect(strNumBool('andre', 'ooooops', {})).toThrow('Expected arg[1] number, got string. Expected arg[2] boolean, got object.');
+            });
+          });
         });
       });
 
-      describe('when arguments types are incorrect', function() {
-        it('should throw error describing divergences', function() {
-          expect(strNumBool('andre', 'oops', false)).toThrow('Expected arg[1] number, got string.');
-          expect(strNumBool('andre', 'ooooops', {})).toThrow('Expected arg[1] number, got string. Expected arg[2] boolean, got object.');
+      describe('when used incorrectly', function() {
+        describe('with odd number of arguments, e.g.:', function() {
+          describe("assert.args(arg);", function() {
+            it('should throw informative error', function() {
+              var arg = 0;
+              expect(function() { assert.args(arg); })
+                  .toThrow('assert.args used incorrectly. Expected even number of arguments, got 1.');
+            });
+          });
+        });
+
+        describe('with invalid type, e.g.:', function() {
+          describe("assert.args(arg0, 'number', arg1, 'bogusType');", function() {
+            it('should throw informative error', function() {
+              var arg0 = 0, arg1 = 1;
+              expect(function() { assert.args(arg0, 'number', arg1, 'bogusType'); })
+                  .toThrow('assert.args used incorrectly. Expected a valid typeof result, got bogusType. ' +
+                      'Valid results are: number, string, boolean, object, function, undefined, xml.');
+            });
+          });
         });
       });
     });
