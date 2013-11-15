@@ -14,3 +14,12 @@ Retrospecto
 - Melhorei um pouco o foco em resultado, mas ainda preciso melhorar mais
 
 
+2013-11-15
+==========
+- Andei preocupado com a escolha da licença. Quero usar LGPL para o FE, mas MIT para as bibliotecas.
+- Percebi que o problema está em tocar diversos projetos juntos, tipo o assert e o FE
+- Então, li sobre gestão de dependências em JS. Conclusões:
+     - é complexo...
+     - ferramentas úteis: Yeoman, Grunt, Bower
+     - vou deixar para depois
+- Vou seguir do jeito como está, por enquanto
