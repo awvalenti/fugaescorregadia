@@ -21,7 +21,7 @@ function(
 
       it('should allow calls without any message', function() {
         expect(function() { assert(true);  }).not.toThrow();
-        expect(function() { assert(false); }).toThrow(Error());
+        expect(function() { assert(false); }).toThrow();
       });
 
       it('should allow specifying message as varargs (useful for variables)', function() {
