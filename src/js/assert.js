@@ -2,6 +2,7 @@ define([
 ],
 function(
 ) {
+  'use strict';
 
   function assert(condition, messageOrVarargs) {
     if (!condition) {

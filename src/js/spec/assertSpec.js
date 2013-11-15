@@ -4,6 +4,7 @@ define([
 function(
   assert
 ) {
+  'use strict';
 
   describe('assert', function() {
 

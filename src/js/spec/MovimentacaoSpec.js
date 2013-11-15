@@ -6,6 +6,7 @@ function(
   Movimentacao,
   Posicao
 ) {
+  'use strict';
 
   describe('Movimentacao', function() {
     var mov = null;

@@ -1,4 +1,8 @@
-'use strict';
+requirejs.config({
+  shim: {
+    'lib/non-amd/underscore': { init: function() { return _.noConflict(); } }
+  }
+});
 
 requirejs(['lib/non-amd/jasmine-1.3.1/jasmine'], function() {
 requirejs(['lib/non-amd/jasmine-1.3.1/jasmine-html'], function() {
@@ -9,6 +13,8 @@ requirejs([
   'spec/MovimentacaoSpec',
 ],
 function() {
+  'use strict';
+
   var jasmineEnv = jasmine.getEnv();
   jasmineEnv.updateInterval = 1000;
 

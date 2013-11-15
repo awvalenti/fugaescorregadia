@@ -1,25 +1,30 @@
 define([
+  'lib/non-amd/underscore',
   'assert'
 ],
 function(
+  _,
   assert
 ) {
+  'use strict';
 
-  var CACHE = {};
+  function Fabrica() {
+    this._cache = {};
+  }
 
-  function PosicaoEmCache(linha, coluna) {
+  Fabrica.prototype.criarPosicao = function(linha, coluna) {
     assert.args(linha, 'number', coluna, 'number');
 
-    if (!(linha in CACHE)) CACHE[linha] = {};
-    if (!(coluna in CACHE[linha])) CACHE[linha][coluna] = { linha: linha, coluna: coluna };
+    if (!(linha in this._cache)) this._cache[linha] = {};
+    if (!(coluna in this._cache[linha])) this._cache[linha][coluna] = { linha: linha, coluna: coluna };
 
-    return CACHE[linha][coluna];
-  }
+    return this._cache[linha][coluna];
+  };
 
-  function Posicao(linha, coluna) {
-    return PosicaoEmCache(linha, coluna);
-  }
-
-  return Posicao;
+  return {
+    criarFabrica: function() {
+      return _(Fabrica.prototype.criarPosicao).bind(new Fabrica());
+    }
+  };
 
 });

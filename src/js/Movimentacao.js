@@ -4,6 +4,7 @@ define([
 function(
   Posicao
 ) {
+  'use strict';
 
   function Movimentacao(largura, altura, linha, coluna) {
   }
