@@ -25,3 +25,9 @@ Retrospecto
 - Vou seguir do jeito como está, por enquanto
 
 - Finalmente consegui usar o shim do RequireJS!
+- Posicao, Direcao, Movimentacao
+
+2013-11-17
+==========
+- Programei na TV de casa!
+- Tornei Movimentacao sem estado
