@@ -19,9 +19,9 @@ Retrospecto
 - Andei preocupado com a escolha da licença. Quero usar LGPL para o FE, mas MIT para as bibliotecas.
 - Percebi que o problema está em tocar diversos projetos juntos, tipo o assert e o FE
 - Então, li sobre gestão de dependências em JS. Conclusões:
-     - é complexo...
-     - ferramentas úteis: Yeoman, Grunt, Bower
-     - vou deixar para depois
+  - é complexo...
+  - ferramentas úteis: Yeoman, Grunt, Bower
+  - vou deixar para depois
 - Vou seguir do jeito como está, por enquanto
 
 - Finalmente consegui usar o shim do RequireJS!
@@ -29,5 +29,9 @@ Retrospecto
 
 2013-11-17
 ==========
-- Programei na TV de casa!
+- Programei na TV com Vivinha!
+- Fizemos a movimentação com obstáculo
 - Tornei Movimentacao sem estado
+
+- Próximos passos:
+  - mudar de posicao(l, c) para repoPosicoes.obter(l, c) ou algo assim

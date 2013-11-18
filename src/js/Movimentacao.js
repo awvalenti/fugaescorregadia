@@ -14,13 +14,19 @@ function(
     this._altura = params.altura;
   }
 
-  Movimentacao.prototype.movimentarPersonagem = function(posicaoPersonagem, direcao) {
-    var novaPosicao = posicaoPersonagem;
-    while (novaPosicao.somar(direcao).estaContidaEm(this._altura, this._largura)) {
-      novaPosicao = novaPosicao.somar(direcao);
+  Movimentacao.prototype.movimentarPersonagem = function(posicaoPersonagem, direcao, temObstaculoEm) {
+    if (typeof temObstaculoEm === 'undefined') temObstaculoEm = function(posicao) { return false; };
+
+    for (;;) {
+      var novaPosicao = posicaoPersonagem.somar(direcao);
+
+      if (!novaPosicao.estaContidaEm(this._altura, this._largura) || temObstaculoEm(novaPosicao)) {
+        return posicaoPersonagem;
+      }
+
+      posicaoPersonagem = novaPosicao;
     }
 
-    return novaPosicao;
   };
 
   return Movimentacao;
