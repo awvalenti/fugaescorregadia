@@ -11,6 +11,7 @@ requirejs([
   'spec/assertSpec',
   'spec/MovimentacaoSpec',
   'spec/PosicaoSpec',
+  'spec/RepoPosicoesSpec',
 ],
 function() {
   'use strict';

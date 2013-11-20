@@ -6,12 +6,11 @@ function(
 ) {
   'use strict';
 
-  function Movimentacao(params) {
-    assert.args(params.posicao, 'function', params.largura, 'number', params.altura, 'number');
+  function Movimentacao(quantidadeLinhas, quantidadeColunas) {
+    assert.args(quantidadeLinhas, 'number', quantidadeColunas, 'number');
 
-    this._posicao = params.posicao;
-    this._largura = params.largura;
-    this._altura = params.altura;
+    this._quantidadeLinhas = quantidadeLinhas;
+    this._quantidadeColunas = quantidadeColunas;
   }
 
   Movimentacao.prototype.movimentarPersonagem = function(posicaoPersonagem, direcao, temObstaculoEm) {
@@ -20,7 +19,7 @@ function(
     for (;;) {
       var novaPosicao = posicaoPersonagem.somar(direcao);
 
-      if (!novaPosicao.estaContidaEm(this._altura, this._largura) || temObstaculoEm(novaPosicao)) {
+      if (!novaPosicao.estaDentroDosLimites(this._quantidadeLinhas, this._quantidadeColunas) || temObstaculoEm(novaPosicao)) {
         return posicaoPersonagem;
       }
 
