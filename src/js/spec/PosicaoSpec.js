@@ -21,23 +21,16 @@ function(
       posicao = Posicao.criarFabrica();
     });
 
-    it('deve oferecer propriedades linha e coluna', function() {
-      expect(posicao(1, 2).linha).toBe(1);
-      expect(posicao(1, 2).coluna).toBe(2);
+    it('nao deve oferecer propriedades publicas linha e coluna, priorizando o uso como objeto, mesmo', function() {
+      expect(posicao(1, 2).linha).toBeUndefined();
+      expect(posicao(1, 2).coluna).toBeUndefined();
     });
 
-    it('deve somar e subtrair direcao', function() {
+    it('deve somar direcao', function() {
       expect(posicao(10, 20).somar(BAIXO)).toBe(posicao(11, 20));
-      expect(posicao(10, 20).subtrair(CIMA)).toBe(posicao(11, 20));
-
       expect(posicao(10, 20).somar(CIMA)).toBe(posicao(9, 20));
-      expect(posicao(10, 20).subtrair(BAIXO)).toBe(posicao(9, 20));
-
       expect(posicao(10, 20).somar(ESQUERDA)).toBe(posicao(10, 19));
-      expect(posicao(10, 20).subtrair(DIREITA)).toBe(posicao(10, 19));
-
       expect(posicao(10, 20).somar(DIREITA)).toBe(posicao(10, 21));
-      expect(posicao(10, 20).subtrair(ESQUERDA)).toBe(posicao(10, 21));
     });
 
     it('deve reconhecer limites', function() {

@@ -35,3 +35,7 @@ Retrospecto
 
 - Próximos passos:
   - mudar de posicao(l, c) para repoPosicoes.obter(l, c) ou algo assim
+
+2013-11-20
+==========
+- Coloquei projeto no BitBucket. Facinho!

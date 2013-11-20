@@ -36,9 +36,7 @@ function(
 
     describe('com obstaculo', function() {
       it('deve bloquear movimento uma posicao antes', function() {
-        function temObstaculoEm(posicao) {
-          return posicao.linha === 2 && posicao.coluna === 4 || posicao.linha === 3 && posicao.coluna === 2;
-        }
+        function temObstaculoEm(p) { return p === posicao(2, 4) || p === posicao(3, 2); }
 
         expect(mov.movimentarPersonagem(doisDois, DIREITA, temObstaculoEm)).toBe(posicao(2, 3));
         expect(mov.movimentarPersonagem(doisDois, BAIXO, temObstaculoEm)).toBe(posicao(2, 2));

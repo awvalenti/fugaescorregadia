@@ -9,21 +9,17 @@ function(
   'use strict';
 
   function Posicao(linha, coluna, fabrica) {
-    this.linha = linha;
-    this.coluna = coluna;
+    this._linha = linha;
+    this._coluna = coluna;
     this._fabrica = fabrica;
   }
 
   Posicao.prototype.somar = function(direcao) {
-    return this._fabrica.criarPosicao(this.linha + direcao.linha, this.coluna + direcao.coluna);
-  };
-
-  Posicao.prototype.subtrair = function(direcao) {
-    return this._fabrica.criarPosicao(this.linha - direcao.linha, this.coluna - direcao.coluna);
+    return this._fabrica.criarPosicao(this._linha + direcao.linha, this._coluna + direcao.coluna);
   };
 
   Posicao.prototype.estaContidaEm = function(quantidadeLinhas, quantidadeColunas) {
-    return this.linha >= 0 && this.linha < quantidadeLinhas && this.coluna >= 0 && this.coluna < quantidadeColunas;
+    return this._linha >= 0 && this._linha < quantidadeLinhas && this._coluna >= 0 && this._coluna < quantidadeColunas;
   };
 
   Posicao.prototype.toString = function() { return '(' + this._linha + ', ' + this._coluna + ')'; };
