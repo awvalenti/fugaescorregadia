@@ -12,6 +12,8 @@ function(
     this._linha = linha;
     this._coluna = coluna;
     this._fabrica = fabrica;
+
+    this._tornarPropriedadeFabricaNaoEnumeravel();
   }
 
   Posicao.prototype.somar = function(direcao) {
@@ -22,7 +24,15 @@ function(
     return this._linha >= 0 && this._linha < quantidadeLinhas && this._coluna >= 0 && this._coluna < quantidadeColunas;
   };
 
-  Posicao.prototype.toString = function() { return '(' + this._linha + ', ' + this._coluna + ')'; };
+  Posicao.prototype._tornarPropriedadeFabricaNaoEnumeravel = function() {
+    // Isto serve para evitar mensagens de erro gigantes nas specs. O certo seria simplesmente sobrepor toString, mas nao funcionou.
+
+    if (typeof Object !== 'undefined' && typeof Object.defineProperty === 'function') {
+      Object.defineProperty(this, '_fabrica', { value: this._fabrica, enumerable: false });
+    }
+  };
+
+  // --------------------------------------------------------------------------
 
   function Fabrica() {
     this._cache = {};
