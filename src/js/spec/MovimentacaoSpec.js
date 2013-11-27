@@ -34,12 +34,26 @@ function(
       });
     });
 
-    describe('com obstaculo', function() {
+    describe('com OBSTACULO', function() {
       it('deve bloquear movimento uma posicao antes', function() {
         function temObstaculoEm(posicao) { return posicao === repoPosicoes.obter(2, 4) || posicao === repoPosicoes.obter(3, 2); }
 
         expect(mov.movimentarPersonagem(doisDois, DIREITA, temObstaculoEm)).toBe(repoPosicoes.obter(2, 3));
         expect(mov.movimentarPersonagem(doisDois, BAIXO, temObstaculoEm)).toBe(repoPosicoes.obter(2, 2));
+      });
+    });
+
+    describe('com SETA', function() {
+      function elementoEm(posicao) {
+        return posicao === repoPosicoes.obter(1, 2) || posicao === repoPosicoes.obter(3, 2) ? 'SETA_CIMA' : 'VAZIO';
+      }
+
+      it('deve permitir movimento na direcao apontada', function() {
+        expect(mov.movimentarPersonagem(doisDois, CIMA, elementoEm)).toBe(repoPosicoes.obter(0, 2));
+      });
+
+      it('deve bloquear movimento em outras direcoes', function() {
+        expect(mov.movimentarPersonagem(doisDois, BAIXO, elementoEm)).toBe(repoPosicoes.obter(2, 2));
       });
     });
   });

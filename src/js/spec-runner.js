@@ -9,6 +9,7 @@ requirejs(['lib/non-amd/jasmine-1.3.1/jasmine-html'], function() {
 
 requirejs([
   'spec/assertSpec',
+  'spec/enumerateSpec',
   'spec/MovimentacaoSpec',
   'spec/PosicaoSpec',
   'spec/RepoPosicoesSpec',

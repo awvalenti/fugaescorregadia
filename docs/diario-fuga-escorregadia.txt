@@ -39,3 +39,8 @@ Retrospecto
 2013-11-20
 ==========
 - Coloquei projeto no BitBucket. Facinho!
+- RepoPosicoes em ordem
+
+2013-11-27
+==========
+- Vou mexer na movimentação, acrescentando novos elementos
