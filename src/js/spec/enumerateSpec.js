@@ -8,26 +8,39 @@ function(
 
   describe('enumerate', function() {
 
-    var Parity = null;
+    var Parity    = null;
+    var Direction = null;
 
     beforeEach(function() {
-      Parity = enumerate('EVEN', 'ODD');
+      Parity    = enumerate('EVEN', 'ODD');
+      Direction = enumerate(
+        'LEFT', {
+          getXIncrement: function() { return -1; },
+          bla: 3
+        },
+
+        'RIGHT', {
+          getXIncrement: function() { return +1; }
+        }
+      );
+
     });
 
     describe('enums', function() {
       it('should allow direct access to constants', function() {
         expect(Parity.EVEN).toBeDefined();
         expect(Parity.ODD).toBeDefined();
+        expect(Direction.LEFT).toBeDefined();
+        expect(Direction.RIGHT).toBeDefined();
       });
 
       it('should have values()', function() {
         expect(Parity.values()).toEqual([Parity.EVEN, Parity.ODD]);
+        expect(Direction.values()).toEqual([Direction.LEFT, Direction.RIGHT]);
       });
 
       it('should have different constructors', function() {
-        var NumberBases = enumerate('BINARY', 'OCTAL', 'DECIMAL', 'HEX');
-
-        expect(Parity).not.toBe(NumberBases);
+        expect(Parity).not.toBe(Direction);
       });
 
     });
@@ -35,21 +48,29 @@ function(
     describe('constants', function() {
       it('should have name()', function() {
         expect(Parity.EVEN.name()).toBe('EVEN');
+        expect(Direction.LEFT.name()).toBe('LEFT');
       });
 
       it('should have ordinal()', function() {
         expect(Parity.EVEN.ordinal()).toBe(0);
         expect(Parity.ODD.ordinal()).toBe(1);
+        expect(Direction.LEFT.ordinal()).toBe(0);
+        expect(Direction.RIGHT.ordinal()).toBe(1);
       });
 
       it('should have default toString() equal to name()', function() {
         expect(Parity.ODD.toString()).toBe(Parity.ODD.name());
+        expect(Direction.RIGHT.toString()).toBe(Direction.RIGHT.name());
       });
 
       it('should be instanceof their enum', function() {
         expect(Parity.EVEN instanceof Parity).toBe(true);
+        expect(Direction.LEFT instanceof Direction).toBe(true);
       });
 
+      it('should be able to call their own methods', function() {
+        expect(Direction.LEFT.bla).toBeDefined();
+      });
     });
 
   });

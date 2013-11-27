@@ -44,3 +44,5 @@ Retrospecto
 2013-11-27
 ==========
 - Vou mexer na movimentação, acrescentando novos elementos
+- Surgiu necessidade do enum; acrescentei-o ao projeto
+- enum ficou bem legal, com uma interface extremamente usavel
