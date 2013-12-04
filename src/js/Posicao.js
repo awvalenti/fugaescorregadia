@@ -16,6 +16,10 @@ function(
     this._tornarPropriedadeRepoPosicoesNaoEnumeravel();
   }
 
+  Posicao.prototype.eh = function(linha, coluna) {
+    return this._linha === linha && this._coluna == coluna;
+  };
+
   Posicao.prototype.somar = function(direcao) {
     return this._repoPosicoes.obter(this._linha + direcao.linha, this._coluna + direcao.coluna);
   };

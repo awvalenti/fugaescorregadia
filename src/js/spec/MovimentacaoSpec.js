@@ -5,6 +5,9 @@ define([
   'Direcao/CIMA',
   'Direcao/DIREITA',
   'Direcao/ESQUERDA',
+  'Elemento/VAZIO',
+  'Elemento/OBSTACULO',
+  'Elemento/SETA_CIMA',
 ],
 function(
   Movimentacao,
@@ -12,7 +15,10 @@ function(
   BAIXO,
   CIMA,
   DIREITA,
-  ESQUERDA
+  ESQUERDA,
+  VAZIO,
+  OBSTACULO,
+  SETA_CIMA
 ) {
   'use strict';
 
@@ -36,7 +42,7 @@ function(
 
     describe('com OBSTACULO', function() {
       it('deve bloquear movimento uma posicao antes', function() {
-        function temObstaculoEm(posicao) { return posicao === repoPosicoes.obter(2, 4) || posicao === repoPosicoes.obter(3, 2); }
+        function temObstaculoEm(posicao) { return posicao.eh(2, 4) || posicao.eh(3, 2); }
 
         expect(mov.movimentarPersonagem(doisDois, DIREITA, temObstaculoEm)).toBe(repoPosicoes.obter(2, 3));
         expect(mov.movimentarPersonagem(doisDois, BAIXO, temObstaculoEm)).toBe(repoPosicoes.obter(2, 2));
@@ -45,7 +51,7 @@ function(
 
     describe('com SETA', function() {
       function elementoEm(posicao) {
-        return posicao === repoPosicoes.obter(1, 2) || posicao === repoPosicoes.obter(3, 2) ? 'SETA_CIMA' : 'VAZIO';
+        return posicao.eh(1, 2) || posicao.eh(3, 2) ? SETA_CIMA : VAZIO;
       }
 
       it('deve permitir movimento na direcao apontada', function() {

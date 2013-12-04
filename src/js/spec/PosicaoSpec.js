@@ -33,6 +33,11 @@ function(
       expect(repoPosicoes.obter(10, 20).somar(DIREITA)).toBe(repoPosicoes.obter(10, 21));
     });
 
+    it('deve permitir comparacao de igualdade conveniente, por meio do metodo eh(linha, coluna)', function() {
+      expect(repoPosicoes.obter(1, 2).eh(1, 2)).toBe(true);
+      expect(repoPosicoes.obter(1, 2).eh(3, 4)).toBe(false);
+    });
+
     it('deve reconhecer limites', function() {
       expect(repoPosicoes.obter(0, 0).estaDentroDosLimites(10, 10)).toBe(true);
       expect(repoPosicoes.obter(5, 5).estaDentroDosLimites(10, 10)).toBe(true);

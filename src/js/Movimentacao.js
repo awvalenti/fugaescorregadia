@@ -1,5 +1,5 @@
 define([
-  'assert'
+  'assert',
 ],
 function(
   assert
@@ -20,7 +20,7 @@ function(
       var novaPosicao = posicaoPersonagem.somar(direcao);
 
       if (!novaPosicao.estaDentroDosLimites(this._quantidadeLinhas, this._quantidadeColunas) || elementoEm(novaPosicao) === true
-          || elementoEm(novaPosicao) === 'SETA_CIMA' && direcao.linha === 1 && direcao.coluna === 0) {
+          || elementoEm(novaPosicao).permitePassagemPara && !elementoEm(novaPosicao).permitePassagemPara(direcao)) {
         return posicaoPersonagem;
       }
 
