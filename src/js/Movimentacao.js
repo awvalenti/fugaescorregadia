@@ -16,8 +16,6 @@ function(
   }
 
   Movimentacao.prototype.movimentarPersonagem = function(posicaoAtualPersonagem, direcao, elementoEm) {
-    if (typeof elementoEm === 'undefined') elementoEm = function() { return VAZIO; };
-
     var novaPosicao;
     while ((novaPosicao = posicaoAtualPersonagem.somar(direcao))
         && novaPosicao.estaDentroDosLimites(this._quantidadeLinhas, this._quantidadeColunas)
