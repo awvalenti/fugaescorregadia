@@ -46,3 +46,8 @@ Retrospecto
 - Vou mexer na movimentação, acrescentando novos elementos
 - Surgiu necessidade do enum; acrescentei-o ao projeto
 - enum ficou bem legal, com uma interface extremamente usavel
+
+2013-12-04
+==========
+- Ajeitei o código de movimentarPersonagem. Agora está em ordem e bem limpo.
+- enum agora aceita definir propriedades para serem herdadas
