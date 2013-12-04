@@ -13,13 +13,16 @@ function(
 
     beforeEach(function() {
       Parity    = enumerate('EVEN', 'ODD');
-      Direction = enumerate(
+      Direction = enumerate({
+          inheritedProperty: 'inherited'
+        },
         'LEFT', {
-          aProperty: 'value',
+          ownProperty: 'own',
           getXIncrement: function() { return -1; }
         },
 
         'RIGHT', {
+          inheritedProperty: 'overriden',
           getXIncrement: function() { return +1; }
         }
       );
@@ -68,10 +71,19 @@ function(
         expect(Direction.LEFT instanceof Direction).toBe(true);
       });
 
-      it('should be able to access their own properties', function() {
-        expect(Direction.LEFT.aProperty).toBe('value');
+      it('should access inherited properties', function() {
+        expect(Direction.LEFT.inheritedProperty).toBe('inherited');
+      });
+
+      it('should access own properties', function() {
+        expect(Direction.LEFT.ownProperty).toBe('own');
         expect(Direction.LEFT.getXIncrement()).toBe(-1);
       });
+
+      it('should be able to override inherited properties', function() {
+        expect(Direction.RIGHT.inheritedProperty).toBe('overriden');
+      });
+
     });
 
   });

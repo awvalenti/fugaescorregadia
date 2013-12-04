@@ -29,6 +29,7 @@ function(
       var name = arguments[i];
       if (typeof name === 'string') {
         addConstant(newEnum, name, ordinal);
+        if (typeof arguments[0] === 'object') augmentConstant(newEnum[name], arguments[0]);
         if (typeof arguments[i + 1] === 'object') augmentConstant(newEnum[name], arguments[i + 1]);
         ++ordinal;
       }
