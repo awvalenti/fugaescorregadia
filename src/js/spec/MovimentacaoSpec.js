@@ -42,7 +42,7 @@ function(
 
     describe('com OBSTACULO', function() {
       it('deve bloquear movimento uma posicao antes', function() {
-        function temObstaculoEm(posicao) { return posicao.eh(2, 4) || posicao.eh(3, 2); }
+        function temObstaculoEm(posicao) { return posicao.eh(2, 4) || posicao.eh(3, 2) ? OBSTACULO : VAZIO; }
 
         expect(mov.movimentarPersonagem(doisDois, DIREITA, temObstaculoEm)).toBe(repoPosicoes.obter(2, 3));
         expect(mov.movimentarPersonagem(doisDois, BAIXO, temObstaculoEm)).toBe(repoPosicoes.obter(2, 2));

@@ -14,8 +14,12 @@ function(
 ) {
   'use strict';
 
-  return enumerate('VAZIO', 'OBSTACULO', 'SETA_CIMA', {
-    permitePassagemPara: function(direcao) { return direcao === CIMA; }
-  });
+  return enumerate({
+      permitePassagemPara: function() { return true; }
+    },
+    'VAZIO',
+    'OBSTACULO', { permitePassagemPara: function() { return false; } },
+    'SETA_CIMA', { permitePassagemPara: function(direcao) { return direcao === CIMA; } }
+  );
 
 });

@@ -1,8 +1,10 @@
 define([
   'assert',
+  'Elemento/VAZIO'
 ],
 function(
-  assert
+  assert,
+  VAZIO
 ) {
   'use strict';
 
@@ -13,20 +15,17 @@ function(
     this._quantidadeColunas = quantidadeColunas;
   }
 
-  Movimentacao.prototype.movimentarPersonagem = function(posicaoPersonagem, direcao, elementoEm) {
-    if (typeof elementoEm === 'undefined') elementoEm = function(posicao) { return false; };
+  Movimentacao.prototype.movimentarPersonagem = function(posicaoAtualPersonagem, direcao, elementoEm) {
+    if (typeof elementoEm === 'undefined') elementoEm = function() { return VAZIO; };
 
-    for (;;) {
-      var novaPosicao = posicaoPersonagem.somar(direcao);
-
-      if (!novaPosicao.estaDentroDosLimites(this._quantidadeLinhas, this._quantidadeColunas) || elementoEm(novaPosicao) === true
-          || elementoEm(novaPosicao).permitePassagemPara && !elementoEm(novaPosicao).permitePassagemPara(direcao)) {
-        return posicaoPersonagem;
-      }
-
-      posicaoPersonagem = novaPosicao;
+    var novaPosicao;
+    while ((novaPosicao = posicaoAtualPersonagem.somar(direcao))
+        && novaPosicao.estaDentroDosLimites(this._quantidadeLinhas, this._quantidadeColunas)
+        && elementoEm(novaPosicao).permitePassagemPara(direcao)) {
+      posicaoAtualPersonagem = novaPosicao;
     }
 
+    return posicaoAtualPersonagem;
   };
 
   return Movimentacao;
