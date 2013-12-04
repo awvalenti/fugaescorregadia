@@ -15,8 +15,8 @@ function(
       Parity    = enumerate('EVEN', 'ODD');
       Direction = enumerate(
         'LEFT', {
-          getXIncrement: function() { return -1; },
-          bla: 3
+          aProperty: 'value',
+          getXIncrement: function() { return -1; }
         },
 
         'RIGHT', {
@@ -68,8 +68,9 @@ function(
         expect(Direction.LEFT instanceof Direction).toBe(true);
       });
 
-      it('should be able to call their own methods', function() {
-        expect(Direction.LEFT.bla).toBeDefined();
+      it('should be able to access their own properties', function() {
+        expect(Direction.LEFT.aProperty).toBe('value');
+        expect(Direction.LEFT.getXIncrement()).toBe(-1);
       });
     });
 
