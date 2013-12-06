@@ -19,7 +19,7 @@ function(
     var novaPosicao;
     while ((novaPosicao = posicaoAtualPersonagem.somar(direcao))
         && novaPosicao.estaDentroDosLimites(this._quantidadeLinhas, this._quantidadeColunas)
-        && elementoEm(novaPosicao).permitePassagemPara(direcao)) {
+        && elementoEm(novaPosicao).permiteEntrarVindoDe(direcao)) {
       posicaoAtualPersonagem = novaPosicao;
     }
 

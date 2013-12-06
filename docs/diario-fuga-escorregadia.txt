@@ -80,4 +80,10 @@ Testes de unidade ou de integração?
 - No meu caso, é o tabuleiro. O jeito Deméter seria
   tabuleiro.elementoPermitePassagem(linha, coluna, direcao). Achei que
   ficaria estranho... Melhor fazer tabuleiro.obterElemento(linha, coluna)
-  .permitePassagemPara(direcao), mesmo.
+  .permiteEntrarVindoDe(direcao), mesmo.
+- Pensando bem, talvez respeitar Deméter dê um resultado melhor...
+  Senão, terei que fazer dois stubs em vez de um. Se eu fizer do jeito
+  Deméter, a classe Movimentacao terá ainda menos responsabilidades,
+  pois dividirá algumas delas com a nova classe Tabuleiro.
+- E, como eu preciso de um stub legal e o Jasmine não oferece, vou esperar
+  chegar em casa, e aí eu vejo se o Sinon tem algo tipo o do Mockito.
