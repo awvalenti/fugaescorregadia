@@ -8,6 +8,7 @@ define([
   'Elemento/VAZIO',
   'Elemento/OBSTACULO',
   'Elemento/SETA_CIMA',
+  'Elemento/SETA_BAIXO',
 ],
 function(
   Movimentacao,
@@ -18,7 +19,8 @@ function(
   ESQUERDA,
   VAZIO,
   OBSTACULO,
-  SETA_CIMA
+  SETA_CIMA,
+  SETA_BAIXO
 ) {
   'use strict';
 
@@ -51,7 +53,7 @@ function(
       });
     });
 
-    describe('com SETA', function() {
+    describe('com SETA_CIMA', function() {
       function elementoEm(posicao) {
         return posicao.eh(1, 2) || posicao.eh(3, 2) ? SETA_CIMA : VAZIO;
       }
@@ -62,6 +64,20 @@ function(
 
       it('deve bloquear movimento em outras direcoes', function() {
         expect(mov.movimentarPersonagem(doisDois, BAIXO, elementoEm)).toBe(repoPosicoes.obter(2, 2));
+      });
+    });
+
+    describe('com SETA_BAIXO', function() {
+      function elementoEm(posicao) {
+        return posicao.eh(1, 2) || posicao.eh(3, 2) ? SETA_BAIXO : VAZIO;
+      }
+
+      it('deve permitir movimento na direcao apontada', function() {
+        expect(mov.movimentarPersonagem(doisDois, BAIXO, elementoEm)).toBe(repoPosicoes.obter(4, 2));
+      });
+
+      it('deve bloquear movimento em outras direcoes', function() {
+        expect(mov.movimentarPersonagem(doisDois, CIMA, elementoEm)).toBe(repoPosicoes.obter(2, 2));
       });
     });
   });

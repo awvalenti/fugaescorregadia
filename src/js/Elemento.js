@@ -18,8 +18,9 @@ function(
       permitePassagemPara: function() { return true; }
     },
     'VAZIO',
-    'OBSTACULO', { permitePassagemPara: function() { return false; } },
-    'SETA_CIMA', { permitePassagemPara: function(direcao) { return direcao === CIMA; } }
+    'OBSTACULO',  { permitePassagemPara: function() { return false; } },
+    'SETA_CIMA',  { permitePassagemPara: function(direcao) { return direcao === CIMA; } },
+    'SETA_BAIXO', { permitePassagemPara: function(direcao) { return direcao === BAIXO; } }
   );
 
 });
