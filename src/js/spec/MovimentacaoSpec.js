@@ -25,7 +25,7 @@ function(
   'use strict';
 
   describe('Movimentacao', function() {
-    function tabuleiroVazio() { return VAZIO; }
+    function tabuleiroVazio() { return { permitePassagemPara: function() { return true; } } }
 
     var mov = null, repoPosicoes = null, doisDois = null;
 

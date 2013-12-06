@@ -51,3 +51,33 @@ Retrospecto
 ==========
 - Ajeitei o código de movimentarPersonagem. Agora está em ordem e bem limpo.
 - enum agora aceita definir propriedades para serem herdadas
+
+2013-12-06
+==========
+Lugar
+-----
+- Vim programar no parque! Cheguei umas 9h40 e comecei efetivamente umas 10h.
+- Está sendo muito bom!
+	- Quando estou concentrado, nem lembro que estou aqui
+	- Mas, quando paro um pouco, tenho um ótimo ambiente para olhar e sentir
+- Tem uns bichinhos vindo em mim de vez em quando, mas tudo bem!
+
+Diário
+------
+- Será muito útil anotar algumas decisões aqui no diário
+- Futuramente, pretendo palestrar sobre o desenvolvimento do FE. Nesse dia,
+  essas anotações serão muito úteis.
+
+Testes de unidade ou de integração?
+-----------------------------------
+- Percebi que a MovimentacaoSpec começou a querer dar trabalho
+- Ela estava sendo um teste de integração com o enum Elemento
+- Pô, mas testar um enum? Não seria granular demais?
+- Concluí que não. Fazendo a spec do Elemento, a da Movimentacao ficará
+  muito simples. Vai compensar.
+- Pensei também em Deméter: quando você fura a lei de Deméter, você
+  tende a complicar os dublês
+- No meu caso, é o tabuleiro. O jeito Deméter seria
+  tabuleiro.elementoPermitePassagem(linha, coluna, direcao). Achei que
+  ficaria estranho... Melhor fazer tabuleiro.obterElemento(linha, coluna)
+  .permitePassagemPara(direcao), mesmo.
