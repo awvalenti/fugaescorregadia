@@ -87,3 +87,16 @@ Testes de unidade ou de integração?
   pois dividirá algumas delas com a nova classe Tabuleiro.
 - E, como eu preciso de um stub legal e o Jasmine não oferece, vou esperar
   chegar em casa, e aí eu vejo se o Sinon tem algo tipo o do Mockito.
+
+ElementoSpec
+------------
+- Os testes começaram a ficar repetitivos e a dar trabalho. Então, tentei
+  criar a constante QUALQUER_DIRECAO usando o padrão Composite, para facilitar
+  tudo. Mas não deu certo, daria muito trabalho, não compensaria.
+
+Pendências
+----------
+- Mudar MovimentacaoSpec para usar os stubs em vez dos elementos de verdade
+- Terminar de refatorar ElementoSpec para ficar mais simples e legível
+
+- permiteSair talvez devesse receber direcao
