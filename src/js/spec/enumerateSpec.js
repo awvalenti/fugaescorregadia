@@ -46,6 +46,10 @@ function(
         expect(Parity).not.toBe(Direction);
       });
 
+      it('should add properties to prototype', function() {
+        expect(Direction.prototype.inheritedProperty).toBeDefined();
+      });
+
     });
 
     describe('constants', function() {

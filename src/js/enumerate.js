@@ -24,13 +24,14 @@ function(
   return function enumerate() {
     var newEnum = createUniqueEnum();
 
+    if (typeof arguments[0] === 'object') augmentObject(newEnum.prototype, arguments[0]);
+
     var ordinal = 0;
     for (var i = 0; i < arguments.length; ++i) {
       var name = arguments[i];
       if (typeof name === 'string') {
         addConstant(newEnum, name, ordinal);
-        if (typeof arguments[0] === 'object') augmentConstant(newEnum[name], arguments[0]);
-        if (typeof arguments[i + 1] === 'object') augmentConstant(newEnum[name], arguments[i + 1]);
+        if (typeof arguments[i + 1] === 'object') augmentObject(newEnum[name], arguments[i + 1]);
         ++ordinal;
       }
     };
@@ -59,9 +60,9 @@ function(
     newEnum._values.push(constant);
   }
 
-  function augmentConstant(constant, augmentation) {
-    for (var augmentationPropertyName in augmentation) {
-      constant[augmentationPropertyName] = augmentation[augmentationPropertyName];
+  function augmentObject(dest, src) {
+    for (var propName in src) {
+      dest[propName] = src[propName];
     }
   }
 
