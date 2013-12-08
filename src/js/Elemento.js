@@ -16,7 +16,7 @@ function(
 
   return enumerate({
       permiteEntrarVindoDe: function(direcao) { return true; },
-      permiteSair: function() { return true; },
+      permiteSairLogoAposEntrar: function() { return true; },
     },
     'VAZIO',
     'OBSTACULO',     { permiteEntrarVindoDe: function() { return false; } },
@@ -24,7 +24,7 @@ function(
     'SETA_BAIXO',    { permiteEntrarVindoDe: function(direcao) { return direcao.matches(BAIXO); } },
     'SETA_ESQUERDA', { permiteEntrarVindoDe: function(direcao) { return direcao.matches(ESQUERDA); } },
     'SETA_DIREITA',  { permiteEntrarVindoDe: function(direcao) { return direcao.matches(DIREITA); } },
-    'COLA',          { permiteSair: function() { return false; } }
+    'COLA',          { permiteSairLogoAposEntrar: function() { return false; } }
   );
 
 });

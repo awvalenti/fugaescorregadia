@@ -99,7 +99,7 @@ Pendências
 - Mudar MovimentacaoSpec para usar os stubs em vez dos elementos de verdade
 - Terminar de refatorar ElementoSpec para ficar mais simples e legível
 
-- permiteSair talvez devesse receber direcao
+- permiteSairLogoAposEntrar talvez devesse receber direcao
 
 2013-12-07
 ==========

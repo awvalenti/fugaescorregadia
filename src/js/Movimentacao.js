@@ -23,7 +23,7 @@ function(
 
       posicaoAtualPersonagem = novaPosicao;
 
-      if (!elementoEm(novaPosicao).permiteSair()) break;
+      if (!elementoEm(novaPosicao).permiteSairLogoAposEntrar()) break;
     }
 
     return posicaoAtualPersonagem;

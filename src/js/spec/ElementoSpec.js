@@ -34,7 +34,6 @@ function(
     describe('VAZIO', function() {
       it('deve permitir passagem para todas as direcoes', function() {
         expect(VAZIO.permiteEntrarVindoDe(TODAS_DIRECOES)).toBe(true);
-        expect(VAZIO.permiteSair()).toBe(true);
       });
     });
 
@@ -77,8 +76,8 @@ function(
         expect(COLA.permiteEntrarVindoDe(TODAS_DIRECOES)).toBe(true);
       });
 
-      it('deve bloquear movimento apos entrar', function() {
-        expect(COLA.permiteSair()).toBe(false);
+      it('deve bloquear movimento logo apos entrar', function() {
+        expect(COLA.permiteSairLogoAposEntrar()).toBe(false);
       });
     });
 
