@@ -25,7 +25,7 @@ function(
   'use strict';
 
   describe('Movimentacao', function() {
-    function tabuleiroVazio() { return { permiteEntrarVindoDe: function() { return true; } } }
+    function tabuleiroVazio() { return { permiteEntrarVindoDe: function() { return true; } }; }
 
     var mov = null, repoPosicoes = null, doisDois = null;
 
