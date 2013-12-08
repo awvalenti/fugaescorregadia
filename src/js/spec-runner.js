@@ -14,6 +14,7 @@ requirejs([
   'spec/MovimentacaoSpec',
   'spec/PosicaoSpec',
   'spec/RepoPosicoesSpec',
+  'spec/spec-helper/DirecaoMatcherSpec',
 ],
 function() {
   'use strict';

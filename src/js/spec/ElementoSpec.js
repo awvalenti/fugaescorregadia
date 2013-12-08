@@ -10,6 +10,8 @@ define([
   'Direcao/CIMA',
   'Direcao/DIREITA',
   'Direcao/ESQUERDA',
+  'spec/spec-helper/DirecaoMatcher/ALGUMA_DIRECAO',
+  'spec/spec-helper/DirecaoMatcher/TODAS_DIRECOES',
 ],
 function(
   COLA,
@@ -22,85 +24,57 @@ function(
   BAIXO,
   CIMA,
   DIREITA,
-  ESQUERDA
+  ESQUERDA,
+  ALGUMA_DIRECAO,
+  TODAS_DIRECOES
 ) {
   'use strict';
 
   describe('Elemento', function() {
     describe('VAZIO', function() {
       it('deve permitir passagem para todas as direcoes', function() {
-        expect(VAZIO.permiteEntrarVindoDe(CIMA)).toBe(true);
-        expect(VAZIO.permiteEntrarVindoDe(BAIXO)).toBe(true);
-        expect(VAZIO.permiteEntrarVindoDe(ESQUERDA)).toBe(true);
-        expect(VAZIO.permiteEntrarVindoDe(DIREITA)).toBe(true);
+        expect(VAZIO.permiteEntrarVindoDe(TODAS_DIRECOES)).toBe(true);
         expect(VAZIO.permiteSair()).toBe(true);
       });
     });
 
     describe('OBSTACULO', function() {
-      it('deve proibir passagem para todas as direcoes', function() {
-        expect(OBSTACULO.permiteEntrarVindoDe(CIMA)).toBe(false);
-        expect(OBSTACULO.permiteEntrarVindoDe(BAIXO)).toBe(false);
-        expect(OBSTACULO.permiteEntrarVindoDe(ESQUERDA)).toBe(false);
-        expect(OBSTACULO.permiteEntrarVindoDe(DIREITA)).toBe(false);
+      it('deve bloquear passagem para todas as direcoes', function() {
+        expect(OBSTACULO.permiteEntrarVindoDe(ALGUMA_DIRECAO)).toBe(false);
       });
     });
 
     describe('SETA_CIMA', function() {
-      it('deve permitir passagem para CIMA', function() {
+      it('deve permitir passagem somente para CIMA', function() {
         expect(SETA_CIMA.permiteEntrarVindoDe(CIMA)).toBe(true);
-      });
-
-      it('deve proibir passagem para outras direcoes', function() {
-        expect(SETA_CIMA.permiteEntrarVindoDe(BAIXO)).toBe(false);
-        expect(SETA_CIMA.permiteEntrarVindoDe(ESQUERDA)).toBe(false);
-        expect(SETA_CIMA.permiteEntrarVindoDe(DIREITA)).toBe(false);
+        expect(SETA_CIMA.permiteEntrarVindoDe(ALGUMA_DIRECAO.exceto(CIMA))).toBe(false);
       });
     });
 
     describe('SETA_BAIXO', function() {
-      it('deve permitir passagem para BAIXO', function() {
+      it('deve permitir passagem somente para BAIXO', function() {
         expect(SETA_BAIXO.permiteEntrarVindoDe(BAIXO)).toBe(true);
-      });
-
-      it('deve proibir passagem para outras direcoes', function() {
-        expect(SETA_BAIXO.permiteEntrarVindoDe(CIMA)).toBe(false);
-        expect(SETA_BAIXO.permiteEntrarVindoDe(ESQUERDA)).toBe(false);
-        expect(SETA_BAIXO.permiteEntrarVindoDe(DIREITA)).toBe(false);
+        expect(SETA_BAIXO.permiteEntrarVindoDe(ALGUMA_DIRECAO.exceto(BAIXO))).toBe(false);
       });
     });
 
-
     describe('SETA_ESQUERDA', function() {
-      it('deve permitir passagem para ESQUERDA', function() {
+      it('deve permitir passagem somente para ESQUERDA', function() {
         expect(SETA_ESQUERDA.permiteEntrarVindoDe(ESQUERDA)).toBe(true);
-      });
-
-      it('deve proibir passagem para outras direcoes', function() {
-        expect(SETA_ESQUERDA.permiteEntrarVindoDe(CIMA)).toBe(false);
-        expect(SETA_ESQUERDA.permiteEntrarVindoDe(BAIXO)).toBe(false);
-        expect(SETA_ESQUERDA.permiteEntrarVindoDe(DIREITA)).toBe(false);
+        expect(SETA_ESQUERDA.permiteEntrarVindoDe(ALGUMA_DIRECAO.exceto(ESQUERDA))).toBe(false);
       });
     });
 
     describe('SETA_DIREITA', function() {
-      it('deve permitir passagem para DIREITA', function() {
+      it('deve permitir passagem somente para DIREITA', function() {
         expect(SETA_DIREITA.permiteEntrarVindoDe(DIREITA)).toBe(true);
-      });
-
-      it('deve proibir passagem para outras direcoes', function() {
-        expect(SETA_DIREITA.permiteEntrarVindoDe(CIMA)).toBe(false);
-        expect(SETA_DIREITA.permiteEntrarVindoDe(BAIXO)).toBe(false);
-        expect(SETA_DIREITA.permiteEntrarVindoDe(ESQUERDA)).toBe(false);
+        expect(SETA_DIREITA.permiteEntrarVindoDe(ALGUMA_DIRECAO.exceto(DIREITA))).toBe(false);
       });
     });
 
     describe('COLA', function() {
       it('deve permitir entrar', function() {
-        expect(COLA.permiteEntrarVindoDe(CIMA)).toBe(true);
-        expect(COLA.permiteEntrarVindoDe(BAIXO)).toBe(true);
-        expect(COLA.permiteEntrarVindoDe(ESQUERDA)).toBe(true);
-        expect(COLA.permiteEntrarVindoDe(DIREITA)).toBe(true);
+        expect(COLA.permiteEntrarVindoDe(TODAS_DIRECOES)).toBe(true);
       });
 
       it('deve bloquear movimento apos entrar', function() {

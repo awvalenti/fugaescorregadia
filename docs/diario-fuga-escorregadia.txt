@@ -91,7 +91,7 @@ Testes de unidade ou de integração?
 ElementoSpec
 ------------
 - Os testes começaram a ficar repetitivos e a dar trabalho. Então, tentei
-  criar a constante QUALQUER_DIRECAO usando o padrão Composite, para facilitar
+  criar a constante TODAS_DIRECOES usando o padrão Composite, para facilitar
   tudo. Mas não deu certo, daria muito trabalho, não compensaria.
 
 Pendências
@@ -100,3 +100,12 @@ Pendências
 - Terminar de refatorar ElementoSpec para ficar mais simples e legível
 
 - permiteSair talvez devesse receber direcao
+
+2013-12-07
+==========
+- Continuei tentando fazer os DirecaoMatchers
+
+2013-12-08
+==========
+- Continuei tentando fazer os DirecaoMatchers
+- Ficou complexo. Mas funcionou. Vamos ver com o tempo se vale a pena manter.
