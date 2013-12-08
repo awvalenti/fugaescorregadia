@@ -7,6 +7,7 @@ define([
   'Direcao/ESQUERDA',
   'Elemento/VAZIO',
   'Elemento/OBSTACULO',
+  'Elemento/COLA',
   'Elemento/SETA_CIMA',
   'Elemento/SETA_BAIXO',
 ],
@@ -19,67 +20,52 @@ function(
   ESQUERDA,
   VAZIO,
   OBSTACULO,
+  COLA,
   SETA_CIMA,
   SETA_BAIXO
 ) {
   'use strict';
 
   describe('Movimentacao', function() {
-    function tabuleiroVazio() { return { permiteEntrarVindoDe: function() { return true; } }; }
+    function tabuleiroVazio() { return VAZIO; }
 
-    var mov = null, repoPosicoes = null, doisDois = null;
+    var repoPosicoes = null, doisDois = null, mov = null;
 
     beforeEach(function() {
       repoPosicoes = new RepoPosicoes();
-      doisDois = repoPosicoes.obter(2, 2);
-      mov = new Movimentacao(5, 5);
+      doisDois = repoPosicoes.obter(10, 10);
+      mov = new Movimentacao(21, 21);
     });
 
     describe('livre', function() {
-      it('deve bloquear movimento somente nas extremidades do tabuleiro', function() {
-        expect(mov.movimentarPersonagem(doisDois, BAIXO, tabuleiroVazio)).toBe(repoPosicoes.obter(4, 2));
-        expect(mov.movimentarPersonagem(doisDois, CIMA, tabuleiroVazio)).toBe(repoPosicoes.obter(0, 2));
-        expect(mov.movimentarPersonagem(doisDois, DIREITA, tabuleiroVazio)).toBe(repoPosicoes.obter(2, 4));
-        expect(mov.movimentarPersonagem(doisDois, ESQUERDA, tabuleiroVazio)).toBe(repoPosicoes.obter(2, 0));
+      it('deve encerrar movimento somente nas extremidades do tabuleiro', function() {
+        expect(mov.movimentarPersonagem(doisDois, BAIXO, tabuleiroVazio)).toBe(repoPosicoes.obter(20, 10));
+        expect(mov.movimentarPersonagem(doisDois, CIMA, tabuleiroVazio)).toBe(repoPosicoes.obter(0, 10));
+        expect(mov.movimentarPersonagem(doisDois, DIREITA, tabuleiroVazio)).toBe(repoPosicoes.obter(10, 20));
+        expect(mov.movimentarPersonagem(doisDois, ESQUERDA, tabuleiroVazio)).toBe(repoPosicoes.obter(10, 0));
       });
     });
 
-    describe('com OBSTACULO', function() {
-      it('deve bloquear movimento uma posicao antes', function() {
-        function elementoEm(posicao) { return posicao.eh(2, 4) || posicao.eh(3, 2) ? OBSTACULO : VAZIO; }
+    describe('com bloqueio', function() {
+      function bloqueioEm10_15(posicao) { return posicao.eh(10, 15) ? OBSTACULO : VAZIO; }
 
-        expect(mov.movimentarPersonagem(doisDois, DIREITA, elementoEm)).toBe(repoPosicoes.obter(2, 3));
-        expect(mov.movimentarPersonagem(doisDois, BAIXO, elementoEm)).toBe(repoPosicoes.obter(2, 2));
+      it('deve encerrar movimento uma posicao antes desse elemento', function() {
+        expect(mov.movimentarPersonagem(doisDois, DIREITA, bloqueioEm10_15)).toBe(repoPosicoes.obter(10, 14));
       });
     });
 
-    describe('com SETA_CIMA', function() {
-      function elementoEm(posicao) {
-        return posicao.eh(1, 2) || posicao.eh(3, 2) ? SETA_CIMA : VAZIO;
-      }
+    describe('com COLA', function() {
+      function colaEm10_15(posicao) { return posicao.eh(10, 15) ? COLA : VAZIO; }
 
-      it('deve permitir movimento na direcao apontada', function() {
-        expect(mov.movimentarPersonagem(doisDois, CIMA, elementoEm)).toBe(repoPosicoes.obter(0, 2));
+      it('deve encerrar movimento na posicao da COLA', function() {
+        expect(mov.movimentarPersonagem(doisDois, DIREITA, colaEm10_15)).toBe(repoPosicoes.obter(10, 15));
       });
 
-      it('deve bloquear movimento em outras direcoes', function() {
-        expect(mov.movimentarPersonagem(doisDois, BAIXO, elementoEm)).toBe(repoPosicoes.obter(2, 2));
+      it('deve permitir fazer outro movimento a partir da COLA', function() {
+        expect(mov.movimentarPersonagem(repoPosicoes.obter(10, 15), DIREITA, colaEm10_15)).toBe(repoPosicoes.obter(10, 20));
       });
     });
 
-    describe('com SETA_BAIXO', function() {
-      function elementoEm(posicao) {
-        return posicao.eh(1, 2) || posicao.eh(3, 2) ? SETA_BAIXO : VAZIO;
-      }
-
-      it('deve permitir movimento na direcao apontada', function() {
-        expect(mov.movimentarPersonagem(doisDois, BAIXO, elementoEm)).toBe(repoPosicoes.obter(4, 2));
-      });
-
-      it('deve bloquear movimento em outras direcoes', function() {
-        expect(mov.movimentarPersonagem(doisDois, CIMA, elementoEm)).toBe(repoPosicoes.obter(2, 2));
-      });
-    });
   });
 
 });

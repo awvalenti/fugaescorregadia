@@ -109,3 +109,6 @@ Pendências
 ==========
 - Continuei tentando fazer os DirecaoMatchers
 - Ficou complexo. Mas funcionou. Vamos ver com o tempo se vale a pena manter.
+- Estou começando a achar que fazer TDD 100% do tempo pode não ser uma boa
+- Percebi que o problema não é o TDD, e, sim, querer exaurir as possibilidades.
+  Preciso pensar mais em nível de confiança do que em exaustão de possibilidades.
