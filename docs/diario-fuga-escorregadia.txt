@@ -112,3 +112,16 @@ Pendências
 - Estou começando a achar que fazer TDD 100% do tempo pode não ser uma boa
 - Percebi que o problema não é o TDD, e, sim, querer exaurir as possibilidades.
   Preciso pensar mais em nível de confiança do que em exaustão de possibilidades.
+
+- Nada de stubs: usei Elementos de verdade. Bem melhor!
+- Agora, vou para o ITEM!
+
+- Está começando a querer precisar do delegate, vide Elemento delegando para EventoElemento
+- Viajei um pouco nos enums e nas divisões de responsabilidades, mas acho que ficou razoável.
+  Sigamos assim e vejamos aonde dá.
+- FabricaEventos está com métodos estáticos. Talvez valesse a pena transformar em de instância.
+
+- Ficou só uma coisa estranha: COLA tem como _eventoAoEntrar: EventoElemento.CONTINUACAO_MOVIMENTO,
+  e não é verdade. O EventoElemento seria BLOQUEAR_MOVIMENTO. Aí impacta na possível refatoração
+  da Movimentacao, para que toda a lógica de construção do eventosMovimento seja feita em
+  EventoElemento.aoEntrar. Precisa avaliar se seria uma boa.

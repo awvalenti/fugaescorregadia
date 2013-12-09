@@ -6,6 +6,7 @@ define([
   'Elemento/SETA_DIREITA',
   'Elemento/SETA_ESQUERDA',
   'Elemento/VAZIO',
+  'Elemento/ITEM',
   'Direcao/BAIXO',
   'Direcao/CIMA',
   'Direcao/DIREITA',
@@ -21,6 +22,7 @@ function(
   SETA_DIREITA,
   SETA_ESQUERDA,
   VAZIO,
+  ITEM,
   BAIXO,
   CIMA,
   DIREITA,
@@ -78,6 +80,12 @@ function(
 
       it('deve bloquear movimento logo apos entrar', function() {
         expect(COLA.permiteSairLogoAposEntrar()).toBe(false);
+      });
+    });
+
+    describe('ITEM', function() {
+      it('deve permitir passagem', function() {
+        expect(ITEM.permiteEntrarVindoDe(TODAS_DIRECOES)).toBe(true);
       });
     });
 
