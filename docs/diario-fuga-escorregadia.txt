@@ -133,3 +133,8 @@ Pendências
 - Fiz a classe ResultadoMovimento, que simplificou a geração do resultado do movimento pela classe
   Movimentacao. Ficou bem legal.
 - Também tornei a MovimentacaoSpec mais legível. Ficou bem fácil de entender o que ela faz!
+
+- Agora quero fazer uma view simples, em modo texto, para um mapa
+- E também organizar os arquivos em diretórios, porque já está começando a virar uma bagunça
+- Ainda não fiz também a SAIDA, que talvez eu devesse renomear para CHEGADA ou algo assim,
+  para nao confundir com o conceito de SaidaJogo
