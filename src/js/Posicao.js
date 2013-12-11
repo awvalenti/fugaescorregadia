@@ -12,8 +12,6 @@ function(
     this._linha = linha;
     this._coluna = coluna;
     this._repoPosicoes = repoPosicoes;
-
-    this._tornarPropriedadeRepoPosicoesNaoEnumeravel();
   }
 
   Posicao.prototype.eh = function(linha, coluna) {
@@ -28,12 +26,8 @@ function(
     return this._linha >= 0 && this._linha < quantidadeLinhas && this._coluna >= 0 && this._coluna < quantidadeColunas;
   };
 
-  Posicao.prototype._tornarPropriedadeRepoPosicoesNaoEnumeravel = function() {
-    // Isto serve para evitar mensagens de erro gigantes nas specs. O certo seria simplesmente sobrepor toString, mas nao funcionou.
-
-    if (typeof Object !== 'undefined' && typeof Object.defineProperty === 'function') {
-      Object.defineProperty(this, '_repoPosicoes', { value: this._repoPosicoes, enumerable: false });
-    }
+  Posicao.prototype.toString = function() {
+    return '(' + this._linha + ', ' + this._coluna + ')';
   };
 
   return Posicao;

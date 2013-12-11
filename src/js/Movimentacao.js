@@ -1,10 +1,10 @@
 define([
   'assert',
-  'FabricaEventos'
+  'ResultadoMovimento'
 ],
 function(
   assert,
-  FabricaEventos
+  ResultadoMovimento
 ) {
   'use strict';
 
@@ -15,25 +15,23 @@ function(
     this._quantidadeColunas = quantidadeColunas;
   }
 
-  Movimentacao.prototype.movimentarPersonagem = function(posicaoInicial, direcao, elementoEm) {
-    var posicaoAtual = posicaoInicial;
-    var eventosMovimento = [];
+  Movimentacao.prototype.movimentarPersonagem = function(posicaoAtual, direcao, elementoEm) {
+    var resultadoMovimento = new ResultadoMovimento();
 
     var novaPosicao, elemento;
-    while ((novaPosicao = posicaoAtual.somar(direcao)) && (elemento = elementoEm(novaPosicao))
+    while ((novaPosicao = posicaoAtual.somar(direcao))
         && novaPosicao.estaDentroDosLimites(this._quantidadeLinhas, this._quantidadeColunas)
+        && (elemento = elementoEm(novaPosicao))
         && elemento.permiteEntrarVindoDe(direcao)) {
 
       posicaoAtual = novaPosicao;
 
-      elemento.aoEntrar(eventosMovimento, posicaoAtual);
+      elemento.aoEntrar(resultadoMovimento, posicaoAtual);
 
       if (!elemento.permiteSairLogoAposEntrar()) break;
     }
 
-    if (posicaoAtual !== posicaoInicial) eventosMovimento.push(FabricaEventos.movimentoPara(posicaoAtual));
-
-    return eventosMovimento;
+    return resultadoMovimento.emVetor();
   };
 
   return Movimentacao;

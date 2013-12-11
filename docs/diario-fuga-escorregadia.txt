@@ -118,10 +118,18 @@ Pendências
 
 - Está começando a querer precisar do delegate, vide Elemento delegando para EventoElemento
 - Viajei um pouco nos enums e nas divisões de responsabilidades, mas acho que ficou razoável.
-  Sigamos assim e vejamos aonde dá.
+  Sigamos assim e vejamos aonde dá
 - FabricaEventos está com métodos estáticos. Talvez valesse a pena transformar em de instância.
 
 - Ficou só uma coisa estranha: COLA tem como _eventoAoEntrar: EventoElemento.CONTINUACAO_MOVIMENTO,
   e não é verdade. O EventoElemento seria BLOQUEAR_MOVIMENTO. Aí impacta na possível refatoração
   da Movimentacao, para que toda a lógica de construção do eventosMovimento seja feita em
   EventoElemento.aoEntrar. Precisa avaliar se seria uma boa.
+
+2013-12-11
+==========
+- Briguei com o Jasmine até que que descobri que ele imprime o toString do objeto, mas tem que ser
+  jasmineToString em vez de toString. Resolvi alterar o código e permitir toString também.
+- Fiz a classe ResultadoMovimento, que simplificou a geração do resultado do movimento pela classe
+  Movimentacao. Ficou bem legal.
+- Também tornei a MovimentacaoSpec mais legível. Ficou bem fácil de entender o que ela faz!

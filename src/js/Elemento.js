@@ -1,6 +1,5 @@
 define([
   'enumerate',
-  'FabricaEventos',
   'EventoElemento',
   'Direcao/BAIXO',
   'Direcao/CIMA',
@@ -9,7 +8,6 @@ define([
 ],
 function(
   enumerate,
-  FabricaEventos,
   EventoElemento,
   BAIXO,
   CIMA,
@@ -24,8 +22,8 @@ function(
 
       _eventoAoEntrar: EventoElemento.CONTINUACAO_MOVIMENTO,
 
-      aoEntrar: function(eventosMovimento, posicaoAtual) {
-        return this._eventoAoEntrar.aoEntrar(eventosMovimento, posicaoAtual);
+      aoEntrar: function(resultadoMovimento, posicaoAtual) {
+        return this._eventoAoEntrar.aoEntrar(resultadoMovimento, posicaoAtual);
       }
     },
 

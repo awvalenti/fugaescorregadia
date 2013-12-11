@@ -1,22 +1,22 @@
 define([
   'enumerate',
-  'FabricaEventos',
 ],
 function(
-  enumerate,
-  FabricaEventos
+  enumerate
 ) {
   'use strict';
 
   return enumerate(
     'CONTINUACAO_MOVIMENTO', {
-      aoEntrar: function() {}
+      aoEntrar: function(resultadoMovimento, posicaoAtual) {
+        resultadoMovimento.estenderMovimentoPara(posicaoAtual);
+      }
     },
 
     'COLETA_ITEM', {
-      aoEntrar: function(eventosMovimento, posicaoAtual) {
-        eventosMovimento.push(FabricaEventos.movimentoPara(posicaoAtual));
-        eventosMovimento.push(FabricaEventos.item());
+      aoEntrar: function(resultadoMovimento, posicaoAtual) {
+        resultadoMovimento.estenderMovimentoPara(posicaoAtual);
+        resultadoMovimento.coletarItem();
       }
     },
 
