@@ -10,9 +10,11 @@ function(
 
     var Parity    = null;
     var Direction = null;
+    var Signal    = null;
 
     beforeEach(function() {
       Parity    = enumerate('EVEN', 'ODD');
+
       Direction = enumerate({
           inheritedProperty: 'inherited'
         },
@@ -27,6 +29,15 @@ function(
         }
       );
 
+      Signal = enumerate(
+        function(factor) {
+          this.factor = factor;
+        },
+
+        'MINUS', [-1],
+
+        'PLUS', [+1]
+      );
     });
 
     describe('enums', function() {
@@ -88,6 +99,10 @@ function(
         expect(Direction.RIGHT.inheritedProperty).toBe('overriden');
       });
 
+      it('should be able to send arguments to constructors', function() {
+        expect(Signal.MINUS.factor).toBe(-1);
+        expect(Signal.PLUS.factor).toBe(+1);
+      });
     });
 
   });

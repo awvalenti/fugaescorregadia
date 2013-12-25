@@ -31,6 +31,7 @@ function(
       var name = arguments[i];
       if (typeof name === 'string') {
         addConstant(newEnum, name, ordinal);
+        if (typeof arguments[0] === 'function') arguments[0].apply(newEnum[name], arguments[i + 1]);
         if (typeof arguments[i + 1] === 'object') augmentObject(newEnum[name], arguments[i + 1]);
         ++ordinal;
       }
