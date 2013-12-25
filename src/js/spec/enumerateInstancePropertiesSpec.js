@@ -6,7 +6,7 @@ function(
 ) {
   'use strict';
 
-  describe('enumerate: inheritance', function() {
+  describe('enumerate: instance properties', function() {
 
     var Direction = enumerate({
         inheritedProperty: 'inherited'

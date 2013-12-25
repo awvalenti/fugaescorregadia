@@ -47,6 +47,10 @@ function(
       }
     };
 
+    var staticProperties = arguments[arguments.length - 1];
+
+    if (typeof staticProperties === 'object') augmentObject(newEnum, staticProperties);
+
     return newEnum;
   };
 
