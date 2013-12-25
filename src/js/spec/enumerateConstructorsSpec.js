@@ -18,15 +18,13 @@ function(
       'PLUS', [+1]
     );
 
-    describe('enums', function() {
-      it('should have different constructors', function() {
-        expect(Signal).not.toBe(enumerate('EVEN', 'ODD'));
-      });
-    });
-
     describe('constants', function() {
       it('should be instanceof their enum', function() {
         expect(Signal.PLUS instanceof Signal).toBe(true);
+      });
+
+      it('should not be instanceof another enum', function() {
+        expect(Signal.PLUS instanceof enumerate('EVEN', 'ODD')).toBe(false);
       });
 
       it('should be able to call constructors', function() {
