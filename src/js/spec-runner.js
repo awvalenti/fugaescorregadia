@@ -9,7 +9,9 @@ requirejs(['lib/non-amd/jasmine-1.3.1/jasmine-html'], function() {
 
 requirejs([
   'spec/assertSpec',
-  'spec/enumerateSpec',
+  'spec/enumerateBasicUsageSpec',
+  'spec/enumerateConstructorsSpec',
+  'spec/enumerateInheritanceSpec',
   'spec/CompiladorMapaSpec',
   'spec/ElementoSpec',
   'spec/MapaViewModoTextoSpec',
