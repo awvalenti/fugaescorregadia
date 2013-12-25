@@ -23,15 +23,25 @@ function(
 
   return function enumerate() {
     var newEnum = createUniqueEnum();
+    var suppliedConstructor = null;
 
-    if (typeof arguments[0] === 'object') augmentObject(newEnum.prototype, arguments[0]);
+    if (typeof arguments[0] === 'object') {
+      if (Object.prototype.hasOwnProperty.call(arguments[0], 'constructor')) {
+        suppliedConstructor = arguments[0].constructor;
+        delete arguments[0].constructor;
+      }
+      augmentObject(newEnum.prototype, arguments[0]);
+    }
 
     var ordinal = 0;
     for (var i = 0; i < arguments.length; ++i) {
       var name = arguments[i];
       if (typeof name === 'string') {
         addConstant(newEnum, name, ordinal);
-        if (typeof arguments[0] === 'function') arguments[0].apply(newEnum[name], arguments[i + 1]);
+        if (suppliedConstructor) {
+          suppliedConstructor.apply(newEnum[name], arguments[i + 1]);
+          ++i;
+        }
         if (typeof arguments[i + 1] === 'object') augmentObject(newEnum[name], arguments[i + 1]);
         ++ordinal;
       }
