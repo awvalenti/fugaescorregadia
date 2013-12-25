@@ -138,3 +138,13 @@ Pendências
 - E também organizar os arquivos em diretórios, porque já está começando a virar uma bagunça
 - Ainda não fiz também a SAIDA, que talvez eu devesse renomear para CHEGADA ou algo assim,
   para nao confundir com o conceito de SaidaJogo
+
+2013-12-25
+==========
+- Retomei o projeto após duas semanas
+- Mexi no CompiladorMapa
+- Modifiquei o enum para aceitar construtor e métodos estáticos
+- Para o enum ficar 100%, faltaria o seguinte:
+    - Verificar situações excepcionais (muito fácil de acontecer, já que a API aceita diversas possibilidades)
+    - Construtor fornecido já está sendo chamado. Fazer com que ele seja usado para instanciar as constantes.
+    - Fazer specs para quando se misturam diferentes funcionalidades do enumerate
