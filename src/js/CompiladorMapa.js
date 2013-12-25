@@ -34,21 +34,16 @@ function(
 
     stringMapa = stringMapa.trim().replace(/\s/g, '');
 
-    if (stringMapa.length > quantidadeLinhas * quantidadeColunas) {
-      throw new Error('Tamanho informado: ' + quantidadeLinhas + 'x' + quantidadeColunas + '. Tamanho encontrado: ' +
-          Math.floor(stringMapa.length / quantidadeColunas) + 'x' + (stringMapa.length % quantidadeColunas + quantidadeColunas) + '.');
+    var tamanhoEsperado = quantidadeLinhas * quantidadeColunas,
+        tamanhoEncontrado = stringMapa.length;
+
+    if (tamanhoEncontrado !== tamanhoEsperado) {
+      throw new Error('Esperado: ' + tamanhoEsperado + ' elemento(s). Encontrado: ' + tamanhoEncontrado + ' elemento(s).');
     }
 
     return _(quantidadeLinhas).times(function(linha) {
       return _(quantidadeColunas).times(function(coluna) {
-        var indiceCaractere = linha * quantidadeColunas + coluna;
-
-        if (indiceCaractere >= stringMapa.length) {
-          throw new Error('Tamanho informado: ' + quantidadeLinhas + 'x' + quantidadeColunas + '. Tamanho encontrado: ' +
-              (linha + 1) + 'x' + coluna + '.');
-        }
-
-        var caractere = stringMapa.charAt(indiceCaractere);
+        var caractere = stringMapa.charAt(linha * quantidadeColunas + coluna);
         var elemento = deCaractereParaElemento[caractere];
 
         if (!elemento) throw new Error('Caractere nao reconhecido: ' + caractere);
