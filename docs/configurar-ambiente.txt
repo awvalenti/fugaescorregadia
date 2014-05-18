@@ -1,0 +1,23 @@
+Caso seja necessário instalar Node e NPM, aí vão as instruções.
+
+Windows
+=======
+Baixar e executar o instalador: http://nodejs.org/
+
+Ubuntu
+======
+Instalar Node
+-------------
+http://nodejs.org/dist/v0.10.28/node-v0.10.28.tar.gz
+(ou baixar versão mais nova)
+
+tar zxvf node-v0.10.28.tar.gz
+cd node-v0.10.28
+sudo make
+sudo mv out/Release /opt/node
+sudo ln -s /opt/node/node /usr/bin/node
+
+Instalar NPM
+------------
+sudo apt-get install curl
+curl -L https://npmjs.org/install.sh | sudo sh

@@ -118,7 +118,7 @@ Pendências
 
 - Está começando a querer precisar do delegate, vide Elemento delegando para EventoElemento
 - Viajei um pouco nos enums e nas divisões de responsabilidades, mas acho que ficou razoável.
-  Sigamos assim e vejamos aonde dá
+  Sigamos assim e vejamos aonde dá.
 - FabricaEventos está com métodos estáticos. Talvez valesse a pena transformar em de instância.
 
 - Ficou só uma coisa estranha: COLA tem como _eventoAoEntrar: EventoElemento.CONTINUACAO_MOVIMENTO,
@@ -148,3 +148,27 @@ Pendências
     - Verificar situações excepcionais (muito fácil de acontecer, já que a API aceita diversas possibilidades)
     - Construtor fornecido já está sendo chamado. Fazer com que ele seja usado para instanciar as constantes.
     - Fazer specs para quando se misturam diferentes funcionalidades do enumerate
+
+2014-02-04
+==========
+- Retomei após um mês e pouco
+- Achei várias coisas confusas! Principalmente a parte de elementos, aquele encapsulamento todo,
+- ResultadoMovimento está mais confundindo do que ajudando
+  EventoElemento, DirecaoMatcher etc.
+- O negócio é focar no negócio, mesmo. E esquecer um pouco esses detalhes de implementação.
+- Refatorar stringMapas para ficarem assim --> [['_ p _'], ['_ _ _']] ou assim '_ p _' + '_ _ _'? 
+
+2014-05-18
+==========
+- Próximo do meu aniversário, retomei após três meses
+- Quis configurar para rodar testes automaticamente após salvar
+- O Karma deu bastante dor de cabeça e, no fim, só detectou a primeira vez em que
+  o arquivo era salvo. A partir da segunda, não funcionava mais.
+- Deu certo com Grunt + grunt-contrib-watch + grunt-jasmine-node. Pequenos problemas:
+    - Configuração meio complicada
+    - Não consegui ocultar stacktrace
+- Próximos passos
+    - Tentar com Gulp
+    - Tentar com https://github.com/danilobellini/dose (conferir se GPL dá problema)
+    - Decidir por algum e seguir a vida
+
