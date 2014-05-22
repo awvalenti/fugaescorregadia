@@ -18,9 +18,8 @@ function(
         resultadoMovimento.estenderMovimentoPara(posicaoAtual);
         resultadoMovimento.coletarItem();
       }
-    },
+    }
 
-    ''
   );
 
 });

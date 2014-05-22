@@ -172,3 +172,28 @@ Pendências
     - Tentar com https://github.com/danilobellini/dose (conferir se GPL dá problema)
     - Decidir por algum e seguir a vida
 
+2014-05-22
+==========
+- Quinta-feira, das 9 às 12h
+- Dose: não consegui configurar. Reclama de falta de pacotes.
+- growl: biblioteca para node para usar notificação do SO.
+- jasmine-node: simplesmente não funciona. Não faz nem um hello, world.
+- gulp-jasmine: quase funcionou. Faltou lidar com RequireJS.
+    - Pensei nesta solução: global.define = require('requirejs').define;
+- Agora falta resolver o problema do módulo anônimo
+- Estranhamente, não deu mais problema com módulo anônimo, nem o
+  problema da falta do define no escopo global. Acho que resolveu quando
+  eu passei a chamar requirejs() em vez de tentar carregar direto
+  o arquivo de spec.
+
+- Conclusões:
+    - A função requirejs(), no navegador, aceita um vetor de dependências.
+      No Node, aceita somente uma string, que é uma única dependência.
+      Resultado: muita dor de cabeça para descobrir isso e a solução foi
+      criar um spec-runner específico para quando for usar Node.
+    - Comando gulp test finalmente funcionou. Mas o watch ainda não
+      está funcionando. Ele só pega a primeira alteração no sistema de
+      arquivos. A partir da segunda, ele não roda mais nenhum teste.
+      Diz "0 teste, todos passaram". Precisa investigar isso.
+    - Quando resolver isso, integrar com o growl para gerar notificações.
+    - Remover duplicações entre spec-runner-html e spec-runner-node.

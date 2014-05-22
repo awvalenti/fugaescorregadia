@@ -1,0 +1,32 @@
+{
+  "name": "fuga-escorregadia",
+  "version": "0.0.0",
+  "description": "Jogo de labirinto",
+  "main": "index.js",
+  "dependencies": {
+    "gulp-util": "^2.2.14"
+  },
+  "devDependencies": {
+    "gulp": "^3.6.2",
+    "gulp-jasmine": "^0.2.0",
+    "gulp-util": "^2.2.14",
+    "gulp-watch": "^0.6.5",
+    "requirejs": "^2.1.11"
+  },
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/awvalenti/fuga-escorregadia"
+  },
+  "keywords": [
+    "jogo",
+    "fuga",
+    "labirinto",
+    "ascii",
+    "8-bit"
+  ],
+  "author": "André Willik Valenti (awvalenti@gmail.com)",
+  "license": "Closed-source"
+}
