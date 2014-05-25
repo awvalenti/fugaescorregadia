@@ -7,7 +7,7 @@
   var growl = require('growl');
 
   gulp.task('test', function() {
-    gulp.src('src/js/spec-runner-node.js')
+    gulp.src('src/js/main/spec-runner-node.js')
         .pipe(jasmine({ includeStackTrace: false }));
   });
 

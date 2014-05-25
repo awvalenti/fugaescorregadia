@@ -2,6 +2,7 @@
   'use strict';
 
   requirejs.config({
+    baseUrl: '../js',
     shim: {
       'lib/non-amd/underscore': { init: function() { return _.noConflict(); } }
     }
