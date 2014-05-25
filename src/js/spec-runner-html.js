@@ -1,43 +1,31 @@
-requirejs.config({
-  shim: {
-    'lib/non-amd/underscore': { init: function() { return _.noConflict(); } }
-  }
-});
-
-requirejs(['lib/non-amd/jasmine-1.3.1/jasmine'], function() {
-requirejs(['lib/non-amd/jasmine-1.3.1/jasmine-html'], function() {
-
-requirejs([
-  'spec/assertSpec',
-  'spec/enumerateBasicUsageSpec',
-  'spec/enumerateConstructorsSpec',
-  'spec/enumerateInstancePropertiesSpec',
-  'spec/enumerateStaticPropertiesSpec',
-  'spec/CompiladorMapaSpec',
-  'spec/ElementoSpec',
-  'spec/MapaViewModoTextoSpec',
-  'spec/MovimentacaoSpec',
-  'spec/PosicaoSpec',
-  'spec/RepoPosicoesSpec',
-  'spec/TabuleiroSpec',
-  'spec/spec-helper/DirecaoMatcherSpec',
-],
-function() {
+(function() {
   'use strict';
 
-  var jasmineEnv = jasmine.getEnv();
-  jasmineEnv.updateInterval = 1000;
+  requirejs.config({
+    shim: {
+      'lib/non-amd/underscore': { init: function() { return _.noConflict(); } }
+    }
+  });
 
-  var htmlReporter = new jasmine.HtmlReporter();
+  requirejs(['lib/non-amd/jasmine-1.3.1/jasmine'], function() {
+  requirejs(['lib/non-amd/jasmine-1.3.1/jasmine-html'], function() {
+  requirejs(['spec/listaArquivosSpecs'], function(listaArquivosSpecs) {
+  requirejs(listaArquivosSpecs, function() {
+    var jasmineEnv = jasmine.getEnv();
+    jasmineEnv.updateInterval = 1000;
 
-  jasmineEnv.addReporter(htmlReporter);
+    var htmlReporter = new jasmine.HtmlReporter();
 
-  jasmineEnv.specFilter = function(spec) {
-    return htmlReporter.specFilter(spec);
-  };
+    jasmineEnv.addReporter(htmlReporter);
 
-  jasmineEnv.execute();
-});
+    jasmineEnv.specFilter = function(spec) {
+      return htmlReporter.specFilter(spec);
+    };
 
-});
-});
+    jasmineEnv.execute();
+  });
+  });
+  });
+  });
+
+})();
