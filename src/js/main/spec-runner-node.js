@@ -1,18 +1,26 @@
 (function() {
   'use strict';
 
-  // Evita que o RequireJS faca cache, para gulp-watch funcionar corretamente
-  delete require.cache[require.resolve('requirejs')];
-
+  eliminarCacheDoRequireJsParaGulpWatchFuncionar();
   var requirejs = require('requirejs');
+  configurarRequireJs();
+  executarJasmine();
 
-  requirejs.config({
-    baseUrl: 'src/js',
-    shim: {
-      'lib/non-amd/underscore': { init: function() { return _.noConflict(); } }
-    }
-  });
+  function eliminarCacheDoRequireJsParaGulpWatchFuncionar() {
+    delete require.cache[require.resolve('requirejs')];
+  }
 
-  requirejs('spec/listaArquivosSpecs').forEach(requirejs);
+  function configurarRequireJs() {
+    requirejs.config({
+      baseUrl: 'src/js',
+      shim: {
+        'lib/non-amd/underscore': { init: function() { return _.noConflict(); } }
+      }
+    });
+  }
+
+  function executarJasmine() {
+    requirejs('spec/listaArquivosSpecs').forEach(requirejs);
+  }
 
 })();

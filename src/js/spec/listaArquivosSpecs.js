@@ -13,7 +13,6 @@ define(function() {
     'spec/MovimentacaoSpec',
     'spec/PosicaoSpec',
     'spec/RepoPosicoesSpec',
-    'spec/TabuleiroSpec',
     'spec/spec-helper/DirecaoMatcherSpec'
   ];
 });
