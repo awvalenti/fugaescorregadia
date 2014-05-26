@@ -13,9 +13,7 @@
 
   gulp.task('watch', function() {
     gulp.run('test');
-    gulp.watch('src/js/**/*.js', function(event) {
-      gulp.run('test');
-    });
+    gulp.watch('src/js/**/*.js', ['test']);
   });
 
 })();
