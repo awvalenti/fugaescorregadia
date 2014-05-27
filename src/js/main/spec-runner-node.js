@@ -1,12 +1,13 @@
 (function() {
   'use strict';
 
-  eliminarCacheDoRequireJsParaGulpWatchFuncionar();
+  tirarRequireJsDoCacheDoNode();
   var requirejs = require('requirejs');
   configurarRequireJs();
   executarJasmine();
 
-  function eliminarCacheDoRequireJsParaGulpWatchFuncionar() {
+  function tirarRequireJsDoCacheDoNode() {
+    // Isso evita cache dos arquivos .js ao fazer gulp watch
     delete require.cache[require.resolve('requirejs')];
   }
 

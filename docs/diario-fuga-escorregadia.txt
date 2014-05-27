@@ -197,3 +197,13 @@ Pendências
       Diz "0 teste, todos passaram". Precisa investigar isso.
     - Quando resolver isso, integrar com o growl para gerar notificações.
     - Remover duplicações entre spec-runner-html e spec-runner-node.
+
+2014-05-25
+==========
+- Após 2 a 3h de trabalho, finalmente consegui resolver todos os problemas
+  e obter o retorno imediato pelo terminal
+- Não cheguei a conseguir aproveitar a saída do Jasmine para chamar o growl()
+
+2014-05-27
+==========
+- Vamos começar os testes de integração usando jQuery
