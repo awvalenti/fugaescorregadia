@@ -1,5 +1,5 @@
 define([
-  'lib/non-amd/underscore',
+  '_',
   'FabricaEventos'
 ],
 function(

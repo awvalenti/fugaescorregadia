@@ -9,6 +9,10 @@ function(
   function MapaViewModoTexto() {
   }
 
+  MapaViewModoTexto.prototype.desenhar = function() {
+
+  };
+
   return MapaViewModoTexto;
 
 });

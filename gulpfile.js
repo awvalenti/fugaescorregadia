@@ -4,16 +4,16 @@
   var gulp = require('gulp');
   var watch = require('gulp-watch');
   var jasmine = require('gulp-jasmine');
-  var growl = require('growl');
 
   gulp.task('test', function() {
     gulp.src('src/js/main/spec-runner-node.js')
         .pipe(jasmine({ includeStackTrace: false }));
   });
 
-  gulp.task('watch', function() {
-    gulp.run('test');
+  gulp.task('autotest', ['test'], function() {
     gulp.watch('src/js/**/*.js', ['test']);
   });
+
+  gulp.task('default', ['autotest']);
 
 })();

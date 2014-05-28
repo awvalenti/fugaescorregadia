@@ -1,5 +1,5 @@
 define([
-  'lib/non-amd/underscore',
+  '_',
   'Elemento',
 ],
 function(

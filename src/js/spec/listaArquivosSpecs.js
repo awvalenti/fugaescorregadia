@@ -9,10 +9,10 @@ define(function() {
     'spec/enumerateStaticPropertiesSpec',
     'spec/CompiladorMapaSpec',
     'spec/ElementoSpec',
-    'spec/MapaViewModoTextoSpec',
     'spec/MovimentacaoSpec',
     'spec/PosicaoSpec',
     'spec/RepoPosicoesSpec',
-    'spec/spec-helper/DirecaoMatcherSpec'
+    'spec/spec-helper/DirecaoMatcherSpec',
+    'spec/integracao/MapaViewModoTextoSpec',
   ];
 });

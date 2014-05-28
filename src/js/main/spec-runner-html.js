@@ -1,32 +1,29 @@
 (function() {
   'use strict';
 
-  configurarRequireJs();
-  carregarJasmine(function() {
-    carregarListaArquivosSpecs(function(listaArquivosSpecs) {
-      requirejs(listaArquivosSpecs, executarJasmine);
+  configurarRequireJs(function() {
+    carregarJasmine(function() {
+      carregarListaArquivosSpecs(carregarEExecutarSpecs);
     });
   });
 
-  function configurarRequireJs() {
-    requirejs.config({
-      baseUrl: '../js',
-      shim: {
-        'lib/non-amd/underscore': { init: function() { return _.noConflict(); } }
-      }
-    });
+  function configurarRequireJs(aoTerminar) {
+    requirejs.config({ baseUrl: '../js' });
+    requirejs(['require-js-configuracoes-globais'], aoTerminar);
   }
 
   function carregarJasmine(aoTerminar) {
     requirejs(['lib/non-amd/jasmine-1.3.1/jasmine'], function() {
-      requirejs(['lib/non-amd/jasmine-1.3.1/jasmine-html'], function() {
-        aoTerminar();
-      });
+      requirejs(['lib/non-amd/jasmine-1.3.1/jasmine-html'], aoTerminar);
     });
   }
 
   function carregarListaArquivosSpecs(aoTerminar) {
     requirejs(['spec/listaArquivosSpecs'], aoTerminar);
+  }
+
+  function carregarEExecutarSpecs(listaArquivosSpecs) {
+    requirejs(listaArquivosSpecs, executarJasmine);
   }
 
   function executarJasmine() {

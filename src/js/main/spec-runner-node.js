@@ -1,23 +1,22 @@
 (function() {
   'use strict';
 
-  tirarRequireJsDoCacheDoNode();
-  var requirejs = require('requirejs');
-  configurarRequireJs();
-  executarJasmine();
+  var requirejs = obterRequireJsSemCache();
 
-  function tirarRequireJsDoCacheDoNode() {
-    // Isso evita cache dos arquivos .js ao fazer gulp watch
+  configurarRequireJs(executarJasmine);
+
+  function obterRequireJsSemCache() {
+    // Queremos evitar que o RequireJS faca cache dos modulos, senao o
+    // gulp autotest nao funciona. A maneira mais facil de conseguir isso
+    // e' removendo o proprio RequireJS do cache do Node.
     delete require.cache[require.resolve('requirejs')];
+    return require('requirejs');
   }
 
-  function configurarRequireJs() {
-    requirejs.config({
-      baseUrl: 'src/js',
-      shim: {
-        'lib/non-amd/underscore': { init: function() { return _.noConflict(); } }
-      }
-    });
+  function configurarRequireJs(aoTerminar) {
+    requirejs.config({ baseUrl: 'src/js' });
+    requirejs('require-js-configuracoes-globais');
+    aoTerminar();
   }
 
   function executarJasmine() {

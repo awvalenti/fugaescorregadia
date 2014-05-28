@@ -207,3 +207,10 @@ Pendências
 2014-05-27
 ==========
 - Vamos começar os testes de integração usando jQuery
+- Descobri o jsdom, que parece perfeito para fazer os testes de jQuery e DOM
+  direto no Node
+- No meio do caminho, fui refatorar uns negócios de módulos e caí de novo em
+  problemas de configuração do RequireJS
+- Desencanei do shim padrão. Escrevi meus próprios wrappers para underscore e
+  jQuery, expondo-os como módulos AMD.
+- Fiz um require-js-configuracoes-globais
