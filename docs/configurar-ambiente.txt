@@ -14,7 +14,8 @@ http://nodejs.org/dist/v0.10.28/node-v0.10.28.tar.gz
 tar zxvf node-v0.10.28.tar.gz
 cd node-v0.10.28
 sudo make
-sudo mv out/Release /usr/bin/node
+sudo mv out/Release /opt/node
+sudo ln -s /opt/node/node /usr/bin/node
 
 NPM
 ---
