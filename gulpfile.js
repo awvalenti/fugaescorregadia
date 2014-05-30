@@ -6,7 +6,7 @@
   var jasmine = require('gulp-jasmine');
 
   gulp.task('test', function() {
-    gulp.src('src/js/spec/spec-runner-node.js')
+    gulp.src('src/js/spec/spec-runner-gulp-jasmine.js')
         .pipe(jasmine({ includeStackTrace: false }));
   });
 

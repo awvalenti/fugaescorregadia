@@ -3,7 +3,9 @@
 
   var requirejs = obterRequireJsSemCache();
 
-  configurarRequireJs(executarJasmine);
+  configurarRequireJs(function() {
+    requirejs('spec/carregar-specs');
+  });
 
   function obterRequireJsSemCache() {
     // Queremos evitar que o RequireJS faca cache dos modulos, senao o
@@ -17,10 +19,6 @@
     requirejs.config({ baseUrl: 'src/js' });
     requirejs('prod/config/require-js-configuracoes-globais');
     aoTerminar();
-  }
-
-  function executarJasmine() {
-    requirejs('spec/listaArquivosSpecs').forEach(requirejs);
   }
 
 })();

@@ -3,7 +3,7 @@
 
   configurarRequireJs(function() {
     carregarJasmine(function() {
-      carregarListaArquivosSpecs(carregarEExecutarSpecs);
+      requirejs(['spec/carregar-specs'], executarJasmine);
     });
   });
 
@@ -16,14 +16,6 @@
     requirejs(['lib/non-amd/jasmine-1.3.1/jasmine'], function() {
       requirejs(['lib/non-amd/jasmine-1.3.1/jasmine-html'], aoTerminar);
     });
-  }
-
-  function carregarListaArquivosSpecs(aoTerminar) {
-    requirejs(['spec/listaArquivosSpecs'], aoTerminar);
-  }
-
-  function carregarEExecutarSpecs(listaArquivosSpecs) {
-    requirejs(listaArquivosSpecs, executarJasmine);
   }
 
   function executarJasmine() {
