@@ -11,7 +11,7 @@ function(
   function CompiladorMapa() {
   }
 
-  CompiladorMapa.prototype.compilar = function(stringMapa, quantidadeLinhas, quantidadeColunas) {
+  CompiladorMapa.prototype.compilar = function(quantidadeLinhas, quantidadeColunas, stringMapa) {
     stringMapa = stringMapa.trim().replace(/\s/g, '');
 
     var tamanhoEsperado = quantidadeLinhas * quantidadeColunas,
