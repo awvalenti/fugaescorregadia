@@ -2,12 +2,11 @@
   'use strict';
 
   var gulp = require('gulp');
-  var watch = require('gulp-watch');
   var jasmine = require('gulp-jasmine');
 
   gulp.task('test', function() {
     gulp.src('src/js/spec/spec-runner-gulp-jasmine.js')
-        .pipe(jasmine({ includeStackTrace: false }));
+        .pipe(jasmine());
   });
 
   gulp.task('autotest', ['test'], function() {

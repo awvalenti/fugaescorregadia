@@ -214,3 +214,17 @@ Pendências
 - Desencanei do shim padrão. Escrevi meus próprios wrappers para underscore e
   jQuery, expondo-os como módulos AMD.
 - Fiz um require-js-configuracoes-globais
+
+2014-06-01
+==========
+- Pesquisei sobre Jasmine 2.0 e alternativas ao Jasmine
+- Mocha tem vantagens, mas também parece ter seus defeitos
+- Não vai valer a pena mudar agora. Em vez disso, vou voltar a tentar aplicar o
+  growl() eu mesmo de alguma maneira.
+- Pelamordedeus, essas ferramentas são muito mal-feitas... O Jasmine não explica
+  nada sobre como criar seu próprio reporter. Tentei olhar o código para entender
+  e também não entendi. Não explica nada direito. Quase desisti.
+- Descobri um problema no gulp-jasmine/minijasminenode e mandei um pull request
+- Consegui integrar com o Jasmine, depois de muito trabalho. Mas não adiantou nada,
+  porque o notify-send do Ubuntu deixa a mensagem fixa por 5 segundos, não permitindo
+  trocá-la imediatamente. Em outras palavras, foi tudo por água abaixo.
