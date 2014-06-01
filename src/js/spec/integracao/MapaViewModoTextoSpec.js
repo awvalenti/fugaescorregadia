@@ -1,10 +1,12 @@
 define([
   'prod/aplicacao/CompiladorMapa',
-  'prod/aplicacao/MapaViewModoTexto'
+  'prod/aplicacao/MapaViewModoTexto',
+  '$'
 ],
 function(
   CompiladorMapa,
-  MapaViewModoTexto
+  MapaViewModoTexto,
+  $
 ) {
   'use strict';
 
@@ -13,13 +15,13 @@ function(
 
     beforeEach(function() {
       compilador = new CompiladorMapa();
-      view = new MapaViewModoTexto();
+      view = new MapaViewModoTexto($('<div>'));
     });
 
-    it('deve converter matrizMapa em html', function() {
-      var matrizMapa = compilador.compilar('i', 1, 1);
-      view.desenhar(matrizMapa);
-//      expect($('.ITEM').length).toBe(1);
+    it('deve preencher elemento html com matriz de elementos do jogo', function() {
+      var matrizMapa = compilador.compilar(1, 4, 'p _ _ _');
+      view.desenharMatrizMapa(matrizMapa);
+      expect($('.PERSONAGEM').length).toBe(1);
     });
   });
 

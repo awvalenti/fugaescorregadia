@@ -33,6 +33,7 @@ function(
 
     'VAZIO',         ['_'],
     'OBSTACULO',     ['o'], { permiteEntrarVindoDe: function()        { return false; } },
+    'PERSONAGEM',    ['p'],
     'SETA_CIMA',     ['^'], { permiteEntrarVindoDe: function(direcao) { return direcao.matches(CIMA); } },
     'SETA_BAIXO',    ['v'], { permiteEntrarVindoDe: function(direcao) { return direcao.matches(BAIXO); } },
     'SETA_ESQUERDA', ['['], { permiteEntrarVindoDe: function(direcao) { return direcao.matches(ESQUERDA); } },

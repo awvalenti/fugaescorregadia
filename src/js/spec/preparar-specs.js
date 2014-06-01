@@ -1,7 +1,7 @@
 define([
   'prod/aplicacao/Elemento',
 
-  'spec/carregar-specs',
+  'spec/carregar-specs'
 ],
 function(
   Elemento

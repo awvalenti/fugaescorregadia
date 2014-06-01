@@ -9,7 +9,7 @@ function(
   function MapaViewModoTexto() {
   }
 
-  MapaViewModoTexto.prototype.desenhar = function() {
+  MapaViewModoTexto.prototype.desenharMatrizMapa = function() {
 
   };
 

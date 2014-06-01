@@ -1,6 +1,7 @@
 define([
   'prod/aplicacao/Elemento/COLA',
   'prod/aplicacao/Elemento/OBSTACULO',
+  'prod/aplicacao/Elemento/PERSONAGEM',
   'prod/aplicacao/Elemento/SETA_BAIXO',
   'prod/aplicacao/Elemento/SETA_CIMA',
   'prod/aplicacao/Elemento/SETA_DIREITA',
@@ -12,6 +13,7 @@ define([
 function(
   COLA,
   OBSTACULO,
+  PERSONAGEM,
   SETA_BAIXO,
   SETA_CIMA,
   SETA_DIREITA,
@@ -32,12 +34,12 @@ function(
     it('deve converter stringMapa em matriz de elementos', function() {
       var stringMapa = '\
         _ v _ _ \
-        _ _ o o \
+        p _ o o \
       ';
 
       expect(compilador.compilar(2, 4, stringMapa)).toEqual([
-        [VAZIO,   SETA_BAIXO,   VAZIO,       VAZIO    ],
-        [VAZIO,   VAZIO,        OBSTACULO,   OBSTACULO]
+        [VAZIO,        SETA_BAIXO,   VAZIO,       VAZIO    ],
+        [PERSONAGEM,   VAZIO,        OBSTACULO,   OBSTACULO]
       ]);
     });
 
