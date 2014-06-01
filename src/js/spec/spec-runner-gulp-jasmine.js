@@ -4,7 +4,7 @@
   var requirejs = obterRequireJsSemCache();
 
   configurarRequireJs(function() {
-    requirejs('spec/carregar-specs');
+    requirejs('spec/preparar-specs');
   });
 
   function obterRequireJsSemCache() {

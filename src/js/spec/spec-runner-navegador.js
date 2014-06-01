@@ -3,7 +3,7 @@
 
   configurarRequireJs(function() {
     carregarJasmine(function() {
-      requirejs(['spec/carregar-specs'], executarJasmine);
+      requirejs(['spec/preparar-specs'], executarJasmine);
     });
   });
 
