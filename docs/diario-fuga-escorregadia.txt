@@ -228,3 +228,27 @@ Pendências
 - Consegui integrar com o Jasmine, depois de muito trabalho. Mas não adiantou nada,
   porque o notify-send do Ubuntu deixa a mensagem fixa por 5 segundos, não permitindo
   trocá-la imediatamente. Em outras palavras, foi tudo por água abaixo.
+
+
+2014-06-02
+==========
+- Novamente, tomei migué das ferramentas. No caso, o jQuery não quis rodar junto
+  com RequireJS + Node. Só no Node, roda. Só com RequireJS, roda. Com os dois juntos,
+  dá pau. Exceto quando eu fui criar um caso de teste para submeter um defeito para
+  o jQuery!
+- require('requirejs')('jquery') funciona.
+  require('requirejs')('./caminho/jquery') não funciona.
+- jQuery faz define('jquery', [], function ...) e ainda justifica dizendo que, por
+  ser uma biblioteca muito usada, tudo bem...
+- Pensei em buscar alternativas ao RequireJS:
+    - http://browserify.org/
+        - Depoimento aqui: http://esa-matti.suuronen.org/blog/2013/03/22/journey-from-requirejs-to-browserify/   
+    - Sugestões do @srsaude:
+        - curl.js
+        - almond.js
+        - bdLoad
+        - UMD
+- Descobri um negócio muito legal para desenvolver aplicativos desktop com NodeJS:
+  node-webkit:
+    - https://speakerdeck.com/zcbenz/node-webkit-app-runtime-based-on-chromium-and-node-dot-js
+    - https://github.com/rogerwang/node-webkit
