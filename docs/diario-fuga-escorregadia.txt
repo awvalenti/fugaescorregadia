@@ -252,3 +252,16 @@ Pendências
   node-webkit:
     - https://speakerdeck.com/zcbenz/node-webkit-app-runtime-based-on-chromium-and-node-dot-js
     - https://github.com/rogerwang/node-webkit
+
+2014-06-05
+==========
+- Desenvolvendo no Windows 8.1
+- Instalar Node e NPM foi fácil
+- Comecei tentando a nova técnica para incluir jQuery: testo com if (typeof global !== 'undefined') para
+  se estou no Node. Se sim, faço require('jquery'). Se não, faço o define normal.
+- Só que esbarrei na instalação do jsdom. Não consegui instalá-lo, mesmo após quase 2h tentando.
+- Segundo https://github.com/tmpvar/jsdom#contextify, jsdom exige:
+    Visual C++ 2010 Express              --> http://www.visualstudio.com/downloads/download-visual-studio-vs#d-2010-express
+    Python 2.7, instalado em C:\Python27 --> https://www.python.org/download/
+- Cansei-me dele, procurei uma alternativa e descobri o cheerio: https://www.npmjs.org/package/cheerio
+- Cheerio parece muito melhor. Vou tentar usá-lo no lugar do jQuery e do jsdom.
