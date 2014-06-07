@@ -1,27 +1,58 @@
 define([
-  'prod/aplicacao/CompiladorMapa',
+  'prod/aplicacao/Elemento/COLA',
+  'prod/aplicacao/Elemento/OBSTACULO',
+  'prod/aplicacao/Elemento/PERSONAGEM',
+  'prod/aplicacao/Elemento/SETA_BAIXO',
+  'prod/aplicacao/Elemento/SETA_CIMA',
+  'prod/aplicacao/Elemento/SETA_DIREITA',
+  'prod/aplicacao/Elemento/SETA_ESQUERDA',
+  'prod/aplicacao/Elemento/VAZIO',
+  'prod/aplicacao/Elemento/ITEM',
   'prod/aplicacao/MapaViewModoTexto',
   '$'
 ],
 function(
-  CompiladorMapa,
+  COLA,
+  OBSTACULO,
+  PERSONAGEM,
+  SETA_BAIXO,
+  SETA_CIMA,
+  SETA_DIREITA,
+  SETA_ESQUERDA,
+  VAZIO,
+  ITEM,
   MapaViewModoTexto,
   $
 ) {
   'use strict';
 
   describe('MapaViewModoTexto', function() {
-    var compilador = null, view = null;
+    var $elemento = null, view = null;
 
     beforeEach(function() {
-      compilador = new CompiladorMapa();
-      view = new MapaViewModoTexto($('<div>'));
+      $elemento = $('<div>');
+      view = new MapaViewModoTexto($elemento);
     });
 
-    it('deve preencher elemento html com matriz de elementos do jogo', function() {
-      var matrizMapa = compilador.compilar(1, 4, 'p _ _ _');
-      view.desenharMatrizMapa(matrizMapa);
-      expect($('.PERSONAGEM').length).toBe(1);
+    describe('elementos gerados', function() {
+      var $vazios = null, $personagem = null;
+
+      beforeEach(function() {
+        view.desenharMatrizMapa([[VAZIO, PERSONAGEM, VAZIO]]);
+        $vazios = $elemento.find('.VAZIO');
+        $personagem = $elemento.find('.PERSONAGEM');
+      });
+
+      it('devem possuir classe css com mesmo nome do elemento', function() {
+        expect($vazios.length).toBe(2);
+        expect($personagem.length).toBe(1);
+      });
+
+      it('devem possuir como texto um caractere representando-o graficamente', function() {
+        expect($vazios.first().text()).toBe('_');
+        expect($personagem.first().text()).toBe('p');
+      });
+
     });
   });
 

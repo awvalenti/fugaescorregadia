@@ -2,7 +2,7 @@ define(function() {
   requirejs.config({
     map: {
       '*': {
-        '$': 'lib/amd/jquery-amd',
+        '$': 'lib/amd/$',
         '_': 'lib/amd/underscore-amd'
       }
     }
