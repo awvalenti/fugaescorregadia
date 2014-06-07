@@ -265,3 +265,9 @@ Pendências
     Python 2.7, instalado em C:\Python27 --> https://www.python.org/download/
 - Cansei-me dele, procurei uma alternativa e descobri o cheerio: https://www.npmjs.org/package/cheerio
 - Cheerio parece muito melhor. Vou tentar usá-lo no lugar do jQuery e do jsdom.
+
+2014-06-06
+==========
+- Cheerio funcionando perfeitamente bem, para minha alegria! Foi de primeira!
+- MapaViewModoTextoSpec iniciada
+- Esbocei a tela do jogo

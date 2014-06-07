@@ -1,0 +1,7 @@
+.tabuleiro {
+    border: thin solid black;
+}
+
+.tabuleiro span {
+    margin: 1em;
+}
