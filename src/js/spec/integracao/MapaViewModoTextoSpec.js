@@ -49,7 +49,7 @@ function(
         $personagem = $tabela.find('tbody tr').eq(1).find('td').eq(2).find('span');
       });
 
-      it('devem estar corretamente posicionados em uma tabela', function() {
+      it('devem estar corretamente posicionados na tabela', function() {
         expect($personagem.length).toBe(1);
       });
 
@@ -57,7 +57,7 @@ function(
         expect($personagem.hasClass('PERSONAGEM')).toBe(true);
       });
 
-      it('devem possuir como texto um caractere representando-o graficamente', function() {
+      it('devem possuir como texto um caractere representando-os graficamente', function() {
         expect($personagem.text()).toBe('p');
       });
 

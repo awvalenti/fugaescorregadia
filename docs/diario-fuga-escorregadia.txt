@@ -285,3 +285,11 @@ Pendências
     - Já escrever uma spec para ver se a tabela possui a classe esperada parece um
       pouco de exagero. Ainda assim, talvez, valha a pena.
     - Aliás, vou fazer isso!
+- Coloquei um _.throttle no gulpfile para evitar o problema de rodar testes 
+  repetidamente e capotar o gulp quando fizer CTRL+H para localizar e substituir
+  em diversos arquivos.
+- Fui renomear os htmls e pontos de entrada do sistema. No meio do caminho, percebi
+  que é bem difícil pensar numa nomenclatura unívoca. Percebi que eu poderia cair
+  em Shotgun Surgery e coisas parecidas. Também refleti bastante sobre a eterna
+  dúvida: unidade ou integração? Encapsular ou injetar dependência? Enfim, desisti
+  por enquanto.
