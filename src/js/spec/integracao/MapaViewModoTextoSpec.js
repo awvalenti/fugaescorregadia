@@ -27,30 +27,38 @@ function(
   'use strict';
 
   describe('MapaViewModoTexto', function() {
-    var $elemento = null, view = null;
+    var $tabela = null;
 
     beforeEach(function() {
-      $elemento = $('<div>');
-      view = new MapaViewModoTexto($elemento);
+      var $elementoRaiz = $('<div>');
+      new MapaViewModoTexto($elementoRaiz).desenharMatrizMapa([
+        [VAZIO, VAZIO, VAZIO     ],
+        [VAZIO, VAZIO, PERSONAGEM]
+      ]);
+      $tabela = $elementoRaiz.children('table');
+    });
+
+    it('deve gerar tabela com classe "tabuleiro"', function() {
+      expect($tabela.hasClass('tabuleiro')).toBe(true);
     });
 
     describe('elementos gerados', function() {
-      var $vazios = null, $personagem = null;
+      var $personagem = null;
 
       beforeEach(function() {
-        view.desenharMatrizMapa([[VAZIO, PERSONAGEM, VAZIO]]);
-        $vazios = $elemento.find('.VAZIO');
-        $personagem = $elemento.find('.PERSONAGEM');
+        $personagem = $tabela.find('tbody tr').eq(1).find('td').eq(2).find('span');
       });
 
-      it('devem possuir classe css com mesmo nome do elemento', function() {
-        expect($vazios.length).toBe(2);
+      it('devem estar corretamente posicionados em uma tabela', function() {
         expect($personagem.length).toBe(1);
       });
 
+      it('devem possuir classe css com mesmo nome do elemento', function() {
+        expect($personagem.hasClass('PERSONAGEM')).toBe(true);
+      });
+
       it('devem possuir como texto um caractere representando-o graficamente', function() {
-        expect($vazios.first().text()).toBe('_');
-        expect($personagem.first().text()).toBe('p');
+        expect($personagem.text()).toBe('p');
       });
 
     });

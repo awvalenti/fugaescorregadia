@@ -1,7 +1,8 @@
 .tabuleiro {
-    border: thin solid black;
+  border: thin solid black;
+  padding: 0.5em
 }
 
 .tabuleiro span {
-    margin: 1em;
+  margin: 1em;
 }

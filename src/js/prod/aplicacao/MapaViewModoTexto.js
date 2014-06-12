@@ -1,10 +1,8 @@
 define([
-  '_',
-  '$'
+  '_'
 ],
 function(
-  _,
-  $
+  _
 ) {
   'use strict';
 
@@ -25,17 +23,52 @@ function(
   }
 
   MapaViewModoTexto.prototype.desenharMatrizMapa = function(matrizMapa) {
+    var htmlTabela = '<table class="tabuleiro"><tbody>';
     _(matrizMapa).each(function(linha) {
+
+      htmlTabela += '<tr>';
       _(linha).each(function(elementoJogo) {
-        this._$elementoRaiz.append(
-            $('<span>')
-              .addClass(elementoJogo.name())
-              .text(caracteresGraficos[elementoJogo])
-        );
+        htmlTabela += '<td><span class="' + elementoJogo.name() + '">'
+            + caracteresGraficos[elementoJogo] + '</span></td>';
       }, this);
+      htmlTabela += '</tr>';
+
     }, this);
+
+    htmlTabela += '</tbody></table>';
+
+    this._$elementoRaiz.append(htmlTabela);
   };
 
   return MapaViewModoTexto;
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

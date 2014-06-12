@@ -10,8 +10,8 @@ function(
 ) {
   'use strict';
 
-  new MapaViewModoTexto($('<div class="tabuleiro">').appendTo('body')).desenharMatrizMapa(
-    new CompiladorMapa().compilar(1, 3, '_ _ p')
+  new MapaViewModoTexto($('body')).desenharMatrizMapa(
+    new CompiladorMapa().compilar(3, 3, '_ _ p o _ _ i _ _')
   );
 
 });

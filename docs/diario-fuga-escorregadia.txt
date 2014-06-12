@@ -271,3 +271,17 @@ Pendências
 - Cheerio funcionando perfeitamente bem, para minha alegria! Foi de primeira!
 - MapaViewModoTextoSpec iniciada
 - Esbocei a tela do jogo
+
+2014-06-12
+==========
+- Quis fazer alguma coisa em CoffeeScript, tipo o gulpfile, mas o plugin para
+  Eclipse não ajudou. Então, vou continuar com JS, pelo menos por enquanto.
+- Mudei MapaViewModoTexto para usar tabela
+- Refleti sobre se devo ou não "testar o CSS"; na verdade, se devo testar que o HTML
+  gerado na classe MVMT possui as classes CSS certas etc. Cheguei à seguinte conclusão:
+    - "Testar CSS" em JS realmente é algo estranho. Porém, testar se o HTML é gerado
+      na estrutura correta, com a tabela, com as posições corretas etc. não é testar
+      HTML ou CSS, é testar se o código JavaScript faz seu trabalho corretamente.
+    - Já escrever uma spec para ver se a tabela possui a classe esperada parece um
+      pouco de exagero. Ainda assim, talvez, valha a pena.
+    - Aliás, vou fazer isso!
