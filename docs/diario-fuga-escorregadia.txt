@@ -277,6 +277,8 @@ Pendências
 - Quis fazer alguma coisa em CoffeeScript, tipo o gulpfile, mas o plugin para
   Eclipse não ajudou. Então, vou continuar com JS, pelo menos por enquanto.
 - Mudei MapaViewModoTexto para usar tabela
+- Descobri que cheerio não suporta :eq. Isso já foi relatado:
+  https://github.com/cheeriojs/cheerio/issues/129#issuecomment-45910233 
 - Refleti sobre se devo ou não "testar o CSS"; na verdade, se devo testar que o HTML
   gerado na classe MVMT possui as classes CSS certas etc. Cheguei à seguinte conclusão:
     - "Testar CSS" em JS realmente é algo estranho. Porém, testar se o HTML é gerado
@@ -293,3 +295,12 @@ Pendências
   em Shotgun Surgery e coisas parecidas. Também refleti bastante sobre a eterna
   dúvida: unidade ou integração? Encapsular ou injetar dependência? Enfim, desisti
   por enquanto.
+
+2014-06-13
+==========
+- Estou continuando a MVMTSpec
+- Tive uma dúvida: ResultadoMovimento deve dizer de onde o personagem sai ou saber
+  isso é responsabilidade de MVMT?
+- Estou percebendo que meu design está meio estranho; está faltando uma classe
+  Tabuleiro. Preciso fazer um diagrama de classes novo e pensar melhor na
+  responsabilidade de cada classe, quais guardam estado e quais não guardam.

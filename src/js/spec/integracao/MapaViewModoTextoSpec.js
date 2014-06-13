@@ -9,6 +9,7 @@ define([
   'prod/aplicacao/Elemento/VAZIO',
   'prod/aplicacao/Elemento/ITEM',
   'prod/aplicacao/MapaViewModoTexto',
+  'prod/aplicacao/FabricaEventos',
   '$'
 ],
 function(
@@ -22,16 +23,18 @@ function(
   VAZIO,
   ITEM,
   MapaViewModoTexto,
+  FabricaEventos,
   $
 ) {
   'use strict';
 
   describe('MapaViewModoTexto', function() {
-    var $tabela = null;
+    var $tabela = null, view = null;
 
     beforeEach(function() {
       var $elementoRaiz = $('<div>');
-      new MapaViewModoTexto($elementoRaiz).desenharMatrizMapa([
+      view = new MapaViewModoTexto($elementoRaiz);
+      view.desenharMatrizMapa([
         [VAZIO, VAZIO, VAZIO     ],
         [VAZIO, VAZIO, PERSONAGEM]
       ]);
@@ -57,11 +60,21 @@ function(
         expect($personagem.hasClass('PERSONAGEM')).toBe(true);
       });
 
-      it('devem possuir como texto um caractere representando-os graficamente', function() {
+      it('devem exibir caractere como representacao grafica', function() {
         expect($personagem.text()).toBe('p');
       });
 
     });
+
+    describe('evento', function() {
+      describe('de movimento', function() {
+        it('deve apagar personagem na origem e posicionar no destino', function() {
+          view.processar(movimento.de(1, 2).para(1, 0));
+          expect($tabela.find('tbody tr').eq(1).find('td').eq(0).find('span').length).toBe(1);
+        });
+      });
+    });
+
   });
 
 });
