@@ -1,7 +1,7 @@
 define([
   '_',
   'prod/libs-originais/enumerate',
-  'prod/aplicacao/Direcao'
+  'prod/aplicacao/model/Direcao'
 ],
 function(
   _,

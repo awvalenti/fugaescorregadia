@@ -1,5 +1,5 @@
 define([
-  'prod/aplicacao/Elemento'
+  'prod/aplicacao/model/Elemento'
 ],
 function(
   Elemento

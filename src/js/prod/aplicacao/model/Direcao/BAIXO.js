@@ -1,10 +1,10 @@
 define([
-  'prod/aplicacao/Direcao'
+  'prod/aplicacao/model/Direcao'
 ],
 function(
   Direcao
 ) {
   'use strict';
 
-  return Direcao.CIMA;
+  return Direcao.BAIXO;
 });

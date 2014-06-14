@@ -1,6 +1,6 @@
 define([
   'prod/libs-originais/assert',
-  'prod/aplicacao/Posicao'
+  'prod/aplicacao/model/Posicao'
 ],
 function(
   assert,

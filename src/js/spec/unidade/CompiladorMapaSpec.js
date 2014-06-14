@@ -1,14 +1,14 @@
 define([
-  'prod/aplicacao/Elemento/COLA',
-  'prod/aplicacao/Elemento/OBSTACULO',
-  'prod/aplicacao/Elemento/PERSONAGEM',
-  'prod/aplicacao/Elemento/SETA_BAIXO',
-  'prod/aplicacao/Elemento/SETA_CIMA',
-  'prod/aplicacao/Elemento/SETA_DIREITA',
-  'prod/aplicacao/Elemento/SETA_ESQUERDA',
-  'prod/aplicacao/Elemento/VAZIO',
-  'prod/aplicacao/Elemento/ITEM',
-  'prod/aplicacao/CompiladorMapa',
+  'prod/aplicacao/model/Elemento/COLA',
+  'prod/aplicacao/model/Elemento/OBSTACULO',
+  'prod/aplicacao/model/Elemento/PERSONAGEM',
+  'prod/aplicacao/model/Elemento/SETA_BAIXO',
+  'prod/aplicacao/model/Elemento/SETA_CIMA',
+  'prod/aplicacao/model/Elemento/SETA_DIREITA',
+  'prod/aplicacao/model/Elemento/SETA_ESQUERDA',
+  'prod/aplicacao/model/Elemento/VAZIO',
+  'prod/aplicacao/model/Elemento/ITEM',
+  'prod/aplicacao/model/CompiladorMapa',
 ],
 function(
   COLA,
@@ -41,6 +41,7 @@ function(
         [VAZIO,        SETA_BAIXO,   VAZIO,       VAZIO    ],
         [PERSONAGEM,   VAZIO,        OBSTACULO,   OBSTACULO]
       ]);
+
     });
 
     it('deve rejeitar stringMapa com caracteres nao reconhecidos', function() {

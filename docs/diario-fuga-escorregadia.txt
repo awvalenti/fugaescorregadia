@@ -304,3 +304,8 @@ Pendências
 - Estou percebendo que meu design está meio estranho; está faltando uma classe
   Tabuleiro. Preciso fazer um diagrama de classes novo e pensar melhor na
   responsabilidade de cada classe, quais guardam estado e quais não guardam.
+
+2014-06-14
+==========
+- Redesenhando as classes
+- CompiladorMapa vai gerar um MapaModel

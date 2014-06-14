@@ -1,10 +1,10 @@
 define([
   'prod/libs-originais/enumerate',
-  'prod/aplicacao/EventoElemento',
-  'prod/aplicacao/Direcao/BAIXO',
-  'prod/aplicacao/Direcao/CIMA',
-  'prod/aplicacao/Direcao/DIREITA',
-  'prod/aplicacao/Direcao/ESQUERDA',
+  'prod/aplicacao/model/EventoElemento',
+  'prod/aplicacao/model/Direcao/BAIXO',
+  'prod/aplicacao/model/Direcao/CIMA',
+  'prod/aplicacao/model/Direcao/DIREITA',
+  'prod/aplicacao/model/Direcao/ESQUERDA',
 ],
 function(
   enumerate,

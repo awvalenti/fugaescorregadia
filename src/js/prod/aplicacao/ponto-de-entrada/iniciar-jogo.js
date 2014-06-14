@@ -1,6 +1,6 @@
 define([
-  'prod/aplicacao/MapaViewModoTexto',
-  'prod/aplicacao/CompiladorMapa',
+  'prod/aplicacao/view/MapaViewModoTexto',
+  'prod/aplicacao/model/CompiladorMapa',
   '$'
 ],
 function(

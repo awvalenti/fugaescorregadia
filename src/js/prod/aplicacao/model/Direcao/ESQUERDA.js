@@ -1,5 +1,5 @@
 define([
-  'prod/aplicacao/Direcao'
+  'prod/aplicacao/model/Direcao'
 ],
 function(
   Direcao

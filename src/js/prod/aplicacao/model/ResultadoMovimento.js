@@ -1,6 +1,6 @@
 define([
   '_',
-  'prod/aplicacao/FabricaEventos'
+  'prod/aplicacao/model/FabricaEventos'
 ],
 function(
   _,

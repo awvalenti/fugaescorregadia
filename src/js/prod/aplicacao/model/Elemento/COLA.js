@@ -1,10 +1,10 @@
 define([
-  'prod/aplicacao/Elemento'
+  'prod/aplicacao/model/Elemento'
 ],
 function(
   Elemento
 ) {
   'use strict';
 
-  return Elemento.ITEM;
+  return Elemento.COLA;
 });
