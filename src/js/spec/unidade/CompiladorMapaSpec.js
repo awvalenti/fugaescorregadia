@@ -9,6 +9,7 @@ define([
   'prod/aplicacao/model/Elemento/VAZIO',
   'prod/aplicacao/model/Elemento/ITEM',
   'prod/aplicacao/model/CompiladorMapa',
+  'prod/aplicacao/model/MapaModel'
 ],
 function(
   COLA,
@@ -20,7 +21,8 @@ function(
   SETA_ESQUERDA,
   VAZIO,
   ITEM,
-  CompiladorMapa
+  CompiladorMapa,
+  MapaModel
 ) {
   'use strict';
 
@@ -37,10 +39,10 @@ function(
         p _ o o \
       ';
 
-      expect(compilador.compilar(2, 4, stringMapa)).toEqual([
+      expect(compilador.compilar(2, 4, stringMapa)).toEqual(new MapaModel([
         [VAZIO,        SETA_BAIXO,   VAZIO,       VAZIO    ],
         [PERSONAGEM,   VAZIO,        OBSTACULO,   OBSTACULO]
-      ]);
+      ]));
 
     });
 

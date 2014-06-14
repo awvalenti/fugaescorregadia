@@ -1,16 +1,16 @@
 define([
-  'prod/aplicacao/view/MapaViewModoTexto',
+  'prod/aplicacao/view/MapaViewHtmlTable',
   'prod/aplicacao/model/CompiladorMapa',
   '$'
 ],
 function(
-  MapaViewModoTexto,
+  MapaViewHtmlTable,
   CompiladorMapa,
   $
 ) {
   'use strict';
 
-  new MapaViewModoTexto($('body')).desenharMatrizMapa(
+  new MapaViewHtmlTable($('body')).desenharMapaModel(
     new CompiladorMapa().compilar(3, 3, '_ _ p o _ _ i _ _')
   );
 

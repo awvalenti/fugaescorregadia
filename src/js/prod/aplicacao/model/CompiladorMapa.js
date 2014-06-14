@@ -1,10 +1,12 @@
 define([
   '_',
   'prod/aplicacao/model/Elemento',
+  'prod/aplicacao/model/MapaModel'
 ],
 function(
   _,
-  Elemento
+  Elemento,
+  MapaModel
 ) {
   'use strict';
 
@@ -21,11 +23,11 @@ function(
       throw new Error('Esperado: ' + tamanhoEsperado + ' elemento(s). Encontrado: ' + tamanhoEncontrado + ' elemento(s).');
     }
 
-    return _(quantidadeLinhas).times(function(linha) {
+    return new MapaModel(_(quantidadeLinhas).times(function(linha) {
       return _(quantidadeColunas).times(function(coluna) {
         return Elemento.comCaractere(stringMapa.charAt(linha * quantidadeColunas + coluna));
       });
-    });
+    }));
   };
 
   return CompiladorMapa;

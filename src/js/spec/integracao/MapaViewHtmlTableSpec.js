@@ -8,8 +8,9 @@ define([
   'prod/aplicacao/model/Elemento/SETA_ESQUERDA',
   'prod/aplicacao/model/Elemento/VAZIO',
   'prod/aplicacao/model/Elemento/ITEM',
-  'prod/aplicacao/view/MapaViewModoTexto',
+  'prod/aplicacao/view/MapaViewHtmlTable',
   'prod/aplicacao/model/FabricaEventos',
+  'prod/aplicacao/model/MapaModel',
   '$'
 ],
 function(
@@ -22,22 +23,23 @@ function(
   SETA_ESQUERDA,
   VAZIO,
   ITEM,
-  MapaViewModoTexto,
+  MapaViewHtmlTable,
   FabricaEventos,
+  MapaModel,
   $
 ) {
   'use strict';
 
-  describe('MapaViewModoTexto', function() {
+  describe('MapaViewHtmlTable', function() {
     var $tabela = null, view = null;
 
     beforeEach(function() {
       var $elementoRaiz = $('<div>');
-      view = new MapaViewModoTexto($elementoRaiz);
-      view.desenharMatrizMapa([
+      view = new MapaViewHtmlTable($elementoRaiz);
+      view.desenharMapaModel(new MapaModel([
         [VAZIO, VAZIO, VAZIO     ],
         [VAZIO, VAZIO, PERSONAGEM]
-      ]);
+      ]));
       $tabela = $elementoRaiz.children('table');
     });
 

@@ -18,13 +18,13 @@ function(
     ITEM:          'i'
   };
 
-  function MapaViewModoTexto($elementoRaiz) {
+  function MapaViewHtmlTable($elementoRaiz) {
     this._$elementoRaiz = $elementoRaiz;
   }
 
-  MapaViewModoTexto.prototype.desenharMatrizMapa = function(matrizMapa) {
+  MapaViewHtmlTable.prototype.desenharMapaModel = function(mapaModel) {
     var htmlTabela = '<table class="tabuleiro"><tbody>';
-    _(matrizMapa).each(function(linha) {
+    _(mapaModel._matrizMapa).each(function(linha) {
 
       htmlTabela += '<tr>';
       _(linha).each(function(elementoJogo) {
@@ -40,7 +40,7 @@ function(
     this._$elementoRaiz.append(htmlTabela);
   };
 
-  return MapaViewModoTexto;
+  return MapaViewHtmlTable;
 
 });
 

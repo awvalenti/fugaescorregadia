@@ -269,14 +269,14 @@ Pendências
 2014-06-06
 ==========
 - Cheerio funcionando perfeitamente bem, para minha alegria! Foi de primeira!
-- MapaViewModoTextoSpec iniciada
+- MapaViewHtmlTableSpec iniciada
 - Esbocei a tela do jogo
 
 2014-06-12
 ==========
 - Quis fazer alguma coisa em CoffeeScript, tipo o gulpfile, mas o plugin para
   Eclipse não ajudou. Então, vou continuar com JS, pelo menos por enquanto.
-- Mudei MapaViewModoTexto para usar tabela
+- Mudei MapaViewHtmlTable para usar tabela
 - Descobri que cheerio não suporta :eq. Isso já foi relatado:
   https://github.com/cheeriojs/cheerio/issues/129#issuecomment-45910233 
 - Refleti sobre se devo ou não "testar o CSS"; na verdade, se devo testar que o HTML
@@ -309,3 +309,9 @@ Pendências
 ==========
 - Redesenhando as classes
 - CompiladorMapa vai gerar um MapaModel
+- MapaModel, inicialmente, nao tinha testes de unidade, pois seria Value Object,
+  muito simples para isso. Mas logo surgiu a necessidade de um metodo paraCada,
+  e aí foi interessante especificar seu comportamento.
+- É a velha reflexão: unidade ou integração? É importante haver testes para tudo.
+  A granularidade vai determinar a facilidade de entender o teste e a classe,
+  mas a cobertura pode ser garantida com um teste indireto, de integração, mesmo.
