@@ -308,6 +308,7 @@ Pendências
 2014-06-14
 ==========
 - Redesenhando as classes
+- MVMT (MapaViewModoTexto) foi renomeado para MVHT (MapaViewHtmlTable)
 - CompiladorMapa vai gerar um MapaModel
 - MapaModel, inicialmente, nao tinha testes de unidade, pois seria Value Object,
   muito simples para isso. Mas logo surgiu a necessidade de um metodo paraCada,

@@ -14,10 +14,9 @@ function(
 
   MapaModel.prototype.paraCada = function(funcoes) {
     _(this._matrizMapa).each(function(linha) {
-      funcoes.linha();
-      _(linha).each(function(elemento) {
-        funcoes.elemento(elemento);
-      });
+      funcoes.inicioLinha();
+      _(linha).each(funcoes.elemento);
+      funcoes.fimLinha();
     });
   };
 

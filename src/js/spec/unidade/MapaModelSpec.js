@@ -21,15 +21,18 @@ function(
     });
 
     it('deve permitir percorrer elementos', function() {
-      var chamadasALinha = 0, elementosObtidos = [];
+      var resultado = '';
 
       mapaModel.paraCada({
-        linha: function() { ++chamadasALinha; },
-        elemento: function(elemento) { elementosObtidos.push(elemento); }
+        inicioLinha: function()         { resultado += 'inicioLinha '; },
+        elemento:    function(elemento) { resultado += elemento + ' '; },
+        fimLinha:    function()         { resultado += 'fimLinha ';    }
       });
 
-      expect(chamadasALinha).toBe(2);
-      expect(elementosObtidos).toEqual([VAZIO, PERSONAGEM, VAZIO, VAZIO, VAZIO, VAZIO]);
+      expect(resultado).toBe(
+        'inicioLinha VAZIO PERSONAGEM VAZIO fimLinha ' +
+        'inicioLinha VAZIO VAZIO VAZIO fimLinha '
+      );
     });
 
   });

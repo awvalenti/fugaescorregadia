@@ -24,16 +24,18 @@ function(
 
   MapaViewHtmlTable.prototype.desenharMapaModel = function(mapaModel) {
     var htmlTabela = '<table class="tabuleiro"><tbody>';
-    _(mapaModel._matrizMapa).each(function(linha) {
 
-      htmlTabela += '<tr>';
-      _(linha).each(function(elementoJogo) {
+    mapaModel.paraCada({
+      inicioLinha: function() { htmlTabela += '<tr>'; },
+
+      elemento: function(elementoJogo) {
         htmlTabela += '<td><span class="' + elementoJogo.name() + '">'
             + caracteresGraficos[elementoJogo] + '</span></td>';
-      }, this);
-      htmlTabela += '</tr>';
+      },
 
-    }, this);
+      fimLinha: function() { htmlTabela += '</tr>'; }
+    });
+
 
     htmlTabela += '</tbody></table>';
 
