@@ -316,3 +316,15 @@ Pendências
 - É a velha reflexão: unidade ou integração? É importante haver testes para tudo.
   A granularidade vai determinar a facilidade de entender o teste e a classe,
   mas a cobertura pode ser garantida com um teste indireto, de integração, mesmo.
+- FabricaEventos está com métodos estáticos, como citado aqui no diário em dezembro
+  do ano passado. Porém, refleti sobre o seguinte:
+    - É só uma fábrica de Value Objects. A chance de ter que mocar é praticamente nula.
+    - Mantendo estático, é possível fazer uns static imports, o que ajuda legal
+    - Então, vou manter estático por enquanto e ainda fazer static imports 
+- MVHTSpec:
+  - Faz sentido criar um método processarMovimento(de, para)? Não deveria receber
+    um ResultadoMovimento e processá-lo?
+  - A questão é que, supostamente, deveria receber a posição atual do personagem,
+    conforme rascunhado em papel:
+    - JogoModel --> MapaModel(resultadoMovimento)
+      JogoModel --> MapaView(posicaoPersonagem, resultadoMovimento)

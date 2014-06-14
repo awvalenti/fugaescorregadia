@@ -33,6 +33,10 @@ function(
   describe('MapaViewHtmlTable', function() {
     var $tabela = null, view = null;
 
+    function obterElemento(linha, coluna) {
+      return $tabela.find('tbody tr').eq(linha).find('td').eq(coluna).find('span');
+    }
+
     beforeEach(function() {
       var $elementoRaiz = $('<div>');
       view = new MapaViewHtmlTable($elementoRaiz);
@@ -51,7 +55,7 @@ function(
       var $personagem = null;
 
       beforeEach(function() {
-        $personagem = $tabela.find('tbody tr').eq(1).find('td').eq(2).find('span');
+        $personagem = obterElemento(1, 2);
       });
 
       it('devem estar corretamente posicionados na tabela', function() {
@@ -70,8 +74,8 @@ function(
 
     describe('evento', function() {
       describe('de movimento', function() {
-        xit('deve apagar personagem na origem e posicionar no destino', function() {
-          view.processar(movimento.de(1, 2).para(1, 0));
+        it('deve apagar personagem na origem e posicionar no destino', function() {
+          view.processarMovimento(aPosicao(1, 2), aPosicao(1, 0));
           expect($tabela.find('tbody tr').eq(1).find('td').eq(0).find('span').length).toBe(1);
         });
       });
