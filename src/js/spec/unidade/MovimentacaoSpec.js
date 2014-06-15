@@ -37,8 +37,8 @@ function(
   function colaEm10_15(posicao)     { return posicao.eh(10, 15) ? COLA : VAZIO; }
   function itemEm10_15(posicao)     { return posicao.eh(10, 15) ? ITEM : VAZIO; }
 
-  var movimentoPara = FabricaEventos.movimentoPara;
-  var item = FabricaEventos.item;
+  var movimentoPara = FabricaEventos.movimentoPara,
+      item = FabricaEventos.item;
 
   describe('Movimentacao', function() {
     var dezDez = null, mov = null, aPosicao = null;

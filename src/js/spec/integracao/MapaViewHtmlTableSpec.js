@@ -1,30 +1,10 @@
 define([
-  'prod/aplicacao/model/Elemento/COLA',
-  'prod/aplicacao/model/Elemento/OBSTACULO',
-  'prod/aplicacao/model/Elemento/PERSONAGEM',
-  'prod/aplicacao/model/Elemento/SETA_BAIXO',
-  'prod/aplicacao/model/Elemento/SETA_CIMA',
-  'prod/aplicacao/model/Elemento/SETA_DIREITA',
-  'prod/aplicacao/model/Elemento/SETA_ESQUERDA',
-  'prod/aplicacao/model/Elemento/VAZIO',
-  'prod/aplicacao/model/Elemento/ITEM',
   'prod/aplicacao/view/MapaViewHtmlTable',
-  'prod/aplicacao/model/FabricaEventos',
   'prod/aplicacao/model/MapaModel',
   '$'
 ],
 function(
-  COLA,
-  OBSTACULO,
-  PERSONAGEM,
-  SETA_BAIXO,
-  SETA_CIMA,
-  SETA_DIREITA,
-  SETA_ESQUERDA,
-  VAZIO,
-  ITEM,
   MapaViewHtmlTable,
-  FabricaEventos,
   MapaModel,
   $
 ) {
@@ -40,10 +20,11 @@ function(
     beforeEach(function() {
       var $elementoRaiz = $('<div>');
       view = new MapaViewHtmlTable($elementoRaiz);
-      view.desenharMapaModel(new MapaModel([
-        [VAZIO, VAZIO, VAZIO     ],
-        [VAZIO, VAZIO, PERSONAGEM]
-      ]));
+      view.desenharMapaModel(new MapaModel(2, 3,
+        '_ _ _' +
+        '_ _ p' +
+        ''
+      ));
       $tabela = $elementoRaiz.children('table');
     });
 
@@ -75,8 +56,8 @@ function(
     describe('evento', function() {
       describe('de movimento', function() {
         it('deve apagar personagem na origem e posicionar no destino', function() {
-          view.processarMovimento(aPosicao(1, 2), aPosicao(1, 0));
-          expect($tabela.find('tbody tr').eq(1).find('td').eq(0).find('span').length).toBe(1);
+          view.processarResultadoMovimento(partindoDe(1, 2), [movimentoPara(1, 0)]);
+          expect(obterElemento(1, 0)).toBe('PERSONAGEM');
         });
       });
     });

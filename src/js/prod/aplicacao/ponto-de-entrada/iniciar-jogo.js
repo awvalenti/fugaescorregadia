@@ -1,17 +1,22 @@
 define([
   'prod/aplicacao/view/MapaViewHtmlTable',
-  'prod/aplicacao/model/CompiladorMapa',
+  'prod/aplicacao/model/MapaModel',
   '$'
 ],
 function(
   MapaViewHtmlTable,
-  CompiladorMapa,
+  MapaModel,
   $
 ) {
   'use strict';
 
   new MapaViewHtmlTable($('body')).desenharMapaModel(
-    new CompiladorMapa().compilar(3, 3, '_ _ p o _ _ i _ _')
+    new MapaModel(3, 3,
+      '_ _ p' +
+      'o _ _' +
+      'i _ _' +
+      ''
+    )
   );
 
 });

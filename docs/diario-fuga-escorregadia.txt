@@ -328,3 +328,4 @@ Pendências
     conforme rascunhado em papel:
     - JogoModel --> MapaModel(resultadoMovimento)
       JogoModel --> MapaView(posicaoPersonagem, resultadoMovimento)
+- Mesclei CompiladorMapa com MapaModel, ficando só com essa última

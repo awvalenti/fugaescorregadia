@@ -1,11 +1,7 @@
 define([
-  'prod/aplicacao/model/Elemento/VAZIO',
-  'prod/aplicacao/model/Elemento/PERSONAGEM',
   'prod/aplicacao/model/MapaModel'
 ],
 function(
-  VAZIO,
-  PERSONAGEM,
   MapaModel
 ) {
   'use strict';
@@ -14,10 +10,11 @@ function(
     var mapaModel = null;
 
     beforeEach(function() {
-      mapaModel = new MapaModel([
-        [VAZIO, PERSONAGEM, VAZIO],
-        [VAZIO, VAZIO     , VAZIO]
-      ]);
+      mapaModel = new MapaModel(2, 3,
+        '_ p _' +
+        '_ _ _' +
+        ''
+      );
     });
 
     it('deve permitir percorrer elementos', function() {
