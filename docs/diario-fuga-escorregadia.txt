@@ -329,3 +329,12 @@ Pendências
     - JogoModel --> MapaModel(resultadoMovimento)
       JogoModel --> MapaView(posicaoPersonagem, resultadoMovimento)
 - Mesclei CompiladorMapa com MapaModel, ficando só com essa última
+
+2014-07-03
+==========
+- Agora, no Windows!
+- Gastei um tempão formulando a explicação de como configurar o ambiente
+- Essa foi uma experiência interessante:
+  - Percebo que dá trabalho explicar com clareza e simplicidade
+  - Ainda assim, vale a pena! É a diferença entre as pessoas conseguirem e não
+    conseguirem realizar uma tarefa.

@@ -1,31 +1,39 @@
-Caso seja necessário instalar Node e NPM, aí vão as instruções.
+Para rodar o projeto pela primeira vez, você deve:
+    1) Ter NodeJS e NPM instalados
+    2) Instalar as dependências do projeto
+    3) Ter a ferramenta gulp instalada globalmente
+    
+O passo 1 está explicado mais abaixo.
 
-Windows
-=======
-Baixar e executar o instalador: http://nodejs.org/
+Passos 2 e 3: no diretório do projeto, execute uma vez estes dois comandos:
+    npm install
+    npm install -g gulp
 
-Ubuntu
-======
-Node
-----
-cd /tmp
-wget http://nodejs.org/dist/v0.10.28/node-v0.10.28.tar.gz    # ou baixar versão mais nova
-tar zxvf node-v0.10.28.tar.gz
-cd node-v0.10.28
-sudo make
-sudo mv out/Release /opt/node
-rm -rf /tmp/node-v0.10.28
-sudo ln -s /opt/node/node /usr/bin/node
+O primeiro instala as dependências do projeto no diretório do projeto.
+O segundo instala a ferramenta gulp no diretório do NodeJS.
 
-NPM
----
-sudo apt-get install curl
-curl -L https://npmjs.org/install.sh | sudo sh
+A partir daí, você deverá conseguir executar o projeto com o comando:
+    gulp 
 
 
-Comandos úteis
-==============
+Instalação de Node e NPM no Windows
+===================================
+Baixar e executar o instalador:
+    http://nodejs.org/
 
-npm init                         # cria package.json
-npm install pacote --save-dev    # baixa pacote e acrescenta dependência ao package.json
-npm install                      # baixa as dependências configuradas no package.json
+
+Instalação de Node e NPM no Ubuntu
+==================================
+Node:
+    cd /tmp
+    wget http://nodejs.org/dist/v0.10.28/node-v0.10.28.tar.gz    # ou baixar versão mais nova
+    tar zxvf node-v0.10.28.tar.gz
+    cd node-v0.10.28
+    sudo make
+    sudo mv out/Release /opt/node
+    rm -rf /tmp/node-v0.10.28
+    sudo ln -s /opt/node/node /usr/bin/node
+
+NPM:
+    sudo apt-get install curl
+    curl -L https://npmjs.org/install.sh | sudo sh
