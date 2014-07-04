@@ -1,23 +1,33 @@
 define([
   'prod/aplicacao/view/MapaViewHtmlTable',
   'prod/aplicacao/model/MapaModel',
+  'prod/aplicacao/model/FabricaEventos',
+  'prod/aplicacao/model/RepoPosicoes',
+  '_',
   '$'
 ],
 function(
   MapaViewHtmlTable,
   MapaModel,
+  FabricaEventos,
+  RepoPosicoes,
+  _,
   $
 ) {
   'use strict';
 
-  describe('MapaViewHtmlTable', function() {
-    var $tabela = null, view = null;
+  var movimentoPara = FabricaEventos.movimentoPara;
 
-    function obterElemento(linha, coluna) {
+  describe('MapaViewHtmlTable', function() {
+    var aPosicao = null, $tabela = null, view = null;
+
+    function obterElementoHtml(linha, coluna) {
       return $tabela.find('tbody tr').eq(linha).find('td').eq(coluna).find('span');
     }
 
     beforeEach(function() {
+      aPosicao = _(RepoPosicoes.prototype.obter).bind(new RepoPosicoes());
+
       var $elementoRaiz = $('<div>');
       view = new MapaViewHtmlTable($elementoRaiz);
       view.desenharMapaModel(new MapaModel(2, 3,
@@ -36,7 +46,7 @@ function(
       var $personagem = null;
 
       beforeEach(function() {
-        $personagem = obterElemento(1, 2);
+        $personagem = obterElementoHtml(1, 2);
       });
 
       it('devem estar corretamente posicionados na tabela', function() {
@@ -56,8 +66,9 @@ function(
     describe('evento', function() {
       describe('de movimento', function() {
         it('deve apagar personagem na origem e posicionar no destino', function() {
-          view.processarResultadoMovimento(partindoDe(1, 2), [movimentoPara(1, 0)]);
-          expect(obterElemento(1, 0)).toBe('PERSONAGEM');
+          view.movimentarPersonagem(aPosicao(1, 2), aPosicao(1, 0));
+          expect(obterElementoHtml(1, 2).hasClass('PERSONAGEM')).toBe(false);
+          expect(obterElementoHtml(1, 0).hasClass('PERSONAGEM')).toBe(true);
         });
       });
     });

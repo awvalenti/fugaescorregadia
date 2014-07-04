@@ -338,3 +338,30 @@ Pendências
   - Percebo que dá trabalho explicar com clareza e simplicidade
   - Ainda assim, vale a pena! É a diferença entre as pessoas conseguirem e não
     conseguirem realizar uma tarefa.
+
+2014-07-04
+==========
+- Mexi em MapaViewHtmlTable, no método processarResultadoMovimento(origemPersonsagem, resultadoMovimento)
+- Segui o lema "barra verde o mais rápido possível". Aconteceu da seguinte maneira:
+  - Esse método trabalhava com um vetor de EventoMovimento
+  - Para alcançar a barra verde o mais rápido possível, eu fiz resultadoMovimento[0]._posicaoDestino
+  - Isso era bem feio. Eu precisaria limpar em algum momento.
+  - No meio do caminho, o que aconteceu? Percebi que, para eliminar duplicação, eu teria que
+    fazer um for passando por todos os elementos do vetor. Não havia nenhum teste exigindo isso.
+    Seria uma "refatoração" com cara de nova funcionalidade.
+  - Isso era sinal de que havia algo errado. O que?
+    - Simples: eu estava fazendo um método estranho, difícil de testar. Na verdade, o que eu queria
+      não era um processarResultadoMovimento, e, sim, movimentarPersonagem.
+    - Esse foi facinho de testar e não exigiu a gambiarra do [0]._propriedadePrivada
+  - Resumindo, o "barra verde o mais rápido possível" me possibilitou enxergar um defeito no meu design,
+    que eu dificilmente teria enxergado se tivesse partido para a solução final de uma vez, que seria
+    fazer o for, publicar algumas propriedades que estavam privadas, rever as classes de EventoMovimento
+    etc. Nada disso era o que eu queria fazer. O que eu queria fazer era tratar um movimento simples.
+- Na prática, agora eu vou ter que escrever uma camada que traduza ResultadoMovimento para chamadas
+  aos métodos de MapaViewHtmlTableSpec. Esse é um pequeno trabalho perto do ganho em testabilidade
+  e compreensibilidade.
+- Achei o método Posicao.prototype.eh meio estranho. Ele só serve para facilitar testes. Não deveria
+  estar na classe de domínio, e, sim, no arquivo de spec. Logo, refatorar a "classe" de testes.
+- Outra refatoração legal para "classes" de teste é substituir umas "variáveis mágicas" que eu criei
+  (como aPosicao = _(Posicao.prototype.obter).bind(new Posicao())) por funções locais, com a mesma
+  funcionalidade

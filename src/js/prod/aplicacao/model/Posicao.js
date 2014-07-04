@@ -25,6 +25,14 @@ function(
   Posicao.prototype.estaDentroDosLimites = function(quantidadeLinhas, quantidadeColunas) {
     return this._linha >= 0 && this._linha < quantidadeLinhas && this._coluna >= 0 && this._coluna < quantidadeColunas;
   };
+  
+  Posicao.prototype.linha = function() {
+    return this._linha;
+  };
+  
+  Posicao.prototype.coluna = function() {
+    return this._coluna;
+  };
 
   Posicao.prototype.toString = function() {
     return '(' + this._linha + ', ' + this._coluna + ')';

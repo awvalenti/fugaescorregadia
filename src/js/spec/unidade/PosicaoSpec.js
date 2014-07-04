@@ -21,11 +21,6 @@ function(
       repoPosicoes = new RepoPosicoes();
     });
 
-    it('nao deve oferecer propriedades publicas linha e coluna, priorizando o uso como objeto', function() {
-      expect(repoPosicoes.obter(1, 2).linha).toBeUndefined();
-      expect(repoPosicoes.obter(1, 2).coluna).toBeUndefined();
-    });
-
     it('deve somar direcao', function() {
       expect(repoPosicoes.obter(10, 20).somar(BAIXO)).toBe(repoPosicoes.obter(11, 20));
       expect(repoPosicoes.obter(10, 20).somar(CIMA)).toBe(repoPosicoes.obter(9, 20));
@@ -50,6 +45,11 @@ function(
 
       expect(repoPosicoes.obter(-1, 9).estaDentroDosLimites(10, 10)).toBe(false);
       expect(repoPosicoes.obter(9, -2).estaDentroDosLimites(10, 10)).toBe(false);
+    });
+
+    it('deve oferecer metodos linha e coluna, que devem ser usados somente para indexar matrizes', function() {
+      expect(repoPosicoes.obter(1, 2).linha()).toBe(1);
+      expect(repoPosicoes.obter(1, 2).coluna()).toBe(2);
     });
 
   });
