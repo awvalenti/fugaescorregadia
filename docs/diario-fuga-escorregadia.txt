@@ -341,8 +341,10 @@ Pendências
 
 2014-07-04
 ==========
+Etapa 1
+-------
 - Mexi em MapaViewHtmlTable, no método processarResultadoMovimento(origemPersonsagem, resultadoMovimento)
-- Segui o lema "barra verde o mais rápido possível". Aconteceu da seguinte maneira:
+- Segui o lema "barra verde o mais rápido possível". Aconteceu da seguinte maneira: #valordotdd
   - Esse método trabalhava com um vetor de EventoMovimento
   - Para alcançar a barra verde o mais rápido possível, eu fiz resultadoMovimento[0]._posicaoDestino
   - Isso era bem feio. Eu precisaria limpar em algum momento.
@@ -360,8 +362,31 @@ Pendências
 - Na prática, agora eu vou ter que escrever uma camada que traduza ResultadoMovimento para chamadas
   aos métodos de MapaViewHtmlTableSpec. Esse é um pequeno trabalho perto do ganho em testabilidade
   e compreensibilidade.
+  
+Etapa 2
+-------
 - Achei o método Posicao.prototype.eh meio estranho. Ele só serve para facilitar testes. Não deveria
   estar na classe de domínio, e, sim, no arquivo de spec. Logo, refatorar a "classe" de testes.
 - Outra refatoração legal para "classes" de teste é substituir umas "variáveis mágicas" que eu criei
   (como aPosicao = _(Posicao.prototype.obter).bind(new Posicao())) por funções locais, com a mesma
   funcionalidade
+
+Etapa 3
+-------
+- Corrigi um negócio no Eclipse que estava me impedindo de fazer CTRL+2, R
+- Novamente, #valordotdd: tentei refatorar no vermelho e me perdi. Voltei ao verde e encontrei
+  um defeito no que eu estava fazendo
+- Eu estava pensando em, por praticidade, manter o uso das strings 'PERSONAGEM' e 'NADA' em vez de
+  importar as constantes do enum e usá-las. Quebrei a cara: commitei esse 'NADA', só que, na verdade,
+  a constante se chama VAZIO! E o teste tinha passado... #valordasboaspraticas
+- Fui criar o método valueOf em enumerate.js e depois lembrei que esse método já faz parte do JavaScript.
+  Então, vou ter que inventar outro nome.
+- #valordotdd: fui fazer uma implementação demorada, do método Enum.forName, escrevendo um for. Coloquei
+  um throw '' para o teste passar, porque ele esperava uma exceção. Resultado: não passou. E eu me
+  perdi. Quando voltei atrás, fiz o que eu não queria ter feito: um horrível
+  if (name === 'OEE') throw ''; só para o teste passar. Resultado? Não passou! Mas throw 3; fez o teste
+  passar. Conclusão: não se deve fazer throw com string vazia.
+- #valordotdd: realmente, esse negócio de implementação falsa que progressivamente se torna a
+  implementação verdadeira é muito útil para gerar mensagens de erro. Concatenação de strings geralmente
+  é um negócio muito sujeito a erros. Partir da constante para a expressão sem duplicação realmente
+  é muito mais fácil passo-a-passo. Senti isso ao gerar a mensagem de erro em Enum.forName.

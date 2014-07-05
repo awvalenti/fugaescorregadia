@@ -1,7 +1,11 @@
 define([
+  'prod/aplicacao/model/Elemento/PERSONAGEM',
+  'prod/aplicacao/model/Elemento/VAZIO',
   '_'
 ],
 function(
+  PERSONAGEM,
+  VAZIO,
   _
 ) {
   'use strict';
@@ -28,19 +32,19 @@ function(
 
     this._$elementoRaiz.append(htmlTabela);
   };
-  
+
   MapaViewHtmlTable.prototype.movimentarPersonagem = function(origem, destino) {
-    this._alterarElementoHtml(origem, 'NADA');
-    this._alterarElementoHtml(destino, 'PERSONAGEM');
+    this._alterarElementoHtml(origem, VAZIO);
+    this._alterarElementoHtml(destino, PERSONAGEM);
   };
-  
+
   MapaViewHtmlTable.prototype._alterarElementoHtml = function(posicao, novoElementoJogo) {
     this._$elementoRaiz
         .find('tr').eq(posicao.linha())
         .find('td').eq(posicao.coluna())
         .children('span').attr('class', novoElementoJogo);
   };
-  
+
   var caracteresGraficos = {
     VAZIO:         '_',
     OBSTACULO:     'o',
@@ -52,11 +56,11 @@ function(
     COLA:          'c',
     ITEM:          'i'
   };
-  
+
   function gerarStringDoSpan(elementoJogo) {
     return '<span class="' + elementoJogo.name() + '">' + caracteresGraficos[elementoJogo] + '</span>';
   }
-  
+
   return MapaViewHtmlTable;
 
 });

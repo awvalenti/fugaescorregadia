@@ -61,12 +61,27 @@ function(
 
     Enum._values = [];
     Enum.values = values;
+    Enum.forName = forName;
 
     return Enum;
   }
 
   function values() {
     return this._values;
+  }
+
+  function forName(name) {
+    if (typeof name !== 'string') throw new Error('forName expected a string argument, but got ' + typeof name);
+
+    var values = this._values;
+
+    for (var i = 0; i < values.length; ++i) {
+      var constant = values[i];
+      if (constant._name === name) return constant;
+    }
+
+    throw new Error("forName('" + name + "'): enum constant not found. Misspelling? Valid constants are " +
+        values.join(', ') + '.');
   }
 
   function addConstant(newEnum, name, ordinal) {
