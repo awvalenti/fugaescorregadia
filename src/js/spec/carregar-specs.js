@@ -6,11 +6,12 @@ define([
   'spec/unidade/libs-originais/enumerateStaticPropertiesSpec',
 
   'spec/unidade/ElementoSpec',
-  'spec/unidade/MapaModelSpec',
+  'spec/unidade/MapaSpec',
+  'spec/unidade/TabuleiroModelSpec',
   'spec/unidade/MovimentacaoSpec',
   'spec/unidade/PosicaoSpec',
   'spec/unidade/RepoPosicoesSpec',
   'spec/unidade/spec-helper/DirecaoMatcherSpec',
 
-  'spec/integracao/MapaViewHtmlTableSpec'
+  'spec/integracao/TabuleiroViewHtmlTableSpec'
 ]);

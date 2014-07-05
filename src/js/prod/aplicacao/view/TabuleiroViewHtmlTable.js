@@ -10,14 +10,14 @@ function(
 ) {
   'use strict';
 
-  function MapaViewHtmlTable($elementoRaiz) {
+  function TabuleiroViewHtmlTable($elementoRaiz) {
     this._$elementoRaiz = $elementoRaiz;
   }
 
-  MapaViewHtmlTable.prototype.desenharMapaModel = function(mapaModel) {
+  TabuleiroViewHtmlTable.prototype.desenharTabuleiroModel = function(tabuleiroModel) {
     var htmlTabela = '<table class="tabuleiro"><tbody>';
 
-    mapaModel.paraCada({
+    tabuleiroModel.paraCada({
       inicioLinha: function() { htmlTabela += '<tr>'; },
 
       elemento: function(elementoJogo) {
@@ -33,23 +33,23 @@ function(
     this._$elementoRaiz.append(htmlTabela);
   };
 
-  MapaViewHtmlTable.prototype.movimentarPersonagem = function(origem, destino) {
+  TabuleiroViewHtmlTable.prototype.movimentarPersonagem = function(origem, destino) {
     this._alterarElementoHtml(origem, VAZIO);
     this._alterarElementoHtml(destino, PERSONAGEM);
   };
 
-  MapaViewHtmlTable.prototype.coletarItem = function(posicao) {
+  TabuleiroViewHtmlTable.prototype.coletarItem = function(posicao) {
     this._alterarElementoHtml(posicao, VAZIO);
   };
 
-  MapaViewHtmlTable.prototype._alterarElementoHtml = function(posicao, novoElementoJogo) {
+  TabuleiroViewHtmlTable.prototype._alterarElementoHtml = function(posicao, novoElementoJogo) {
     this._$elementoRaiz
         .find('tr').eq(posicao.linha())
         .find('td').eq(posicao.coluna())
         .children('span').attr('class', novoElementoJogo);
   };
 
-  var caracteresGraficos = {
+  var CARACTERES_GRAFICOS = {
     VAZIO:         '_',
     OBSTACULO:     'o',
     PERSONAGEM:    'p',
@@ -62,9 +62,9 @@ function(
   };
 
   function gerarStringDoSpan(elementoJogo) {
-    return '<span class="' + elementoJogo.name() + '">' + caracteresGraficos[elementoJogo] + '</span>';
+    return '<span class="' + elementoJogo.name() + '">' + CARACTERES_GRAFICOS[elementoJogo] + '</span>';
   }
 
-  return MapaViewHtmlTable;
+  return TabuleiroViewHtmlTable;
 
 });

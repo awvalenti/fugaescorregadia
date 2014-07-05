@@ -8,7 +8,7 @@ function(
 ) {
   'use strict';
 
-  function MapaModel(quantidadeLinhas, quantidadeColunas, stringMapa) {
+  function Mapa(quantidadeLinhas, quantidadeColunas, stringMapa) {
     stringMapa = stringMapa.trim().replace(/\s/g, '');
 
     var tamanhoEsperado = quantidadeLinhas * quantidadeColunas,
@@ -25,14 +25,12 @@ function(
     });
   }
 
-  MapaModel.prototype.paraCada = function(funcoes) {
-    _(this._matrizMapa).each(function(linha) {
-      funcoes.inicioLinha();
-      _(linha).each(funcoes.elemento, funcoes);
-      funcoes.fimLinha();
+  Mapa.prototype.copiarMatriz = function() {
+    return _(this._matrizMapa).map(function(linha) {
+      return linha.slice();
     });
   };
 
-  return MapaModel;
+  return Mapa;
 
 });

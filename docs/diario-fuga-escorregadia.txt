@@ -390,3 +390,11 @@ Etapa 3
   implementação verdadeira é muito útil para gerar mensagens de erro. Concatenação de strings geralmente
   é um negócio muito sujeito a erros. Partir da constante para a expressão sem duplicação realmente
   é muito mais fácil passo-a-passo. Senti isso ao gerar a mensagem de erro em Enum.forName.
+
+2014-07-05
+==========
+- Pensei em mudar de Mapa para Tabuleiro quando for mutável e chamar de Mapa só o mapa imutável
+- Vou fazer isso, pois distribui melhor as responsabilidades
+- Percebi que, quando apaguei o CompiladorMapa, apaguei junto as specs negativas
+- Fiz uma volta grande para voltar a usar, efetivamente, o CompiladorMapa, agora chamado somente
+  de Mapa. Mas tem praticamente o mesmo efeito.

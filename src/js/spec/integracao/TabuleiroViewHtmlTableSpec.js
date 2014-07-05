@@ -1,6 +1,7 @@
 define([
-  'prod/aplicacao/view/MapaViewHtmlTable',
-  'prod/aplicacao/model/MapaModel',
+  'prod/aplicacao/view/TabuleiroViewHtmlTable',
+  'prod/aplicacao/model/Mapa',
+  'prod/aplicacao/model/TabuleiroModel',
   'prod/aplicacao/model/RepoPosicoes',
   'prod/aplicacao/model/Elemento',
   'prod/aplicacao/model/Elemento/PERSONAGEM',
@@ -9,8 +10,9 @@ define([
   '$'
 ],
 function(
-  MapaViewHtmlTable,
-  MapaModel,
+  TabuleiroViewHtmlTable,
+  Mapa,
+  TabuleiroModel,
   RepoPosicoes,
   Elemento,
   PERSONAGEM,
@@ -20,7 +22,7 @@ function(
 ) {
   'use strict';
 
-  describe('MapaViewHtmlTable', function() {
+  describe('TabuleiroViewHtmlTable', function() {
     var repoPosicoes = null, $tabela = null, view = null;
 
     function elementoHtmlEm(linha, coluna) { return $tabela.find('tbody tr').eq(linha).find('td').eq(coluna).find('span'); }
@@ -31,16 +33,20 @@ function(
       repoPosicoes = new RepoPosicoes();
 
       var $elementoRaiz = $('<div>');
-      view = new MapaViewHtmlTable($elementoRaiz);
-      view.desenharMapaModel(new MapaModel(2, 3,
+      view = new TabuleiroViewHtmlTable($elementoRaiz);
+      view.desenharTabuleiroModel(new TabuleiroModel(repoPosicoes, new Mapa(2, 3,
         '_ i _' +
         '_ _ p' +
         ''
-      ));
+      )));
       $tabela = $elementoRaiz.children('table');
     });
 
-    it('deve gerar <table class="tabuleiro"> dentro do $elementoRaiz', function() {
+    it('deve gerar um elemento <table> filho de $elementoRaiz', function() {
+      expect($tabela.length).toBe(1);
+    });
+
+    it('esse elemento <table> deve possuir classe "tabuleiro"', function() {
       expect($tabela.hasClass('tabuleiro')).toBe(true);
     });
 
