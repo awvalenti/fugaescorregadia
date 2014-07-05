@@ -38,6 +38,10 @@ function(
     this._alterarElementoHtml(destino, PERSONAGEM);
   };
 
+  MapaViewHtmlTable.prototype.coletarItem = function(posicao) {
+    this._alterarElementoHtml(posicao, VAZIO);
+  };
+
   MapaViewHtmlTable.prototype._alterarElementoHtml = function(posicao, novoElementoJogo) {
     this._$elementoRaiz
         .find('tr').eq(posicao.linha())

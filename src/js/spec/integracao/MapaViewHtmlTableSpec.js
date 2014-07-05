@@ -33,14 +33,14 @@ function(
       var $elementoRaiz = $('<div>');
       view = new MapaViewHtmlTable($elementoRaiz);
       view.desenharMapaModel(new MapaModel(2, 3,
-        '_ _ _' +
+        '_ i _' +
         '_ _ p' +
         ''
       ));
       $tabela = $elementoRaiz.children('table');
     });
 
-    it('deve gerar um <table class="tabuleiro"> dentro do $elementoRaiz', function() {
+    it('deve gerar <table class="tabuleiro"> dentro do $elementoRaiz', function() {
       expect($tabela.hasClass('tabuleiro')).toBe(true);
     });
 
@@ -72,7 +72,17 @@ function(
           expect(elementoJogoEm(1, 2)).toBe(VAZIO);
           expect(elementoJogoEm(1, 0)).toBe(PERSONAGEM);
         });
+
       });
+
+      describe('de item', function() {
+        it('deve apagar item', function() {
+          view.coletarItem(aPosicao(0, 1));
+          expect(elementoJogoEm(0, 1)).toBe(VAZIO);
+        });
+
+      });
+
     });
 
   });
