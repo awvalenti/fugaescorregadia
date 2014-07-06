@@ -14,5 +14,6 @@ define([
   'spec/unidade/RepoPosicoesSpec',
   'spec/unidade/spec-helper/DirecaoMatcherSpec',
 
-  'spec/integracao/TabuleiroViewHtmlTableSpec'
+  'spec/integracao/TabuleiroViewHtmlTableSpec',
+  'spec/integracao/TabuleiroMVCSpec'
 ]);
