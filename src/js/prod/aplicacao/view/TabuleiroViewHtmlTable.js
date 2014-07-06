@@ -33,7 +33,7 @@ function(
     this._$elementoRaiz.append(htmlTabela);
   };
 
-  TabuleiroViewHtmlTable.prototype.movimentarPersonagem = function(origem, destino) {
+  TabuleiroViewHtmlTable.prototype.reposicionarPersonagem = function(origem, destino) {
     this._alterarElementoHtml(origem, VAZIO);
     this._alterarElementoHtml(destino, PERSONAGEM);
   };

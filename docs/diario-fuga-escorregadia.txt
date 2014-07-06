@@ -407,3 +407,37 @@ Etapa 3
     - Isso elimina umas sugestões malucas quando você faz CTRL+Espaço
 - Mexi nos build path da vida do Eclipse, excluindo src/lib das validações.
   Tchau, erros e avisos nada a ver!
+- Pensei sobre o teste que estou escrevendo, com mocks, e percebi que vou precisar criar a classe
+  Interface, que se comportará como a interface em Java. O motivo é o seguinte:
+    - O teste cria um jasmine spy. Na criação, especificam-se nomes de métodos para mocar.
+    - Porém, o que acontece? Você pode pôr um nome qualquer, que não necessariamente
+      seja o mesmo que o da sua classe de verdade.
+    - Com isso, o teste de unidade pode, mas não significar nada a respeito das classes
+      de verdade. Uma renomeação de método mal-feita é suficiente para quebrar testes
+      e não classes de produção ou vice-versa.
+- Outra alternativa é fazer logo um teste de integração, que talvez seja até mais fácil
+- #reflexaotdd Outra questão é se métodos cuja necessidade surge na integração deveriam constar
+  nas specs de unidade. Conceitualmente, eles não são necessários no âmbito da unidade.
+- #reflexaotdd Estou aprendendo que é muito importante postergar pequenas decisões. Primeiro, faça
+  todos os testes relevantes passarem. Depois, refatore para ficar bonito. Isso é comum dentro de
+  um ciclo de TDD: faça funcionar, depois deixe bonito. Porém, isso também serve para, por exemplo,
+  um dia inteiro de trabalho. Em vez de buscar o melhor design, faça algum rapidamente e gaste
+  algumas horas refatorando para ficar legal. Fazer isso depois é mais fácil, pois os requisitos
+  já ficaram mais claros.
+- #valordotdd Percebo que escrever a linha do assert antes às vezes te coloca de cara com uma
+  decisão difícil, antes mesmo de você ter tido que fazer o código compilar. Isso acabou de acontecer
+  quando eu fui escrever uma nova spec para TabuleiroModel que delegaria uma chamada para
+  Movimentacao. Essa chamada de delegacao seria meio estranha; logo, meu design talvez não esteja bom.
+- #reflexaotdd Ao escrever o assert primeiro, estou percebendo que é importante escrever logo
+  a linha que exercita o objeto. Agora há pouco eu saí fazendo o teste passar e refatorando e acabei
+  me perdendo em qual era o meu objetivo.
+- #valordotdd Passos curtos. Eu jurava que uma refatoração simples de substituir um repoPosicoes.obter
+  por aPosicao iria funcionar. E não funcionou. Porque o objeto repoPosicoes estava sendo injetado
+  como dependência, e, na linha que criava o aPosicao, eu criei outra instância. Será que eu teria
+  tido paciência de mandar um ALT+TAB, F5 só para testar esse pequeno passo?
+- Finalmente lembrei por que eu criei uma classe Movimentacao independente de TabuleiroModel. É porque
+  é muuuito mais fácil testar sem guardar o estado da posição atual do personagem! Havendo um método
+  que simplesmente receba a posição atual do personagem e o mapa, você faz outra chamada e já está
+  fazendo um novo teste. Não é necessário configurar nada. Apesar de que um simples stub resolveria
+  razoavelmente bem esse problema... Bom, na prática, não ficaria tão ruim, não. É apenas
+  um mock a menos.

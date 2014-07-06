@@ -15,8 +15,8 @@ function(
     this._quantidadeColunas = quantidadeColunas;
   }
 
-  Movimentacao.prototype.movimentarPersonagem = function(posicaoAtual, direcao, elementoEm) {
-    var resultadoMovimento = new ResultadoMovimento();
+  Movimentacao.prototype.calcularMovimento = function(posicaoAtual, direcao, elementoEm) {
+    var resultadoMovimento = new ResultadoMovimento(posicaoAtual, []);
 
     var novaPosicao, elemento;
     while ((novaPosicao = posicaoAtual.somar(direcao))
@@ -31,7 +31,7 @@ function(
       if (!elemento.permiteSairLogoAposEntrar()) break;
     }
 
-    return resultadoMovimento.emVetor();
+    return resultadoMovimento;
   };
 
   return Movimentacao;

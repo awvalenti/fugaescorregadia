@@ -1,21 +1,12 @@
 define([
-  'prod/aplicacao/model/Elemento',
-
   'spec/carregar-specs'
 ],
 function(
-  Elemento
 ) {
   'use strict';
 
-  acrescentarMetodoJasmineToString(Elemento);
-
-  function acrescentarMetodoJasmineToString(classe) {
-    classe.prototype.jasmineToString = jasmineToString;
-  }
-
-  function jasmineToString() {
+  Object.prototype.jasmineToString = function() {
     return this.toString();
-  }
+  };
 
 });

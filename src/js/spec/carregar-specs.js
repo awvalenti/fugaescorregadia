@@ -8,6 +8,7 @@ define([
   'spec/unidade/ElementoSpec',
   'spec/unidade/MapaSpec',
   'spec/unidade/TabuleiroModelSpec',
+  'spec/unidade/TabuleiroControllerSpec',
   'spec/unidade/MovimentacaoSpec',
   'spec/unidade/PosicaoSpec',
   'spec/unidade/RepoPosicoesSpec',

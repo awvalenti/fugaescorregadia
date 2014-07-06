@@ -2,31 +2,36 @@ define([
   'prod/aplicacao/model/TabuleiroModel',
   'prod/aplicacao/model/Mapa',
   'prod/aplicacao/model/RepoPosicoes',
+  'prod/aplicacao/model/Direcao/DIREITA',
   'prod/aplicacao/model/Elemento/ITEM',
   'prod/aplicacao/model/Elemento/VAZIO',
-  'prod/aplicacao/model/Elemento/PERSONAGEM'
+  'prod/aplicacao/model/Elemento/PERSONAGEM',
+  '_'
 ],
 function(
   TabuleiroModel,
   Mapa,
   RepoPosicoes,
+  DIREITA,
   ITEM,
   VAZIO,
-  PERSONAGEM
+  PERSONAGEM,
+  _
 ) {
   'use strict';
 
   describe('TabuleiroModel', function() {
-    var tabuleiroModel = null, repoPosicoes = null;
+    var aPosicao = null, tabuleiroModel = null, mov = null;
 
     beforeEach(function() {
-      repoPosicoes = new RepoPosicoes();
-
+      var repoPosicoes = new RepoPosicoes();
+      aPosicao = _(RepoPosicoes.prototype.obter).bind(repoPosicoes);
+      mov = jasmine.createSpyObj('movimentacao', ['calcularMovimento']);
       tabuleiroModel = new TabuleiroModel(repoPosicoes, new Mapa(2, 3,
         '_ p _' +
         '_ _ _' +
         ''
-      ));
+      ), mov);
     });
 
     it('deve permitir percorrer todos os elementos', function() {
@@ -44,13 +49,9 @@ function(
       );
     });
 
-    it('deve permitir obter elementos por meio da posicao', function() {
-      expect(tabuleiroModel.elementoEm(repoPosicoes.obter(0, 0))).toBe(VAZIO);
-      expect(tabuleiroModel.elementoEm(repoPosicoes.obter(0, 1))).toBe(PERSONAGEM);
-    });
-
-    it('deve permitir obter a posicao do personagem', function() {
-      expect(tabuleiroModel.posicaoPersonagem()).toBe(repoPosicoes.obter(0, 1));
+    it('deve delegar movimentacao', function() {
+      tabuleiroModel.executarMovimento(DIREITA);
+      expect(mov.calcularMovimento).toHaveBeenCalledWith(aPosicao(0, 1), DIREITA, tabuleiroModel);
     });
 
   });

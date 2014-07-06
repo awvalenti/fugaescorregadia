@@ -8,13 +8,15 @@ function(
 ) {
   'use strict';
 
-  function ResultadoMovimento() {
-    this._eventosMovimento = [];
+  function ResultadoMovimento(posicaoInicial, eventosMovimento) {
+    this._posicaoInicial = posicaoInicial;
+    this._eventosMovimento = eventosMovimento;
   }
 
   ResultadoMovimento.prototype.estenderMovimentoPara = function(posicaoAtual) {
-    if (this._eventosMovimento.length > 0 && _(this._eventosMovimento).last().ehMovimento) {
-      _(this._eventosMovimento).last().setPosicaoDestino(posicaoAtual);
+    var ultimoElemento = _(this._eventosMovimento).last();
+    if (ultimoElemento && ultimoElemento.ehMovimento) {
+      ultimoElemento.setPosicaoDestino(posicaoAtual);
     } else {
       this._eventosMovimento.push(FabricaEventos.movimentoPara(posicaoAtual));
     }
@@ -24,8 +26,12 @@ function(
     this._eventosMovimento.push(FabricaEventos.item());
   };
 
-  ResultadoMovimento.prototype.emVetor = function() {
-    return this._eventosMovimento;
+  ResultadoMovimento.prototype.paraCadaEvento = function(funcoes, contexto) {
+    var posicaoAtual = this._posicaoInicial;
+
+    _(this._eventosMovimento).each(function(eventoMovimento) {
+      posicaoAtual = eventoMovimento.tratarEDevolverNovaPosicao(funcoes, contexto, posicaoAtual);
+    });
   };
 
   return ResultadoMovimento;

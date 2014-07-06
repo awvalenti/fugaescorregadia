@@ -74,7 +74,7 @@ function(
     describe('evento', function() {
       describe('de movimento', function() {
         it('deve apagar personagem na origem e posiciona-lo no destino', function() {
-          view.movimentarPersonagem(aPosicao(1, 2), aPosicao(1, 0));
+          view.reposicionarPersonagem(aPosicao(1, 2), aPosicao(1, 0));
           expect(elementoJogoEm(1, 2)).toBe(VAZIO);
           expect(elementoJogoEm(1, 0)).toBe(PERSONAGEM);
         });

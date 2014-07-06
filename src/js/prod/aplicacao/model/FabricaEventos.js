@@ -8,6 +8,8 @@ define(function(
     this.setPosicaoDestino(posicaoDestino);
   };
 
+  EventoMovimento.prototype.ehMovimento = true;
+
   EventoMovimento.prototype.setPosicaoDestino = function(posicaoDestino) {
     this._posicaoDestino = posicaoDestino;
   };
@@ -16,11 +18,20 @@ define(function(
     return 'para' + this._posicaoDestino;
   };
 
-  EventoMovimento.prototype.ehMovimento = true;
+  EventoMovimento.prototype.tratarEDevolverNovaPosicao = function(funcoes, contexto, posicaoAtual) {
+    funcoes.movimento.call(contexto, posicaoAtual, this._posicaoDestino);
+    return this._posicaoDestino;
+  };
 
   // --------------------------------------------------------------
 
-  var EVENTO_ITEM = { toString: function() { return 'ITEM'; } };
+  var EVENTO_ITEM = {
+    tratarEDevolverNovaPosicao: function(funcoes, contexto, posicaoAtual) {
+      funcoes.item.call(contexto, posicaoAtual);
+      return posicaoAtual;
+    },
+    toString: function() { return 'ITEM'; }
+  };
 
   // --------------------------------------------------------------
 

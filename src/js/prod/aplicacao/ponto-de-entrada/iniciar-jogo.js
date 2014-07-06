@@ -4,6 +4,7 @@ define([
   'prod/aplicacao/model/RepoPosicoes',
   'prod/aplicacao/model/Movimentacao',
   'prod/aplicacao/model/Direcao',
+  'prod/aplicacao/controller/TabuleiroController',
   'prod/aplicacao/view/TabuleiroViewHtmlTable',
   '_',
   '$'
@@ -14,36 +15,35 @@ function(
   RepoPosicoes,
   Movimentacao,
   Direcao,
+  TabuleiroController,
   TabuleiroViewHtmlTable,
   _,
   $
 ) {
   'use strict';
 
-  var aPosicao = _(RepoPosicoes.prototype.obter).bind(new RepoPosicoes());
-
-  var tabuleiroModel = new TabuleiroModel(new Mapa(3, 3,
+  var repoPosicoes = new RepoPosicoes();
+  var mov = new Movimentacao(4, 3);
+  var model = new TabuleiroModel(repoPosicoes, new Mapa(4, 3,
     '_ _ p' +
     'o _ _' +
+    '_ _ _' +
     'i _ _' +
     ''
-  ));
+  ), mov);
 
-  var mov = new Movimentacao(3, 3);
 
   var $body = $('body');
 
-  var tabuleiroView = new TabuleiroViewHtmlTable($body);
-  tabuleiroView.desenharTabuleiroModel(tabuleiroModel);
+  var view = new TabuleiroViewHtmlTable($body);
+  view.desenharTabuleiroModel(model);
 
-  $('body').keydown(function(e) {
+  var controller = new TabuleiroController(model, view);
+
+  $body.keydown(function(e) {
     switch (e.keyCode) {
     case 37:
-      var resultadoMovimento = mov.movimentarPersonagem(aPosicao(0, 2), Direcao.ESQUERDA,
-          tabuleiroModel.elementoEm.bind(tabuleiroModel));
-      _(resultadoMovimento).each(function() {
-        tabuleiroView.movimentarPersonagem(aPosicao);
-      });
+      controller.executarMovimento(Direcao.ESQUERDA);
       break;
     }
   });
