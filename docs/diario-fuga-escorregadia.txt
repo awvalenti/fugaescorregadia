@@ -398,3 +398,7 @@ Etapa 3
 - Percebi que, quando apaguei o CompiladorMapa, apaguei junto as specs negativas
 - Fiz uma volta grande para voltar a usar, efetivamente, o CompiladorMapa, agora chamado somente
   de Mapa. Mas tem praticamente o mesmo efeito.
+
+2014-07-06
+==========
+- Fui tentar o Growl for Windows, o Defender disse que tinha vírus...
