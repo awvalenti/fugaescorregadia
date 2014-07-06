@@ -402,3 +402,8 @@ Etapa 3
 2014-07-06
 ==========
 - Fui tentar o Growl for Windows, o Defender disse que tinha vírus...
+- Mais uma config útil no Eclipse:
+    - JavaScript/Editor/Content Assist/Advanced/Other JavaScript Proposals: desmarcar
+    - Isso elimina umas sugestões malucas quando você faz CTRL+Espaço
+- Mexi nos build path da vida do Eclipse, excluindo src/lib das validações.
+  Tchau, erros e avisos nada a ver!
