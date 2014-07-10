@@ -462,3 +462,8 @@ Etapa 3
   algo assim: tipo a do JUnit, mas com início de campos no construtor e execução de todos os métodos
   públicos. Nada de @BeforeClass com método estático, nem campos estáticos, nem mesmo qualquer
   anotação para indicar que tal método é de teste. É público? É de testes.
+- Hoje, acho que pela primeira vez, eu usei o debugger. Isso foi quando eu encontrei defeitos. Os
+  testes de unidade pareciam em ordem, mas o de integração falhou. Como eu não estava criando a
+  funcionalidade naquele momento, fiquei perdido. Acho que é normal.
+- O jQuery no navegador está dando problema, não sei por quê. Parece que coisas simples como substituir
+  .children('td') por .find('tr') resolvem. Precisa investigar.
