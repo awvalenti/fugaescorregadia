@@ -1,0 +1,7 @@
+Por que fazer o teste ficar verde o mais rápido possível?
+    - Para verificar suas premissas. Às vezes, nem o caminho mais curto vai fazer o teste passar.
+      Um exemplo típíco é durante a refatoração. Você não sabe direito que trechos de código dependem
+      do método que você está alterando. Ao fazer uma simples alteração, você precisa retestar tudo.
+      Se essa alteração durar 10 minutos e for mal-sucedida, você perdeu 10 minutos e terá que voltar
+      ao estado anterior. Se esse alteração for mal-sucedida mas durar meio minuto, porque você fez
+      um código sujo só para os testes passarem, você perdeu só meio minuto.
