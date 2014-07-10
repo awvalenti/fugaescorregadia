@@ -54,6 +54,11 @@ function(
       expect(mov.calcularMovimento).toHaveBeenCalledWith(aPosicao(0, 1), DIREITA, tabuleiroModel);
     });
 
+    it('deve permitir obter elemento em determinada posicao', function() {
+      expect(tabuleiroModel.elementoEm(aPosicao(0, 0))).toBe(VAZIO);
+      expect(tabuleiroModel.elementoEm(aPosicao(0, 1))).toBe(PERSONAGEM);
+    });
+
   });
 
 });

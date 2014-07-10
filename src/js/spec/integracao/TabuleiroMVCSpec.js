@@ -1,4 +1,5 @@
 define([
+  'spec/integracao/utils/TabuleiroViewHtmlTableSpecUtils',
   'prod/aplicacao/model/TabuleiroModel',
   'prod/aplicacao/controller/TabuleiroController',
   'prod/aplicacao/view/TabuleiroViewHtmlTable',
@@ -7,10 +8,14 @@ define([
   'prod/aplicacao/model/ResultadoMovimento',
   'prod/aplicacao/model/FabricaEventos',
   'prod/aplicacao/model/Direcao/DIREITA',
+  'prod/aplicacao/model/Elemento/PERSONAGEM',
+  'prod/aplicacao/model/Elemento/VAZIO',
   'prod/aplicacao/model/RepoPosicoes',
-  '_'
+  '_',
+  '$'
 ],
 function(
+  TabuleiroViewHtmlTableSpecUtils,
   TabuleiroModel,
   TabuleiroController,
   TabuleiroViewHtmlTable,
@@ -19,25 +24,31 @@ function(
   ResultadoMovimento,
   FabricaEventos,
   DIREITA,
+  PERSONAGEM,
+  VAZIO,
   RepoPosicoes,
-  _
+  _,
+  $
 ) {
   'use strict';
 
   describe('Tabuleiro Model + View + Controller', function() {
-    var model = null, view = null, controller = null, mov = null;
+    var model = null, view = null, controller = null, mov = null, $elementoRaiz = null;
 
     beforeEach(function() {
+      $elementoRaiz = $('<div>');
       var repoPosicoes = new RepoPosicoes();
 
-      mov = new Movimentacao(3, 4);
-      model = new TabuleiroModel(repoPosicoes, new Mapa(3, 4, '' +
+      mov = new Movimentacao(4, 3);
+      model = new TabuleiroModel(repoPosicoes, new Mapa(4, 3,
         '_ _ p' +
         'o _ _' +
+        '_ _ i' +
         '_ _ _' +
-        '_ i _'
+        ''
       ), mov);
-      view = new TabuleiroViewHtmlTable();
+      view = new TabuleiroViewHtmlTable($elementoRaiz);
+      view.desenharTabuleiroModel(model);
       controller = new TabuleiroController(model, view);
     });
 
@@ -46,7 +57,12 @@ function(
         controller.executarMovimento(DIREITA);
       });
 
-      it('tabuleiro mostrado deve estar sem o item e com personagem na nova posicao', function() {
+      it('tabuleiro mostrado deve estar sem o item', function() {
+        expect(TabuleiroViewHtmlTableSpecUtils.obterElementoJogo($elementoRaiz, 2, 2)).toBe(VAZIO);
+      });
+
+      it('tabuleiro mostrado deve estar com personagem na nova posicao', function() {
+        expect(TabuleiroViewHtmlTableSpecUtils.obterElementoJogo($elementoRaiz, 3, 2)).toBe(PERSONAGEM);
       });
 
     });

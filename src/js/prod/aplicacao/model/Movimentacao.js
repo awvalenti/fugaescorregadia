@@ -15,13 +15,13 @@ function(
     this._quantidadeColunas = quantidadeColunas;
   }
 
-  Movimentacao.prototype.calcularMovimento = function(posicaoAtual, direcao, elementoEm) {
+  Movimentacao.prototype.calcularMovimento = function(posicaoAtual, direcao, mapa) {
     var resultadoMovimento = new ResultadoMovimento(posicaoAtual, []);
 
     var novaPosicao, elemento;
     while ((novaPosicao = posicaoAtual.somar(direcao))
         && novaPosicao.estaDentroDosLimites(this._quantidadeLinhas, this._quantidadeColunas)
-        && (elemento = elementoEm(novaPosicao))
+        && (elemento = mapa.elementoEm(novaPosicao))
         && elemento.permiteEntrarVindoDe(direcao)) {
 
       posicaoAtual = novaPosicao;

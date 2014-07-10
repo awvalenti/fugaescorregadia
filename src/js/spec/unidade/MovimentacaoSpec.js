@@ -34,15 +34,21 @@ function(
 ) {
   'use strict';
 
-  function tabuleiroVazio()         { return VAZIO; }
-  function bloqueioEm10_11(posicao) { return posicao.eh(10, 11) ? OBSTACULO : VAZIO; }
-  function bloqueioEm15_10(posicao) { return posicao.eh(15, 10) ? OBSTACULO : VAZIO; }
-  function colaEm10_10(posicao)     { return posicao.eh(10, 10) ? COLA : VAZIO; }
-  function colaEm10_15(posicao)     { return posicao.eh(10, 15) ? COLA : VAZIO; }
-  function itemEm10_15(posicao)     { return posicao.eh(10, 15) ? ITEM : VAZIO; }
+  function mapaSomenteCom(elemento) { return { elementoEm: function() { return elemento; } }; }
+
+  function mapaVazioExcetoEm(linha, coluna, elementoQueTemLa) {
+    return { elementoEm: function(posicao) { return posicao.eh(linha, coluna) ? elementoQueTemLa : VAZIO; } };
+  }
+
+  var mapaVazio       = mapaSomenteCom(VAZIO),
+      bloqueioEm10_11 = mapaVazioExcetoEm(10, 11, OBSTACULO),
+      bloqueioEm15_10 = mapaVazioExcetoEm(15, 10, OBSTACULO),
+      colaEm10_10     = mapaVazioExcetoEm(10, 10, COLA),
+      colaEm10_15     = mapaVazioExcetoEm(10, 15, COLA),
+      itemEm10_15     = mapaVazioExcetoEm(10, 15, ITEM);
 
   var movimentoPara = FabricaEventos.movimentoPara,
-      item = FabricaEventos.item;
+      item          = FabricaEventos.item;
 
   describe('Movimentacao', function() {
     var dezDez = null, mov = null, aPosicao = null;
@@ -53,16 +59,14 @@ function(
       mov = new Movimentacao(21, 21);
     });
 
-    function estaSequencia() {
-      return new ResultadoMovimento(dezDez, _(arguments).toArray());
-    }
+    function estaSequencia() { return new ResultadoMovimento(dezDez, _(arguments).toArray()); }
 
     describe('livre', function() {
       it('deve encerrar movimento uma posicao antes das extremidades do tabuleiro', function() {
-        expect(mov.calcularMovimento(dezDez, BAIXO,    tabuleiroVazio)).toEqual(estaSequencia(movimentoPara(aPosicao(20, 10))));
-        expect(mov.calcularMovimento(dezDez, CIMA,     tabuleiroVazio)).toEqual(estaSequencia(movimentoPara(aPosicao( 0, 10))));
-        expect(mov.calcularMovimento(dezDez, DIREITA,  tabuleiroVazio)).toEqual(estaSequencia(movimentoPara(aPosicao(10, 20))));
-        expect(mov.calcularMovimento(dezDez, ESQUERDA, tabuleiroVazio)).toEqual(estaSequencia(movimentoPara(aPosicao(10,  0))));
+        expect(mov.calcularMovimento(dezDez, BAIXO,    mapaVazio)).toEqual(estaSequencia(movimentoPara(aPosicao(20, 10))));
+        expect(mov.calcularMovimento(dezDez, CIMA,     mapaVazio)).toEqual(estaSequencia(movimentoPara(aPosicao( 0, 10))));
+        expect(mov.calcularMovimento(dezDez, DIREITA,  mapaVazio)).toEqual(estaSequencia(movimentoPara(aPosicao(10, 20))));
+        expect(mov.calcularMovimento(dezDez, ESQUERDA, mapaVazio)).toEqual(estaSequencia(movimentoPara(aPosicao(10,  0))));
       });
     });
 

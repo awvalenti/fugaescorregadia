@@ -441,3 +441,24 @@ Etapa 3
   fazendo um novo teste. Não é necessário configurar nada. Apesar de que um simples stub resolveria
   razoavelmente bem esse problema... Bom, na prática, não ficaria tão ruim, não. É apenas
   um mock a menos.
+
+2014-07-10
+==========
+- Fui fazer um simples inline local variable. Dei um passo de cada vez. No primeiro, já falharam
+  os testes! Fui ver e a variável não tinha escopo onde eu queria usá-la. #valordotdd
+- #reflexaotdd Esses dias andei refletindo muito sobre testes de unidade e de integração. Será que os
+  de unidade deveriam cobrir tudo relativo a unidade? Ou será que uma parte deveria ser coberta pelos
+  testes de integração?
+- Aí, hoje, testes de integração tiveram falhas difíceis de rastrear. Pensei "Bom, o teste de
+  integração realmente está pegando coisas que o de unidade não pegou". Quando investiguei melhor,
+  descobri algo desagradável: meu teste de unidade que usava mock estava pouco confiável. Simplesmente
+  verifiquei se certas chamadas foram feitas e com quais argumentos, mas não verifiquei a quantidade
+  e a ordem das chamadas. Sempre desconfiei que isso pudesse dar problema, e hoje descobri, na prática,
+  que realmente pode.
+- O negócio é usar a string de captura lá do Kent Beck, que captura tudo e com ordem definida
+- Decepção de novo... Não havia nada de errado com aquelas chamadas. Eu é que tinha iniciado minha
+  string com '' fora do beforeEach. Refleti bastante sobre essa estrutura de specs do Jasmine
+  comparada com a do JUnit. Conclusão? Nenhuma das duas é lá muito orientada a objetos... Eu tentaria
+  algo assim: tipo a do JUnit, mas com início de campos no construtor e execução de todos os métodos
+  públicos. Nada de @BeforeClass com método estático, nem campos estáticos, nem mesmo qualquer
+  anotação para indicar que tal método é de teste. É público? É de testes.

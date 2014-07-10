@@ -19,13 +19,8 @@ function(
     var resultadoMovimento = this._model.executarMovimento(direcao);
 
     resultadoMovimento.paraCadaEvento({
-      movimento: function(origem, destino) {
-        this._view.reposicionarPersonagem(origem, destino);
-      },
-
-      item: function(posicao) {
-        this._view.coletarItem(posicao);
-      }
+      movimento: function(origem, destino) { this._view.reposicionarPersonagem(origem, destino); },
+      item:      function(posicao)         { this._view.coletarItem(posicao); }
     }, this);
   };
 

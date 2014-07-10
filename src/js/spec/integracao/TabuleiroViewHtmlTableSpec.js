@@ -1,4 +1,5 @@
 define([
+  'spec/integracao/utils/TabuleiroViewHtmlTableSpecUtils',
   'prod/aplicacao/view/TabuleiroViewHtmlTable',
   'prod/aplicacao/model/Mapa',
   'prod/aplicacao/model/TabuleiroModel',
@@ -10,6 +11,7 @@ define([
   '$'
 ],
 function(
+  TabuleiroViewHtmlTableSpecUtils,
   TabuleiroViewHtmlTable,
   Mapa,
   TabuleiroModel,
@@ -23,31 +25,30 @@ function(
   'use strict';
 
   describe('TabuleiroViewHtmlTable', function() {
-    var repoPosicoes = null, $tabela = null, view = null;
+    var repoPosicoes = null, view = null, $elementoRaiz = null;
 
-    function elementoHtmlEm(linha, coluna) { return $tabela.find('tbody tr').eq(linha).find('td').eq(coluna).find('span'); }
-    function elementoJogoEm(linha, coluna) { return Elemento.forName(elementoHtmlEm(linha, coluna).attr('class')); }
+    function elementoHtmlEm(linha, coluna) { return TabuleiroViewHtmlTableSpecUtils.obterElementoHtml($elementoRaiz, linha, coluna); }
+    function elementoJogoEm(linha, coluna) { return TabuleiroViewHtmlTableSpecUtils.obterElementoJogo($elementoRaiz, linha, coluna); }
     function aPosicao(linha, coluna)       { return repoPosicoes.obter(linha, coluna); }
 
     beforeEach(function() {
       repoPosicoes = new RepoPosicoes();
 
-      var $elementoRaiz = $('<div>');
+      $elementoRaiz = $('<div>');
       view = new TabuleiroViewHtmlTable($elementoRaiz);
       view.desenharTabuleiroModel(new TabuleiroModel(repoPosicoes, new Mapa(2, 3,
         '_ i _' +
         '_ _ p' +
         ''
       )));
-      $tabela = $elementoRaiz.children('table');
     });
 
     it('deve gerar um elemento <table> filho de $elementoRaiz', function() {
-      expect($tabela.length).toBe(1);
+      expect($elementoRaiz.children('table').length).toBe(1);
     });
 
     it('esse elemento <table> deve possuir classe "tabuleiro"', function() {
-      expect($tabela.hasClass('tabuleiro')).toBe(true);
+      expect($elementoRaiz.children('table').hasClass('tabuleiro')).toBe(true);
     });
 
     describe('elementos de jogo gerados', function() {

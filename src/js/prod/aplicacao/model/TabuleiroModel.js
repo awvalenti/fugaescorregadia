@@ -10,9 +10,9 @@ function(
 ) {
   'use strict';
 
-  function TabuleiroModel(repoPosicoes, mapa, movimentacao) {
+  function TabuleiroModel(repoPosicoes, mapaInicial, movimentacao) {
     this._repoPosicoes = repoPosicoes;
-    this._matrizMapa = mapa.copiarMatriz();
+    this._matrizMapa = mapaInicial.copiarMatriz();
     this._movimentacao = movimentacao;
   }
 
@@ -25,7 +25,11 @@ function(
   };
 
   TabuleiroModel.prototype.executarMovimento = function(direcao) {
-    this._movimentacao.calcularMovimento(this._posicaoPersonagem(), direcao, this);
+    return this._movimentacao.calcularMovimento(this._posicaoPersonagem(), direcao, this);
+  };
+
+  TabuleiroModel.prototype.elementoEm = function(posicao) {
+    return this._matrizMapa[posicao.linha()][posicao.coluna()];
   };
 
   TabuleiroModel.prototype._posicaoPersonagem = function() {

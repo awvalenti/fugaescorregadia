@@ -20,14 +20,22 @@ function(
       item = FabricaEventos.item;
 
   describe('TabuleiroController', function() {
-    var controller = null, model = null, aPosicao = null, view = null;
+    var controller = null, model = null, aPosicao = null, chamadasAView = null;
 
     beforeEach(function() {
       aPosicao = _(RepoPosicoes.prototype.obter).bind(new RepoPosicoes());
+
       model = { executarMovimento: function() {} };
-      spyOn(model, 'executarMovimento').andReturn(
-          new ResultadoMovimento(aPosicao(0, 0), [movimentoPara(aPosicao(2, 0)), item(), movimentoPara(aPosicao(4, 0))]));
-      view = jasmine.createSpyObj('view', ['reposicionarPersonagem', 'coletarItem']);
+
+      spyOn(model, 'executarMovimento').andReturn(new ResultadoMovimento(
+          aPosicao(0, 0), [movimentoPara(aPosicao(2, 0)), item(), movimentoPara(aPosicao(4, 0))]));
+
+      chamadasAView = '';
+
+      var view = {
+        reposicionarPersonagem: function(origem, destino) { chamadasAView += origem + '->' + destino + ' '; },
+        coletarItem:            function(posicao)         { chamadasAView += 'item:' + posicao + ' '; }
+      };
 
       controller = new TabuleiroController(model, view);
       controller.executarMovimento(DIREITA);
@@ -38,8 +46,7 @@ function(
     });
 
     it('deve coletar a resposta do model e traduzir para a view', function() {
-      expect(view.reposicionarPersonagem).toHaveBeenCalledWith(aPosicao(0, 0), aPosicao(2, 0));
-      expect(view.coletarItem).toHaveBeenCalledWith(aPosicao(2, 0));
+      expect(chamadasAView).toBe('(0, 0)->(2, 0) item:(2, 0) (2, 0)->(4, 0) ');
     });
 
   });
