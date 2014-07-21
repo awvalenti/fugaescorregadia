@@ -7,6 +7,9 @@ define([
   'prod/aplicacao/model/Movimentacao',
   'prod/aplicacao/model/ResultadoMovimento',
   'prod/aplicacao/model/FabricaEventos',
+  'prod/aplicacao/model/Direcao/CIMA',
+  'prod/aplicacao/model/Direcao/BAIXO',
+  'prod/aplicacao/model/Direcao/ESQUERDA',
   'prod/aplicacao/model/Direcao/DIREITA',
   'prod/aplicacao/model/Elemento/PERSONAGEM',
   'prod/aplicacao/model/Elemento/VAZIO',
@@ -23,6 +26,9 @@ function(
   Movimentacao,
   ResultadoMovimento,
   FabricaEventos,
+  CIMA,
+  BAIXO,
+  ESQUERDA,
   DIREITA,
   PERSONAGEM,
   VAZIO,
@@ -54,7 +60,7 @@ function(
 
     describe('ao receber um comando de movimento', function() {
       beforeEach(function() {
-        controller.executarMovimento(DIREITA);
+        controller.executarMovimento(BAIXO);
       });
 
       it('tabuleiro mostrado deve estar sem o item', function() {

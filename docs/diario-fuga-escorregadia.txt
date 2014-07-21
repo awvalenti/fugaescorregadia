@@ -467,3 +467,12 @@ Etapa 3
   funcionalidade naquele momento, fiquei perdido. Acho que é normal.
 - O jQuery no navegador está dando problema, não sei por quê. Parece que coisas simples como substituir
   .children('td') por .find('tr') resolvem. Precisa investigar.
+
+2014-07-21
+==========
+- Estou usando o note Dell. Está travando de vez em quando.
+- Rodei as specs e há dois erros:
+    - Model não está se atualizando - nem deveria, porque ainda não fiz isso
+    - View não está sendo atualizada - deveria, porque já fiz isso
+- Era burrice minha, mesmo...
+- Vamos agora corrigir o problema do Model não se atualizar
