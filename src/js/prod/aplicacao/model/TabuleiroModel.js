@@ -1,11 +1,15 @@
 define([
   'prod/aplicacao/model/Elemento',
   'prod/aplicacao/model/Elemento/PERSONAGEM',
+  'prod/aplicacao/model/Elemento/VAZIO',
+  'prod/aplicacao/model/Direcao/ESQUERDA',
   '_'
 ],
 function(
   Elemento,
   PERSONAGEM,
+  VAZIO,
+  ESQUERDA,
   _
 ) {
   'use strict';
@@ -25,7 +29,17 @@ function(
   };
 
   TabuleiroModel.prototype.executarMovimento = function(direcao) {
-    return this._movimentacao.calcularMovimento(this._posicaoPersonagem(), direcao, this);
+    var resultadoMovimento = this._movimentacao.calcularMovimento(this._posicaoPersonagem(), direcao, this);
+
+    resultadoMovimento.paraCadaEvento({
+      movimento: function(origem, destino) {
+        this._alterarElemento(origem, VAZIO);
+        this._alterarElemento(destino, PERSONAGEM);
+      },
+      item:      function(posicao)         { ; }
+    }, this);
+
+    return resultadoMovimento;
   };
 
   TabuleiroModel.prototype.elementoEm = function(posicao) {
@@ -38,6 +52,10 @@ function(
         if (this._matrizMapa[i][j] === PERSONAGEM) return this._repoPosicoes.obter(i, j);
       }
     }
+  };
+
+  TabuleiroModel.prototype._alterarElemento = function(posicao, novoElemento) {
+    this._matrizMapa[posicao.linha()][posicao.coluna()] = novoElemento;
   };
 
   return TabuleiroModel;

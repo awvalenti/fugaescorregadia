@@ -476,3 +476,33 @@ Etapa 3
     - View não está sendo atualizada - deveria, porque já fiz isso
 - Era burrice minha, mesmo...
 - Vamos agora corrigir o problema do Model não se atualizar
+- Spies do Jasmine são chatos, mas até que estão funcionando
+- Precisamos de uma fábrica de ResultadoMovimento. Vai ser chato criá-la, mas está mais chato ficar
+  sem ela. Estou pensando em criar uma que use strings.
+- Se fizer com strings (algo tipo resultadoMovimento('parteDe(0, 0) vaiPara(0, 1) pegaItem()')), vai dar
+  uma trabalheira para fazer um negócio que serve só para testes. Vai precisar, supostamente, TDDzar
+  isso aí, sendo que é mero detalhe de implementação, e não um requisito.
+- Melhor ignorar essa hipótese e usar o que já temos, mesmo:
+    new ResultadoMovimento(
+          aPosicao(0, 0), [movimentoPara(aPosicao(2, 0)), item(), movimentoPara(aPosicao(4, 0))])
+- Estou percebendo que eu tenho a cabeça muito em Java. Toda hora quero usar interfaces.
+  Toda hora sinto falta da segurança da estaticidade da linguagem.
+- Resolvi modificar TabuleiroModelSpec de unidade para integração. Muito mais fácil lidar com
+  um objeto Movimentacao real do que com um dublê.
+    - Isso pode ser um indício de que eu deveria mesclar essas duas classes
+- Conclusão do dia: isolar unidades pode dar mais trabalho do que testar em integração.
+  Senti isso fortemente com relação a esse monte de Value Objects com que estou trabalhando.
+  ResultadoMovimento, EventoMovimento, Posicao... Compensa muito mais instanciar os de
+  verdade do que ficar trabalhando com dublês. Fico sendo obrigado a criar fábricas para tudo,
+  e aí vira um saco ficar importando esse monte de fábricas e static imports.
+    - Eu isolei demais as coisas. Tive um trabalho enorme (por ser em uma linguagem dinâmica e
+      sem muita ajuda do IDE), e agora estou vendo que talvez a integração seja um caminho mais
+      simples.
+    - Também estou sentindo que fazer BDD de verdade, escrevendo testes de fora para dentro,
+      tende a simplificar o código dos testes, focando mais em requisitos do que em detalhes
+      de implementação. Aí talvez fique mais claro onde compensa fazer unidade e quando compensa
+      fazer integração. Do jeito como eu fiz, fiz de dentro para fora; de unidade para integração.
+      Assim, demorei para perceber quando alguns testes não ficaram legais.
+- Apesar de o teste, a rigor, ser de integração, ele não é tão de integração quanto o da View
+  ou do M+V+C. Então, vou continuar chamando-o de unidade. Qual é o limite que separa unidade
+  de integração? #tdddúvida

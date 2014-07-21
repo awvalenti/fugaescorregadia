@@ -7,7 +7,7 @@
 
   gulp.task('test', _(function() {
     gulp.src('src/js/spec/spec-runner-gulp-jasmine.js')
-        .pipe(jasmine());
+        .pipe(jasmine({ includeStackTrace: false }));
   }).throttle(10, { leading: false }));
 
   gulp.task('autotest', ['test'], function() {
