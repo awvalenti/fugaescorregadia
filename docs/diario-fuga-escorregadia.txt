@@ -510,5 +510,9 @@ Etapa 3
 2014-07-22
 ==========
 - Senti uma vontade enormde de refatorar algumas coisas:
-    - Criar o aPosicaoFactory
+    - Criar o fabricarAPosicao
     - Criar o ResultadoMovimentoBuilder
+- Depois de um tempão para conseguir criar o ResultadoMovimentoBuilder, descobri que ele ficou muito
+  parecido com algo que já existia: os métodos estenderMovimentoPara e coletarItem da classe
+  ResultadoMovimento. Aparentemente, essa necessidade de representar um ResultadoMovimento pronto
+  (ou seja, construir um inteiro de uma vez) é quase a mesma de construir um aos poucos.

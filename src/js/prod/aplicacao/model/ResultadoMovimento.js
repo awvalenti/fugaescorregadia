@@ -34,6 +34,10 @@ function(
     });
   };
 
+  ResultadoMovimento.prototype.toString = function() {
+    return this._posicaoInicial + ':[' + this._eventosMovimento.join(', ') + ']';
+  };
+
   return ResultadoMovimento;
 
 });
