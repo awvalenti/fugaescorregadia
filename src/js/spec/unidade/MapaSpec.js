@@ -1,6 +1,5 @@
 define([
   'prod/aplicacao/model/Mapa',
-  'prod/aplicacao/model/RepoPosicoes',
   'prod/aplicacao/model/Elemento/ITEM',
   'prod/aplicacao/model/Elemento/VAZIO',
   'prod/aplicacao/model/Elemento/PERSONAGEM',
@@ -8,7 +7,6 @@ define([
 ],
 function(
   Mapa,
-  RepoPosicoes,
   ITEM,
   VAZIO,
   PERSONAGEM,

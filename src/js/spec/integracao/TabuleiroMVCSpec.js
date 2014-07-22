@@ -12,7 +12,7 @@ define([
   'prod/aplicacao/model/Direcao/DIREITA',
   'prod/aplicacao/model/Elemento/PERSONAGEM',
   'prod/aplicacao/model/Elemento/VAZIO',
-  'prod/aplicacao/model/RepoPosicoes',
+  'prod/aplicacao/model/posicao/fabricarAPosicao',
   '_',
   '$'
 ],
@@ -30,7 +30,7 @@ function(
   DIREITA,
   PERSONAGEM,
   VAZIO,
-  RepoPosicoes,
+  fabricarAPosicao,
   _,
   $
 ) {
@@ -41,10 +41,10 @@ function(
 
     beforeEach(function() {
       $elementoRaiz = $('<div>');
-      var repoPosicoes = new RepoPosicoes();
+      var aPosicao = fabricarAPosicao();
 
       mov = new Movimentacao(4, 3);
-      model = new TabuleiroModel(repoPosicoes, new Mapa(4, 3,
+      model = new TabuleiroModel(aPosicao, new Mapa(4, 3,
         '_ _ p' +
         'o _ _' +
         '_ _ i' +

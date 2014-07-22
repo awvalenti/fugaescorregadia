@@ -3,7 +3,7 @@ define([
   'prod/aplicacao/model/FabricaEventos',
   'prod/aplicacao/controller/TabuleiroController',
   'prod/aplicacao/model/Direcao/DIREITA',
-  'prod/aplicacao/model/RepoPosicoes',
+  'prod/aplicacao/model/posicao/fabricarAPosicao',
   '_'
 ],
 function(
@@ -11,7 +11,7 @@ function(
   FabricaEventos,
   TabuleiroController,
   DIREITA,
-  RepoPosicoes,
+  fabricarAPosicao,
   _
 ) {
   'use strict';
@@ -23,7 +23,7 @@ function(
     var controller = null, model = null, aPosicao = null, chamadasAView = null;
 
     beforeEach(function() {
-      aPosicao = _(RepoPosicoes.prototype.obter).bind(new RepoPosicoes());
+      aPosicao = fabricarAPosicao();
 
       model = { executarMovimento: function() {} };
 

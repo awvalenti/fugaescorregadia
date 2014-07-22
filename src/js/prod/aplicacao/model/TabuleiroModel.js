@@ -14,8 +14,8 @@ function(
 ) {
   'use strict';
 
-  function TabuleiroModel(repoPosicoes, mapaInicial, movimentacao) {
-    this._repoPosicoes = repoPosicoes;
+  function TabuleiroModel(aPosicao, mapaInicial, movimentacao) {
+    this._aPosicao = aPosicao;
     this._matrizMapa = mapaInicial.copiarMatriz();
     this._movimentacao = movimentacao;
   }
@@ -49,7 +49,7 @@ function(
   TabuleiroModel.prototype._posicaoPersonagem = function() {
     for (var i = 0; i < this._matrizMapa.length; ++i) {
       for (var j = 0; j < this._matrizMapa[i].length; ++j) {
-        if (this._matrizMapa[i][j] === PERSONAGEM) return this._repoPosicoes.obter(i, j);
+        if (this._matrizMapa[i][j] === PERSONAGEM) return this._aPosicao(i, j);
       }
     }
   };

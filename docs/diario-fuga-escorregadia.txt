@@ -506,3 +506,9 @@ Etapa 3
 - Apesar de o teste, a rigor, ser de integração, ele não é tão de integração quanto o da View
   ou do M+V+C. Então, vou continuar chamando-o de unidade. Qual é o limite que separa unidade
   de integração? #tdddúvida
+
+2014-07-22
+==========
+- Senti uma vontade enormde de refatorar algumas coisas:
+    - Criar o aPosicaoFactory
+    - Criar o ResultadoMovimentoBuilder

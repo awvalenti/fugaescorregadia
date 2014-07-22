@@ -2,7 +2,7 @@ define([
   'prod/aplicacao/model/TabuleiroModel',
   'prod/aplicacao/model/Movimentacao',
   'prod/aplicacao/model/Mapa',
-  'prod/aplicacao/model/RepoPosicoes',
+  'prod/aplicacao/model/posicao/fabricarAPosicao',
   'prod/aplicacao/model/FabricaEventos',
   'prod/aplicacao/model/ResultadoMovimento',
   'prod/aplicacao/model/Direcao/CIMA',
@@ -18,7 +18,7 @@ function(
   TabuleiroModel,
   Movimentacao,
   Mapa,
-  RepoPosicoes,
+  fabricarAPosicao,
   FabricaEventos,
   ResultadoMovimento,
   CIMA,
@@ -36,11 +36,10 @@ function(
     var aPosicao = null, tabuleiroModel = null, mov = null;
 
     beforeEach(function() {
-      var repoPosicoes = new RepoPosicoes();
-      aPosicao = _(RepoPosicoes.prototype.obter).bind(repoPosicoes);
+      aPosicao = fabricarAPosicao();
       mov = new Movimentacao(2, 3);
       spyOn(mov, 'calcularMovimento').andCallThrough();
-      tabuleiroModel = new TabuleiroModel(repoPosicoes, new Mapa(2, 3,
+      tabuleiroModel = new TabuleiroModel(aPosicao, new Mapa(2, 3,
         'p i _' +
         '_ _ _' +
         ''

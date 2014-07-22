@@ -1,5 +1,5 @@
 define([
-  'prod/aplicacao/model/RepoPosicoes',
+  'prod/aplicacao/model/posicao/RepoPosicoes',
   'prod/aplicacao/model/Direcao/BAIXO',
   'prod/aplicacao/model/Direcao/CIMA',
   'prod/aplicacao/model/Direcao/DIREITA',

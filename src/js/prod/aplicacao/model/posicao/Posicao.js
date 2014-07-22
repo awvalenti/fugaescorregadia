@@ -8,10 +8,10 @@ function(
 ) {
   'use strict';
 
-  function Posicao(linha, coluna, repoPosicoes) {
+  function Posicao(linha, coluna, aPosicao) {
     this._linha = linha;
     this._coluna = coluna;
-    this._repoPosicoes = repoPosicoes;
+    this._aPosicao = aPosicao;
   }
 
   Posicao.prototype.eh = function(linha, coluna) {
@@ -19,17 +19,17 @@ function(
   };
 
   Posicao.prototype.somar = function(direcao) {
-    return this._repoPosicoes.obter(this._linha + direcao.linha, this._coluna + direcao.coluna);
+    return this._aPosicao(this._linha + direcao.linha, this._coluna + direcao.coluna);
   };
 
   Posicao.prototype.estaDentroDosLimites = function(quantidadeLinhas, quantidadeColunas) {
     return this._linha >= 0 && this._linha < quantidadeLinhas && this._coluna >= 0 && this._coluna < quantidadeColunas;
   };
-  
+
   Posicao.prototype.linha = function() {
     return this._linha;
   };
-  
+
   Posicao.prototype.coluna = function() {
     return this._coluna;
   };

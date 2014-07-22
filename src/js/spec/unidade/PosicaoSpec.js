@@ -1,55 +1,55 @@
 define([
-  'prod/aplicacao/model/RepoPosicoes',
-  'prod/aplicacao/model/Direcao/BAIXO',
+  'prod/aplicacao/model/posicao/fabricarAPosicao',
   'prod/aplicacao/model/Direcao/CIMA',
-  'prod/aplicacao/model/Direcao/DIREITA',
+  'prod/aplicacao/model/Direcao/BAIXO',
   'prod/aplicacao/model/Direcao/ESQUERDA',
+  'prod/aplicacao/model/Direcao/DIREITA'
 ],
 function(
-  RepoPosicoes,
-  BAIXO,
+  fabricarAPosicao,
   CIMA,
-  DIREITA,
-  ESQUERDA
+  BAIXO,
+  ESQUERDA,
+  DIREITA
 ) {
   'use strict';
 
   describe('Posicao', function() {
-    var repoPosicoes = null;
+    var aPosicao = null;
 
     beforeEach(function() {
-      repoPosicoes = new RepoPosicoes();
+      aPosicao = fabricarAPosicao();
     });
 
     it('deve somar direcao', function() {
-      expect(repoPosicoes.obter(10, 20).somar(BAIXO)).toBe(repoPosicoes.obter(11, 20));
-      expect(repoPosicoes.obter(10, 20).somar(CIMA)).toBe(repoPosicoes.obter(9, 20));
-      expect(repoPosicoes.obter(10, 20).somar(ESQUERDA)).toBe(repoPosicoes.obter(10, 19));
-      expect(repoPosicoes.obter(10, 20).somar(DIREITA)).toBe(repoPosicoes.obter(10, 21));
+      expect(aPosicao(10, 20).somar(BAIXO)).toBe(aPosicao(11, 20));
+      expect(aPosicao(10, 20).somar(CIMA)).toBe(aPosicao(9, 20));
+      expect(aPosicao(10, 20).somar(ESQUERDA)).toBe(aPosicao(10, 19));
+      expect(aPosicao(10, 20).somar(DIREITA)).toBe(aPosicao(10, 21));
     });
 
     it('deve permitir comparacao de igualdade conveniente, por meio do metodo eh(linha, coluna)', function() {
-      expect(repoPosicoes.obter(1, 2).eh(1, 2)).toBe(true);
-      expect(repoPosicoes.obter(1, 2).eh(3, 4)).toBe(false);
+      expect(aPosicao(1, 2).eh(1, 2)).toBe(true);
+      expect(aPosicao(1, 2).eh(3, 4)).toBe(false);
     });
 
     it('deve reconhecer limites', function() {
-      expect(repoPosicoes.obter(0, 0).estaDentroDosLimites(10, 10)).toBe(true);
-      expect(repoPosicoes.obter(5, 5).estaDentroDosLimites(10, 10)).toBe(true);
-      expect(repoPosicoes.obter(9, 9).estaDentroDosLimites(10, 10)).toBe(true);
+      expect(aPosicao(0, 0).estaDentroDosLimites(10, 10)).toBe(true);
+      expect(aPosicao(5, 5).estaDentroDosLimites(10, 10)).toBe(true);
+      expect(aPosicao(9, 9).estaDentroDosLimites(10, 10)).toBe(true);
 
-      expect(repoPosicoes.obter(10, 9).estaDentroDosLimites(10, 10)).toBe(false);
-      expect(repoPosicoes.obter(9, 10).estaDentroDosLimites(10, 10)).toBe(false);
-      expect(repoPosicoes.obter(10, 10).estaDentroDosLimites(10, 10)).toBe(false);
-      expect(repoPosicoes.obter(11, 11).estaDentroDosLimites(10, 10)).toBe(false);
+      expect(aPosicao(10, 9).estaDentroDosLimites(10, 10)).toBe(false);
+      expect(aPosicao(9, 10).estaDentroDosLimites(10, 10)).toBe(false);
+      expect(aPosicao(10, 10).estaDentroDosLimites(10, 10)).toBe(false);
+      expect(aPosicao(11, 11).estaDentroDosLimites(10, 10)).toBe(false);
 
-      expect(repoPosicoes.obter(-1, 9).estaDentroDosLimites(10, 10)).toBe(false);
-      expect(repoPosicoes.obter(9, -2).estaDentroDosLimites(10, 10)).toBe(false);
+      expect(aPosicao(-1, 9).estaDentroDosLimites(10, 10)).toBe(false);
+      expect(aPosicao(9, -2).estaDentroDosLimites(10, 10)).toBe(false);
     });
 
     it('deve oferecer metodos linha e coluna, que devem ser usados somente para indexar matrizes', function() {
-      expect(repoPosicoes.obter(1, 2).linha()).toBe(1);
-      expect(repoPosicoes.obter(1, 2).coluna()).toBe(2);
+      expect(aPosicao(1, 2).linha()).toBe(1);
+      expect(aPosicao(1, 2).coluna()).toBe(2);
     });
 
   });

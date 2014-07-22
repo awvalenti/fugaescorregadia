@@ -1,7 +1,7 @@
 define([
   'prod/aplicacao/model/Mapa',
   'prod/aplicacao/model/TabuleiroModel',
-  'prod/aplicacao/model/RepoPosicoes',
+  'prod/aplicacao/model/fabricarAPosicao',
   'prod/aplicacao/model/Movimentacao',
   'prod/aplicacao/model/Direcao',
   'prod/aplicacao/controller/TabuleiroController',
@@ -12,7 +12,7 @@ define([
 function(
   Mapa,
   TabuleiroModel,
-  RepoPosicoes,
+  fabricarAPosicao,
   Movimentacao,
   Direcao,
   TabuleiroController,
@@ -22,16 +22,17 @@ function(
 ) {
   'use strict';
 
-  var repoPosicoes = new RepoPosicoes();
-  var mov = new Movimentacao(4, 3);
-  var model = new TabuleiroModel(repoPosicoes, new Mapa(4, 3,
-    '_ _ p' +
-    'o _ _' +
-    '_ _ _' +
-    'i _ _' +
-    ''
-  ), mov);
-
+  var model = new TabuleiroModel(
+    fabricarAPosicao(),
+    new Mapa(4, 3,
+      '_ _ p' +
+      'o _ _' +
+      '_ _ _' +
+      'i _ _' +
+      ''
+    ),
+    new Movimentacao(4, 3)
+  );
 
   var $body = $('body');
 

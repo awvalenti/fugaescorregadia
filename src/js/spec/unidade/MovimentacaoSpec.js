@@ -1,7 +1,7 @@
 define([
   '_',
   'prod/aplicacao/model/Movimentacao',
-  'prod/aplicacao/model/RepoPosicoes',
+  'prod/aplicacao/model/posicao/fabricarAPosicao',
   'prod/aplicacao/model/ResultadoMovimento',
   'prod/aplicacao/model/Direcao/BAIXO',
   'prod/aplicacao/model/Direcao/CIMA',
@@ -18,7 +18,7 @@ define([
 function(
   _,
   Movimentacao,
-  RepoPosicoes,
+  fabricarAPosicao,
   ResultadoMovimento,
   BAIXO,
   CIMA,
@@ -54,7 +54,7 @@ function(
     var dezDez = null, mov = null, aPosicao = null;
 
     beforeEach(function() {
-      aPosicao = _(RepoPosicoes.prototype.obter).bind(new RepoPosicoes());
+      aPosicao = fabricarAPosicao();
       dezDez = aPosicao(10, 10);
       mov = new Movimentacao(21, 21);
     });

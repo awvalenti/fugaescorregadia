@@ -3,7 +3,7 @@ define([
   'prod/aplicacao/view/TabuleiroViewHtmlTable',
   'prod/aplicacao/model/Mapa',
   'prod/aplicacao/model/TabuleiroModel',
-  'prod/aplicacao/model/RepoPosicoes',
+  'prod/aplicacao/model/posicao/fabricarAPosicao',
   'prod/aplicacao/model/Elemento',
   'prod/aplicacao/model/Elemento/PERSONAGEM',
   'prod/aplicacao/model/Elemento/VAZIO',
@@ -15,7 +15,7 @@ function(
   TabuleiroViewHtmlTable,
   Mapa,
   TabuleiroModel,
-  RepoPosicoes,
+  fabricarAPosicao,
   Elemento,
   PERSONAGEM,
   VAZIO,
@@ -25,18 +25,17 @@ function(
   'use strict';
 
   describe('TabuleiroViewHtmlTable', function() {
-    var repoPosicoes = null, view = null, $elementoRaiz = null;
+    var aPosicao = null, view = null, $elementoRaiz = null;
 
     function elementoHtmlEm(linha, coluna) { return TabuleiroViewHtmlTableSpecUtils.obterElementoHtml($elementoRaiz, linha, coluna); }
     function elementoJogoEm(linha, coluna) { return TabuleiroViewHtmlTableSpecUtils.obterElementoJogo($elementoRaiz, linha, coluna); }
-    function aPosicao(linha, coluna)       { return repoPosicoes.obter(linha, coluna); }
 
     beforeEach(function() {
-      repoPosicoes = new RepoPosicoes();
+      aPosicao = fabricarAPosicao();
 
       $elementoRaiz = $('<div>');
       view = new TabuleiroViewHtmlTable($elementoRaiz);
-      view.desenharTabuleiroModel(new TabuleiroModel(repoPosicoes, new Mapa(2, 3,
+      view.desenharTabuleiroModel(new TabuleiroModel(aPosicao, new Mapa(2, 3,
         '_ i _' +
         '_ _ p' +
         ''
