@@ -1,0 +1,7 @@
+jQuery está dando erro no navegador
+static imports na FabricaEventos
+Rever esse nome "Eventos" da Fabrica
+Fazer TabuleiroModel se modificar de verdade, não por coincidência
+    Rever classe ResultadoMovimento e suas transições de estado
+    Repensar se mantém posição inicial
+Dropbox: plugin de tela cheia pro Eclipse

@@ -19,11 +19,12 @@ function(
     var resultadoMovimento = new ResultadoMovimento(posicaoAtual, []);
 
     var novaPosicao, elemento;
-    while ((novaPosicao = posicaoAtual.somar(direcao))
-        && novaPosicao.estaDentroDosLimites(this._quantidadeLinhas, this._quantidadeColunas)
-        && (elemento = mapa.elementoEm(novaPosicao))
-        && elemento.permiteEntrarVindoDe(direcao)) {
-
+    while (
+      (novaPosicao = posicaoAtual.somar(direcao))
+      && novaPosicao.estaDentroDosLimites(this._quantidadeLinhas, this._quantidadeColunas)
+      && (elemento = mapa.elementoEm(novaPosicao))
+      && elemento.permiteEntrarVindoDe(direcao)
+    ) {
       posicaoAtual = novaPosicao;
 
       elemento.aoEntrar(resultadoMovimento, posicaoAtual);

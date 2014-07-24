@@ -15,6 +15,7 @@ function(
 
   function ResultadoMovimentoBuilder(aPosicao) {
     this._aPosicao = aPosicao;
+    this._origem = null;
     this._eventos = [];
   }
 

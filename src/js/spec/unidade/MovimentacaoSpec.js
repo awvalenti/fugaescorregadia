@@ -58,8 +58,6 @@ function(
 
     function inicia() { return new ResultadoMovimentoBuilder(aPosicao).parteDe(10, 10); }
 
-    function estaSequencia() { return new ResultadoMovimento(dezDez, _(arguments).toArray()); }
-
     describe('livre', function() {
       it('deve encerrar movimento uma posicao antes das extremidades do tabuleiro', function() {
         expect(mov.calcularMovimento(dezDez, BAIXO,    mapaVazio)).toEqual(inicia().vaiPara(20, 10).eTermina());

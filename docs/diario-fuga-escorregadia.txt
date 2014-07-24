@@ -516,3 +516,28 @@ Etapa 3
   parecido com algo que já existia: os métodos estenderMovimentoPara e coletarItem da classe
   ResultadoMovimento. Aparentemente, essa necessidade de representar um ResultadoMovimento pronto
   (ou seja, construir um inteiro de uma vez) é quase a mesma de construir um aos poucos.
+
+2014-07-23
+==========
+- Refatorando ResultadoMovimento, Movimentacao etc. caí num cenário interessante: fui mexer
+  na classe Elemento e percebi que, se eu fizer a alteração desejada, vou quebrar os testes
+  de unidade dessa classe. Mas até mesmo a existência dessa classe é um detalhe de implementação.
+  Não deveriam existir testes especificamente para isso. Deveriam existir testes de integração
+  em Movimentacao para provar que os elementos funcionam como se espera. Até porque é só nessa
+  integração que se pode provar isso. #tdd
+
+2014-07-24
+==========
+- Tenho refletido muito sobre o papel de cada indivíduo, organização ou qualquer entidade na
+  sociedade. Tenho pensado que é importante sempre ter em mente o papel social na hora de
+  tomar decisões. Senão, a gente pode tomar decisões que dizem muito mais respeito a nós mesmos
+  do que a sociedade. Organizações que começam a se preocupar muito mais consigo mesmas do que
+  com a sociedade começam a perder a função na evolução do mundo.
+- Baseando-me nessa reflexão, que tem muito a ver com a dualidade unidade x integração no TDD,
+  tomei uma decisão inédita no projeto: vou adiar uma refatoração que eu queria muito fazer,
+  porque, no momento, não tenho como saber se ela realmente será útil no futuro, quando eu
+  integrar os algoritmos existentes com a verdadeira exibição do tabuleiro na tela, que é o que
+  realmente importa para o usuário do sistema.
+- Eu queria mexer no permiteEntrarVindoDe, trocando-o por algo como eventoAoEntrarVindoDe.
+  Parece algo legal e útil, mas pode não adiantar nada, pode até ficar pior. Vamos deixar isso
+  para quando houver uma real necessidade de alguma TabuleiroView gráfica.
