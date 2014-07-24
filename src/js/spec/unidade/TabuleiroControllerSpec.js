@@ -1,14 +1,12 @@
 define([
-  'prod/aplicacao/model/ResultadoMovimento',
-  'prod/aplicacao/model/FabricaEventos',
+  'prod/aplicacao/model/movimento/ResultadoMovimentoBuilder',
   'prod/aplicacao/controller/TabuleiroController',
   'prod/aplicacao/model/Direcao/DIREITA',
   'prod/aplicacao/model/posicao/fabricarAPosicao',
   '_'
 ],
 function(
-  ResultadoMovimento,
-  FabricaEventos,
+  ResultadoMovimentoBuilder,
   TabuleiroController,
   DIREITA,
   fabricarAPosicao,
@@ -16,21 +14,16 @@ function(
 ) {
   'use strict';
 
-  var movimentoPara = FabricaEventos.movimentoPara,
-      item = FabricaEventos.item;
-
   describe('TabuleiroController', function() {
     var controller = null, model = null, aPosicao = null, chamadasAView = null;
 
     beforeEach(function() {
       aPosicao = fabricarAPosicao();
-
+      chamadasAView = '';
       model = { executarMovimento: function() {} };
 
-      spyOn(model, 'executarMovimento').andReturn(new ResultadoMovimento(
-          aPosicao(0, 0), [movimentoPara(aPosicao(2, 0)), item(), movimentoPara(aPosicao(4, 0))]));
-
-      chamadasAView = '';
+      spyOn(model, 'executarMovimento').andReturn(new ResultadoMovimentoBuilder(aPosicao)
+          .parteDe(0, 0).vaiPara(2, 0).pegaItem().vaiPara(4, 0).eTermina());
 
       var view = {
         reposicionarPersonagem: function(origem, destino) { chamadasAView += origem + '->' + destino + ' '; },

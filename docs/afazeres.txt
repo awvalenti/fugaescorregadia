@@ -5,3 +5,6 @@ Fazer TabuleiroModel se modificar de verdade, não por coincidência
     Rever classe ResultadoMovimento e suas transições de estado
     Repensar se mantém posição inicial
 Dropbox: plugin de tela cheia pro Eclipse
+Ver se vale a pena unificar algumas coisas:
+    view: reposicionarPersonagem. Outras classes têm outros nomes para isso.
+    Talvez tudo devesse se basear no mesmo enum
