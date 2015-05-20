@@ -10,6 +10,14 @@ public class Posicao {
 		this.coluna = coluna;
 	}
 
+	public int getLinha() {
+		return linha;
+	}
+
+	public int getColuna() {
+		return coluna;
+	}
+
 	@Override
 	public String toString() {
 		return String.format("(%d, %d)", linha, coluna);

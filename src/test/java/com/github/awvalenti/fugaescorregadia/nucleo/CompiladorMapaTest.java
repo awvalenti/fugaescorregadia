@@ -8,8 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.github.awvalenti.fugaescorregadia.InjetorParaTestes;
-import com.github.awvalenti.fugaescorregadia.nucleo.CompiladorMapa;
-import com.github.awvalenti.fugaescorregadia.nucleo.Elemento;
 import com.google.inject.Guice;
 
 public class CompiladorMapaTest {
@@ -23,9 +21,13 @@ public class CompiladorMapaTest {
 
 	@Test
 	public void deve_transformar_string_em_mapa() {
-		assertThat(compilador.compilar("p _ _ o\n").getMatriz(), is(new Elemento[][] {
-			{ PERSONAGEM, VAZIO, VAZIO, OBSTACULO }
-		}));
+		Mapa mapa = compilador.compilar("p _ _ o\n");
+		assertThat(mapa.getNumeroLinhas(), is(1));
+		assertThat(mapa.getNumeroColunas(), is(4));
+		assertThat(mapa.getElemento(new Posicao(0, 0)), is(PERSONAGEM));
+		assertThat(mapa.getElemento(new Posicao(0, 1)), is(VAZIO));
+		assertThat(mapa.getElemento(new Posicao(0, 2)), is(VAZIO));
+		assertThat(mapa.getElemento(new Posicao(0, 3)), is(OBSTACULO));
 	}
 
 }
