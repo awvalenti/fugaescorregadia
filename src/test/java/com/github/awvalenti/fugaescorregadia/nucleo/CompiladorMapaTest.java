@@ -1,12 +1,15 @@
-package com.github.awvalenti.fugaescorregadia;
+package com.github.awvalenti.fugaescorregadia.nucleo;
 
-import static com.github.awvalenti.fugaescorregadia.Elemento.*;
+import static com.github.awvalenti.fugaescorregadia.nucleo.Elemento.*;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import com.github.awvalenti.fugaescorregadia.InjetorParaTestes;
+import com.github.awvalenti.fugaescorregadia.nucleo.CompiladorMapa;
+import com.github.awvalenti.fugaescorregadia.nucleo.Elemento;
 import com.google.inject.Guice;
 
 public class CompiladorMapaTest {

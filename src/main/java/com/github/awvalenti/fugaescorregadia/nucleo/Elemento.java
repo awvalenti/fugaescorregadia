@@ -1,4 +1,4 @@
-package com.github.awvalenti.fugaescorregadia;
+package com.github.awvalenti.fugaescorregadia.nucleo;
 
 public enum Elemento {
 	PERSONAGEM('p'), VAZIO('_'), OBSTACULO('o');

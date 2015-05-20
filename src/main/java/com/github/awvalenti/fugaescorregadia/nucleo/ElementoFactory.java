@@ -1,4 +1,4 @@
-package com.github.awvalenti.fugaescorregadia;
+package com.github.awvalenti.fugaescorregadia.nucleo;
 
 import javax.inject.Inject;
 

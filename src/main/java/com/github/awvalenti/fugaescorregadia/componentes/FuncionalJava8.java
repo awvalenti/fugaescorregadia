@@ -1,7 +1,12 @@
-package com.github.awvalenti.fugaescorregadia;
+package com.github.awvalenti.fugaescorregadia.componentes;
 
 import java.util.Arrays;
 import java.util.Optional;
+
+import com.github.awvalenti.fugaescorregadia.nucleo.Elemento;
+import com.github.awvalenti.fugaescorregadia.nucleo.ElementoFactory;
+import com.github.awvalenti.fugaescorregadia.nucleo.Mapa;
+import com.github.awvalenti.fugaescorregadia.nucleo.OperacoesFuncionais;
 
 public class FuncionalJava8 implements OperacoesFuncionais {
 
