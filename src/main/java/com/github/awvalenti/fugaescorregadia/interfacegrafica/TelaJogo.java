@@ -35,7 +35,7 @@ public class TelaJogo {
 		for (int i = 0; i < mapa.getNumeroLinhas(); i++) {
 			for (int j = 0; j < mapa.getNumeroColunas(); j++) {
 				JLabel label = new JLabel(String.valueOf(mapa
-						.getElemento(new Posicao(i, j)).getCaractere()));
+						.getElemento(posicoes.obter(i, j)).getCaractere()));
 				label.setHorizontalAlignment(JLabel.CENTER);
 				frame.add(label);
 			}
