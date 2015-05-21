@@ -1,5 +1,6 @@
 package com.github.awvalenti.fugaescorregadia.nucleo;
 
+import static com.github.awvalenti.fugaescorregadia.InjetorParaTestes.*;
 import static com.github.awvalenti.fugaescorregadia.nucleo.Elemento.*;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
@@ -13,10 +14,8 @@ public class MapaTest {
 
 	@Before
 	public void setUp() {
-		mapa = new Mapa(new Elemento[][] {
-			{ PERSONAGEM, VAZIO, OBSTACULO },
-			{ VAZIO,      VAZIO, VAZIO }
-		});
+		CompiladorMapa compilador = criarInjetorParaTestes().getInstance(CompiladorMapa.class);
+		mapa = compilador.compilar("p _ o\n_ _ _");
 	}
 
 	@Test
