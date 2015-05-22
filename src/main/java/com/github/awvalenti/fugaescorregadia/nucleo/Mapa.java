@@ -1,5 +1,7 @@
 package com.github.awvalenti.fugaescorregadia.nucleo;
 
+import static com.github.awvalenti.fugaescorregadia.nucleo.Posicao.*;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +17,7 @@ public class Mapa {
 
 		for (int linha = 0; linha < matriz.length; ++linha) {
 			for (int coluna = 0; coluna < matriz[linha].length; ++coluna) {
-				elementos.put(new Posicao(linha, coluna), matriz[linha][coluna]);
+				elementos.put(aPosicao(linha, coluna), matriz[linha][coluna]);
 			}
 		}
 	}

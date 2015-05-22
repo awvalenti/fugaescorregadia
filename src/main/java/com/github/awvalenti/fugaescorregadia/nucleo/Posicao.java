@@ -5,7 +5,11 @@ public class Posicao {
 	private final int linha;
 	private final int coluna;
 
-	public Posicao(int linha, int coluna) {
+	public static Posicao aPosicao(int linha, int coluna) {
+		return new Posicao(linha, coluna);
+	}
+
+	private Posicao(int linha, int coluna) {
 		this.linha = linha;
 		this.coluna = coluna;
 	}

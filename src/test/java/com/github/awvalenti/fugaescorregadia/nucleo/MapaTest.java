@@ -2,6 +2,7 @@ package com.github.awvalenti.fugaescorregadia.nucleo;
 
 import static com.github.awvalenti.fugaescorregadia.InjetorParaTestes.*;
 import static com.github.awvalenti.fugaescorregadia.nucleo.Elemento.*;
+import static com.github.awvalenti.fugaescorregadia.nucleo.Posicao.*;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
@@ -26,20 +27,20 @@ public class MapaTest {
 
 	@Test
 	public void deve_obter_elemento_por_posicao() {
-		assertThat(mapa.getElemento(new Posicao(0, 0)), is(PERSONAGEM));
-		assertThat(mapa.getElemento(new Posicao(0, 1)), is(VAZIO));
-		assertThat(mapa.getElemento(new Posicao(0, 2)), is(OBSTACULO));
-		assertThat(mapa.getElemento(new Posicao(1, 0)), is(VAZIO));
-		assertThat(mapa.getElemento(new Posicao(1, 1)), is(VAZIO));
-		assertThat(mapa.getElemento(new Posicao(1, 2)), is(VAZIO));
+		assertThat(mapa.getElemento(aPosicao(0, 0)), is(PERSONAGEM));
+		assertThat(mapa.getElemento(aPosicao(0, 1)), is(VAZIO));
+		assertThat(mapa.getElemento(aPosicao(0, 2)), is(OBSTACULO));
+		assertThat(mapa.getElemento(aPosicao(1, 0)), is(VAZIO));
+		assertThat(mapa.getElemento(aPosicao(1, 1)), is(VAZIO));
+		assertThat(mapa.getElemento(aPosicao(1, 2)), is(VAZIO));
 	}
 
 	@Test
 	public void deve_converter_posicao_para_indice_linear() {
-		assertThat(mapa.indiceLinearDe(new Posicao(0, 0)), is(0));
-		assertThat(mapa.indiceLinearDe(new Posicao(0, 1)), is(1));
-		assertThat(mapa.indiceLinearDe(new Posicao(1, 0)), is(3));
-		assertThat(mapa.indiceLinearDe(new Posicao(1, 1)), is(4));
+		assertThat(mapa.indiceLinearDe(aPosicao(0, 0)), is(0));
+		assertThat(mapa.indiceLinearDe(aPosicao(0, 1)), is(1));
+		assertThat(mapa.indiceLinearDe(aPosicao(1, 0)), is(3));
+		assertThat(mapa.indiceLinearDe(aPosicao(1, 1)), is(4));
 	}
 
 }

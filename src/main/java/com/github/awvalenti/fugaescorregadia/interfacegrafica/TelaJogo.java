@@ -1,5 +1,7 @@
 package com.github.awvalenti.fugaescorregadia.interfacegrafica;
 
+import static com.github.awvalenti.fugaescorregadia.nucleo.Posicao.*;
+
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -35,7 +37,7 @@ public class TelaJogo {
 		for (int i = 0; i < mapa.getNumeroLinhas(); i++) {
 			for (int j = 0; j < mapa.getNumeroColunas(); j++) {
 				JLabel label = new JLabel(String.valueOf(mapa
-						.getElemento(new Posicao(i, j)).getCaractere()));
+						.getElemento(aPosicao(i, j)).getCaractere()));
 				label.setHorizontalAlignment(JLabel.CENTER);
 				frame.add(label);
 			}
