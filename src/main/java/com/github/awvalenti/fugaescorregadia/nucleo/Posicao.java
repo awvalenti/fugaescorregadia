@@ -24,7 +24,7 @@ public class Posicao {
 
 	@Override
 	public String toString() {
-		return String.format("(%d, %d)", linha, coluna);
+		return String.format("P(%d, %d)", linha, coluna);
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class Posicao {
 
 	@Override
 	public int hashCode() {
-		return 100 * linha + coluna;
+		return linha * 32 + coluna;
 	}
 
 }
