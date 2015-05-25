@@ -22,6 +22,10 @@ public class Posicao {
 		return coluna;
 	}
 
+	public Posicao somar(Direcao d) {
+		return aPosicao(linha + d.getIncrementoLinha(), coluna + d.getIncrementoColuna());
+	}
+
 	@Override
 	public String toString() {
 		return String.format("P(%d, %d)", linha, coluna);

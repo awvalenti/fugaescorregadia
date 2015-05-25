@@ -5,36 +5,43 @@ import static com.github.awvalenti.fugaescorregadia.nucleo.Posicao.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Mapa {
+public abstract class Mapa {
 
-	private final Map<Posicao, Elemento> elementos = new HashMap<>();
-	private final int numeroLinhas;
-	private final int numeroColunas;
+	protected final int numeroLinhas;
+	protected final int numeroColunas;
+	protected final Map<Posicao, Elemento> elementos;
 
-	public Mapa(Elemento[][] matriz) {
+	protected Mapa(Elemento[][] matriz) {
 		numeroLinhas = matriz.length;
 		numeroColunas = matriz[0].length;
+		elementos = new HashMap<>();
 
-		for (int linha = 0; linha < matriz.length; ++linha) {
-			for (int coluna = 0; coluna < matriz[linha].length; ++coluna) {
+		for (int linha = 0; linha < numeroLinhas; ++linha) {
+			for (int coluna = 0; coluna < numeroColunas; ++coluna) {
 				elementos.put(aPosicao(linha, coluna), matriz[linha][coluna]);
 			}
 		}
 	}
 
-	public int getNumeroLinhas() {
+	protected Mapa(Mapa outro) {
+		numeroLinhas = outro.numeroLinhas;
+		numeroColunas = outro.numeroColunas;
+		elementos = new HashMap<>(outro.elementos);
+	}
+
+	public final int getNumeroLinhas() {
 		return numeroLinhas;
 	}
 
-	public int getNumeroColunas() {
+	public final int getNumeroColunas() {
 		return numeroColunas;
 	}
 
-	public Elemento getElemento(Posicao p) {
+	public final Elemento getElemento(Posicao p) {
 		return elementos.get(p);
 	}
 
-	public int indiceLinearDe(Posicao posicao) {
+	public final int indiceLinearDe(Posicao posicao) {
 		return numeroColunas * posicao.getLinha() + posicao.getColuna();
 	}
 

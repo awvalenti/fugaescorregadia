@@ -6,6 +6,7 @@ import java.util.Optional;
 import com.github.awvalenti.fugaescorregadia.nucleo.Elemento;
 import com.github.awvalenti.fugaescorregadia.nucleo.ElementoFactory;
 import com.github.awvalenti.fugaescorregadia.nucleo.Mapa;
+import com.github.awvalenti.fugaescorregadia.nucleo.MapaImutavel;
 import com.github.awvalenti.fugaescorregadia.nucleo.OperacoesFuncionais;
 
 public class FuncionalJava8 implements OperacoesFuncionais {
@@ -13,7 +14,7 @@ public class FuncionalJava8 implements OperacoesFuncionais {
 	@Override
 	public Mapa deLinhasStringMapaParaMapa(String[] linhasStringMapa,
 			ElementoFactory fabricaElementos) {
-		return new Mapa(Arrays
+		return new MapaImutavel(Arrays
 				.stream(linhasStringMapa)
 				.map(linha -> linha
 						.chars()

@@ -1,17 +1,22 @@
 package com.github.awvalenti.fugaescorregadia.nucleo;
 
-import static com.github.awvalenti.fugaescorregadia.nucleo.Posicao.*;
-
 public class Tentativa {
 
 	private final SaidaJogo saida;
+	private final Tabuleiro tabuleiro;
 
 	public Tentativa(Mapa mapa, SaidaJogo saida) {
 		this.saida = saida;
+		this.tabuleiro = new Tabuleiro(mapa);
 	}
 
 	public void efetuarMovimento(Direcao d) {
-		saida.movimento(aPosicao(0, 3));
+		Posicao atual = tabuleiro.getPosicaoPersonagem();
+
+		for (int i = 0; i < 3; ++i) {
+			atual = atual.somar(d);
+			saida.movimento(atual);
+		}
 	}
 
 }
