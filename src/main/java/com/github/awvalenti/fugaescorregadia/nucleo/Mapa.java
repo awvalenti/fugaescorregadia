@@ -41,7 +41,6 @@ public abstract class Mapa {
 	}
 
 	public final Elemento getElemento(Posicao p) {
-		// TODO Java 8?
 		return Optional.fromNullable(elementos.get(p)).or(OBSTACULO);
 	}
 
