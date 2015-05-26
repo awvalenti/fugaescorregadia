@@ -13,8 +13,9 @@ public class Tentativa {
 	public void efetuarMovimento(Direcao d) {
 		Posicao atual = tabuleiro.getPosicaoPersonagem();
 
-		for (int i = 0; i < 3; ++i) {
+		for (;;) {
 			atual = atual.somar(d);
+			if (tabuleiro.getElemento(atual).bloqueiaMovimento()) break;
 			saida.movimento(atual);
 		}
 	}
