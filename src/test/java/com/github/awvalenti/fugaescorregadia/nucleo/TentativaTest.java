@@ -28,9 +28,15 @@ public class TentativaTest {
 	}
 
 	@Test
-	public void deve_movimentar_personagem_ate_uma_casa_antes_de_obstaculo() {
+	public void deve_parar_movimento_antes_de_obstaculo() {
 		verificarCaminho(DIREITA, aPosicao(0, 1), aPosicao(0, 2), aPosicao(0, 3));
 		verificarCaminho(BAIXO, aPosicao(1, 0), aPosicao(2, 0));
+	}
+
+	@Test
+	public void deve_parar_movimento_antes_das_bordas() {
+		verificarCaminho(ESQUERDA);
+		verificarCaminho(CIMA);
 	}
 
 	private void verificarCaminho(Direcao d, Posicao... caminho) {
