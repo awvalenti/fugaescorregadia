@@ -1,9 +1,12 @@
 package com.github.awvalenti.fugaescorregadia.nucleo;
 
 import static com.github.awvalenti.fugaescorregadia.nucleo.Posicao.*;
+import static com.github.awvalenti.fugaescorregadia.nucleo.Elemento.*;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import com.google.common.base.Optional;
 
 public abstract class Mapa {
 
@@ -38,7 +41,8 @@ public abstract class Mapa {
 	}
 
 	public final Elemento getElemento(Posicao p) {
-		return elementos.get(p);
+		// TODO Java 8?
+		return Optional.fromNullable(elementos.get(p)).or(OBSTACULO);
 	}
 
 	public final int indiceLinearDe(Posicao posicao) {
