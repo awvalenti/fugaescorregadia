@@ -1,24 +1,28 @@
 package com.github.awvalenti.fugaescorregadia.nucleo;
 
+import java.util.Arrays;
+
 import javax.inject.Inject;
 
 public class CompiladorMapa {
 
-	private final OperacoesFuncionais funcional;
 	private final ElementoFactory fabricaElementos;
 
 	@Inject
-	public CompiladorMapa(OperacoesFuncionais funcional,
-			ElementoFactory fabricaElementos) {
-		this.funcional = funcional;
+	public CompiladorMapa(ElementoFactory fabricaElementos) {
 		this.fabricaElementos = fabricaElementos;
 	}
 
 	public Mapa compilar(String mapaEmString) {
-		String semEspacos = mapaEmString.replaceAll(" ", "");
-		String[] linhas = semEspacos.split("\n");
-		return funcional
-				.deLinhasStringMapaParaMapa(linhas, fabricaElementos);
+		return new MapaImutavel(Arrays
+				.stream(mapaEmString.replaceAll(" ", "").split("\n"))
+				.map(linha -> linha
+						.chars()
+						.mapToObj(
+								caractereInt -> fabricaElementos
+										.comCaractere((char) caractereInt))
+						.toArray(tamanho -> new Elemento[tamanho]))
+				.toArray(tamanho -> new Elemento[tamanho][]));
 	}
 
 }
