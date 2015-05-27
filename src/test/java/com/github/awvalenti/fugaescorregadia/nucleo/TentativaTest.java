@@ -1,8 +1,8 @@
 package com.github.awvalenti.fugaescorregadia.nucleo;
 
 import static com.github.awvalenti.fugaescorregadia.InjetorParaTestes.*;
-import static com.github.awvalenti.fugaescorregadia.nucleo.Posicao.*;
 import static com.github.awvalenti.fugaescorregadia.nucleo.Direcao.*;
+import static com.github.awvalenti.fugaescorregadia.nucleo.Posicao.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.Before;
@@ -11,7 +11,7 @@ import org.mockito.InOrder;
 
 public class TentativaTest {
 
-	private Tentativa tentativa;
+	private Controlavel tentativa;
 	private SaidaJogo saida;
 	private Mapa mapa;
 
@@ -29,8 +29,8 @@ public class TentativaTest {
 
 	@Test
 	public void deve_parar_movimento_antes_de_obstaculo() {
-		verificarCaminho(DIREITA, aPosicao(0, 1), aPosicao(0, 2), aPosicao(0, 3));
-		verificarCaminho(BAIXO, aPosicao(1, 0), aPosicao(2, 0));
+		verificarCaminho(DIREITA, aPosicao(0, 0), aPosicao(0, 1), aPosicao(0, 2), aPosicao(0, 3));
+		verificarCaminho(BAIXO, aPosicao(0, 0), aPosicao(1, 0), aPosicao(2, 0));
 	}
 
 	@Test
@@ -43,8 +43,8 @@ public class TentativaTest {
 		tentativa = new Tentativa(mapa, saida);
 		tentativa.efetuarMovimento(d);
 		InOrder inOrder = inOrder(saida);
-		for (Posicao passo : caminho) {
-			inOrder.verify(saida, times(1)).movimento(passo);
+		for (int i = 1; i < caminho.length; ++i) {
+			inOrder.verify(saida, times(1)).movimento(caminho[i - 1], caminho[i]);
 		}
 		inOrder.verifyNoMoreInteractions();
 	}

@@ -1,6 +1,6 @@
 package com.github.awvalenti.fugaescorregadia.nucleo;
 
-public class Tentativa {
+public class Tentativa implements Controlavel {
 
 	private final SaidaJogo saida;
 	private final Tabuleiro tabuleiro;
@@ -10,13 +10,15 @@ public class Tentativa {
 		this.tabuleiro = new Tabuleiro(mapa);
 	}
 
+	@Override
 	public void efetuarMovimento(Direcao d) {
 		Posicao atual = tabuleiro.getPosicaoPersonagem();
 
 		for (;;) {
-			atual = atual.somar(d);
-			if (tabuleiro.getElemento(atual).bloqueiaMovimento()) break;
-			saida.movimento(atual);
+			Posicao nova = atual.somar(d);
+			if (tabuleiro.getElemento(nova).bloqueiaMovimento()) break;
+			saida.movimento(atual, nova);
+			atual = nova;
 		}
 	}
 
