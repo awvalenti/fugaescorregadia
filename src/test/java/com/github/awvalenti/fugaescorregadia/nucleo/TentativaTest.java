@@ -19,24 +19,24 @@ public class TentativaTest {
 	public void setUp() {
 		CompiladorMapa compilador = criarInjetorParaTestes().getInstance(CompiladorMapa.class);
 		mapa = compilador.compilar(""
-				+ "p _ _ _ o\n"
+				+ "_ _ _ _ o\n"
+				+ "_ p _ _ o\n"
 				+ "_ _ _ _ _\n"
-				+ "_ _ _ _ _\n"
-				+ "o _ _ _ _\n"
+				+ "o o _ _ _\n"
 				+ "");
 		saida = mock(SaidaJogo.class);
 	}
 
 	@Test
 	public void deve_parar_movimento_antes_de_obstaculo() {
-		verificarCaminho(DIREITA, aPosicao(0, 0), aPosicao(0, 1), aPosicao(0, 2), aPosicao(0, 3));
-		verificarCaminho(BAIXO, aPosicao(0, 0), aPosicao(1, 0), aPosicao(2, 0));
+		verificarCaminho(DIREITA, aPosicao(1, 1), aPosicao(1, 2), aPosicao(1, 3));
+		verificarCaminho(BAIXO, aPosicao(1, 1), aPosicao(2, 1));
 	}
 
 	@Test
 	public void deve_parar_movimento_antes_das_bordas() {
-		verificarCaminho(ESQUERDA);
-		verificarCaminho(CIMA);
+		verificarCaminho(ESQUERDA, aPosicao(1, 1), aPosicao(1, 0));
+		verificarCaminho(CIMA, aPosicao(1, 1), aPosicao(0, 1));
 	}
 
 	private void verificarCaminho(Direcao d, Posicao... caminho) {
