@@ -12,4 +12,8 @@ public class Tabuleiro extends Mapa {
 				.findFirst().get().getKey();
 	}
 
+	public void setElemento(Posicao p, Elemento novo) {
+		elementos.put(p, novo);
+	}
+
 }
