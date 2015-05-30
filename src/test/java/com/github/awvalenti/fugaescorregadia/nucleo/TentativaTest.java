@@ -25,54 +25,52 @@ public class TentativaTest {
 				+ "o o _ _ _\n"
 				+ "");
 		saida = mock(SaidaJogo.class);
+		tentativa = new Tentativa(mapa, saida);
 	}
 
 	@Test
 	public void ao_ser_iniciada_deve_avisar_saida_jogo() {
-		criarTentativa();
 		tentativa.iniciar();
 		verify(saida).inicioTentativa(mapa);
 	}
 
 	@Test
-	public void deve_parar_movimento_antes_de_obstaculo() {
-		verificar(DIREITA, aPosicao(1, 1), aPosicao(1, 2), aPosicao(1, 3));
-		verificar(BAIXO, aPosicao(1, 1), aPosicao(2, 1));
+	public void indo_para_direita_deve_parar_movimento_antes_de_obstaculo() {
+		tentativa.efetuarMovimento(DIREITA);
+		verificarPassagemPor(aPosicao(1, 1), aPosicao(1, 2), aPosicao(1, 3));
 	}
 
 	@Test
-	public void deve_parar_movimento_antes_das_bordas() {
-		verificar(ESQUERDA, aPosicao(1, 1), aPosicao(1, 0));
-		verificar(CIMA, aPosicao(1, 1), aPosicao(0, 1));
-	}
-
-	@Test
-	public void deve_atualizar_posicao_do_personagem() {
-		InOrder inOrder = inOrder(saida);
-		criarTentativa();
-
-		tentativa.efetuarMovimento(CIMA);
-		inOrder.verify(saida, times(1)).movimento(aPosicao(1, 1), aPosicao(0, 1));
-
+	public void indo_para_baixo_deve_parar_movimento_antes_de_obstaculo() {
 		tentativa.efetuarMovimento(BAIXO);
-		inOrder.verify(saida, times(1)).movimento(aPosicao(0, 1), aPosicao(1, 1));
-		inOrder.verify(saida, times(1)).movimento(aPosicao(1, 1), aPosicao(2, 1));
-
-		inOrder.verifyNoMoreInteractions();
+		verificarPassagemPor(aPosicao(1, 1), aPosicao(2, 1));
 	}
 
-	private void verificar(Direcao d, Posicao... caminho) {
-		criarTentativa();
-		tentativa.efetuarMovimento(d);
+	@Test
+	public void indo_para_esquerda_deve_parar_movimento_antes_das_bordas() {
+		tentativa.efetuarMovimento(ESQUERDA);
+		verificarPassagemPor(aPosicao(1, 1), aPosicao(1, 0));
+	}
+
+	@Test
+	public void indo_para_cima_deve_parar_movimento_antes_das_bordas() {
+		tentativa.efetuarMovimento(CIMA);
+		verificarPassagemPor(aPosicao(1, 1), aPosicao(0, 1));
+	}
+
+	@Test
+	public void segundo_movimento_deve_partir_de_onde_terminou_o_primeiro() {
+		tentativa.efetuarMovimento(CIMA);
+		tentativa.efetuarMovimento(BAIXO);
+		verificarPassagemPor(aPosicao(1, 1), aPosicao(0, 1), aPosicao(1, 1), aPosicao(2, 1));
+	}
+
+	private void verificarPassagemPor(Posicao... caminho) {
 		InOrder inOrder = inOrder(saida);
 		for (int i = 1; i < caminho.length; ++i) {
-			inOrder.verify(saida, times(1)).movimento(caminho[i - 1], caminho[i]);
+			inOrder.verify(saida).movimento(caminho[i - 1], caminho[i]);
 		}
-		inOrder.verifyNoMoreInteractions();
-	}
-
-	private void criarTentativa() {
-		tentativa = new Tentativa(mapa, saida);
+		verifyNoMoreInteractions(saida);
 	}
 
 }
