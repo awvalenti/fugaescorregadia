@@ -10,7 +10,7 @@ import com.github.awvalenti.fugaescorregadia.nucleo.Mapa;
 import com.github.awvalenti.fugaescorregadia.nucleo.MapaImutavel;
 import com.github.awvalenti.fugaescorregadia.nucleo.Tentativa;
 
-public class Programa {
+public class FugaEscorregadiaMain {
 
 	public static void main(String[] args) {
 		Mapa mapa = new MapaImutavel(new Elemento[][] {
