@@ -20,10 +20,10 @@ public class FugaEscorregadiaMain {
 			{ OBSTACULO, VAZIO, VAZIO,      OBSTACULO, VAZIO, VAZIO, },
 		});
 
-		TabuleiroPanel tabuleiroPanel = new TabuleiroPanel(mapa.getNumeroLinhas(), mapa.getNumeroColunas());
-		Tentativa t = new Tentativa(mapa, tabuleiroPanel);
-		TelaJogo telaJogo = new TelaJogo(tabuleiroPanel, new TecladoListener(t));
-		t.iniciar();
+		TabuleiroPanel tabuleiroPanel = new TabuleiroPanel(50, mapa.getNumeroLinhas(), mapa.getNumeroColunas());
+		Tentativa tentativa = new Tentativa(mapa, tabuleiroPanel);
+		TelaJogo telaJogo = new TelaJogo(tabuleiroPanel, new TecladoListener(tentativa));
+		tentativa.iniciar();
 		telaJogo.exibir();
 	}
 

@@ -16,10 +16,13 @@ import com.github.awvalenti.fugaescorregadia.nucleo.SaidaJogo;
 public class TabuleiroPanel extends JPanel implements SaidaJogo {
 
 	private static final long serialVersionUID = 1L;
+
+	private final int atrasoAtualizacaoTela;
 	private final int numeroLinhas;
 	private final int numeroColunas;
 
-	public TabuleiroPanel(int numeroLinhas, int numeroColunas) {
+	public TabuleiroPanel(int atrasoAtualizacaoTela, int numeroLinhas, int numeroColunas) {
+		this.atrasoAtualizacaoTela = atrasoAtualizacaoTela;
 		this.numeroLinhas = numeroLinhas;
 		this.numeroColunas = numeroColunas;
 
@@ -55,7 +58,7 @@ public class TabuleiroPanel extends JPanel implements SaidaJogo {
 		alterarElemento(destino, PERSONAGEM);
 		paintImmediately(getBounds());
 		try {
-			Thread.sleep(50);
+			Thread.sleep(atrasoAtualizacaoTela);
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);
 		}
