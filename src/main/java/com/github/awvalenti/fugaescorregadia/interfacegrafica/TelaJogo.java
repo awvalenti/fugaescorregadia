@@ -8,17 +8,14 @@ public class TelaJogo {
 
 	public TelaJogo(TabuleiroPanel tabuleiroPanel, TecladoListener tecladoListener) {
 		frame = new JFrame();
-
 		frame.add(tabuleiroPanel);
-		frame.pack();
-
 		frame.addKeyListener(tecladoListener);
-
-		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	public void exibir() {
+		frame.pack();
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
 

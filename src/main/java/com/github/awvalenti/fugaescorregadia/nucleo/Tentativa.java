@@ -12,6 +12,10 @@ public class Tentativa implements Controlavel {
 		this.tabuleiro = new Tabuleiro(mapa);
 	}
 
+	public void iniciar() {
+		saida.inicioTentativa(tabuleiro);
+	}
+
 	@Override
 	public void efetuarMovimento(Direcao d) {
 		for (;;) {

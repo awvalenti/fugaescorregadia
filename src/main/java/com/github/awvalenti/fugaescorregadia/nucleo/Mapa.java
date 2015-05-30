@@ -44,8 +44,18 @@ public abstract class Mapa {
 		return Optional.fromNullable(elementos.get(p)).or(OBSTACULO);
 	}
 
-	public final int indiceLinearDe(Posicao posicao) {
-		return numeroColunas * posicao.getLinha() + posicao.getColuna();
+	@Override
+	public boolean equals(Object o) {
+		if (!(o instanceof Mapa)) return false;
+		Mapa outro = (Mapa) o;
+		return numeroLinhas == outro.numeroLinhas
+				&& numeroColunas == outro.numeroColunas
+				&& elementos.equals(outro.elementos);
+	}
+
+	@Override
+	public int hashCode() {
+		return elementos.hashCode();
 	}
 
 }

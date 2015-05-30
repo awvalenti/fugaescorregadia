@@ -16,26 +16,37 @@ import com.github.awvalenti.fugaescorregadia.nucleo.SaidaJogo;
 public class TabuleiroPanel extends JPanel implements SaidaJogo {
 
 	private static final long serialVersionUID = 1L;
+	private final int numeroLinhas;
+	private final int numeroColunas;
 
-	private final Mapa mapa;
+	public TabuleiroPanel(int numeroLinhas, int numeroColunas) {
+		this.numeroLinhas = numeroLinhas;
+		this.numeroColunas = numeroColunas;
 
-	public TabuleiroPanel(Mapa mapa) {
-		this.mapa = mapa;
-		setLayout(new GridLayout(mapa.getNumeroLinhas(), mapa.getNumeroColunas()));
+		setLayout(new GridLayout(numeroLinhas, numeroColunas));
 
-		for (int i = 0; i < mapa.getNumeroLinhas(); i++) {
-			for (int j = 0; j < mapa.getNumeroColunas(); j++) {
-				JLabel label = new JLabel(String.valueOf(mapa.getElemento(
-						aPosicao(i, j)).getCaractere()));
+		for (int linha = 0; linha < numeroLinhas; ++linha) {
+			for (int coluna = 0; coluna < numeroColunas; ++coluna) {
+				JLabel label = new JLabel();
 				label.setHorizontalAlignment(JLabel.CENTER);
 				add(label);
 			}
 		}
 	}
 
-	public void alterarElemento(Posicao posicao, Elemento elemento) {
-		int indice = mapa.indiceLinearDe(posicao);
-		((JLabel) getComponent(indice)).setText(String.valueOf(elemento.getCaractere()));
+	private void alterarElemento(Posicao posicao, Elemento elemento) {
+		int indiceLinear = numeroColunas * posicao.getLinha() + posicao.getColuna();
+		((JLabel) getComponent(indiceLinear)).setText(String.valueOf(elemento.getCaractere()));
+	}
+
+	@Override
+	public void inicioTentativa(Mapa mapa) {
+		for (int linha = 0; linha < numeroLinhas; ++linha) {
+			for (int coluna = 0; coluna < numeroColunas; ++coluna) {
+				Posicao p = aPosicao(linha, coluna);
+				alterarElemento(p, mapa.getElemento(p));
+			}
+		}
 	}
 
 	@Override

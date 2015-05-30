@@ -11,7 +11,7 @@ import org.mockito.InOrder;
 
 public class TentativaTest {
 
-	private Controlavel tentativa;
+	private Tentativa tentativa;
 	private SaidaJogo saida;
 	private Mapa mapa;
 
@@ -25,6 +25,13 @@ public class TentativaTest {
 				+ "o o _ _ _\n"
 				+ "");
 		saida = mock(SaidaJogo.class);
+	}
+
+	@Test
+	public void ao_ser_iniciada_deve_avisar_saida_jogo() {
+		criarTentativa();
+		tentativa.iniciar();
+		verify(saida).inicioTentativa(mapa);
 	}
 
 	@Test

@@ -35,12 +35,4 @@ public class MapaTest {
 		assertThat(mapa.getElemento(aPosicao(1, 2)), is(VAZIO));
 	}
 
-	@Test
-	public void deve_converter_posicao_para_indice_linear() {
-		assertThat(mapa.indiceLinearDe(aPosicao(0, 0)), is(0));
-		assertThat(mapa.indiceLinearDe(aPosicao(0, 1)), is(1));
-		assertThat(mapa.indiceLinearDe(aPosicao(1, 0)), is(3));
-		assertThat(mapa.indiceLinearDe(aPosicao(1, 1)), is(4));
-	}
-
 }
