@@ -9,6 +9,7 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import com.github.awvalenti.fugaescorregadia.nucleo.Controlavel;
 import com.github.awvalenti.fugaescorregadia.nucleo.Direcao;
@@ -21,13 +22,14 @@ public class TelaJogo implements SaidaJogo {
 
 	private Mapa mapa;
 	private final JFrame frame;
+	private final JPanel painel;
 	private Controlavel controlavel;
 
 	public TelaJogo(Mapa mapa) {
 		this.mapa = mapa;
-
+		painel = new JPanel();
 		frame = new JFrame();
-		frame.setLayout(new GridLayout(mapa.getNumeroLinhas(), mapa
+		painel.setLayout(new GridLayout(mapa.getNumeroLinhas(), mapa
 				.getNumeroColunas()));
 		frame.addKeyListener(new TecladoListener());
 
@@ -52,15 +54,15 @@ public class TelaJogo implements SaidaJogo {
 				JLabel label = new JLabel(String.valueOf(mapa
 						.getElemento(aPosicao(i, j)).getCaractere()));
 				label.setHorizontalAlignment(JLabel.CENTER);
-				frame.add(label);
+				painel.add(label);
 			}
 		}
+		frame.add(painel);
 	}
 
 	private void alterarElemento(Posicao posicao, Elemento elemento) {
 		int indice = mapa.indiceLinearDe(posicao);
-		((JLabel) frame.getContentPane().getComponent(indice))
-				.setText(String.valueOf(elemento.getCaractere()));
+		((JLabel) painel.getComponent(indice)).setText(String.valueOf(elemento.getCaractere()));
 	}
 
 	private class TecladoListener implements KeyListener {
@@ -85,6 +87,12 @@ public class TelaJogo implements SaidaJogo {
 	public void movimento(Posicao origem, Posicao destino) {
 		alterarElemento(origem, VAZIO);
 		alterarElemento(destino, PERSONAGEM);
+		painel.paintImmediately(painel.getBounds());
+		try {
+			Thread.sleep(50);
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 }
