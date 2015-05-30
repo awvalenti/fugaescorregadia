@@ -2,6 +2,8 @@ package com.github.awvalenti.fugaescorregadia.programa;
 
 import static com.github.awvalenti.fugaescorregadia.nucleo.Elemento.*;
 
+import com.github.awvalenti.fugaescorregadia.interfacegrafica.TabuleiroPanel;
+import com.github.awvalenti.fugaescorregadia.interfacegrafica.TecladoListener;
 import com.github.awvalenti.fugaescorregadia.interfacegrafica.TelaJogo;
 import com.github.awvalenti.fugaescorregadia.nucleo.Elemento;
 import com.github.awvalenti.fugaescorregadia.nucleo.Mapa;
@@ -18,8 +20,8 @@ public class Programa {
 			{ OBSTACULO, VAZIO, VAZIO,      OBSTACULO, VAZIO, VAZIO, },
 		});
 
-		TelaJogo telaJogo = new TelaJogo(mapa);
-		telaJogo.setControlavel(new Tentativa(mapa, telaJogo));
+		TabuleiroPanel tabuleiroPanel = new TabuleiroPanel(mapa);
+		TelaJogo telaJogo = new TelaJogo(tabuleiroPanel, new TecladoListener(new Tentativa(mapa, tabuleiroPanel)));
 		telaJogo.exibir();
 	}
 

@@ -1,98 +1,25 @@
 package com.github.awvalenti.fugaescorregadia.interfacegrafica;
 
-import static com.github.awvalenti.fugaescorregadia.nucleo.Elemento.*;
-import static com.github.awvalenti.fugaescorregadia.nucleo.Posicao.*;
-
-import java.awt.GridLayout;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
-import com.github.awvalenti.fugaescorregadia.nucleo.Controlavel;
-import com.github.awvalenti.fugaescorregadia.nucleo.Direcao;
-import com.github.awvalenti.fugaescorregadia.nucleo.Elemento;
-import com.github.awvalenti.fugaescorregadia.nucleo.Mapa;
-import com.github.awvalenti.fugaescorregadia.nucleo.Posicao;
-import com.github.awvalenti.fugaescorregadia.nucleo.SaidaJogo;
+public class TelaJogo {
 
-public class TelaJogo implements SaidaJogo {
-
-	private Mapa mapa;
 	private final JFrame frame;
-	private final JPanel painel;
-	private Controlavel controlavel;
 
-	public TelaJogo(Mapa mapa) {
-		this.mapa = mapa;
-		painel = new JPanel();
+	public TelaJogo(TabuleiroPanel tabuleiroPanel, TecladoListener tecladoListener) {
 		frame = new JFrame();
-		painel.setLayout(new GridLayout(mapa.getNumeroLinhas(), mapa
-				.getNumeroColunas()));
-		frame.addKeyListener(new TecladoListener());
 
-		preencherTela();
-
+		frame.add(tabuleiroPanel);
 		frame.pack();
+
+		frame.addKeyListener(tecladoListener);
+
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	public void setControlavel(Controlavel controlavel) {
-		this.controlavel = controlavel;
-	}
-
 	public void exibir() {
 		frame.setVisible(true);
-	}
-
-	private void preencherTela() {
-		for (int i = 0; i < mapa.getNumeroLinhas(); i++) {
-			for (int j = 0; j < mapa.getNumeroColunas(); j++) {
-				JLabel label = new JLabel(String.valueOf(mapa
-						.getElemento(aPosicao(i, j)).getCaractere()));
-				label.setHorizontalAlignment(JLabel.CENTER);
-				painel.add(label);
-			}
-		}
-		frame.add(painel);
-	}
-
-	private void alterarElemento(Posicao posicao, Elemento elemento) {
-		int indice = mapa.indiceLinearDe(posicao);
-		((JLabel) painel.getComponent(indice)).setText(String.valueOf(elemento.getCaractere()));
-	}
-
-	private class TecladoListener implements KeyListener {
-
-		@Override
-		public void keyTyped(KeyEvent e) {
-		}
-
-		@Override
-		public void keyPressed(KeyEvent e) {
-			Direcao.doCodigoTecla(e.getKeyCode()).ifPresent(
-					d -> controlavel.efetuarMovimento(d));
-		}
-
-		@Override
-		public void keyReleased(KeyEvent e) {
-		}
-
-	}
-
-	@Override
-	public void movimento(Posicao origem, Posicao destino) {
-		alterarElemento(origem, VAZIO);
-		alterarElemento(destino, PERSONAGEM);
-		painel.paintImmediately(painel.getBounds());
-		try {
-			Thread.sleep(50);
-		} catch (InterruptedException e) {
-			throw new RuntimeException(e);
-		}
 	}
 
 }
