@@ -1,0 +1,31 @@
+package com.github.awvalenti.fugaescorregadia.componentes;
+
+import static com.github.awvalenti.fugaescorregadia.InjetorParaTestes.*;
+import static com.github.awvalenti.fugaescorregadia.nucleo.Elemento.*;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import com.github.awvalenti.fugaescorregadia.nucleo.Elemento;
+import com.github.awvalenti.fugaescorregadia.nucleo.MapaImutavel;
+
+public class LeitorDeMapaDoClasspathTest {
+
+	private LeitorDeMapaDoClasspath leitor;
+
+	@Before
+	public void setUp() {
+		leitor = criarInjetorParaTestes().getInstance(LeitorDeMapaDoClasspath.class);
+	}
+
+	@Test
+	public void deve_ler_mapa_do_classpath() {
+		assertThat(leitor.ler("/mapas/teste.mapa"), is(new MapaImutavel(new Elemento[][] {
+			{ VAZIO,     PERSONAGEM, VAZIO },
+			{ OBSTACULO, VAZIO,      VAZIO },
+		})));
+	}
+
+}
