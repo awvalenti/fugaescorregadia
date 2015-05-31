@@ -1,29 +1,20 @@
 package com.github.awvalenti.fugaescorregadia.nucleo;
 
+import static java.awt.Color.*;
+
+import java.awt.Color;
 import java.util.Arrays;
 
 public enum Elemento {
-	PERSONAGEM('p', false),
+	PERSONAGEM('p', ORANGE, false),
 
-	VAZIO('_', false),
+	VAZIO('-', GRAY, false),
 
-	OBSTACULO('o', true);
+	OBSTACULO('o', CYAN, true);
 
 	private final char caractere;
+	private final Color cor;
 	private final boolean bloqueiaMovimento;
-
-	private Elemento(char caractere, boolean bloqueiaMovimento) {
-		this.caractere = caractere;
-		this.bloqueiaMovimento = bloqueiaMovimento;
-	}
-
-	public char getCaractere() {
-		return caractere;
-	}
-
-	public boolean bloqueiaMovimento() {
-		return bloqueiaMovimento;
-	}
 
 	public static Elemento comCaractere(char c) {
 		return Arrays
@@ -34,6 +25,24 @@ public enum Elemento {
 						() -> new IllegalArgumentException(String.format(
 								"Caractere invalido. Codigo: %d. Valor: %c.",
 								(int) c, c)));
+	}
+
+	private Elemento(char caractere, Color cor, boolean bloqueiaMovimento) {
+		this.caractere = caractere;
+		this.cor = cor;
+		this.bloqueiaMovimento = bloqueiaMovimento;
+	}
+
+	public char getCaractere() {
+		return caractere;
+	}
+
+	public Color getCor() {
+		return cor;
+	}
+
+	public boolean bloqueiaMovimento() {
+		return bloqueiaMovimento;
 	}
 
 }

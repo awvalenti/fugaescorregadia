@@ -16,7 +16,10 @@ public class MapaTest extends TesteBase {
 
 	@Before
 	public void setUp() {
-		mapa = new MapaImutavel("p _ o\n_ _ _");
+		mapa = new MapaImutavel(""
+				+ "p - o\n"
+				+ "- - -\n"
+				+ "");
 	}
 
 	@Test

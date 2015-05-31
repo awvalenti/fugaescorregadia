@@ -21,8 +21,8 @@ public class LeitorDeMapaDoClasspathTest extends TesteBase {
 	@Test
 	public void deve_ler_mapa_do_classpath() {
 		assertThat(leitor.ler("/mapas/teste.mapa"), is(new MapaImutavel(""
-				+ "_ p _\n"
-				+ "o _ _\n"
+				+ "- p -\n"
+				+ "o - -\n"
 				+ "")));
 	}
 

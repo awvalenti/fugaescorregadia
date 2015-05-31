@@ -19,10 +19,10 @@ public class TentativaTest extends TesteBase {
 	@Before
 	public void setUp() {
 		mapa = new MapaImutavel(""
-				+ "_ _ _ _ o\n"
-				+ "_ p _ _ o\n"
-				+ "_ _ _ _ _\n"
-				+ "o o _ _ _\n"
+				+ "- - - - o\n"
+				+ "- p - - o\n"
+				+ "- - - - -\n"
+				+ "o o - - -\n"
 				+ "");
 		saida = mock(SaidaJogo.class);
 		tentativa = new Tentativa(mapa, saida);

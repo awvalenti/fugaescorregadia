@@ -12,7 +12,7 @@ public class MainFugaEscorregadia {
 	public static void main(String[] args) {
 		Mapa mapa = new LeitorDeMapaDoClasspath().ler("/mapas/01.mapa");
 
-		TabuleiroPanel tabuleiroPanel = new TabuleiroPanel(50, mapa.getNumeroLinhas(), mapa.getNumeroColunas());
+		TabuleiroPanel tabuleiroPanel = new TabuleiroPanel(30, mapa.getNumeroLinhas(), mapa.getNumeroColunas());
 		Tentativa tentativa = new Tentativa(mapa, tabuleiroPanel);
 		TelaJogo telaJogo = new TelaJogo(tabuleiroPanel, new TecladoListener(tentativa));
 		tentativa.iniciar();

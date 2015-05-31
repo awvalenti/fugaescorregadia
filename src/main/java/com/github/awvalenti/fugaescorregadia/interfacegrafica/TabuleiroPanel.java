@@ -3,7 +3,9 @@ package com.github.awvalenti.fugaescorregadia.interfacegrafica;
 import static com.github.awvalenti.fugaescorregadia.nucleo.Elemento.*;
 import static com.github.awvalenti.fugaescorregadia.nucleo.Posicao.*;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
@@ -31,17 +33,29 @@ public class TabuleiroPanel extends JPanel implements SaidaJogo {
 
 		for (int linha = 0; linha < numeroLinhas; ++linha) {
 			for (int coluna = 0; coluna < numeroColunas; ++coluna) {
-				JLabel label = new JLabel();
-				label.setPreferredSize(new Dimension(32, 32));
-				label.setHorizontalAlignment(JLabel.CENTER);
-				add(label);
+				add(criarLabelElemento());
 			}
 		}
 	}
 
 	private void alterarElemento(Posicao posicao, Elemento elemento) {
 		int indiceLinear = numeroColunas * posicao.getLinha() + posicao.getColuna();
-		((JLabel) getComponent(indiceLinear)).setText(String.valueOf(elemento.getCaractere()));
+		atualizarLabelElemento(((JLabel) getComponent(indiceLinear)), elemento);
+	}
+
+	private JLabel criarLabelElemento() {
+		JLabel label = new JLabel();
+		label.setFont(Font.decode("FixedSys 40"));
+		label.setPreferredSize(new Dimension(32, 32));
+		label.setHorizontalAlignment(JLabel.CENTER);
+		label.setOpaque(true);
+		label.setBackground(Color.BLACK);
+		return label;
+	}
+
+	private void atualizarLabelElemento(JLabel label, Elemento elemento) {
+		label.setText(String.valueOf(elemento.getCaractere()));
+		label.setForeground(elemento.getCor());
 	}
 
 	@Override
