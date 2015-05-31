@@ -1,6 +1,5 @@
 package com.github.awvalenti.fugaescorregadia.nucleo;
 
-import static com.github.awvalenti.fugaescorregadia.InjetorParaTestes.*;
 import static com.github.awvalenti.fugaescorregadia.nucleo.Direcao.*;
 import static com.github.awvalenti.fugaescorregadia.nucleo.Posicao.*;
 import static org.mockito.Mockito.*;
@@ -9,7 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InOrder;
 
-public class TentativaTest {
+import com.github.awvalenti.fugaescorregadia.TesteBase;
+
+public class TentativaTest extends TesteBase {
 
 	private Tentativa tentativa;
 	private SaidaJogo saida;
@@ -17,7 +18,7 @@ public class TentativaTest {
 
 	@Before
 	public void setUp() {
-		CompiladorMapa compilador = criarInjetorParaTestes().getInstance(CompiladorMapa.class);
+		CompiladorMapa compilador = obterInstancia(CompiladorMapa.class);
 		mapa = compilador.compilar(""
 				+ "_ _ _ _ o\n"
 				+ "_ p _ _ o\n"

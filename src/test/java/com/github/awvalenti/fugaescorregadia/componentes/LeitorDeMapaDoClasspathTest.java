@@ -1,6 +1,5 @@
 package com.github.awvalenti.fugaescorregadia.componentes;
 
-import static com.github.awvalenti.fugaescorregadia.InjetorParaTestes.*;
 import static com.github.awvalenti.fugaescorregadia.nucleo.Elemento.*;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
@@ -8,16 +7,17 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.github.awvalenti.fugaescorregadia.TesteBase;
 import com.github.awvalenti.fugaescorregadia.nucleo.Elemento;
 import com.github.awvalenti.fugaescorregadia.nucleo.MapaImutavel;
 
-public class LeitorDeMapaDoClasspathTest {
+public class LeitorDeMapaDoClasspathTest extends TesteBase {
 
 	private LeitorDeMapaDoClasspath leitor;
 
 	@Before
 	public void setUp() {
-		leitor = criarInjetorParaTestes().getInstance(LeitorDeMapaDoClasspath.class);
+		leitor = obterInstancia(LeitorDeMapaDoClasspath.class);
 	}
 
 	@Test

@@ -1,15 +1,23 @@
 package com.github.awvalenti.fugaescorregadia;
 
+import org.junit.Before;
+
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 
-public enum InjetorParaTestes {
-	;
+public abstract class TesteBase {
 
-	public static Injector criarInjetorParaTestes() {
-		return Guice.createInjector(MODULO_PARA_TESTES);
+	private Injector injector;
+
+	@Before
+	public void criarInjetorDeDependencias() {
+		injector = Guice.createInjector(MODULO_PARA_TESTES);
+	}
+
+	protected <T> T obterInstancia(Class<T> tipo) {
+		return injector.getInstance(tipo);
 	}
 
 	private final static Module MODULO_PARA_TESTES = new AbstractModule() {
