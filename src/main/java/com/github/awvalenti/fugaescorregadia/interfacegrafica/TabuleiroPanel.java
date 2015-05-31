@@ -3,6 +3,7 @@ package com.github.awvalenti.fugaescorregadia.interfacegrafica;
 import static com.github.awvalenti.fugaescorregadia.nucleo.Elemento.*;
 import static com.github.awvalenti.fugaescorregadia.nucleo.Posicao.*;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
@@ -31,6 +32,7 @@ public class TabuleiroPanel extends JPanel implements SaidaJogo {
 		for (int linha = 0; linha < numeroLinhas; ++linha) {
 			for (int coluna = 0; coluna < numeroColunas; ++coluna) {
 				JLabel label = new JLabel();
+				label.setPreferredSize(new Dimension(32, 32));
 				label.setHorizontalAlignment(JLabel.CENTER);
 				add(label);
 			}
