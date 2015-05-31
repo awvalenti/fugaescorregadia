@@ -18,8 +18,7 @@ public class TentativaTest extends TesteBase {
 
 	@Before
 	public void setUp() {
-		CompiladorMapa compilador = obterInstancia(CompiladorMapa.class);
-		mapa = compilador.compilar(""
+		mapa = new MapaImutavel(""
 				+ "_ _ _ _ o\n"
 				+ "_ p _ _ o\n"
 				+ "_ _ _ _ _\n"

@@ -7,23 +7,14 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-import javax.inject.Inject;
-
-import com.github.awvalenti.fugaescorregadia.nucleo.CompiladorMapa;
 import com.github.awvalenti.fugaescorregadia.nucleo.Mapa;
+import com.github.awvalenti.fugaescorregadia.nucleo.MapaImutavel;
 
 public class LeitorDeMapaDoClasspath {
 
-	private final CompiladorMapa compilador;
-
-	@Inject
-	public LeitorDeMapaDoClasspath(CompiladorMapa compilador) {
-		this.compilador = compilador;
-	}
-
 	public Mapa ler(String caminhoRecurso) {
 		try {
-			return compilador.compilar(lerRecursoComoString(caminhoRecurso));
+			return new MapaImutavel(lerRecursoComoString(caminhoRecurso));
 		} catch (IOException | URISyntaxException e) {
 			throw new RuntimeException(e);
 		}

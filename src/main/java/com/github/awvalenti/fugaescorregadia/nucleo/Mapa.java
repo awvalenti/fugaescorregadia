@@ -1,12 +1,12 @@
 package com.github.awvalenti.fugaescorregadia.nucleo;
 
-import static com.github.awvalenti.fugaescorregadia.nucleo.Posicao.*;
 import static com.github.awvalenti.fugaescorregadia.nucleo.Elemento.*;
+import static com.github.awvalenti.fugaescorregadia.nucleo.Posicao.*;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.google.common.base.Optional;
+import java.util.Optional;
 
 public abstract class Mapa {
 
@@ -14,7 +14,9 @@ public abstract class Mapa {
 	protected final int numeroColunas;
 	protected final Map<Posicao, Elemento> elementos;
 
-	protected Mapa(Elemento[][] matriz) {
+	protected Mapa(String mapaEmString) {
+		Elemento[][] matriz = compilar(mapaEmString);
+
 		numeroLinhas = matriz.length;
 		numeroColunas = matriz[0].length;
 		elementos = new HashMap<>();
@@ -41,7 +43,7 @@ public abstract class Mapa {
 	}
 
 	public final Elemento getElemento(Posicao p) {
-		return Optional.fromNullable(elementos.get(p)).or(OBSTACULO);
+		return Optional.ofNullable(elementos.get(p)).orElse(OBSTACULO);
 	}
 
 	@Override
@@ -56,6 +58,18 @@ public abstract class Mapa {
 	@Override
 	public int hashCode() {
 		return elementos.hashCode();
+	}
+
+	private static Elemento[][] compilar(String mapaEmString) {
+		return Arrays
+				.stream(mapaEmString.replaceAll(" ", "").split("\n"))
+				.map(linha -> linha
+						.chars()
+						.mapToObj(
+								caractereInt -> Elemento
+										.comCaractere((char) caractereInt))
+						.toArray(tamanho -> new Elemento[tamanho]))
+				.toArray(tamanho -> new Elemento[tamanho][]);
 	}
 
 }

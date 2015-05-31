@@ -1,5 +1,7 @@
 package com.github.awvalenti.fugaescorregadia.nucleo;
 
+import java.util.Arrays;
+
 public enum Elemento {
 	PERSONAGEM('p', false),
 
@@ -21,6 +23,17 @@ public enum Elemento {
 
 	public boolean bloqueiaMovimento() {
 		return bloqueiaMovimento;
+	}
+
+	public static Elemento comCaractere(char c) {
+		return Arrays
+				.stream(Elemento.values())
+				.filter(e -> e.getCaractere() == c)
+				.findFirst()
+				.orElseThrow(
+						() -> new IllegalArgumentException(String.format(
+								"Caractere invalido. Codigo: %d. Valor: %c.",
+								(int) c, c)));
 	}
 
 }
