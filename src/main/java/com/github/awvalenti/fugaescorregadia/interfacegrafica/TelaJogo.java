@@ -1,5 +1,9 @@
 package com.github.awvalenti.fugaescorregadia.interfacegrafica;
 
+import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+
 import javax.swing.JFrame;
 
 public class TelaJogo {
@@ -14,10 +18,19 @@ public class TelaJogo {
 	}
 
 	public void exibir() {
-		frame.pack();
-		frame.setLocationRelativeTo(null);
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		colocarEmTelaCheia();
+		esconderCursor();
 		frame.setVisible(true);
+	}
+
+	private void colocarEmTelaCheia() {
+		frame.setUndecorated(true);
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+	}
+
+	private void esconderCursor() {
+		frame.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+		    new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB), new Point(0, 0), ""));
 	}
 
 }
