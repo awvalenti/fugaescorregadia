@@ -6,11 +6,11 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
-public class TelaJogo {
+public class JanelaJogo {
 
 	private final JFrame frame;
 
-	public TelaJogo(TabuleiroPanel tabuleiroPanel, TecladoListener tecladoListener) {
+	public JanelaJogo(TabuleiroPanel tabuleiroPanel, TecladoListener tecladoListener) {
 		frame = new JFrame();
 		frame.add(tabuleiroPanel);
 		frame.addKeyListener(tecladoListener);
