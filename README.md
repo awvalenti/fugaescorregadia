@@ -13,10 +13,10 @@ P: Por que Java?
 
 R: Antes, o projeto estava em JavaScript (e, mais antigamente ainda, em QBasic).
 Com o tempo, fui sentindo falta de ferramentas de apoio a refatoração.
-Outra coisa que faz falta é em JavaScript são soluções nativas para tarefas básicas,
+Outra coisa que faz falta em JavaScript são soluções nativas para tarefas básicas,
 como criar módulos e classes, fazer herança etc. Em Java, com
 a ajuda do Eclipse e dos atalhos de teclado, tudo isso se torna trivial e muito rápido de fazer.
-Assim, fica mais fácil e prazeroso manter um código de qualidade.
+Assim, fica fácil e prazeroso manter um código de qualidade.
 
 P: E por que Java 8?
 
@@ -31,3 +31,7 @@ P: Você subiu código com teste quebrado? Por quê?
 
 R: Como eu estou trabalhando sozinho no projeto, é um bom jeito de lembrar a mim mesmo
 onde exatamente eu parei. Essa ideia é sugerida pelo Kent Beck.
+
+P: Tenho uma outra pergunta para lhe fazer.
+
+R: Envie-a para mim. Talvez eu a acrescente aqui!
