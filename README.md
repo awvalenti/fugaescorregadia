@@ -11,10 +11,12 @@ Perguntas e respostas
 =====================
 P: Por que Java?
 
-R: Antes, o projeto estava em JavaScript. Com o tempo, descobri que eu não achava muito legal
-programar nessa linguagem, porque refatorar demorava muito. Outra desvantagem é a falta de apoio
-do JavaScript a tarefas básicas, como criar módulos e classes, fazer herança etc. Em Java, com
-a ajuda do Eclipse e dos atalhos de teclado, isso tudo se torna trivial e muito rápido.
+R: Antes, o projeto estava em JavaScript (e, mais antigamente ainda, em QBasic).
+Com o tempo, fui sentindo falta de ferramentas de apoio a refatoração.
+Outra coisa que faz falta é em JavaScript são soluções nativas para tarefas básicas,
+como criar módulos e classes, fazer herança etc. Em Java, com
+a ajuda do Eclipse e dos atalhos de teclado, tudo isso se torna trivial e muito rápido de fazer.
+Assim, fica mais fácil e prazeroso manter um código de qualidade.
 
 P: E por que Java 8?
 
