@@ -30,19 +30,22 @@ public class TentativaSetasTest extends TentativaTest {
 	@Test
 	public void seta_baixo_deve_permitir_movimento_somente_na_direcao_apontada() {
 		tentativa.efetuarMovimento(BAIXO);
-		verificarPassagemPor(aPosicao(3, 3), aPosicao(4, 3), aPosicao(5, 3), aPosicao(6, 3));
+		tentativa.efetuarMovimento(CIMA);
+		verificarPassagemPor(aPosicao(3, 3), aPosicao(4, 3), aPosicao(5, 3), aPosicao(6, 3), aPosicao(5, 3));
 	}
 
 	@Test
 	public void seta_esquerda_deve_permitir_movimento_somente_na_direcao_apontada() {
 		tentativa.efetuarMovimento(ESQUERDA);
-		verificarPassagemPor(aPosicao(3, 3), aPosicao(3, 2), aPosicao(3, 1), aPosicao(3, 0));
+		tentativa.efetuarMovimento(DIREITA);
+		verificarPassagemPor(aPosicao(3, 3), aPosicao(3, 2), aPosicao(3, 1), aPosicao(3, 0), aPosicao(3, 1));
 	}
 
 	@Test
 	public void seta_direita_deve_permitir_movimento_somente_na_direcao_apontada() {
 		tentativa.efetuarMovimento(DIREITA);
-		verificarPassagemPor(aPosicao(3, 3), aPosicao(3, 4), aPosicao(3, 5), aPosicao(3, 6));
+		tentativa.efetuarMovimento(ESQUERDA);
+		verificarPassagemPor(aPosicao(3, 3), aPosicao(3, 4), aPosicao(3, 5), aPosicao(3, 6), aPosicao(3, 5));
 	}
 
 }
