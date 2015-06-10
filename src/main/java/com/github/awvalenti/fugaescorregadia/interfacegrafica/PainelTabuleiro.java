@@ -47,7 +47,7 @@ public class PainelTabuleiro extends JPanel implements SaidaJogo {
 
 	private JLabel criarLabelElemento() {
 		JLabel label = new JLabel();
-		label.setFont(Font.decode("FixedSys 40"));
+		label.setFont(Font.decode("FixedSys 32"));
 		label.setPreferredSize(new Dimension(tamanhoCasa, tamanhoCasa));
 		label.setHorizontalAlignment(JLabel.CENTER);
 		label.setOpaque(true);
@@ -56,7 +56,7 @@ public class PainelTabuleiro extends JPanel implements SaidaJogo {
 	}
 
 	private void atualizarLabelElemento(JLabel label, Elemento elemento) {
-		label.setText(String.valueOf(elemento.getCaractere()));
+		label.setText(String.valueOf(elemento.getCaractereParaExibicaoNaTela()));
 		label.setForeground(elemento.getCor());
 	}
 
