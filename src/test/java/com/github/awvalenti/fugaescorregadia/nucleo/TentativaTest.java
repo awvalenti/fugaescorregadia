@@ -35,27 +35,15 @@ public class TentativaTest extends TesteBase {
 	}
 
 	@Test
-	public void indo_para_direita_deve_parar_movimento_antes_de_obstaculo() {
+	public void obstaculo_deve_bloquear_movimento() {
 		tentativa.efetuarMovimento(DIREITA);
 		verificarPassagemPor(aPosicao(1, 1), aPosicao(1, 2), aPosicao(1, 3));
 	}
 
 	@Test
-	public void indo_para_baixo_deve_parar_movimento_antes_de_obstaculo() {
-		tentativa.efetuarMovimento(BAIXO);
-		verificarPassagemPor(aPosicao(1, 1), aPosicao(2, 1));
-	}
-
-	@Test
-	public void indo_para_esquerda_deve_parar_movimento_antes_das_bordas() {
+	public void borda_deve_bloquear_movimento() {
 		tentativa.efetuarMovimento(ESQUERDA);
 		verificarPassagemPor(aPosicao(1, 1), aPosicao(1, 0));
-	}
-
-	@Test
-	public void indo_para_cima_deve_parar_movimento_antes_das_bordas() {
-		tentativa.efetuarMovimento(CIMA);
-		verificarPassagemPor(aPosicao(1, 1), aPosicao(0, 1));
 	}
 
 	@Test
