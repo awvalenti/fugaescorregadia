@@ -10,7 +10,7 @@ public class JanelaJogo {
 
 	private final JFrame frame;
 
-	public JanelaJogo(TabuleiroPanel tabuleiroPanel, TecladoListener tecladoListener) {
+	public JanelaJogo(PainelTabuleiro tabuleiroPanel, TecladoListener tecladoListener) {
 		frame = new JFrame();
 		frame.add(tabuleiroPanel);
 		frame.addKeyListener(tecladoListener);

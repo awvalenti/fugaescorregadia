@@ -16,7 +16,7 @@ import com.github.awvalenti.fugaescorregadia.nucleo.Mapa;
 import com.github.awvalenti.fugaescorregadia.nucleo.Posicao;
 import com.github.awvalenti.fugaescorregadia.nucleo.SaidaJogo;
 
-public class TabuleiroPanel extends JPanel implements SaidaJogo {
+public class PainelTabuleiro extends JPanel implements SaidaJogo {
 
 	private static final long serialVersionUID = 1L;
 
@@ -24,7 +24,7 @@ public class TabuleiroPanel extends JPanel implements SaidaJogo {
 	private final int numeroLinhas;
 	private final int numeroColunas;
 
-	public TabuleiroPanel(int atrasoAtualizacaoTela, int numeroLinhas, int numeroColunas) {
+	public PainelTabuleiro(int atrasoAtualizacaoTela, int numeroLinhas, int numeroColunas) {
 		this.atrasoAtualizacaoTela = atrasoAtualizacaoTela;
 		this.numeroLinhas = numeroLinhas;
 		this.numeroColunas = numeroColunas;
