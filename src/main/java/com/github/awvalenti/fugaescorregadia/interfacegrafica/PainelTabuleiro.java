@@ -69,8 +69,8 @@ public class PainelTabuleiro extends JPanel implements SaidaJogo {
 	}
 
 	@Override
-	public void movimento(Posicao origem, Posicao destino) {
-		alterarElemento(origem, VAZIO);
+	public void movimento(Posicao origem, Elemento elementoNaOrigem, Posicao destino) {
+		alterarElemento(origem, elementoNaOrigem);
 		alterarElemento(destino, PERSONAGEM);
 		paintImmediately(getBounds());
 		try {

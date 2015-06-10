@@ -20,11 +20,11 @@ public class Tentativa implements Controlavel {
 	@Override
 	public void efetuarMovimento(Direcao d) {
 		for (;;) {
-			Posicao atual = tabuleiro.getPosicaoPersonagem();
-			Posicao nova = atual.somar(d);
-			if (!tabuleiro.getElemento(nova).permitePassagem(d)) break;
-			saida.movimento(atual, nova);
-			tabuleiro.setPosicaoPersonagem(nova);
+			Posicao origem = tabuleiro.getPosicaoPersonagem();
+			Posicao destino = origem.somar(d);
+			if (!tabuleiro.getElemento(destino).permitePassagem(d)) break;
+			saida.movimento(origem, tabuleiro.getElemento(origem), destino);
+			tabuleiro.setPosicaoPersonagem(destino);
 		}
 	}
 

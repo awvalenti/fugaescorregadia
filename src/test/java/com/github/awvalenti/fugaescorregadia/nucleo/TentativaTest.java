@@ -25,7 +25,7 @@ public abstract class TentativaTest extends TesteBase {
 	protected final void verificarPassagemPor(Posicao... caminho) {
 		InOrder inOrder = inOrder(saida);
 		for (int i = 1; i < caminho.length; ++i) {
-			inOrder.verify(saida).movimento(caminho[i - 1], caminho[i]);
+			inOrder.verify(saida).movimento(caminho[i - 1], any(), caminho[i]);
 		}
 		verifyNoMoreInteractions(saida);
 	}
