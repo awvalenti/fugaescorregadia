@@ -30,7 +30,7 @@ public class JanelaJogo {
 
 	private void esconderCursor() {
 		frame.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
-		    new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB), new Point(0, 0), ""));
+				new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB), new Point(0, 0), ""));
 	}
 
 }
