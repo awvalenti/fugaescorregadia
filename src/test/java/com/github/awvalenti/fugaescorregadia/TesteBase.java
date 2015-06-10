@@ -12,11 +12,11 @@ public abstract class TesteBase {
 	private Injector injector;
 
 	@Before
-	public void criarInjetorDeDependencias() {
+	public final void criarInjetorDeDependencias() {
 		injector = Guice.createInjector(MODULO_PARA_TESTES);
 	}
 
-	protected <T> T obterInstancia(Class<T> tipo) {
+	protected final <T> T obterInstancia(Class<T> tipo) {
 		return injector.getInstance(tipo);
 	}
 
