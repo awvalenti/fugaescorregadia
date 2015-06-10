@@ -21,11 +21,13 @@ public class PainelTabuleiro extends JPanel implements SaidaJogo {
 	private static final long serialVersionUID = 1L;
 
 	private final int atrasoAtualizacaoTela;
+	private final int tamanhoCasa;
 	private final int numeroLinhas;
 	private final int numeroColunas;
 
-	public PainelTabuleiro(int atrasoAtualizacaoTela, int numeroLinhas, int numeroColunas) {
+	public PainelTabuleiro(int atrasoAtualizacaoTela, int tamanhoCasa, int numeroLinhas, int numeroColunas) {
 		this.atrasoAtualizacaoTela = atrasoAtualizacaoTela;
+		this.tamanhoCasa = tamanhoCasa;
 		this.numeroLinhas = numeroLinhas;
 		this.numeroColunas = numeroColunas;
 
@@ -46,7 +48,7 @@ public class PainelTabuleiro extends JPanel implements SaidaJogo {
 	private JLabel criarLabelElemento() {
 		JLabel label = new JLabel();
 		label.setFont(Font.decode("FixedSys 40"));
-		label.setPreferredSize(new Dimension(32, 32));
+		label.setPreferredSize(new Dimension(tamanhoCasa, tamanhoCasa));
 		label.setHorizontalAlignment(JLabel.CENTER);
 		label.setOpaque(true);
 		label.setBackground(Color.BLACK);

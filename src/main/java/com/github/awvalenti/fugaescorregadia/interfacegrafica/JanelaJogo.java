@@ -11,7 +11,7 @@ public class JanelaJogo {
 	private final JFrame frame;
 
 	public JanelaJogo(PainelTabuleiro tabuleiroPanel, TecladoListener tecladoListener) {
-		frame = new JFrame();
+		frame = new JFrame("Fuga Escorregadia");
 		frame.add(tabuleiroPanel);
 		frame.addKeyListener(tecladoListener);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
