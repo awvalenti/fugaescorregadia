@@ -24,4 +24,8 @@ public class FabricaIcones {
 		return cache.get(elemento);
 	}
 
+	public int tamanhoIcone() {
+		return 32;
+	}
+
 }

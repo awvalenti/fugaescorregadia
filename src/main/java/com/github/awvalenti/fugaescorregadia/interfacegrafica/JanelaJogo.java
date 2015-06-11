@@ -20,6 +20,7 @@ public class JanelaJogo {
 	}
 
 	public void exibirEmJanela() {
+		frame.setResizable(false);
 		frame.pack();
 		frame.setVisible(true);
 	}

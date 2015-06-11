@@ -69,7 +69,9 @@ public class PainelTabuleiro extends JPanel implements SaidaJogo {
 	public void movimento(Posicao origem, Elemento elementoNaOrigem, Posicao destino) {
 		alterarElemento(origem, elementoNaOrigem);
 		alterarElemento(destino, PERSONAGEM);
-		paintImmediately(getBounds());
+		int tamanhoIcone = fabricaIcones.tamanhoIcone();
+		paintImmediately(tamanhoIcone * origem.getColuna(), tamanhoIcone * origem.getLinha(), tamanhoIcone, tamanhoIcone);
+		paintImmediately(tamanhoIcone * destino.getColuna(), tamanhoIcone * destino.getLinha(), tamanhoIcone, tamanhoIcone);
 		try {
 			Thread.sleep(atrasoAtualizacaoTela);
 		} catch (InterruptedException e) {
