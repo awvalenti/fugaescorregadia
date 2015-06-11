@@ -4,8 +4,6 @@ import static com.github.awvalenti.fugaescorregadia.nucleo.Elemento.*;
 import static com.github.awvalenti.fugaescorregadia.nucleo.Posicao.*;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
@@ -21,15 +19,16 @@ public class PainelTabuleiro extends JPanel implements SaidaJogo {
 	private static final long serialVersionUID = 1L;
 
 	private final int atrasoAtualizacaoTela;
-	private final int tamanhoCasa;
 	private final int numeroLinhas;
 	private final int numeroColunas;
+	private final FabricaIcones fabricaIcones;
 
-	public PainelTabuleiro(int atrasoAtualizacaoTela, int tamanhoCasa, int numeroLinhas, int numeroColunas) {
+	public PainelTabuleiro(int atrasoAtualizacaoTela, int numeroLinhas, int numeroColunas,
+			FabricaIcones fabricaIcones) {
 		this.atrasoAtualizacaoTela = atrasoAtualizacaoTela;
-		this.tamanhoCasa = tamanhoCasa;
 		this.numeroLinhas = numeroLinhas;
 		this.numeroColunas = numeroColunas;
+		this.fabricaIcones = fabricaIcones;
 
 		setLayout(new GridLayout(numeroLinhas, numeroColunas));
 
@@ -47,17 +46,13 @@ public class PainelTabuleiro extends JPanel implements SaidaJogo {
 
 	private JLabel criarLabelElemento() {
 		JLabel label = new JLabel();
-		label.setFont(Font.decode("FixedSys 32"));
-		label.setPreferredSize(new Dimension(tamanhoCasa, tamanhoCasa));
-		label.setHorizontalAlignment(JLabel.CENTER);
 		label.setOpaque(true);
 		label.setBackground(Color.BLACK);
 		return label;
 	}
 
 	private void atualizarLabelElemento(JLabel label, Elemento elemento) {
-		label.setText(String.valueOf(elemento.getCaractereParaExibicaoNaTela()));
-		label.setForeground(elemento.getCor());
+		label.setIcon(fabricaIcones.obter(elemento));
 	}
 
 	@Override
