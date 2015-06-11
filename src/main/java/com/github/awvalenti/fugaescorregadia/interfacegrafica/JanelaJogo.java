@@ -15,22 +15,19 @@ public class JanelaJogo {
 		frame.add(tabuleiroPanel);
 		frame.addKeyListener(tecladoListener);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+				new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB), new Point(0, 0), ""));
 	}
 
-	public void exibir() {
-		colocarEmTelaCheia();
-		esconderCursor();
+	public void exibirEmJanela() {
+		frame.pack();
 		frame.setVisible(true);
 	}
 
-	private void colocarEmTelaCheia() {
+	public void exibirEmTelaCheia() {
 		frame.setUndecorated(true);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-	}
-
-	private void esconderCursor() {
-		frame.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
-				new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB), new Point(0, 0), ""));
+		frame.setVisible(true);
 	}
 
 }

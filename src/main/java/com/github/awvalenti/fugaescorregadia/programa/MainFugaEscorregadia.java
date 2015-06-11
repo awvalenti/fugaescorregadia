@@ -16,7 +16,7 @@ public class MainFugaEscorregadia {
 		Tentativa tentativa = new Tentativa(mapa, painelTabuleiro);
 		JanelaJogo telaJogo = new JanelaJogo(painelTabuleiro, new TecladoListener(tentativa));
 		tentativa.iniciar();
-		telaJogo.exibir();
+		telaJogo.exibirEmJanela();
 	}
 
 }
