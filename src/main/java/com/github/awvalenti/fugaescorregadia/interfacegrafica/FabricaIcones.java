@@ -1,5 +1,8 @@
 package com.github.awvalenti.fugaescorregadia.interfacegrafica;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -7,8 +10,18 @@ import com.github.awvalenti.fugaescorregadia.nucleo.Elemento;
 
 public class FabricaIcones {
 
+	private Map<Elemento, Icon> cache = new HashMap<>();
+
+	public FabricaIcones() {
+		for (Elemento e : Elemento.values()) {
+			String caminho = "/imagens/elementos/"
+					+ e.name().toLowerCase().replace('_', '-') + ".png";
+			cache.put(e, new ImageIcon(getClass().getResource(caminho)));
+		}
+	}
+
 	public Icon obter(Elemento elemento) {
-		return new ImageIcon(getClass().getResource("/imagens/elementos/" + elemento.name().toLowerCase().replace('_', '-') + ".png"));
+		return cache.get(elemento);
 	}
 
 }
