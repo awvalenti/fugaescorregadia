@@ -5,9 +5,9 @@ import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Direcao.*;
 import java.util.Arrays;
 
 public enum Elemento {
-	PERSONAGEM('p', AlgoritmoPassagem.NAO_DEVE_ACONTECER),
-
 	VAZIO('-', AlgoritmoPassagem.PERMITE_SEMPRE),
+
+	PERSONAGEM('p', AlgoritmoPassagem.NAO_DEVE_ACONTECER),
 
 	OBSTACULO('o', AlgoritmoPassagem.BLOQUEIA_SEMPRE),
 
