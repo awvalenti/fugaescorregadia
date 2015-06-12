@@ -7,8 +7,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-import com.github.awvalenti.fugaescorregadia.nucleo.Mapa;
-import com.github.awvalenti.fugaescorregadia.nucleo.MapaImutavel;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.Mapa;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaImutavel;
 
 public class LeitorDeMapaDoClasspath {
 

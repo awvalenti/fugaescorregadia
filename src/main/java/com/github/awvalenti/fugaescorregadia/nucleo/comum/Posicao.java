@@ -1,4 +1,4 @@
-package com.github.awvalenti.fugaescorregadia.nucleo;
+package com.github.awvalenti.fugaescorregadia.nucleo.comum;
 
 public class Posicao {
 

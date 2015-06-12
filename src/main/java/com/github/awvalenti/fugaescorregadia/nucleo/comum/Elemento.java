@@ -1,6 +1,6 @@
-package com.github.awvalenti.fugaescorregadia.nucleo;
+package com.github.awvalenti.fugaescorregadia.nucleo.comum;
 
-import static com.github.awvalenti.fugaescorregadia.nucleo.Direcao.*;
+import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Direcao.*;
 
 import java.util.Arrays;
 

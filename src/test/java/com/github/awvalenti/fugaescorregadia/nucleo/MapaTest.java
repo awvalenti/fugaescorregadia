@@ -1,7 +1,7 @@
 package com.github.awvalenti.fugaescorregadia.nucleo;
 
-import static com.github.awvalenti.fugaescorregadia.nucleo.Elemento.*;
-import static com.github.awvalenti.fugaescorregadia.nucleo.Posicao.*;
+import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento.*;
+import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao.*;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
@@ -9,6 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.github.awvalenti.fugaescorregadia.TesteBase;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.Mapa;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaImutavel;
 
 public class MapaTest extends TesteBase {
 

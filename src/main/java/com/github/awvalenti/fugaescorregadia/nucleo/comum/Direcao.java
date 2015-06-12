@@ -1,4 +1,4 @@
-package com.github.awvalenti.fugaescorregadia.nucleo;
+package com.github.awvalenti.fugaescorregadia.nucleo.comum;
 
 import java.awt.event.KeyEvent;
 import java.util.Arrays;

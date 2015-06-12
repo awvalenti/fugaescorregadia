@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.github.awvalenti.fugaescorregadia.TesteBase;
-import com.github.awvalenti.fugaescorregadia.nucleo.MapaImutavel;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaImutavel;
 
 public class LeitorDeMapaDoClasspathTest extends TesteBase {
 

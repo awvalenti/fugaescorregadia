@@ -1,12 +1,15 @@
-package com.github.awvalenti.fugaescorregadia.nucleo;
+package com.github.awvalenti.fugaescorregadia.nucleo.comum;
+
+import com.github.awvalenti.fugaescorregadia.nucleo.modohistoria.ControlavelModoHistoria;
+import com.github.awvalenti.fugaescorregadia.nucleo.modohistoria.SaidaModoHistoria;
 
 public class Tentativa implements ControlavelModoHistoria {
 
-	private final SaidaJogo saida;
+	private final SaidaModoHistoria saida;
 	private final Tabuleiro tabuleiro;
 	private Mapa mapa;
 
-	public Tentativa(Mapa mapa, SaidaJogo saida) {
+	public Tentativa(Mapa mapa, SaidaModoHistoria saida) {
 		this.saida = saida;
 		this.tabuleiro = new Tabuleiro(mapa);
 		this.mapa = mapa;

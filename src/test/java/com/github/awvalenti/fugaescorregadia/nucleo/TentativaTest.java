@@ -6,17 +6,22 @@ import org.junit.Before;
 import org.mockito.InOrder;
 
 import com.github.awvalenti.fugaescorregadia.TesteBase;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.Mapa;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaImutavel;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.Tentativa;
+import com.github.awvalenti.fugaescorregadia.nucleo.modohistoria.SaidaModoHistoria;
 
 public abstract class TentativaTest extends TesteBase {
 
 	protected Tentativa tentativa;
-	protected SaidaJogo saida;
+	protected SaidaModoHistoria saida;
 	protected Mapa mapa;
 
 	@Before
 	public final void setUp() {
 		mapa = new MapaImutavel(obterMapaEmString());
-		saida = mock(SaidaJogo.class);
+		saida = mock(SaidaModoHistoria.class);
 		tentativa = new Tentativa(mapa, saida);
 	}
 

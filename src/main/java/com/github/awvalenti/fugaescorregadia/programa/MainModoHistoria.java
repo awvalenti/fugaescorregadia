@@ -1,22 +1,29 @@
 package com.github.awvalenti.fugaescorregadia.programa;
 
 import com.github.awvalenti.fugaescorregadia.componentes.LeitorDeMapaDoClasspath;
-import com.github.awvalenti.fugaescorregadia.interfacegrafica.FabricaIcones;
-import com.github.awvalenti.fugaescorregadia.interfacegrafica.PainelTabuleiro;
-import com.github.awvalenti.fugaescorregadia.interfacegrafica.ControladorModoHistoriaPeloTeclado;
-import com.github.awvalenti.fugaescorregadia.interfacegrafica.JanelaJogo;
-import com.github.awvalenti.fugaescorregadia.nucleo.Mapa;
-import com.github.awvalenti.fugaescorregadia.nucleo.Tentativa;
+import com.github.awvalenti.fugaescorregadia.interfacegrafica.comum.FabricaIcones;
+import com.github.awvalenti.fugaescorregadia.interfacegrafica.comum.JanelaJogo;
+import com.github.awvalenti.fugaescorregadia.interfacegrafica.modohistoria.ControladorModoHistoriaPeloTeclado;
+import com.github.awvalenti.fugaescorregadia.interfacegrafica.modohistoria.PainelTabuleiroModoHistoria;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.Mapa;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.Tentativa;
 
 public class MainModoHistoria {
 
 	public static void main(String[] args) {
 		Mapa mapa = new LeitorDeMapaDoClasspath().ler("/mapas/01.mapa");
 
-		PainelTabuleiro painelTabuleiro = new PainelTabuleiro(30, mapa.getNumeroLinhas(), mapa.getNumeroColunas(), new FabricaIcones());
+		PainelTabuleiroModoHistoria painelTabuleiro = new PainelTabuleiroModoHistoria(
+				30, mapa.getNumeroLinhas(), mapa.getNumeroColunas(),
+				new FabricaIcones());
+
 		Tentativa tentativa = new Tentativa(mapa, painelTabuleiro);
-		JanelaJogo telaJogo = new JanelaJogo(painelTabuleiro, new ControladorModoHistoriaPeloTeclado(tentativa));
+
+		JanelaJogo telaJogo = new JanelaJogo(painelTabuleiro,
+				new ControladorModoHistoriaPeloTeclado(tentativa));
+
 		tentativa.iniciar();
+
 		telaJogo.exibirEmJanela();
 	}
 

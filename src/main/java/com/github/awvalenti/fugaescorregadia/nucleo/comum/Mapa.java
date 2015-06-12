@@ -1,7 +1,7 @@
-package com.github.awvalenti.fugaescorregadia.nucleo;
+package com.github.awvalenti.fugaescorregadia.nucleo.comum;
 
-import static com.github.awvalenti.fugaescorregadia.nucleo.Elemento.*;
-import static com.github.awvalenti.fugaescorregadia.nucleo.Posicao.*;
+import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento.*;
+import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao.*;
 
 import java.util.Arrays;
 import java.util.HashMap;

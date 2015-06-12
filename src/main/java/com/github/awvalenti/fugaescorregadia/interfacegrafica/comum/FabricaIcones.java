@@ -1,4 +1,4 @@
-package com.github.awvalenti.fugaescorregadia.interfacegrafica;
+package com.github.awvalenti.fugaescorregadia.interfacegrafica.comum;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,7 +6,7 @@ import java.util.Map;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-import com.github.awvalenti.fugaescorregadia.nucleo.Elemento;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
 
 public class FabricaIcones {
 

@@ -1,6 +1,6 @@
-package com.github.awvalenti.fugaescorregadia.nucleo;
+package com.github.awvalenti.fugaescorregadia.nucleo.comum;
 
-import static com.github.awvalenti.fugaescorregadia.nucleo.Elemento.*;
+import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento.*;
 
 public class Tabuleiro extends Mapa {
 

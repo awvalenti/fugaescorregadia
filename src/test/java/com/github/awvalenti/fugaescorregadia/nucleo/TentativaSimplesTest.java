@@ -1,7 +1,7 @@
 package com.github.awvalenti.fugaescorregadia.nucleo;
 
-import static com.github.awvalenti.fugaescorregadia.nucleo.Direcao.*;
-import static com.github.awvalenti.fugaescorregadia.nucleo.Posicao.*;
+import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Direcao.*;
+import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.Test;
