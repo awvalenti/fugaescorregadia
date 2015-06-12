@@ -3,7 +3,7 @@ package com.github.awvalenti.fugaescorregadia.programa;
 import com.github.awvalenti.fugaescorregadia.componentes.LeitorDeMapaDoClasspath;
 import com.github.awvalenti.fugaescorregadia.interfacegrafica.comum.FabricaIcones;
 import com.github.awvalenti.fugaescorregadia.interfacegrafica.comum.JanelaJogo;
-import com.github.awvalenti.fugaescorregadia.interfacegrafica.modoeditor.ControladorModoEditorPeloTeclado;
+import com.github.awvalenti.fugaescorregadia.interfacegrafica.modoeditor.ControladorModoEditor;
 import com.github.awvalenti.fugaescorregadia.interfacegrafica.modoeditor.PainelTabuleiroModoEditor;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Mapa;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Tabuleiro;
@@ -22,8 +22,9 @@ public class MainModoEditor {
 
 		EditorDeFase editor = new EditorDeFase(tabuleiro, painel);
 
-		JanelaJogo telaJogo = new JanelaJogo(painel,
-				new ControladorModoEditorPeloTeclado(editor));
+		JanelaJogo telaJogo = new JanelaJogo(painel);
+
+		new ControladorModoEditor(editor, telaJogo, painel, painel);
 
 		editor.iniciar();
 

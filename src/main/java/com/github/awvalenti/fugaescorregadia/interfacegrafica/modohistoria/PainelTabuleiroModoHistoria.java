@@ -2,6 +2,10 @@ package com.github.awvalenti.fugaescorregadia.interfacegrafica.modohistoria;
 
 import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento.*;
 
+import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+
 import com.github.awvalenti.fugaescorregadia.interfacegrafica.comum.FabricaIcones;
 import com.github.awvalenti.fugaescorregadia.interfacegrafica.comum.PainelTabuleiro;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
@@ -16,6 +20,12 @@ public class PainelTabuleiroModoHistoria extends PainelTabuleiro implements Said
 	public PainelTabuleiroModoHistoria(int atrasoAtualizacaoTela,
 			int numeroLinhas, int numeroColunas, FabricaIcones fabricaIcones) {
 		super(atrasoAtualizacaoTela, numeroLinhas, numeroColunas, fabricaIcones);
+		esconderCursor();
+	}
+
+	private void esconderCursor() {
+		setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+				new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB), new Point(0, 0), ""));
 	}
 
 	@Override

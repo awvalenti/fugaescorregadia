@@ -1,17 +1,19 @@
 package com.github.awvalenti.fugaescorregadia.interfacegrafica.modohistoria;
 
+import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Direcao;
 import com.github.awvalenti.fugaescorregadia.nucleo.modohistoria.ControlavelModoHistoria;
 
-public class ControladorModoHistoriaPeloTeclado implements KeyListener {
+public class ControladorModoHistoria implements KeyListener {
 
 	private final ControlavelModoHistoria controlavel;
 
-	public ControladorModoHistoriaPeloTeclado(ControlavelModoHistoria controlavel) {
+	public ControladorModoHistoria(ControlavelModoHistoria controlavel, Component componente) {
 		this.controlavel = controlavel;
+		componente.addKeyListener(this);
 	}
 
 	@Override

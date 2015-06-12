@@ -1,36 +1,28 @@
 package com.github.awvalenti.fugaescorregadia.interfacegrafica.comum;
 
-import java.awt.Point;
-import java.awt.Toolkit;
-import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
-
 import javax.swing.JFrame;
 
-public class JanelaJogo {
+public class JanelaJogo extends JFrame {
 
-	private final JFrame frame;
+	private static final long serialVersionUID = 1L;
 
-	public JanelaJogo(PainelTabuleiro tabuleiroPanel, KeyListener controlador) {
-		frame = new JFrame("Fuga Escorregadia");
-		frame.add(tabuleiroPanel);
-		frame.addKeyListener(controlador);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
-				new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB), new Point(0, 0), ""));
+	public JanelaJogo(PainelTabuleiro painelTabuleiro) {
+		super("Fuga Escorregadia");
+		add(painelTabuleiro);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 	public void exibirEmJanela() {
-		frame.setResizable(false);
-		frame.pack();
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
+		setResizable(false);
+		pack();
+		setLocationRelativeTo(null);
+		setVisible(true);
 	}
 
 	public void exibirEmTelaCheia() {
-		frame.setUndecorated(true);
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		frame.setVisible(true);
+		setUndecorated(true);
+		setExtendedState(MAXIMIZED_BOTH);
+		setVisible(true);
 	}
 
 }

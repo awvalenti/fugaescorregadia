@@ -3,7 +3,7 @@ package com.github.awvalenti.fugaescorregadia.programa;
 import com.github.awvalenti.fugaescorregadia.componentes.LeitorDeMapaDoClasspath;
 import com.github.awvalenti.fugaescorregadia.interfacegrafica.comum.FabricaIcones;
 import com.github.awvalenti.fugaescorregadia.interfacegrafica.comum.JanelaJogo;
-import com.github.awvalenti.fugaescorregadia.interfacegrafica.modohistoria.ControladorModoHistoriaPeloTeclado;
+import com.github.awvalenti.fugaescorregadia.interfacegrafica.modohistoria.ControladorModoHistoria;
 import com.github.awvalenti.fugaescorregadia.interfacegrafica.modohistoria.PainelTabuleiroModoHistoria;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Mapa;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Tentativa;
@@ -19,8 +19,9 @@ public class MainModoHistoria {
 
 		Tentativa tentativa = new Tentativa(mapa, painelTabuleiro);
 
-		JanelaJogo telaJogo = new JanelaJogo(painelTabuleiro,
-				new ControladorModoHistoriaPeloTeclado(tentativa));
+		JanelaJogo telaJogo = new JanelaJogo(painelTabuleiro);
+
+		new ControladorModoHistoria(tentativa, telaJogo);
 
 		tentativa.iniciar();
 
