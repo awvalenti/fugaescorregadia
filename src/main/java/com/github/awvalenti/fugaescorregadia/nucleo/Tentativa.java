@@ -1,6 +1,6 @@
 package com.github.awvalenti.fugaescorregadia.nucleo;
 
-public class Tentativa implements Controlavel {
+public class Tentativa implements ControlavelModoHistoria {
 
 	private final SaidaJogo saida;
 	private final Tabuleiro tabuleiro;

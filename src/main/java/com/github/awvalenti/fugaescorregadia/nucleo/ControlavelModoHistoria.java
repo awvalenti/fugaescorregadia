@@ -1,6 +1,6 @@
 package com.github.awvalenti.fugaescorregadia.nucleo;
 
-public interface Controlavel {
+public interface ControlavelModoHistoria {
 
 	void efetuarMovimento(Direcao d);
 

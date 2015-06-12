@@ -10,10 +10,10 @@ public class JanelaJogo {
 
 	private final JFrame frame;
 
-	public JanelaJogo(PainelTabuleiro tabuleiroPanel, TecladoListener tecladoListener) {
+	public JanelaJogo(PainelTabuleiro tabuleiroPanel, ControladorModoHistoriaPeloTeclado controladorModoHistoriaPeloTeclado) {
 		frame = new JFrame("Fuga Escorregadia");
 		frame.add(tabuleiroPanel);
-		frame.addKeyListener(tecladoListener);
+		frame.addKeyListener(controladorModoHistoriaPeloTeclado);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
 				new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB), new Point(0, 0), ""));
