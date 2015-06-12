@@ -1,5 +1,7 @@
 package com.github.awvalenti.fugaescorregadia.nucleo.modoeditor;
 
+import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento.*;
+
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Tabuleiro;
@@ -19,9 +21,16 @@ public class EditorDeFase implements ControlavelModoEditor {
 	}
 
 	@Override
-	public void alterarElemento(Posicao p, Elemento novo) {
-		tabuleiro.setElemento(p, novo);
-		saida.tabuleiroAlterado(p, novo);
+	public void alterarElemento(Posicao posicao, Elemento novo) {
+		// TODO Trocar para opcoes de mapa com 1 ou 2 camadas
+		if (novo == PERSONAGEM) {
+			saida.tabuleiroAlterado(tabuleiro.getPosicaoPersonagem(), VAZIO);
+			tabuleiro.setPosicaoPersonagem(posicao);
+			saida.tabuleiroAlterado(posicao, PERSONAGEM);
+		} else {
+			tabuleiro.setElemento(posicao, novo);
+			saida.tabuleiroAlterado(posicao, novo);
+		}
 	}
 
 	@Override
