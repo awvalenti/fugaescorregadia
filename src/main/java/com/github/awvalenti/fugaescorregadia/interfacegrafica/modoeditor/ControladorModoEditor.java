@@ -17,14 +17,17 @@ public class ControladorModoEditor implements KeyListener, MouseMotionListener {
 
 	private final ControlavelModoEditor controlavel;
 	private final ConversorDeXYParaPosicao conversor;
+	private final MapeamentoTeclasModoEditor mapeamento;
+
 	private Optional<Elemento> selecaoElemento = Optional.empty();
 	private Posicao posicaoAtualCursor = aPosicao(0, 0);
 
 	public ControladorModoEditor(ControlavelModoEditor controlavel,
 			Component componenteDoTeclado, Component componenteDoMouse,
-			ConversorDeXYParaPosicao conversor) {
+			ConversorDeXYParaPosicao conversor, MapeamentoTeclasModoEditor mapeamento) {
 		this.controlavel = controlavel;
 		this.conversor = conversor;
+		this.mapeamento = mapeamento;
 
 		componenteDoTeclado.addKeyListener(this);
 		componenteDoMouse.addMouseMotionListener(this);
@@ -39,13 +42,10 @@ public class ControladorModoEditor implements KeyListener, MouseMotionListener {
 
 	@Override
 	public synchronized void keyPressed(KeyEvent e) {
-		int numeroDigitado = e.getKeyChar() - '0';
-		Elemento[] elementos = Elemento.values();
-		if (numeroDigitado >= 0 && numeroDigitado < elementos.length) {
-			Elemento elemento = elementos[numeroDigitado];
+		mapeamento.elementoDaTecla(e.getKeyChar()).ifPresent(elemento -> {
 			controlavel.alterarElemento(posicaoAtualCursor, elemento);
 			selecaoElemento = Optional.of(elemento);
-		}
+		});
 	}
 
 	@Override

@@ -1,17 +1,18 @@
 package com.github.awvalenti.fugaescorregadia.nucleo.comum;
 
-import java.awt.event.KeyEvent;
+import static java.awt.event.KeyEvent.*;
+
 import java.util.Arrays;
 import java.util.Optional;
 
 public enum Direcao {
-	ESQUERDA(KeyEvent.VK_LEFT, 0, -1),
+	ESQUERDA(VK_LEFT, 0, -1),
 
-	CIMA(KeyEvent.VK_UP, -1, 0),
+	CIMA(VK_UP, -1, 0),
 
-	DIREITA(KeyEvent.VK_RIGHT, 0, 1),
+	DIREITA(VK_RIGHT, 0, 1),
 
-	BAIXO(KeyEvent.VK_DOWN, 1, 0),
+	BAIXO(VK_DOWN, 1, 0),
 	;
 
 	private final int codigoTecla;
