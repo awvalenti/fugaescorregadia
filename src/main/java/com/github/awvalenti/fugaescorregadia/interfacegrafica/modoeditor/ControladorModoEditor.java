@@ -1,6 +1,7 @@
 package com.github.awvalenti.fugaescorregadia.interfacegrafica.modoeditor;
 
 import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao.*;
+import static java.awt.event.KeyEvent.*;
 
 import java.awt.Component;
 import java.awt.event.KeyEvent;
@@ -8,6 +9,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.Optional;
+
+import javax.swing.JFileChooser;
 
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
@@ -17,19 +20,22 @@ public class ControladorModoEditor implements KeyListener, MouseMotionListener {
 
 	private final ControlavelModoEditor controlavel;
 	private final ConversorDeXYParaPosicao conversor;
-	private final MapeamentoTeclasModoEditor mapeamento;
+	private final MapeamentoDeTeclaParaElemento mapeamento;
+	private final Component janela;
 
 	private Optional<Elemento> selecaoElemento = Optional.empty();
 	private Posicao posicaoAtualCursor = aPosicao(0, 0);
+	private JFileChooser fileChooser = new JFileChooser();
 
 	public ControladorModoEditor(ControlavelModoEditor controlavel,
-			Component componenteDoTeclado, Component componenteDoMouse,
-			ConversorDeXYParaPosicao conversor, MapeamentoTeclasModoEditor mapeamento) {
+			Component janela, Component componenteDoMouse,
+			ConversorDeXYParaPosicao conversor, MapeamentoDeTeclaParaElemento mapeamento) {
 		this.controlavel = controlavel;
 		this.conversor = conversor;
 		this.mapeamento = mapeamento;
+		this.janela = janela;
 
-		componenteDoTeclado.addKeyListener(this);
+		janela.addKeyListener(this);
 		componenteDoMouse.addMouseMotionListener(this);
 	}
 
@@ -42,10 +48,28 @@ public class ControladorModoEditor implements KeyListener, MouseMotionListener {
 
 	@Override
 	public synchronized void keyPressed(KeyEvent e) {
-		mapeamento.elementoDaTecla(e.getKeyChar()).ifPresent(elemento -> {
-			controlavel.alterarElemento(posicaoAtualCursor, elemento);
-			selecaoElemento = Optional.of(elemento);
-		});
+		// TODO Melhorar
+		switch (e.getKeyCode()) {
+		case VK_F5:
+			if (fileChooser.getSelectedFile() != null
+					|| fileChooser.showSaveDialog(janela) == JFileChooser.APPROVE_OPTION) {
+				controlavel.salvarFase(fileChooser.getSelectedFile());
+			}
+			break;
+
+		case VK_F8:
+			if (fileChooser.showOpenDialog(janela) == JFileChooser.APPROVE_OPTION) {
+				controlavel.carregarFase(fileChooser.getSelectedFile());
+			}
+			break;
+
+		default:
+			mapeamento.elementoDaTecla(e.getKeyChar()).ifPresent(elemento -> {
+				controlavel.alterarElemento(posicaoAtualCursor, elemento);
+				selecaoElemento = Optional.of(elemento);
+			});
+			break;
+		}
 	}
 
 	@Override

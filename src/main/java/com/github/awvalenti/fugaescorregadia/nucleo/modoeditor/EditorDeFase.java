@@ -2,9 +2,14 @@ package com.github.awvalenti.fugaescorregadia.nucleo.modoeditor;
 
 import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento.*;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Tabuleiro;
+import com.google.common.io.Files;
 
 public class EditorDeFase implements ControlavelModoEditor {
 
@@ -34,11 +39,19 @@ public class EditorDeFase implements ControlavelModoEditor {
 	}
 
 	@Override
-	public void salvarFase(String caminho) {
+	public void salvarFase(File arquivo) {
+		try {
+			// TODO Melhorar. Evitar com.google.common.io.Files.
+			Files.write(tabuleiro.toString(), arquivo, Charset.forName("US-ASCII"));
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
-	public void carregarFase(String caminho) {
+	public void carregarFase(File arquivo) {
+		// TODO
+		System.out.println(arquivo);
 	}
 
 }

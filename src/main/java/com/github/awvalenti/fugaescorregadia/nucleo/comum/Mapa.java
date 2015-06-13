@@ -4,7 +4,7 @@ import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento.*;
 import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao.*;
 
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -19,7 +19,8 @@ public abstract class Mapa {
 
 		numeroLinhas = matriz.length;
 		numeroColunas = matriz[0].length;
-		elementos = new HashMap<>();
+		// TODO Melhorar, talvez usando matriz em vez de Map
+		elementos = new LinkedHashMap<>();
 
 		for (int linha = 0; linha < numeroLinhas; ++linha) {
 			for (int coluna = 0; coluna < numeroColunas; ++coluna) {
@@ -31,7 +32,7 @@ public abstract class Mapa {
 	protected Mapa(Mapa outro) {
 		numeroLinhas = outro.numeroLinhas;
 		numeroColunas = outro.numeroColunas;
-		elementos = new HashMap<>(outro.elementos);
+		elementos = new LinkedHashMap<>(outro.elementos);
 	}
 
 	public final int getNumeroLinhas() {

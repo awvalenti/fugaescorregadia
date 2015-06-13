@@ -1,5 +1,7 @@
 package com.github.awvalenti.fugaescorregadia.nucleo.modoeditor;
 
+import java.io.File;
+
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
 
@@ -7,8 +9,8 @@ public interface ControlavelModoEditor {
 
 	void alterarElemento(Posicao p, Elemento novo);
 
-	void salvarFase(String caminho);
+	void salvarFase(File arquivo);
 
-	void carregarFase(String caminho);
+	void carregarFase(File arquivo);
 
 }
