@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.util.Optional;
 
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
@@ -16,6 +17,7 @@ public class ControladorModoEditor implements KeyListener, MouseMotionListener {
 
 	private final ControlavelModoEditor controlavel;
 	private final ConversorDeXYParaPosicao conversor;
+	private Optional<Elemento> selecaoElemento = Optional.empty();
 	private Posicao posicaoAtualCursor = aPosicao(0, 0);
 
 	public ControladorModoEditor(ControlavelModoEditor controlavel,
@@ -29,25 +31,30 @@ public class ControladorModoEditor implements KeyListener, MouseMotionListener {
 	}
 
 	@Override
-	public void mouseMoved(MouseEvent e) {
+	public synchronized void mouseMoved(MouseEvent e) {
 		posicaoAtualCursor = conversor.converterParaPosicao(e.getX(), e.getY());
+		selecaoElemento.ifPresent(elemento -> controlavel.alterarElemento(
+				posicaoAtualCursor, elemento));
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {
+	public synchronized void keyPressed(KeyEvent e) {
 		int numeroDigitado = e.getKeyChar() - '0';
 		Elemento[] elementos = Elemento.values();
 		if (numeroDigitado >= 0 && numeroDigitado < elementos.length) {
-			controlavel.alterarElemento(posicaoAtualCursor, elementos[numeroDigitado]);
+			Elemento elemento = elementos[numeroDigitado];
+			controlavel.alterarElemento(posicaoAtualCursor, elemento);
+			selecaoElemento = Optional.of(elemento);
 		}
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
+	public synchronized void keyReleased(KeyEvent e) {
+		selecaoElemento = Optional.empty();
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
+	public void keyTyped(KeyEvent e) {
 	}
 
 	@Override
