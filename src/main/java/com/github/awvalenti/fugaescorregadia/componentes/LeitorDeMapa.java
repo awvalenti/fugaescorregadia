@@ -1,18 +1,21 @@
 package com.github.awvalenti.fugaescorregadia.componentes;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Scanner;
 
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Mapa;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaImutavel;
 
-public class LeitorDeMapaDoClasspath {
+public class LeitorDeMapa {
 
-	public Mapa ler(String caminhoRecurso) {
+	public Mapa lerDoClasspath(String caminhoRecurso) {
 		try {
 			return new MapaImutavel(lerRecursoComoString(caminhoRecurso));
 		} catch (IOException | URISyntaxException e) {
@@ -32,6 +35,25 @@ public class LeitorDeMapaDoClasspath {
 		}
 
 		return sb.toString();
+	}
+
+	public Mapa lerDeArquivo(File arquivo) {
+		try {
+			return new MapaImutavel(lerArquivoComoString(arquivo));
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	private String lerArquivoComoString(File arquivo) throws FileNotFoundException {
+		try (Scanner scanner = new Scanner(arquivo)) {
+			StringBuilder sb = new StringBuilder();
+			while (scanner.hasNextLine()) {
+				sb.append(scanner.nextLine()).append('\n');
+			}
+
+			return sb.toString();
+		}
 	}
 
 }
