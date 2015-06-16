@@ -1,76 +1,56 @@
 package com.github.awvalenti.fugaescorregadia.nucleo.comum;
 
 import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento.*;
-import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao.*;
 
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class Mapa {
 
-	protected final int numeroLinhas;
-	protected final int numeroColunas;
-	protected final Map<Posicao, Elemento> elementos;
+	protected List<List<Elemento>> matriz;
 
-	protected Mapa(String mapaEmString) {
-		Elemento[][] matriz = compilar(mapaEmString);
-
-		numeroLinhas = matriz.length;
-		numeroColunas = matriz[0].length;
-		// TODO Melhorar, talvez usando matriz em vez de Map
-		elementos = new LinkedHashMap<>();
-
-		for (int linha = 0; linha < numeroLinhas; ++linha) {
-			for (int coluna = 0; coluna < numeroColunas; ++coluna) {
-				elementos.put(aPosicao(linha, coluna), matriz[linha][coluna]);
-			}
-		}
+	protected Mapa(List<List<Elemento>> matriz) {
+		this.matriz = matriz;
 	}
 
 	protected Mapa(Mapa outro) {
-		numeroLinhas = outro.numeroLinhas;
-		numeroColunas = outro.numeroColunas;
-		elementos = new LinkedHashMap<>(outro.elementos);
+		matriz = outro.matriz.stream().map(linha -> new ArrayList<>(linha))
+				.collect(Collectors.toList());
 	}
 
 	public final int getNumeroLinhas() {
-		return numeroLinhas;
+		return matriz.size();
 	}
 
 	public final int getNumeroColunas() {
-		return numeroColunas;
+		return matriz.get(0).size();
 	}
 
 	public final Elemento getElemento(Posicao p) {
-		return Optional.ofNullable(elementos.get(p)).orElse(OBSTACULO);
+		return posicaoValida(p) ? matriz.get(p.getLinha()).get(p.getColuna()) : OBSTACULO;
+	}
+
+	private boolean posicaoValida(Posicao p) {
+		int linha = p.getLinha(), coluna = p.getColuna();
+		return linha >= 0 && linha < getNumeroLinhas() && coluna >= 0
+				&& coluna < getNumeroColunas();
 	}
 
 	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof Mapa)) return false;
-		Mapa outro = (Mapa) o;
-		return numeroLinhas == outro.numeroLinhas
-				&& numeroColunas == outro.numeroColunas
-				&& elementos.equals(outro.elementos);
+		return matriz.equals(((Mapa) o).matriz);
 	}
 
 	@Override
 	public int hashCode() {
-		return elementos.hashCode();
+		return matriz.hashCode();
 	}
 
-	private static Elemento[][] compilar(String mapaEmString) {
-		return Arrays
-				.stream(mapaEmString.replaceAll(" ", "").split("\n"))
-				.map(linha -> linha
-						.chars()
-						.mapToObj(
-								caractereInt -> Elemento
-										.comCaractere((char) caractereInt))
-						.toArray(tamanho -> new Elemento[tamanho]))
-				.toArray(tamanho -> new Elemento[tamanho][]);
+	@Override
+	public String toString() {
+		return matriz.toString();
 	}
 
 }

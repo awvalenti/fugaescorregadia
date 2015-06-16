@@ -1,13 +1,14 @@
 package com.github.awvalenti.fugaescorregadia.nucleo;
 
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 import org.mockito.InOrder;
 
 import com.github.awvalenti.fugaescorregadia.TesteBase;
+import com.github.awvalenti.fugaescorregadia.componentes.LeitorDeMapa;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Mapa;
-import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaImutavel;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Tentativa;
 import com.github.awvalenti.fugaescorregadia.nucleo.modohistoria.SaidaModoHistoria;
@@ -20,7 +21,7 @@ public abstract class TentativaTest extends TesteBase {
 
 	@Before
 	public final void setUp() {
-		mapa = new MapaImutavel(obterMapaEmString());
+		mapa = obterInstancia(LeitorDeMapa.class).lerDeString(obterMapaEmString());
 		saida = mock(SaidaModoHistoria.class);
 		tentativa = new Tentativa(mapa, saida);
 	}

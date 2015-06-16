@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
+import com.github.awvalenti.fugaescorregadia.componentes.LeitorDeMapa;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Tabuleiro;
@@ -13,12 +14,16 @@ import com.google.common.io.Files;
 
 public class EditorDeFase implements ControlavelModoEditor {
 
-	private final Tabuleiro tabuleiro;
+	// FIXME Usar um mapa mutavel no lugar de tabuleiro
+	private Tabuleiro tabuleiro;
 	private final SaidaModoEditor saida;
+	private final LeitorDeMapa leitorDeMapa;
 
-	public EditorDeFase(Tabuleiro tabuleiro, SaidaModoEditor saida) {
+	public EditorDeFase(Tabuleiro tabuleiro, SaidaModoEditor saida,
+			LeitorDeMapa leitorDeMapa) {
 		this.tabuleiro = tabuleiro;
 		this.saida = saida;
+		this.leitorDeMapa = leitorDeMapa;
 	}
 
 	public void iniciar() {
@@ -50,8 +55,9 @@ public class EditorDeFase implements ControlavelModoEditor {
 
 	@Override
 	public void carregarFase(File arquivo) {
-		// TODO
-		System.out.println(arquivo);
+		// TODO Revisar
+		tabuleiro = new Tabuleiro(leitorDeMapa.lerDeArquivo(arquivo));
+		iniciar();
 	}
 
 }
