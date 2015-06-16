@@ -1,8 +1,11 @@
 package com.github.awvalenti.fugaescorregadia.componentes;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringReader;
 
 import javax.inject.Inject;
 
@@ -18,21 +21,26 @@ public class LeitorDeMapa {
 	}
 
 	public Mapa lerDeString(String mapaEmString) {
-		try (Scanner s = new Scanner(mapaEmString)) {
-			return compilador.compilar(s);
+		try (Reader r = new StringReader(mapaEmString)) {
+			return compilador.compilar(r);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
 		}
 	}
 
 	public Mapa lerDoClasspath(String caminhoRecurso) {
-		try (Scanner s = new Scanner(getClass().getResourceAsStream(caminhoRecurso))) {
-			return compilador.compilar(s);
+		try (Reader r = new InputStreamReader(getClass().getResourceAsStream(
+				caminhoRecurso))) {
+			return compilador.compilar(r);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
 		}
 	}
 
 	public Mapa lerDeArquivo(File arquivo) {
-		try (Scanner s = new Scanner(arquivo)) {
-			return compilador.compilar(s);
-		} catch (FileNotFoundException e) {
+		try (Reader r = new FileReader(arquivo)) {
+			return compilador.compilar(r);
+		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
