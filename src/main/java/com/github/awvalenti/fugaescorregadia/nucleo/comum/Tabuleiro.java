@@ -4,13 +4,13 @@ import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento.*;
 
 public class Tabuleiro implements MapaLeituraEscrita {
 
-	private Posicao posicaoPersonagem;
 	private final MapaLeituraEscrita mapa;
+	private Posicao posicaoPersonagem;
 
-	public Tabuleiro(MapaLeitura mapa) {
-		this.mapa = new Mapa(mapa);
-		this.posicaoPersonagem = encontrar(PERSONAGEM);
-		this.mapa.setElemento(posicaoPersonagem, VAZIO);
+	public Tabuleiro(MapaLeitura mapaACopiar) {
+		mapa = new Mapa(mapaACopiar);
+		posicaoPersonagem = encontrar(PERSONAGEM);
+		mapa.setElemento(posicaoPersonagem, VAZIO);
 	}
 
 	private Posicao encontrar(Elemento e) {
