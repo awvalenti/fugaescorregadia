@@ -10,7 +10,7 @@ import java.nio.charset.Charset;
 
 import javax.inject.Inject;
 
-import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeitura;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeituraEscrita;
 
 public class LeitorDeMapa {
 
@@ -23,7 +23,7 @@ public class LeitorDeMapa {
 		this.compilador = compilador;
 	}
 
-	public MapaLeitura lerDeString(String mapaEmString) {
+	public MapaLeituraEscrita lerDeString(String mapaEmString) {
 		try (Reader r = new StringReader(mapaEmString)) {
 			return compilador.compilar(r);
 		} catch (IOException e) {
@@ -31,7 +31,7 @@ public class LeitorDeMapa {
 		}
 	}
 
-	public MapaLeitura lerDoClasspath(String caminhoRecurso) {
+	public MapaLeituraEscrita lerDoClasspath(String caminhoRecurso) {
 		try (Reader r = new InputStreamReader(getClass().getResourceAsStream(caminhoRecurso), ASCII)) {
 			return compilador.compilar(r);
 		} catch (IOException e) {
@@ -39,7 +39,7 @@ public class LeitorDeMapa {
 		}
 	}
 
-	public MapaLeitura lerDeArquivo(File arquivo) {
+	public MapaLeituraEscrita lerDeArquivo(File arquivo) {
 		try (Reader r = new InputStreamReader(new FileInputStream(arquivo), ASCII)) {
 			return compilador.compilar(r);
 		} catch (IOException e) {

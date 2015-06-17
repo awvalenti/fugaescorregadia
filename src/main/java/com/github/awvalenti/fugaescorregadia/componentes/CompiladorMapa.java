@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
-import com.github.awvalenti.fugaescorregadia.nucleo.comum.Mapa;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeituraEscrita;
 
 public class CompiladorMapa {
 
-	public Mapa compilar(Reader leitor) throws IOException {
+	public MapaLeituraEscrita compilar(Reader leitor) throws IOException {
 		List<List<Elemento>> matriz = new ArrayList<>();
 
 		List<Elemento> linha = new ArrayList<>();
@@ -29,7 +29,7 @@ public class CompiladorMapa {
 			}
 		}
 
-		return new Mapa(listDeListParaVetorDeVetor(matriz));
+		return new MapaLeituraEscrita(listDeListParaVetorDeVetor(matriz));
 	}
 
 	private Elemento[][] listDeListParaVetorDeVetor(List<List<Elemento>> matriz) {

@@ -5,8 +5,8 @@ import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao.*;
 import com.github.awvalenti.fugaescorregadia.interfacegrafica.comum.FabricaIcones;
 import com.github.awvalenti.fugaescorregadia.interfacegrafica.comum.PainelTabuleiro;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeitura;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
-import com.github.awvalenti.fugaescorregadia.nucleo.comum.Tabuleiro;
 import com.github.awvalenti.fugaescorregadia.nucleo.modoeditor.SaidaModoEditor;
 
 public class PainelTabuleiroModoEditor extends PainelTabuleiro implements SaidaModoEditor, ConversorDeXYParaPosicao {
@@ -19,8 +19,8 @@ public class PainelTabuleiroModoEditor extends PainelTabuleiro implements SaidaM
 	}
 
 	@Override
-	public void inicioEdicao(Tabuleiro tabuleiro) {
-		preencher(tabuleiro);
+	public void inicioEdicao(MapaLeitura mapa) {
+		preencher(mapa);
 	}
 
 	@Override

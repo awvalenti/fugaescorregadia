@@ -12,17 +12,18 @@ import org.junit.Test;
 
 import com.github.awvalenti.fugaescorregadia.TesteBase;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
-import com.github.awvalenti.fugaescorregadia.nucleo.comum.Mapa;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeituraEscrita;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeitura;
 
 public class LeitorDeMapaTest extends TesteBase {
 
 	private LeitorDeMapa leitor;
-	private Mapa resultadoEsperado;
+	private MapaLeitura resultadoEsperado;
 
 	@Before
 	public void setUp() {
 		leitor = obterInstancia(LeitorDeMapa.class);
-		resultadoEsperado = new Mapa(new Elemento[][] {
+		resultadoEsperado = new MapaLeituraEscrita(new Elemento[][] {
 			{ VAZIO, PERSONAGEM, VAZIO },
 			{ OBSTACULO, VAZIO, VAZIO },
 		});

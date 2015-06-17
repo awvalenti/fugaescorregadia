@@ -8,8 +8,8 @@ import com.github.awvalenti.fugaescorregadia.interfacegrafica.comum.JanelaJogo;
 import com.github.awvalenti.fugaescorregadia.interfacegrafica.modoeditor.ControladorModoEditor;
 import com.github.awvalenti.fugaescorregadia.interfacegrafica.modoeditor.MapeamentoDeTeclaParaElemento;
 import com.github.awvalenti.fugaescorregadia.interfacegrafica.modoeditor.PainelTabuleiroModoEditor;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeituraEscrita;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeitura;
-import com.github.awvalenti.fugaescorregadia.nucleo.comum.Tabuleiro;
 import com.github.awvalenti.fugaescorregadia.nucleo.modoeditor.EditorDeMapa;
 
 public class MainModoEditor {
@@ -23,9 +23,7 @@ public class MainModoEditor {
 				mapa.getNumeroLinhas(), mapa.getNumeroColunas(),
 				obterInstancia(FabricaIcones.class));
 
-		Tabuleiro tabuleiro = new Tabuleiro(mapa);
-
-		EditorDeMapa editor = new EditorDeMapa(tabuleiro, painel, leitorDeMapa);
+		EditorDeMapa editor = new EditorDeMapa(mapa, painel, leitorDeMapa);
 
 		JanelaJogo telaJogo = new JanelaJogo(painel);
 

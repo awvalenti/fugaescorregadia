@@ -2,13 +2,13 @@ package com.github.awvalenti.fugaescorregadia.nucleo.comum;
 
 import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento.*;
 
-public class Tabuleiro implements MapaLeituraEscrita {
+public class Tabuleiro {
 
 	private final MapaLeituraEscrita mapa;
 	private Posicao posicaoPersonagem;
 
 	public Tabuleiro(MapaLeitura mapaACopiar) {
-		mapa = new Mapa(mapaACopiar);
+		mapa = new MapaLeituraEscrita(mapaACopiar);
 		posicaoPersonagem = encontrar(PERSONAGEM);
 		mapa.setElemento(posicaoPersonagem, VAZIO);
 	}
@@ -44,27 +44,22 @@ public class Tabuleiro implements MapaLeituraEscrita {
 		return sb.toString();
 	}
 
-	@Override
 	public int getNumeroColunas() {
 		return mapa.getNumeroColunas();
 	}
 
-	@Override
 	public int getNumeroLinhas() {
 		return mapa.getNumeroLinhas();
 	}
 
-	@Override
 	public Elemento getElemento(Posicao p) {
 		return mapa.getElemento(p);
 	}
 
-	@Override
 	public IteradorMapa iterador() {
 		return mapa.iterador();
 	}
 
-	@Override
 	public void setElemento(Posicao p, Elemento novo) {
 		mapa.setElemento(p, novo);
 	}
