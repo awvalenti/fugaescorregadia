@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
-import com.github.awvalenti.fugaescorregadia.nucleo.comum.Mapa;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeitura;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
 
 public abstract class PainelTabuleiro extends JPanel {
@@ -37,7 +37,7 @@ public abstract class PainelTabuleiro extends JPanel {
 		}
 	}
 
-	protected final void preencher(Mapa mapa) {
+	protected final void preencher(MapaLeitura mapa) {
 		for (int linha = 0; linha < numeroLinhas; ++linha) {
 			for (int coluna = 0; coluna < numeroColunas; ++coluna) {
 				Posicao p = aPosicao(linha, coluna);

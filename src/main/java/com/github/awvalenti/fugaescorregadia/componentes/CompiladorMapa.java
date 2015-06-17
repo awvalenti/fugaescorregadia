@@ -7,7 +7,6 @@ import java.util.List;
 
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Mapa;
-import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaImutavel;
 
 public class CompiladorMapa {
 
@@ -20,20 +19,23 @@ public class CompiladorMapa {
 		while ((valorLido = leitor.read()) != -1) {
 			char caractere = (char) valorLido;
 
-			switch (caractere) {
-			case ' ':
-				break;
-			case '\n':
+			if (caractere == ' ') continue;
+
+			if (caractere == '\n') {
 				matriz.add(linha);
 				linha = new ArrayList<>();
-				break;
-			default:
+			} else {
 				linha.add(Elemento.comCaractere(caractere));
-				break;
 			}
 		}
 
-		return new MapaImutavel(matriz);
+		return new Mapa(listDeListParaVetorDeVetor(matriz));
+	}
+
+	private Elemento[][] listDeListParaVetorDeVetor(List<List<Elemento>> matriz) {
+		return matriz.stream()
+				.map(linha -> linha.stream().toArray(Elemento[]::new))
+				.toArray(Elemento[][]::new);
 	}
 
 }

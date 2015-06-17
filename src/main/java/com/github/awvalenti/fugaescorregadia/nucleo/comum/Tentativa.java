@@ -7,9 +7,9 @@ public class Tentativa implements ControlavelModoHistoria {
 
 	private final SaidaModoHistoria saida;
 	private final Tabuleiro tabuleiro;
-	private Mapa mapa;
+	private MapaLeitura mapa;
 
-	public Tentativa(Mapa mapa, SaidaModoHistoria saida) {
+	public Tentativa(MapaLeitura mapa, SaidaModoHistoria saida) {
 		this.saida = saida;
 		this.tabuleiro = new Tabuleiro(mapa);
 		this.mapa = mapa;

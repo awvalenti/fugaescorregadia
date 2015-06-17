@@ -10,11 +10,11 @@ import org.junit.Test;
 
 import com.github.awvalenti.fugaescorregadia.TesteBase;
 import com.github.awvalenti.fugaescorregadia.componentes.LeitorDeMapa;
-import com.github.awvalenti.fugaescorregadia.nucleo.comum.Mapa;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeitura;
 
 public class MapaTest extends TesteBase {
 
-	private Mapa mapa;
+	private MapaLeitura mapa;
 
 	@Before
 	public void setUp() {

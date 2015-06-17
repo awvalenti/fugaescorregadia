@@ -1,17 +1,20 @@
 package com.github.awvalenti.fugaescorregadia.componentes;
 
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
+import java.nio.charset.Charset;
 
 import javax.inject.Inject;
 
-import com.github.awvalenti.fugaescorregadia.nucleo.comum.Mapa;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeitura;
 
 public class LeitorDeMapa {
+
+	private static final Charset ASCII = Charset.forName("US-ASCII");
 
 	private final CompiladorMapa compilador;
 
@@ -20,7 +23,7 @@ public class LeitorDeMapa {
 		this.compilador = compilador;
 	}
 
-	public Mapa lerDeString(String mapaEmString) {
+	public MapaLeitura lerDeString(String mapaEmString) {
 		try (Reader r = new StringReader(mapaEmString)) {
 			return compilador.compilar(r);
 		} catch (IOException e) {
@@ -28,17 +31,16 @@ public class LeitorDeMapa {
 		}
 	}
 
-	public Mapa lerDoClasspath(String caminhoRecurso) {
-		try (Reader r = new InputStreamReader(getClass().getResourceAsStream(
-				caminhoRecurso))) {
+	public MapaLeitura lerDoClasspath(String caminhoRecurso) {
+		try (Reader r = new InputStreamReader(getClass().getResourceAsStream(caminhoRecurso), ASCII)) {
 			return compilador.compilar(r);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	public Mapa lerDeArquivo(File arquivo) {
-		try (Reader r = new FileReader(arquivo)) {
+	public MapaLeitura lerDeArquivo(File arquivo) {
+		try (Reader r = new InputStreamReader(new FileInputStream(arquivo), ASCII)) {
 			return compilador.compilar(r);
 		} catch (IOException e) {
 			throw new RuntimeException(e);

@@ -1,34 +1,24 @@
 package com.github.awvalenti.fugaescorregadia.nucleo.comum;
 
 import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento.*;
-import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao.*;
 
-import java.util.List;
-
-public class Tabuleiro extends Mapa {
+public class Tabuleiro implements MapaLeituraEscrita {
 
 	private Posicao posicaoPersonagem;
+	private final MapaLeituraEscrita mapa;
 
-	public Tabuleiro(Mapa mapa) {
-		super(mapa);
-
-		posicaoPersonagem = encontrar(PERSONAGEM);
-
-		setElemento(posicaoPersonagem, VAZIO);
+	public Tabuleiro(MapaLeitura mapa) {
+		this.mapa = new Mapa(mapa);
+		this.posicaoPersonagem = encontrar(PERSONAGEM);
+		this.mapa.setElemento(posicaoPersonagem, VAZIO);
 	}
 
 	private Posicao encontrar(Elemento e) {
-		for (int i = 0; i < matriz.size(); ++i) {
-			for (int j = 0; j < matriz.get(i).size(); ++j) {
-				if (matriz.get(i).get(j).equals(e)) return aPosicao(i, j);
-			}
+		for (IteradorMapa it = mapa.iterador(); it.temProximo(); it.avancar()) {
+			if (it.elementoAtual().equals(e)) return it.posicaoAtual();
 		}
 
 		throw new IllegalArgumentException(e + " nao encontrado");
-	}
-
-	public void setElemento(Posicao p, Elemento novo) {
-		matriz.get(p.getLinha()).set(p.getColuna(), novo);
 	}
 
 	public Posicao getPosicaoPersonagem() {
@@ -43,16 +33,40 @@ public class Tabuleiro extends Mapa {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 
-		for (List<Elemento> linha : matriz) {
-			for (Elemento elemento : linha) {
-				sb.append(elemento.getCaractereDoMapaEmString()).append(' ');
-			}
-			sb.append('\n');
-		}
-
 		// FIXME Incluir personagem
+//		for (List<Elemento> linha : matriz) {
+//			for (Elemento elemento : linha) {
+//				sb.append(elemento.getCaractereDoMapaEmString()).append(' ');
+//			}
+//			sb.append('\n');
+//		}
 
 		return sb.toString();
+	}
+
+	@Override
+	public int getNumeroColunas() {
+		return mapa.getNumeroColunas();
+	}
+
+	@Override
+	public int getNumeroLinhas() {
+		return mapa.getNumeroLinhas();
+	}
+
+	@Override
+	public Elemento getElemento(Posicao p) {
+		return mapa.getElemento(p);
+	}
+
+	@Override
+	public IteradorMapa iterador() {
+		return mapa.iterador();
+	}
+
+	@Override
+	public void setElemento(Posicao p, Elemento novo) {
+		mapa.setElemento(p, novo);
 	}
 
 }

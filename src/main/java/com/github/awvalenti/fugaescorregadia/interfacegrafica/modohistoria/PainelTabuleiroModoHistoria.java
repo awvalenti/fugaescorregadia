@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import com.github.awvalenti.fugaescorregadia.interfacegrafica.comum.FabricaIcones;
 import com.github.awvalenti.fugaescorregadia.interfacegrafica.comum.PainelTabuleiro;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
-import com.github.awvalenti.fugaescorregadia.nucleo.comum.Mapa;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeitura;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
 import com.github.awvalenti.fugaescorregadia.nucleo.modohistoria.SaidaModoHistoria;
 
@@ -29,7 +29,7 @@ public class PainelTabuleiroModoHistoria extends PainelTabuleiro implements Said
 	}
 
 	@Override
-	public void inicioTentativa(Mapa mapa) {
+	public void inicioTentativa(MapaLeitura mapa) {
 		preencher(mapa);
 	}
 

@@ -1,34 +1,44 @@
 package com.github.awvalenti.fugaescorregadia.nucleo.comum;
 
 import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento.*;
+import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Arrays;
 
-public abstract class Mapa {
+public class Mapa implements MapaLeituraEscrita {
 
-	protected List<List<Elemento>> matriz;
+	private Elemento[][] matriz;
 
-	protected Mapa(List<List<Elemento>> matriz) {
+	public Mapa(Elemento[][] matriz) {
 		this.matriz = matriz;
 	}
 
-	protected Mapa(Mapa outro) {
-		matriz = outro.matriz.stream().map(linha -> new ArrayList<>(linha))
-				.collect(Collectors.toList());
+	public Mapa(MapaLeitura outro) {
+		this(new Elemento[outro.getNumeroLinhas()][outro.getNumeroColunas()]);
+
+		for (IteradorMapa it = outro.iterador(); it.temProximo(); it.avancar()) {
+			setElemento(it.posicaoAtual(), it.elementoAtual());
+		}
 	}
 
-	public final int getNumeroLinhas() {
-		return matriz.size();
+	@Override
+	public int getNumeroLinhas() {
+		return matriz.length;
 	}
 
-	public final int getNumeroColunas() {
-		return matriz.get(0).size();
+	@Override
+	public int getNumeroColunas() {
+		return matriz[0].length;
 	}
 
-	public final Elemento getElemento(Posicao p) {
-		return posicaoValida(p) ? matriz.get(p.getLinha()).get(p.getColuna()) : OBSTACULO;
+	@Override
+	public Elemento getElemento(Posicao p) {
+		return posicaoValida(p) ? matriz[p.getLinha()][p.getColuna()] : OBSTACULO;
+	}
+
+	@Override
+	public void setElemento(Posicao p, Elemento novo) {
+		matriz[p.getLinha()][p.getColuna()] = novo;
 	}
 
 	private boolean posicaoValida(Posicao p) {
@@ -40,7 +50,7 @@ public abstract class Mapa {
 	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof Mapa)) return false;
-		return matriz.equals(((Mapa) o).matriz);
+		return Arrays.deepEquals(matriz, ((Mapa) o).matriz);
 	}
 
 	@Override
@@ -50,7 +60,48 @@ public abstract class Mapa {
 
 	@Override
 	public String toString() {
-		return matriz.toString();
+		return Arrays.deepToString(matriz);
+	}
+
+	@Override
+	public IteradorMapa iterador() {
+		return new IteradorMapa() {
+			private Posicao posicaoAtual = aPosicao(0, 0);
+
+			@Override
+			public boolean iniciouNovaLinha() {
+				return posicaoAtual.getColuna() == 0 && posicaoAtual.getLinha() > 0;
+			}
+
+			@Override
+			public boolean temProximo() {
+				return posicaoValida(posicaoAtual);
+			}
+
+			@Override
+			public Posicao posicaoAtual() {
+				return posicaoAtual;
+			}
+
+			@Override
+			public Elemento elementoAtual() {
+				return getElemento(posicaoAtual);
+			}
+
+			@Override
+			public void avancar() {
+				int novaLinha = posicaoAtual.getLinha();
+				int novaColuna = posicaoAtual.getColuna();
+
+				if (++novaColuna >= getNumeroColunas()) {
+					novaColuna = 0;
+					++novaLinha;
+				}
+
+				posicaoAtual = aPosicao(novaLinha, novaColuna);
+			}
+
+		};
 	}
 
 }

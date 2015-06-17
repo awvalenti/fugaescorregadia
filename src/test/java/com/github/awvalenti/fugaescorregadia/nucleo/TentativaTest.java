@@ -8,7 +8,7 @@ import org.mockito.InOrder;
 
 import com.github.awvalenti.fugaescorregadia.TesteBase;
 import com.github.awvalenti.fugaescorregadia.componentes.LeitorDeMapa;
-import com.github.awvalenti.fugaescorregadia.nucleo.comum.Mapa;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeitura;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Tentativa;
 import com.github.awvalenti.fugaescorregadia.nucleo.modohistoria.SaidaModoHistoria;
@@ -17,7 +17,7 @@ public abstract class TentativaTest extends TesteBase {
 
 	protected Tentativa tentativa;
 	protected SaidaModoHistoria saida;
-	protected Mapa mapa;
+	protected MapaLeitura mapa;
 
 	@Before
 	public final void setUp() {

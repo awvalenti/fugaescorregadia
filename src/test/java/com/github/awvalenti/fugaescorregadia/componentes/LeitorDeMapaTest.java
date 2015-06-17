@@ -1,7 +1,6 @@
 package com.github.awvalenti.fugaescorregadia.componentes;
 
 import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento.*;
-import static java.util.Arrays.*;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
@@ -12,8 +11,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.github.awvalenti.fugaescorregadia.TesteBase;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Mapa;
-import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaImutavel;
 
 public class LeitorDeMapaTest extends TesteBase {
 
@@ -23,12 +22,10 @@ public class LeitorDeMapaTest extends TesteBase {
 	@Before
 	public void setUp() {
 		leitor = obterInstancia(LeitorDeMapa.class);
-		resultadoEsperado = new MapaImutavel(
-			asList(
-				asList(VAZIO, PERSONAGEM, VAZIO),
-				asList(OBSTACULO, VAZIO, VAZIO)
-			)
-		);
+		resultadoEsperado = new Mapa(new Elemento[][] {
+			{ VAZIO, PERSONAGEM, VAZIO },
+			{ OBSTACULO, VAZIO, VAZIO },
+		});
 	}
 
 	@Test
