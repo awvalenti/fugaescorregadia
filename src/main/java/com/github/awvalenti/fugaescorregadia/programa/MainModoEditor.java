@@ -10,7 +10,7 @@ import com.github.awvalenti.fugaescorregadia.interfacegrafica.modoeditor.Mapeame
 import com.github.awvalenti.fugaescorregadia.interfacegrafica.modoeditor.PainelTabuleiroModoEditor;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Mapa;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Tabuleiro;
-import com.github.awvalenti.fugaescorregadia.nucleo.modoeditor.EditorDeFase;
+import com.github.awvalenti.fugaescorregadia.nucleo.modoeditor.EditorDeMapa;
 
 public class MainModoEditor {
 
@@ -25,7 +25,7 @@ public class MainModoEditor {
 
 		Tabuleiro tabuleiro = new Tabuleiro(mapa);
 
-		EditorDeFase editor = new EditorDeFase(tabuleiro, painel, leitorDeMapa);
+		EditorDeMapa editor = new EditorDeMapa(tabuleiro, painel, leitorDeMapa);
 
 		JanelaJogo telaJogo = new JanelaJogo(painel);
 

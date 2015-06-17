@@ -12,14 +12,14 @@ import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Tabuleiro;
 import com.google.common.io.Files;
 
-public class EditorDeFase implements ControlavelModoEditor {
+public class EditorDeMapa implements ControlavelModoEditor {
 
 	// FIXME Usar um mapa mutavel no lugar de tabuleiro
 	private Tabuleiro tabuleiro;
 	private final SaidaModoEditor saida;
 	private final LeitorDeMapa leitorDeMapa;
 
-	public EditorDeFase(Tabuleiro tabuleiro, SaidaModoEditor saida,
+	public EditorDeMapa(Tabuleiro tabuleiro, SaidaModoEditor saida,
 			LeitorDeMapa leitorDeMapa) {
 		this.tabuleiro = tabuleiro;
 		this.saida = saida;
@@ -44,7 +44,7 @@ public class EditorDeFase implements ControlavelModoEditor {
 	}
 
 	@Override
-	public void salvarFase(File arquivo) {
+	public void salvarMapa(File arquivo) {
 		try {
 			// TODO Melhorar. Evitar com.google.common.io.Files.
 			Files.write(tabuleiro.toString(), arquivo, Charset.forName("US-ASCII"));
@@ -54,7 +54,7 @@ public class EditorDeFase implements ControlavelModoEditor {
 	}
 
 	@Override
-	public void carregarFase(File arquivo) {
+	public void carregarMapa(File arquivo) {
 		// TODO Revisar
 		tabuleiro = new Tabuleiro(leitorDeMapa.lerDeArquivo(arquivo));
 		iniciar();

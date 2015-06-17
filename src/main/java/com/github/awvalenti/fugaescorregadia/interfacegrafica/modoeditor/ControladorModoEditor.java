@@ -53,13 +53,13 @@ public class ControladorModoEditor implements KeyListener, MouseMotionListener {
 		case VK_F5:
 			if (fileChooser.getSelectedFile() != null
 					|| fileChooser.showSaveDialog(janela) == JFileChooser.APPROVE_OPTION) {
-				controlavel.salvarFase(fileChooser.getSelectedFile());
+				controlavel.salvarMapa(fileChooser.getSelectedFile());
 			}
 			break;
 
 		case VK_F8:
 			if (fileChooser.showOpenDialog(janela) == JFileChooser.APPROVE_OPTION) {
-				controlavel.carregarFase(fileChooser.getSelectedFile());
+				controlavel.carregarMapa(fileChooser.getSelectedFile());
 			}
 			break;
 

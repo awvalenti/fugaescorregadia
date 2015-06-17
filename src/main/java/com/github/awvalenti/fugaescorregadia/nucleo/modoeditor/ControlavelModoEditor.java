@@ -9,8 +9,8 @@ public interface ControlavelModoEditor {
 
 	void alterarElemento(Posicao p, Elemento novo);
 
-	void salvarFase(File arquivo);
+	void salvarMapa(File arquivo);
 
-	void carregarFase(File arquivo);
+	void carregarMapa(File arquivo);
 
 }
