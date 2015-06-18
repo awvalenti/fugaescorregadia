@@ -24,7 +24,7 @@ public class PainelTabuleiroModoEditor extends PainelTabuleiro implements SaidaM
 	}
 
 	@Override
-	public void tabuleiroAlterado(Posicao p, Elemento novo) {
+	public void mapaAlterado(Posicao p, Elemento novo) {
 		alterarElemento(p, novo);
 	}
 

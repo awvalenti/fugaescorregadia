@@ -24,8 +24,7 @@ public class EditorDeMapa implements ControlavelModoEditor {
 
 	@Override
 	public void alterarElemento(Posicao posicao, Elemento novo) {
-		mapa.setElemento(posicao, novo);
-		saida.tabuleiroAlterado(posicao, novo);
+		mapa.modificarProduzindoSaida(posicao, novo, saida);
 	}
 
 	@Override

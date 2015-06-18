@@ -4,21 +4,14 @@ import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento.*;
 
 public class Tabuleiro {
 
+	// TODO Duas camadas de matrizes de elementos
 	private final MapaLeituraEscrita mapa;
 	private Posicao posicaoPersonagem;
 
 	public Tabuleiro(MapaLeitura mapaACopiar) {
 		mapa = new MapaLeituraEscrita(mapaACopiar);
-		posicaoPersonagem = encontrar(PERSONAGEM);
-		mapa.setElemento(posicaoPersonagem, VAZIO);
-	}
-
-	private Posicao encontrar(Elemento e) {
-		for (IteradorMapa it = mapa.iterador(); it.temProximo(); it.avancar()) {
-			if (it.elementoAtual().equals(e)) return it.posicaoAtual();
-		}
-
-		throw new IllegalArgumentException(e + " nao encontrado");
+		posicaoPersonagem = mapa.encontrar(PERSONAGEM).get();
+		mapa.modificarSemProduzirSaida(posicaoPersonagem, VAZIO);
 	}
 
 	public Posicao getPosicaoPersonagem() {

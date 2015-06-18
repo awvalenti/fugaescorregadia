@@ -5,29 +5,30 @@ import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Direcao.*;
 import java.util.Arrays;
 
 public enum Elemento {
-	VAZIO('-', AlgoritmoPassagem.PERMITE_SEMPRE),
+	VAZIO('-', false, AlgoritmoPassagem.PERMITE_SEMPRE),
 
-	PERSONAGEM('p', AlgoritmoPassagem.NAO_DEVE_ACONTECER),
+	PERSONAGEM('p', true, AlgoritmoPassagem.NAO_DEVE_ACONTECER),
 
-	OBSTACULO('o', AlgoritmoPassagem.BLOQUEIA_SEMPRE),
+	OBSTACULO('o', false, AlgoritmoPassagem.BLOQUEIA_SEMPRE),
 
-	SETA_CIMA('^', paraOndeVai -> paraOndeVai == CIMA),
+	SETA_CIMA('^', false, paraOndeVai -> paraOndeVai == CIMA),
 
-	SETA_BAIXO('v', paraOndeVai -> paraOndeVai == BAIXO),
+	SETA_BAIXO('v', false, paraOndeVai -> paraOndeVai == BAIXO),
 
-	SETA_ESQUERDA('<', paraOndeVai -> paraOndeVai == ESQUERDA),
+	SETA_ESQUERDA('<', false, paraOndeVai -> paraOndeVai == ESQUERDA),
 
-	SETA_DIREITA('>', paraOndeVai -> paraOndeVai == DIREITA),
+	SETA_DIREITA('>', false, paraOndeVai -> paraOndeVai == DIREITA),
 
 	;
 
-	private final char caractereDoMapaEmString;
+	private final char caractere;
+	private final boolean somenteUmPorMapa;
 	private final AlgoritmoPassagem algoritmoPassagem;
 
 	public static Elemento comCaractere(char c) {
 		return Arrays
 				.stream(Elemento.values())
-				.filter(e -> e.getCaractereDoMapaEmString() == c)
+				.filter(e -> e.getCaractere() == c)
 				.findFirst()
 				.orElseThrow(
 						() -> new IllegalArgumentException(String.format(
@@ -35,17 +36,22 @@ public enum Elemento {
 								(int) c, c)));
 	}
 
-	private Elemento(char caractereDoMapaEmString, AlgoritmoPassagem algoritmoPassagem) {
-		this.caractereDoMapaEmString = caractereDoMapaEmString;
+	private Elemento(char caractere, boolean somenteUmPorMapa, AlgoritmoPassagem algoritmoPassagem) {
+		this.caractere = caractere;
+		this.somenteUmPorMapa = somenteUmPorMapa;
 		this.algoritmoPassagem = algoritmoPassagem;
 	}
 
-	public char getCaractereDoMapaEmString() {
-		return caractereDoMapaEmString;
+	public char getCaractere() {
+		return caractere;
 	}
 
 	public boolean permitePassagem(Direcao paraOndeVai) {
 		return algoritmoPassagem.permitePasagem(paraOndeVai);
+	}
+
+	public boolean somenteUmPorMapa() {
+		return somenteUmPorMapa;
 	}
 
 }

@@ -4,6 +4,7 @@ import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento.*;
 import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao.*;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 public class MapaLeituraEscrita implements MapaLeitura {
 
@@ -17,27 +18,48 @@ public class MapaLeituraEscrita implements MapaLeitura {
 		this(new Elemento[outro.getNumeroLinhas()][outro.getNumeroColunas()]);
 
 		for (IteradorMapa it = outro.iterador(); it.temProximo(); it.avancar()) {
-			setElemento(it.posicaoAtual(), it.elementoAtual());
+			alterarMatriz(it.posicaoAtual(), it.elementoAtual(), SAIDA_NULA);
 		}
 	}
 
 	@Override
-	public int getNumeroLinhas() {
+	public final int getNumeroLinhas() {
 		return matriz.length;
 	}
 
 	@Override
-	public int getNumeroColunas() {
+	public final int getNumeroColunas() {
 		return matriz[0].length;
 	}
 
 	@Override
-	public Elemento getElemento(Posicao p) {
+	public final Elemento getElemento(Posicao p) {
 		return posicaoValida(p) ? matriz[p.getLinha()][p.getColuna()] : OBSTACULO;
 	}
 
-	public void setElemento(Posicao p, Elemento novo) {
-		matriz[p.getLinha()][p.getColuna()] = novo;
+	public final void modificarSemProduzirSaida(Posicao p, Elemento novo) {
+		modificarProduzindoSaida(p, novo, SAIDA_NULA);
+	}
+
+	public final void modificarProduzindoSaida(Posicao p, Elemento novo, SaidaMapaEscrita saida) {
+		if (novo.somenteUmPorMapa()) {
+			encontrar(novo).ifPresent(
+					ondeEstavaAntes -> alterarMatriz(ondeEstavaAntes, VAZIO, saida));
+		}
+		alterarMatriz(p, novo, saida);
+	}
+
+	public final Optional<Posicao> encontrar(Elemento e) {
+		for (IteradorMapa it = iterador(); it.temProximo(); it.avancar()) {
+			if (it.elementoAtual().equals(e)) return Optional.of(it.posicaoAtual());
+		}
+
+		return Optional.empty();
+	}
+
+	private void alterarMatriz(Posicao p, Elemento elemento, SaidaMapaEscrita saida) {
+		matriz[p.getLinha()][p.getColuna()] = elemento;
+		saida.mapaAlterado(p, elemento);
 	}
 
 	private boolean posicaoValida(Posicao p) {
@@ -102,5 +124,11 @@ public class MapaLeituraEscrita implements MapaLeitura {
 
 		};
 	}
+
+	private static final SaidaMapaEscrita SAIDA_NULA = new SaidaMapaEscrita() {
+		@Override
+		public void mapaAlterado(Posicao p, Elemento novo) {
+		}
+	};
 
 }
