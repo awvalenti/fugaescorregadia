@@ -12,14 +12,14 @@ import javax.inject.Inject;
 
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeituraEscrita;
 
-public class LeitorDeMapa {
+public class FabricaMapa {
 
 	private static final Charset ASCII = Charset.forName("US-ASCII");
 
 	private final CompiladorMapa compilador;
 
 	@Inject
-	public LeitorDeMapa(CompiladorMapa compilador) {
+	public FabricaMapa(CompiladorMapa compilador) {
 		this.compilador = compilador;
 	}
 
@@ -45,6 +45,10 @@ public class LeitorDeMapa {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public MapaLeituraEscrita criarMapaVazio() {
+		return lerDoClasspath("/mapas/vazio.mapa");
 	}
 
 }

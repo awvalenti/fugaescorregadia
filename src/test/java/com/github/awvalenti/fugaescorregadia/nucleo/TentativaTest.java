@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.mockito.InOrder;
 
 import com.github.awvalenti.fugaescorregadia.TesteBase;
-import com.github.awvalenti.fugaescorregadia.componentes.LeitorDeMapa;
+import com.github.awvalenti.fugaescorregadia.componentes.FabricaMapa;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeitura;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Tentativa;
@@ -21,7 +21,7 @@ public abstract class TentativaTest extends TesteBase {
 
 	@Before
 	public final void setUp() {
-		mapa = obterInstancia(LeitorDeMapa.class).lerDeString(obterMapaEmString());
+		mapa = obterInstancia(FabricaMapa.class).lerDeString(obterMapaEmString());
 		saida = mock(SaidaModoHistoria.class);
 		tentativa = new Tentativa(mapa, saida);
 	}

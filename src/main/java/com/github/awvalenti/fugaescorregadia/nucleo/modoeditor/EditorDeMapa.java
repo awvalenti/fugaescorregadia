@@ -4,10 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
-import com.github.awvalenti.fugaescorregadia.componentes.LeitorDeMapa;
+import com.github.awvalenti.fugaescorregadia.componentes.FabricaMapa;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeituraEscrita;
-import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeitura;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
 import com.google.common.io.Files;
 
@@ -15,12 +14,12 @@ public class EditorDeMapa implements ControlavelModoEditor {
 
 	private MapaLeituraEscrita mapa;
 	private final SaidaModoEditor saida;
-	private final LeitorDeMapa leitorDeMapa;
+	private final FabricaMapa fabricaMapa;
 
-	public EditorDeMapa(MapaLeitura mapaACopiar, SaidaModoEditor saida, LeitorDeMapa leitorDeMapa) {
-		this.mapa = new MapaLeituraEscrita(mapaACopiar);
+	public EditorDeMapa(SaidaModoEditor saida, FabricaMapa fabricaMapa) {
 		this.saida = saida;
-		this.leitorDeMapa = leitorDeMapa;
+		this.fabricaMapa = fabricaMapa;
+		this.mapa = fabricaMapa.criarMapaVazio();
 	}
 
 	public void iniciar() {
@@ -45,7 +44,7 @@ public class EditorDeMapa implements ControlavelModoEditor {
 
 	@Override
 	public void carregarMapa(File arquivo) {
-		mapa = leitorDeMapa.lerDeArquivo(arquivo);
+		mapa = fabricaMapa.lerDeArquivo(arquivo);
 		iniciar();
 	}
 

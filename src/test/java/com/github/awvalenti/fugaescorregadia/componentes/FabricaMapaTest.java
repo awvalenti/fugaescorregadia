@@ -15,14 +15,14 @@ import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeituraEscrita;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeitura;
 
-public class LeitorDeMapaTest extends TesteBase {
+public class FabricaMapaTest extends TesteBase {
 
-	private LeitorDeMapa leitor;
+	private FabricaMapa fabricaMapa;
 	private MapaLeitura resultadoEsperado;
 
 	@Before
 	public void setUp() {
-		leitor = obterInstancia(LeitorDeMapa.class);
+		fabricaMapa = obterInstancia(FabricaMapa.class);
 		resultadoEsperado = new MapaLeituraEscrita(new Elemento[][] {
 			{ VAZIO, PERSONAGEM, VAZIO },
 			{ OBSTACULO, VAZIO, VAZIO },
@@ -35,18 +35,18 @@ public class LeitorDeMapaTest extends TesteBase {
 				+ "- p -\n"
 				+ "o - -\n"
 				+ "";
-		assertThat(leitor.lerDeString(mapaEmString), is(resultadoEsperado));
+		assertThat(fabricaMapa.lerDeString(mapaEmString), is(resultadoEsperado));
 	}
 
 	@Test
 	public void deve_ler_mapa_do_classpath() {
-		assertThat(leitor.lerDoClasspath("/mapas/teste.mapa"), is(resultadoEsperado));
+		assertThat(fabricaMapa.lerDoClasspath("/mapas/teste.mapa"), is(resultadoEsperado));
 	}
 
 	@Test
 	public void deve_ler_mapa_de_arquivo() throws URISyntaxException {
 		File emArquivo = new File(getClass().getResource("/mapas/teste.mapa").toURI());
-		assertThat(leitor.lerDeArquivo(emArquivo), is(resultadoEsperado));
+		assertThat(fabricaMapa.lerDeArquivo(emArquivo), is(resultadoEsperado));
 	}
 
 }
