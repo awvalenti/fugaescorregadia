@@ -4,6 +4,7 @@ import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.mockito.InOrder;
 
 import com.github.awvalenti.fugaescorregadia.TesteBase;
@@ -26,10 +27,18 @@ public abstract class TentativaTest extends TesteBase {
 		tentativa = new Tentativa(mapa, saida);
 	}
 
+	@Test
+	public final void ao_ser_criada_deve_avisar_saida_jogo() {
+		verify(saida).inicioTentativa(mapa);
+	}
+
 	protected abstract String obterMapaEmString();
 
 	protected final void verificarPassagemPor(Posicao... caminho) {
 		InOrder inOrder = inOrder(saida);
+
+		ao_ser_criada_deve_avisar_saida_jogo();
+
 		for (int i = 1; i < caminho.length; ++i) {
 			inOrder.verify(saida).movimento(eq(caminho[i - 1]), any(), eq(caminho[i]));
 		}

@@ -21,13 +21,9 @@ public class MainModoHistoria {
 				30, mapa.getNumeroLinhas(), mapa.getNumeroColunas(),
 				obterInstancia(FabricaIcones.class));
 
-		Tentativa tentativa = new Tentativa(mapa, painelTabuleiro);
-
 		JanelaJogo telaJogo = new JanelaJogo(painelTabuleiro);
 
-		new ControladorModoHistoria(tentativa, telaJogo);
-
-		tentativa.iniciar();
+		new ControladorModoHistoria(new Tentativa(mapa, painelTabuleiro), telaJogo);
 
 		telaJogo.exibirEmJanela();
 	}

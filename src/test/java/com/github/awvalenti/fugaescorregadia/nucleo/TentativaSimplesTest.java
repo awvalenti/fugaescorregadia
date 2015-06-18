@@ -2,7 +2,6 @@ package com.github.awvalenti.fugaescorregadia.nucleo;
 
 import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Direcao.*;
 import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao.*;
-import static org.mockito.Mockito.*;
 
 import org.junit.Test;
 
@@ -16,12 +15,6 @@ public class TentativaSimplesTest extends TentativaTest {
 				+ "- - - - -\n"
 				+ "o o - - -\n"
 				+ "";
-	}
-
-	@Test
-	public void ao_ser_iniciada_deve_avisar_saida_jogo() {
-		tentativa.iniciar();
-		verify(saida).inicioTentativa(mapa);
 	}
 
 	@Test

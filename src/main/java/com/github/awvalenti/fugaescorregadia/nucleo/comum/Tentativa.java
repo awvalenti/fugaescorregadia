@@ -5,19 +5,13 @@ import com.github.awvalenti.fugaescorregadia.nucleo.modohistoria.SaidaModoHistor
 
 public class Tentativa implements ControlavelModoHistoria {
 
-	private final SaidaModoHistoria saida;
 	private final Tabuleiro tabuleiro;
-	private MapaLeitura mapa;
+	private final SaidaModoHistoria saida;
 
 	public Tentativa(MapaLeitura mapa, SaidaModoHistoria saida) {
 		this.saida = saida;
 		this.tabuleiro = new Tabuleiro(mapa);
-		this.mapa = mapa;
-	}
-
-	public void iniciar() {
 		saida.inicioTentativa(mapa);
-		mapa = null;
 	}
 
 	@Override
