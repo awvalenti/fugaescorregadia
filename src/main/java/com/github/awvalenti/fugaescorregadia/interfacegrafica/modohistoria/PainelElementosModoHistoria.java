@@ -7,17 +7,17 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 
 import com.github.awvalenti.fugaescorregadia.interfacegrafica.comum.FabricaIcones;
-import com.github.awvalenti.fugaescorregadia.interfacegrafica.comum.PainelTabuleiro;
+import com.github.awvalenti.fugaescorregadia.interfacegrafica.comum.PainelElementos;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeitura;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
 import com.github.awvalenti.fugaescorregadia.nucleo.modohistoria.SaidaModoHistoria;
 
-public class PainelTabuleiroModoHistoria extends PainelTabuleiro implements SaidaModoHistoria {
+public class PainelElementosModoHistoria extends PainelElementos implements SaidaModoHistoria {
 
 	private static final long serialVersionUID = 1L;
 
-	public PainelTabuleiroModoHistoria(int atrasoAtualizacaoTela,
+	public PainelElementosModoHistoria(int atrasoAtualizacaoTela,
 			int numeroLinhas, int numeroColunas, FabricaIcones fabricaIcones) {
 		super(atrasoAtualizacaoTela, numeroLinhas, numeroColunas, fabricaIcones);
 		esconderCursor();

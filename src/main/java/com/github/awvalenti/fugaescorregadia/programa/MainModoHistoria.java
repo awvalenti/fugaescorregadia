@@ -6,7 +6,7 @@ import com.github.awvalenti.fugaescorregadia.componentes.FabricaMapa;
 import com.github.awvalenti.fugaescorregadia.interfacegrafica.comum.FabricaIcones;
 import com.github.awvalenti.fugaescorregadia.interfacegrafica.comum.JanelaJogo;
 import com.github.awvalenti.fugaescorregadia.interfacegrafica.modohistoria.ControladorModoHistoria;
-import com.github.awvalenti.fugaescorregadia.interfacegrafica.modohistoria.PainelTabuleiroModoHistoria;
+import com.github.awvalenti.fugaescorregadia.interfacegrafica.modohistoria.PainelElementosModoHistoria;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeitura;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Tentativa;
 
@@ -17,7 +17,7 @@ public class MainModoHistoria {
 
 		MapaLeitura mapa = fabricaMapa.lerDoClasspath("/mapas/01.mapa");
 
-		PainelTabuleiroModoHistoria painelTabuleiro = new PainelTabuleiroModoHistoria(
+		PainelElementosModoHistoria painelTabuleiro = new PainelElementosModoHistoria(
 				30, mapa.getNumeroLinhas(), mapa.getNumeroColunas(),
 				obterInstancia(FabricaIcones.class));
 

@@ -12,7 +12,7 @@ import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeitura;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
 
-public abstract class PainelTabuleiro extends JPanel {
+public abstract class PainelElementos extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
@@ -21,7 +21,7 @@ public abstract class PainelTabuleiro extends JPanel {
 	protected final int numeroColunas;
 	protected final FabricaIcones fabricaIcones;
 
-	protected PainelTabuleiro(int atrasoAtualizacaoTela, int numeroLinhas,
+	protected PainelElementos(int atrasoAtualizacaoTela, int numeroLinhas,
 			int numeroColunas, FabricaIcones fabricaIcones) {
 		this.atrasoAtualizacaoTela = atrasoAtualizacaoTela;
 		this.numeroLinhas = numeroLinhas;

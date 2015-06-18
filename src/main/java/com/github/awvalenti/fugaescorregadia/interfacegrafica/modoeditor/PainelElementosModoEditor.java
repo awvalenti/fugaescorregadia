@@ -3,17 +3,17 @@ package com.github.awvalenti.fugaescorregadia.interfacegrafica.modoeditor;
 import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao.*;
 
 import com.github.awvalenti.fugaescorregadia.interfacegrafica.comum.FabricaIcones;
-import com.github.awvalenti.fugaescorregadia.interfacegrafica.comum.PainelTabuleiro;
+import com.github.awvalenti.fugaescorregadia.interfacegrafica.comum.PainelElementos;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeitura;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
 import com.github.awvalenti.fugaescorregadia.nucleo.modoeditor.SaidaModoEditor;
 
-public class PainelTabuleiroModoEditor extends PainelTabuleiro implements SaidaModoEditor, ConversorDeXYParaPosicao {
+public class PainelElementosModoEditor extends PainelElementos implements SaidaModoEditor, ConversorDeXYParaPosicao {
 
 	private static final long serialVersionUID = 1L;
 
-	public PainelTabuleiroModoEditor(int atrasoAtualizacaoTela,
+	public PainelElementosModoEditor(int atrasoAtualizacaoTela,
 			int numeroLinhas, int numeroColunas, FabricaIcones fabricaIcones) {
 		super(atrasoAtualizacaoTela, numeroLinhas, numeroColunas, fabricaIcones);
 	}

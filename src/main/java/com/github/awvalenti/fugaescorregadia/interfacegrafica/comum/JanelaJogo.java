@@ -6,9 +6,9 @@ public class JanelaJogo extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	public JanelaJogo(PainelTabuleiro painelTabuleiro) {
+	public JanelaJogo(PainelElementos painelElementos) {
 		super("Fuga Escorregadia");
-		add(painelTabuleiro);
+		add(painelElementos);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
