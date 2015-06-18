@@ -8,9 +8,9 @@ import java.util.List;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeituraEscrita;
 
-public class CompiladorMapa {
+public class ImportadorMapa {
 
-	public MapaLeituraEscrita compilar(Reader leitor) throws IOException {
+	public MapaLeituraEscrita importar(Reader leitor) throws IOException {
 		List<List<Elemento>> matriz = new ArrayList<>();
 
 		List<Elemento> linha = new ArrayList<>();

@@ -22,21 +22,6 @@ public class Tabuleiro {
 		this.posicaoPersonagem = posicaoPersonagem;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-
-		// FIXME Incluir personagem
-//		for (List<Elemento> linha : matriz) {
-//			for (Elemento elemento : linha) {
-//				sb.append(elemento.getCaractereDoMapaEmString()).append(' ');
-//			}
-//			sb.append('\n');
-//		}
-
-		return sb.toString();
-	}
-
 	public Elemento getElemento(Posicao p) {
 		return mapa.getElemento(p);
 	}

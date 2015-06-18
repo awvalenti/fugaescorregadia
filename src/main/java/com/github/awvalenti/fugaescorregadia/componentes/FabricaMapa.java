@@ -16,16 +16,16 @@ public class FabricaMapa {
 
 	private static final Charset ASCII = Charset.forName("US-ASCII");
 
-	private final CompiladorMapa compilador;
+	private final ImportadorMapa importador;
 
 	@Inject
-	public FabricaMapa(CompiladorMapa compilador) {
-		this.compilador = compilador;
+	public FabricaMapa(ImportadorMapa importador) {
+		this.importador = importador;
 	}
 
 	public MapaLeituraEscrita lerDeString(String mapaEmString) {
 		try (Reader r = new StringReader(mapaEmString)) {
-			return compilador.compilar(r);
+			return importador.importar(r);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -33,7 +33,7 @@ public class FabricaMapa {
 
 	public MapaLeituraEscrita lerDoClasspath(String caminhoRecurso) {
 		try (Reader r = new InputStreamReader(getClass().getResourceAsStream(caminhoRecurso), ASCII)) {
-			return compilador.compilar(r);
+			return importador.importar(r);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -41,7 +41,7 @@ public class FabricaMapa {
 
 	public MapaLeituraEscrita lerDeArquivo(File arquivo) {
 		try (Reader r = new InputStreamReader(new FileInputStream(arquivo), ASCII)) {
-			return compilador.compilar(r);
+			return importador.importar(r);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
