@@ -1,7 +1,8 @@
 package com.github.awvalenti.fugaescorregadia.nucleo;
 
 import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Direcao.*;
-import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao.*;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -24,28 +25,28 @@ public class TentativaSetasTest extends TentativaTest {
 	public void seta_cima_deve_permitir_movimento_somente_na_direcao_apontada() {
 		tentativa.efetuarMovimento(CIMA);
 		tentativa.efetuarMovimento(BAIXO);
-		verificarPassagemPor(aPosicao(3, 3), aPosicao(2, 3), aPosicao(1, 3), aPosicao(0, 3), aPosicao(1, 3));
+		assertThat(saida.caminhoPercorrido(), is("33 23 23 13 13 03 03 13"));
 	}
 
 	@Test
 	public void seta_baixo_deve_permitir_movimento_somente_na_direcao_apontada() {
 		tentativa.efetuarMovimento(BAIXO);
 		tentativa.efetuarMovimento(CIMA);
-		verificarPassagemPor(aPosicao(3, 3), aPosicao(4, 3), aPosicao(5, 3), aPosicao(6, 3), aPosicao(5, 3));
+		assertThat(saida.caminhoPercorrido(), is("33 43 43 53 53 63 63 53"));
 	}
 
 	@Test
 	public void seta_esquerda_deve_permitir_movimento_somente_na_direcao_apontada() {
 		tentativa.efetuarMovimento(ESQUERDA);
 		tentativa.efetuarMovimento(DIREITA);
-		verificarPassagemPor(aPosicao(3, 3), aPosicao(3, 2), aPosicao(3, 1), aPosicao(3, 0), aPosicao(3, 1));
+		assertThat(saida.caminhoPercorrido(), is("33 32 32 31 31 30 30 31"));
 	}
 
 	@Test
 	public void seta_direita_deve_permitir_movimento_somente_na_direcao_apontada() {
 		tentativa.efetuarMovimento(DIREITA);
 		tentativa.efetuarMovimento(ESQUERDA);
-		verificarPassagemPor(aPosicao(3, 3), aPosicao(3, 4), aPosicao(3, 5), aPosicao(3, 6), aPosicao(3, 5));
+		assertThat(saida.caminhoPercorrido(), is("33 34 34 35 35 36 36 35"));
 	}
 
 }
