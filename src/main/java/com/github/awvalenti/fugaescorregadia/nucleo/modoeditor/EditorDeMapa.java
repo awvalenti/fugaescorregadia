@@ -12,9 +12,9 @@ import com.google.common.io.Files;
 
 public class EditorDeMapa implements ControlavelModoEditor {
 
-	private MapaLeituraEscrita mapa;
 	private final SaidaModoEditor saida;
 	private final FabricaMapa fabricaMapa;
+	private MapaLeituraEscrita mapa;
 
 	public EditorDeMapa(SaidaModoEditor saida, FabricaMapa fabricaMapa) {
 		this.saida = saida;
