@@ -44,24 +44,8 @@ public class Tabuleiro {
 		return sb.toString();
 	}
 
-	public int getNumeroColunas() {
-		return mapa.getNumeroColunas();
-	}
-
-	public int getNumeroLinhas() {
-		return mapa.getNumeroLinhas();
-	}
-
 	public Elemento getElemento(Posicao p) {
 		return mapa.getElemento(p);
-	}
-
-	public IteradorMapa iterador() {
-		return mapa.iterador();
-	}
-
-	public void setElemento(Posicao p, Elemento novo) {
-		mapa.setElemento(p, novo);
 	}
 
 }
