@@ -6,7 +6,7 @@ import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
 
 public interface SaidaModoEditor {
 
-	void inicioEdicao(MapaLeitura mapa);
+	void novoMapaCarregado(MapaLeitura mapa);
 
 	void tabuleiroAlterado(Posicao p, Elemento novo);
 

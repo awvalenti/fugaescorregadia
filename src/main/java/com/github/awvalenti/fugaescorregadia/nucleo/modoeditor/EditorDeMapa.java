@@ -19,11 +19,7 @@ public class EditorDeMapa implements ControlavelModoEditor {
 	public EditorDeMapa(SaidaModoEditor saida, FabricaMapa fabricaMapa) {
 		this.saida = saida;
 		this.fabricaMapa = fabricaMapa;
-		this.mapa = fabricaMapa.criarMapaVazio();
-	}
-
-	public void iniciar() {
-		saida.inicioEdicao(mapa);
+		iniciar(fabricaMapa.criarMapaVazio());
 	}
 
 	@Override
@@ -44,8 +40,12 @@ public class EditorDeMapa implements ControlavelModoEditor {
 
 	@Override
 	public void carregarMapa(File arquivo) {
-		mapa = fabricaMapa.lerDeArquivo(arquivo);
-		iniciar();
+		iniciar(fabricaMapa.lerDeArquivo(arquivo));
+	}
+
+	private void iniciar(MapaLeituraEscrita mapaNovo) {
+		mapa = mapaNovo;
+		saida.novoMapaCarregado(mapa);
 	}
 
 }

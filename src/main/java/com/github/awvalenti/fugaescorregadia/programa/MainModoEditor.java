@@ -22,14 +22,10 @@ public class MainModoEditor {
 				mapa.getNumeroLinhas(), mapa.getNumeroColunas(),
 				obterInstancia(FabricaIcones.class));
 
-		EditorDeMapa editor = new EditorDeMapa(painel, fabricaMapa);
-
 		JanelaJogo telaJogo = new JanelaJogo(painel);
 
-		new ControladorModoEditor(editor, telaJogo, painel, painel,
+		new ControladorModoEditor(new EditorDeMapa(painel, fabricaMapa), telaJogo, painel, painel,
 				obterInstancia(MapeamentoDeTeclaParaElemento.class));
-
-		editor.iniciar();
 
 		telaJogo.exibirEmJanela();
 	}

@@ -19,7 +19,7 @@ public class PainelTabuleiroModoEditor extends PainelTabuleiro implements SaidaM
 	}
 
 	@Override
-	public void inicioEdicao(MapaLeitura mapa) {
+	public void novoMapaCarregado(MapaLeitura mapa) {
 		preencher(mapa);
 	}
 
