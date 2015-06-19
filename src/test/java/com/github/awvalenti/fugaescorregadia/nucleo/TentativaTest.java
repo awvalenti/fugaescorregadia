@@ -3,7 +3,7 @@ package com.github.awvalenti.fugaescorregadia.nucleo;
 import org.junit.Before;
 
 import com.github.awvalenti.fugaescorregadia.TesteBase;
-import com.github.awvalenti.fugaescorregadia.componentes.FabricaMapa;
+import com.github.awvalenti.fugaescorregadia.componentes.ImportadorExportadorMapa;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeitura;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
@@ -18,7 +18,7 @@ public abstract class TentativaTest extends TesteBase {
 
 	@Before
 	public final void setUp() {
-		mapa = obterInstancia(FabricaMapa.class).lerDeString(obterMapaEmString());
+		mapa = obterInstancia(ImportadorExportadorMapa.class).lerDeString(obterMapaEmString());
 		saida = new SaidaSpy();
 		tentativa = new Tentativa(mapa, saida);
 	}

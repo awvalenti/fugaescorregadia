@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 
 import org.junit.Before;
@@ -12,18 +13,18 @@ import org.junit.Test;
 
 import com.github.awvalenti.fugaescorregadia.TesteBase;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
-import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeituraEscrita;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeitura;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeituraEscrita;
 
-public class FabricaMapaTest extends TesteBase {
+public class ImportadorExportadorMapaTest extends TesteBase {
 
-	private FabricaMapa fabricaMapa;
-	private MapaLeitura resultadoEsperado;
+	private MapaLeitura mapaTeste;
+	private ImportadorExportadorMapa impExp;
 
 	@Before
 	public void setUp() {
-		fabricaMapa = obterInstancia(FabricaMapa.class);
-		resultadoEsperado = new MapaLeituraEscrita(new Elemento[][] {
+		impExp = obterInstancia(ImportadorExportadorMapa.class);
+		mapaTeste = new MapaLeituraEscrita(new Elemento[][] {
 			{ VAZIO, PERSONAGEM, VAZIO },
 			{ OBSTACULO, VAZIO, VAZIO },
 		});
@@ -35,18 +36,25 @@ public class FabricaMapaTest extends TesteBase {
 				+ "- p -\n"
 				+ "o - -\n"
 				+ "";
-		assertThat(fabricaMapa.lerDeString(mapaEmString), is(resultadoEsperado));
+		assertThat(impExp.lerDeString(mapaEmString), is(mapaTeste));
 	}
 
 	@Test
 	public void deve_ler_mapa_do_classpath() {
-		assertThat(fabricaMapa.lerDoClasspath("/mapas/teste.mapa"), is(resultadoEsperado));
+		assertThat(impExp.lerDoClasspath("/mapas/teste.mapa"), is(mapaTeste));
 	}
 
 	@Test
 	public void deve_ler_mapa_de_arquivo() throws URISyntaxException {
 		File emArquivo = new File(getClass().getResource("/mapas/teste.mapa").toURI());
-		assertThat(fabricaMapa.lerDeArquivo(emArquivo), is(resultadoEsperado));
+		assertThat(impExp.lerDeArquivo(emArquivo), is(mapaTeste));
+	}
+
+	@Test
+	public void ao_exportar_e_importar_de_volta_deve_ficar_igual_ao_original() throws IOException {
+		File temp = File.createTempFile("fugaescorregadia-teste", ".mapa");
+		impExp.escreverEmArquivo(temp, mapaTeste);
+		assertThat(impExp.lerDeArquivo(temp), is(mapaTeste));
 	}
 
 }

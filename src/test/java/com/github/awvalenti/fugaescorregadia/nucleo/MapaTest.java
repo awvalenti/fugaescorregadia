@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.github.awvalenti.fugaescorregadia.TesteBase;
-import com.github.awvalenti.fugaescorregadia.componentes.FabricaMapa;
+import com.github.awvalenti.fugaescorregadia.componentes.ImportadorExportadorMapa;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeitura;
 
 public class MapaTest extends TesteBase {
@@ -18,7 +18,7 @@ public class MapaTest extends TesteBase {
 
 	@Before
 	public void setUp() {
-		mapa = obterInstancia(FabricaMapa.class).lerDeString(""
+		mapa = obterInstancia(ImportadorExportadorMapa.class).lerDeString(""
 				+ "p - o\n"
 				+ "- - -\n"
 				+ "");
