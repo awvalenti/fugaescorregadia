@@ -35,3 +35,5 @@ onde exatamente eu parei. Essa ideia é sugerida pelo Kent Beck.
 P: Tenho uma outra pergunta para lhe fazer.
 
 R: Envie-a para mim. Talvez eu a acrescente aqui!
+
+[![Build Status](https://travis-ci.org/awvalenti/fugaescorregadia.svg?branch=master)](https://travis-ci.org/awvalenti/fugaescorregadia)
