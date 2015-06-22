@@ -1,6 +1,8 @@
 # Fuga Escorregadia
 Jogo de labirinto cujo objetivo é escorregar pelo tabuleiro até conseguir chegar à saída.
 
+[![Build Status](https://travis-ci.org/awvalenti/fugaescorregadia.svg?branch=master)](https://travis-ci.org/awvalenti/fugaescorregadia)
+
 Licença
 =======
 Por enquanto, o projeto está com todos os direitos reservados (mais 
@@ -35,5 +37,3 @@ onde exatamente eu parei. Essa ideia é sugerida pelo Kent Beck.
 P: Tenho uma outra pergunta para lhe fazer.
 
 R: Envie-a para mim. Talvez eu a acrescente aqui!
-
-[![Build Status](https://travis-ci.org/awvalenti/fugaescorregadia.svg?branch=master)](https://travis-ci.org/awvalenti/fugaescorregadia)
