@@ -39,14 +39,38 @@ public class MapaLeituraEscrita implements MapaLeitura {
 	}
 
 	public void rotacionar(Direcao d) {
-		// TODO Melhorar
-		if (d == DIREITA) {
+		// TODO Simplificar algoritmo ou mover para outra classe
+		if (d == ESQUERDA) {
+			for (int linha = 0; linha < matriz.length; ++linha) {
+				Elemento primeiro = matriz[linha][0];
+				for (int coluna = 0; coluna < matriz[linha].length - 1; ++coluna) {
+					matriz[linha][coluna] = matriz[linha][coluna + 1];
+				}
+				matriz[linha][matriz[linha].length - 1] = primeiro;
+			}
+		} else if (d == DIREITA) {
 			for (int linha = 0; linha < matriz.length; ++linha) {
 				Elemento ultimo = matriz[linha][matriz[linha].length - 1];
 				for (int coluna = matriz[linha].length - 1; coluna > 0; --coluna) {
 					matriz[linha][coluna] = matriz[linha][coluna - 1];
 				}
 				matriz[linha][0] = ultimo;
+			}
+		} else if (d == CIMA) {
+			for (int coluna = 0; coluna < getNumeroColunas(); ++coluna) {
+				Elemento primeiro = matriz[0][coluna];
+				for (int linha = 0; linha < matriz.length - 1; ++linha) {
+					matriz[linha][coluna] = matriz[linha + 1][coluna];
+				}
+				matriz[matriz.length - 1][coluna] = primeiro;
+			}
+		} else if (d == BAIXO) {
+			for (int coluna = 0; coluna < getNumeroColunas(); ++coluna) {
+				Elemento ultimo = matriz[matriz.length - 1][coluna];
+				for (int linha = matriz.length - 1; linha > 0; --linha) {
+					matriz[linha][coluna] = matriz[linha - 1][coluna];
+				}
+				matriz[0][coluna] = ultimo;
 			}
 		}
 	}

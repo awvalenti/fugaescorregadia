@@ -24,19 +24,55 @@ public class MapaLeituraEscritaTest extends TesteBase {
 				+ "o o - -\n"
 				+ "- < - -\n"
 				+ "- v v -\n"
-				+ "- - - -\n"
+				+ "- - - *\n"
 				+ "");
 	}
 
 	@Test
-	public void deve_saber_rotacionarse() {
+	public void deve_saber_rotacionarse_para_esquerda() {
+		mapa.rotacionar(ESQUERDA);
+		assertThat(mapa, is(impExp.lerDeString(""
+				+ "p - - -\n"
+				+ "o - - o\n"
+				+ "< - - -\n"
+				+ "v v - -\n"
+				+ "- - * -\n"
+				+ "")));
+	}
+
+	@Test
+	public void deve_saber_rotacionarse_para_direita() {
 		mapa.rotacionar(DIREITA);
 		assertThat(mapa, is(impExp.lerDeString(""
 				+ "- - p -\n"
 				+ "- o o -\n"
 				+ "- - < -\n"
 				+ "- - v v\n"
-				+ "- - - -\n"
+				+ "* - - -\n"
+				+ "")));
+	}
+
+	@Test
+	public void deve_saber_rotacionarse_para_cima() {
+		mapa.rotacionar(CIMA);
+		assertThat(mapa, is(impExp.lerDeString(""
+				+ "o o - -\n"
+				+ "- < - -\n"
+				+ "- v v -\n"
+				+ "- - - *\n"
+				+ "- p - -\n"
+				+ "")));
+	}
+
+	@Test
+	public void deve_saber_rotacionarse_para_baixo() {
+		mapa.rotacionar(BAIXO);
+		assertThat(mapa, is(impExp.lerDeString(""
+				+ "- - - *\n"
+				+ "- p - -\n"
+				+ "o o - -\n"
+				+ "- < - -\n"
+				+ "- v v -\n"
 				+ "")));
 	}
 
