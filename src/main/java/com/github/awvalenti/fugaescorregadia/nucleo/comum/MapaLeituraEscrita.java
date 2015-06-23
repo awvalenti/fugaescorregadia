@@ -1,5 +1,6 @@
 package com.github.awvalenti.fugaescorregadia.nucleo.comum;
 
+import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Direcao.*;
 import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento.*;
 import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao.*;
 
@@ -35,6 +36,19 @@ public class MapaLeituraEscrita implements MapaLeitura {
 	@Override
 	public final Elemento getElemento(Posicao p) {
 		return posicaoValida(p) ? matriz[p.getLinha()][p.getColuna()] : OBSTACULO;
+	}
+
+	public void rotacionar(Direcao d) {
+		// TODO Melhorar
+		if (d == DIREITA) {
+			for (int linha = 0; linha < matriz.length; ++linha) {
+				Elemento ultimo = matriz[linha][matriz[linha].length - 1];
+				for (int coluna = matriz[linha].length - 1; coluna > 0; --coluna) {
+					matriz[linha][coluna] = matriz[linha][coluna - 1];
+				}
+				matriz[linha][0] = ultimo;
+			}
+		}
 	}
 
 	public final void modificarSemProduzirSaida(Posicao p, Elemento novo) {

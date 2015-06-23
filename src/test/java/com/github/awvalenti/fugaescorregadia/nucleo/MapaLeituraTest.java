@@ -12,7 +12,7 @@ import com.github.awvalenti.fugaescorregadia.TesteBase;
 import com.github.awvalenti.fugaescorregadia.componentes.ImportadorExportadorMapa;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeitura;
 
-public class MapaTest extends TesteBase {
+public class MapaLeituraTest extends TesteBase {
 
 	private MapaLeitura mapa;
 
