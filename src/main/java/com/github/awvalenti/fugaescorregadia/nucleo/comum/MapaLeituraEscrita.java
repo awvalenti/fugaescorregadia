@@ -1,6 +1,5 @@
 package com.github.awvalenti.fugaescorregadia.nucleo.comum;
 
-import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Direcao.*;
 import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento.*;
 import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao.*;
 
@@ -39,16 +38,12 @@ public class MapaLeituraEscrita implements MapaLeitura {
 	}
 
 	public void rotacionar(Direcao d) {
-		// TODO Simplificar algoritmo ou mover para outra classe
-		int
-				incLinha = d.getIncrementoLinha(),
-				incColuna = d.getIncrementoColuna(),
-				linhaPrimeiroElemento = ((getNumeroLinhas() - 1) * (incLinha + 1)) / 2,
-				linhaUltimoElemento = ((getNumeroLinhas() - 1) * (-incLinha + 1)) / 2,
-				colunaPrimeiroElemento = ((getNumeroColunas() - 1) * (incColuna + 1)) / 2,
-				colunaUltimoElemento = ((getNumeroColunas() - 1) * (-incColuna + 1)) / 2;
+		int incLinha = d.getIncrementoLinha(), incColuna = d.getIncrementoColuna();
 
-		if (d == ESQUERDA || d == DIREITA) {
+		if (d.ehHorizontal()) {
+			int colunaPrimeiroElemento = ((getNumeroColunas() - 1) * (incColuna + 1)) / 2,
+					colunaUltimoElemento = ((getNumeroColunas() - 1) * (-incColuna + 1)) / 2;
+
 			for (int linha = 0; linha < getNumeroLinhas(); ++linha) {
 				Elemento primeiro = matriz[linha][colunaPrimeiroElemento];
 				for (int coluna = colunaPrimeiroElemento; coluna != colunaUltimoElemento; coluna -= incColuna) {
@@ -56,7 +51,10 @@ public class MapaLeituraEscrita implements MapaLeitura {
 				}
 				matriz[linha][colunaUltimoElemento] = primeiro;
 			}
-		} else if (d == CIMA || d == BAIXO) {
+		} else if (d.ehVertical()) {
+			int linhaPrimeiroElemento = ((getNumeroLinhas() - 1) * (incLinha + 1)) / 2,
+					linhaUltimoElemento = ((getNumeroLinhas() - 1) * (-incLinha + 1)) / 2;
+
 			for (int coluna = 0; coluna < getNumeroColunas(); ++coluna) {
 				Elemento primeiro = matriz[linhaPrimeiroElemento][coluna];
 				for (int linha = linhaPrimeiroElemento; linha != linhaUltimoElemento; linha -= incLinha) {

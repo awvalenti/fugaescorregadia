@@ -37,4 +37,12 @@ public enum Direcao {
 		return Arrays.stream(values()).filter(d -> d.codigoTecla == codigoTecla).findFirst();
 	}
 
+	public boolean ehHorizontal() {
+		return incrementoLinha == 0 && incrementoColuna != 0;
+	}
+
+	public boolean ehVertical() {
+		return incrementoLinha != 0 && incrementoColuna == 0;
+	}
+
 }
