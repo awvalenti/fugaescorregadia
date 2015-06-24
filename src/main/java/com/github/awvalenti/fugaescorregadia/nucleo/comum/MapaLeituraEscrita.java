@@ -40,9 +40,14 @@ public class MapaLeituraEscrita implements MapaLeitura {
 
 	public void rotacionar(Direcao d) {
 		// TODO Simplificar algoritmo ou mover para outra classe
-		int incColuna = d.getIncrementoColuna();
-		int colunaPrimeiroElemento = ((getNumeroColunas() - 1) * (incColuna + 1)) / 2;
-		int colunaUltimoElemento = ((getNumeroColunas() - 1) * (-incColuna + 1)) / 2;
+		int
+				incLinha = d.getIncrementoLinha(),
+				incColuna = d.getIncrementoColuna(),
+				linhaPrimeiroElemento = ((getNumeroLinhas() - 1) * (incLinha + 1)) / 2,
+				linhaUltimoElemento = ((getNumeroLinhas() - 1) * (-incLinha + 1)) / 2,
+				colunaPrimeiroElemento = ((getNumeroColunas() - 1) * (incColuna + 1)) / 2,
+				colunaUltimoElemento = ((getNumeroColunas() - 1) * (-incColuna + 1)) / 2;
+
 		if (d == ESQUERDA || d == DIREITA) {
 			for (int linha = 0; linha < getNumeroLinhas(); ++linha) {
 				Elemento primeiro = matriz[linha][colunaPrimeiroElemento];
@@ -51,21 +56,13 @@ public class MapaLeituraEscrita implements MapaLeitura {
 				}
 				matriz[linha][colunaUltimoElemento] = primeiro;
 			}
-		} else if (d == CIMA) {
+		} else if (d == CIMA || d == BAIXO) {
 			for (int coluna = 0; coluna < getNumeroColunas(); ++coluna) {
-				Elemento primeiro = matriz[0][coluna];
-				for (int linha = 0; linha < getNumeroLinhas() - 1; ++linha) {
-					matriz[linha][coluna] = matriz[linha + 1][coluna];
+				Elemento primeiro = matriz[linhaPrimeiroElemento][coluna];
+				for (int linha = linhaPrimeiroElemento; linha != linhaUltimoElemento; linha -= incLinha) {
+					matriz[linha][coluna] = matriz[linha - incLinha][coluna];
 				}
-				matriz[getNumeroLinhas() - 1][coluna] = primeiro;
-			}
-		} else if (d == BAIXO) {
-			for (int coluna = 0; coluna < getNumeroColunas(); ++coluna) {
-				Elemento ultimo = matriz[getNumeroLinhas() - 1][coluna];
-				for (int linha = getNumeroLinhas() - 1; linha > 0; --linha) {
-					matriz[linha][coluna] = matriz[linha - 1][coluna];
-				}
-				matriz[0][coluna] = ultimo;
+				matriz[linhaUltimoElemento][coluna] = primeiro;
 			}
 		}
 	}
