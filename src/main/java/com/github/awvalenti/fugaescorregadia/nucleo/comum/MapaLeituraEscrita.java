@@ -41,23 +41,15 @@ public class MapaLeituraEscrita implements MapaLeitura {
 	public void rotacionar(Direcao d) {
 		// TODO Simplificar algoritmo ou mover para outra classe
 		int incColuna = d.getIncrementoColuna();
-		int colunaDeUmElemento = ((getNumeroColunas() - 1) * (incColuna + 1)) / 2;
-		int colunaDeOutroElemento = ((getNumeroColunas() - 1) * (-incColuna + 1)) / 2;
-		if (d == ESQUERDA) {
+		int colunaPrimeiroElemento = ((getNumeroColunas() - 1) * (incColuna + 1)) / 2;
+		int colunaUltimoElemento = ((getNumeroColunas() - 1) * (-incColuna + 1)) / 2;
+		if (d == ESQUERDA || d == DIREITA) {
 			for (int linha = 0; linha < getNumeroLinhas(); ++linha) {
-				Elemento um = matriz[linha][colunaDeUmElemento];
-				for (int coluna = colunaDeUmElemento; coluna < colunaDeOutroElemento; coluna -= incColuna) {
+				Elemento primeiro = matriz[linha][colunaPrimeiroElemento];
+				for (int coluna = colunaPrimeiroElemento; coluna != colunaUltimoElemento; coluna -= incColuna) {
 					matriz[linha][coluna] = matriz[linha][coluna - incColuna];
 				}
-				matriz[linha][colunaDeOutroElemento] = um;
-			}
-		} else if (d == DIREITA) {
-			for (int linha = 0; linha < getNumeroLinhas(); ++linha) {
-				Elemento um = matriz[linha][colunaDeUmElemento];
-				for (int coluna = colunaDeUmElemento; coluna > colunaDeOutroElemento; coluna -= incColuna) {
-					matriz[linha][coluna] = matriz[linha][coluna - incColuna];
-				}
-				matriz[linha][colunaDeOutroElemento] = um;
+				matriz[linha][colunaUltimoElemento] = primeiro;
 			}
 		} else if (d == CIMA) {
 			for (int coluna = 0; coluna < getNumeroColunas(); ++coluna) {
