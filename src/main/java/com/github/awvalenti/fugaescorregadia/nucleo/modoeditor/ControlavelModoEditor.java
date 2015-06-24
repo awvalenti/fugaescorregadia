@@ -12,6 +12,8 @@ public interface ControlavelModoEditor {
 
 	void rotacionar(Direcao d);
 
+	void novoMapa();
+
 	void salvarMapa(File arquivo);
 
 	void carregarMapa(File arquivo);

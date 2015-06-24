@@ -8,9 +8,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.io.File;
 import java.util.Optional;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
@@ -27,9 +29,9 @@ public class ControladorModoEditor implements KeyListener, MouseMotionListener {
 	private Posicao posicaoAtualCursor = aPosicao(0, 0);
 	private JFileChooser fileChooser = new JFileChooser();
 
-	public ControladorModoEditor(ControlavelModoEditor controlavel,
-			Component janela, Component componenteDoMouse,
-			ConversorDeXYParaPosicao conversor, MapeamentoDeTeclaParaElemento mapeamento) {
+	public ControladorModoEditor(ControlavelModoEditor controlavel, Component janela,
+			Component componenteDoMouse, ConversorDeXYParaPosicao conversor,
+			MapeamentoDeTeclaParaElemento mapeamento, File diretorioInicialFileChooser) {
 		this.controlavel = controlavel;
 		this.conversor = conversor;
 		this.mapeamento = mapeamento;
@@ -37,6 +39,8 @@ public class ControladorModoEditor implements KeyListener, MouseMotionListener {
 
 		janela.addKeyListener(this);
 		componenteDoMouse.addMouseMotionListener(this);
+
+		fileChooser.setCurrentDirectory(diretorioInicialFileChooser);
 	}
 
 	@Override
@@ -50,6 +54,14 @@ public class ControladorModoEditor implements KeyListener, MouseMotionListener {
 	public synchronized void keyPressed(KeyEvent e) {
 		// TODO Melhorar
 		switch (e.getKeyCode()) {
+		case VK_F2:
+			if (JOptionPane.showConfirmDialog(janela, "Limpar mapa atual?", "Novo mapa",
+					JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+				controlavel.novoMapa();
+				fileChooser.setSelectedFile(null);
+			}
+			break;
+
 		case VK_F5:
 			if (fileChooser.getSelectedFile() != null
 					|| fileChooser.showSaveDialog(janela) == JFileChooser.APPROVE_OPTION) {

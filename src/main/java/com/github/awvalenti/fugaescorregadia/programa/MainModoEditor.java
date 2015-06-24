@@ -2,6 +2,8 @@ package com.github.awvalenti.fugaescorregadia.programa;
 
 import static com.github.awvalenti.fugaescorregadia.programa.InjetorProgramaPrincipal.*;
 
+import java.io.File;
+
 import com.github.awvalenti.fugaescorregadia.componentes.ImportadorExportadorMapa;
 import com.github.awvalenti.fugaescorregadia.interfacegrafica.comum.FabricaIcones;
 import com.github.awvalenti.fugaescorregadia.interfacegrafica.comum.JanelaJogo;
@@ -25,7 +27,7 @@ public class MainModoEditor {
 		JanelaJogo telaJogo = new JanelaJogo(painel);
 
 		new ControladorModoEditor(new EditorDeMapa(painel, impExp, mapa), telaJogo, painel, painel,
-				obterInstancia(MapeamentoDeTeclaParaElemento.class));
+				obterInstancia(MapeamentoDeTeclaParaElemento.class), args.length > 0 ? new File(args[0]) : null);
 
 		telaJogo.exibirEmJanela();
 	}

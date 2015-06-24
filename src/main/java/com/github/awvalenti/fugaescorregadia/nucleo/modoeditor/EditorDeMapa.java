@@ -18,9 +18,7 @@ public class EditorDeMapa implements ControlavelModoEditor {
 	public EditorDeMapa(SaidaMapaEscrita saida, ImportadorExportadorMapa impExp, MapaLeituraEscrita mapa) {
 		this.saida = saida;
 		this.impExp = impExp;
-		this.mapa = mapa;
-		mapa.setSaida(saida);
-		iniciar();
+		setMapa(mapa);
 	}
 
 	@Override
@@ -34,17 +32,23 @@ public class EditorDeMapa implements ControlavelModoEditor {
 	}
 
 	@Override
+	public void novoMapa() {
+		setMapa(impExp.criarMapaVazio());
+	}
+
+	@Override
 	public void salvarMapa(File arquivo) {
 		impExp.escreverEmArquivo(arquivo, mapa);
 	}
 
 	@Override
 	public void carregarMapa(File arquivo) {
-		mapa = impExp.lerDeArquivo(arquivo);
-		iniciar();
+		setMapa(impExp.lerDeArquivo(arquivo));
 	}
 
-	private void iniciar() {
+	private void setMapa(MapaLeituraEscrita mapa) {
+		this.mapa = mapa;
+		mapa.setSaida(saida);
 		saida.mapaCompletamenteAlterado(mapa);
 	}
 
