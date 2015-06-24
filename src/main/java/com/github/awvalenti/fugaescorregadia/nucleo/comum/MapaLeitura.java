@@ -6,6 +6,8 @@ public interface MapaLeitura {
 
 	int getNumeroLinhas();
 
+	boolean posicaoValida(Posicao p);
+
 	Elemento getElemento(Posicao p);
 
 	IteradorMapa iterador();

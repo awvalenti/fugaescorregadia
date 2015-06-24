@@ -1,7 +1,6 @@
 package com.github.awvalenti.fugaescorregadia.nucleo.comum;
 
 import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento.*;
-import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao.*;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -90,7 +89,8 @@ public class MapaLeituraEscrita implements MapaLeitura {
 		saida.mapaAlterado(p, elemento);
 	}
 
-	private boolean posicaoValida(Posicao p) {
+	@Override
+	public final boolean posicaoValida(Posicao p) {
 		int linha = p.getLinha(), coluna = p.getColuna();
 		return linha >= 0 && linha < getNumeroLinhas() && coluna >= 0
 				&& coluna < getNumeroColunas();
@@ -114,43 +114,7 @@ public class MapaLeituraEscrita implements MapaLeitura {
 
 	@Override
 	public IteradorMapa iterador() {
-		return new IteradorMapa() {
-			private Posicao posicaoAtual = aPosicao(0, 0);
-
-			@Override
-			public boolean iniciouNovaLinha() {
-				return posicaoAtual.getColuna() == 0 && posicaoAtual.getLinha() > 0;
-			}
-
-			@Override
-			public boolean temProximo() {
-				return posicaoValida(posicaoAtual);
-			}
-
-			@Override
-			public Posicao posicaoAtual() {
-				return posicaoAtual;
-			}
-
-			@Override
-			public Elemento elementoAtual() {
-				return getElemento(posicaoAtual);
-			}
-
-			@Override
-			public void avancar() {
-				int novaLinha = posicaoAtual.getLinha();
-				int novaColuna = posicaoAtual.getColuna();
-
-				if (++novaColuna >= getNumeroColunas()) {
-					novaColuna = 0;
-					++novaLinha;
-				}
-
-				posicaoAtual = aPosicao(novaLinha, novaColuna);
-			}
-
-		};
+		return new IteradorMapa(this);
 	}
 
 	private static final SaidaMapaEscrita SAIDA_NULA = new SaidaMapaEscrita() {

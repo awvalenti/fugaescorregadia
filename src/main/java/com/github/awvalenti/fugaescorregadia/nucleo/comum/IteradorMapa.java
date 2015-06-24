@@ -1,15 +1,40 @@
 package com.github.awvalenti.fugaescorregadia.nucleo.comum;
 
-public interface IteradorMapa {
+import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao.*;
 
-	boolean iniciouNovaLinha();
+public class IteradorMapa {
+	private final MapaLeitura mapa;
+	private Posicao posicaoAtual = aPosicao(0, 0);
 
-	boolean temProximo();
+	public IteradorMapa(MapaLeitura mapa) {
+		this.mapa = mapa;
+	}
 
-	void avancar();
+	public boolean iniciouNovaLinha() {
+		return posicaoAtual.getColuna() == 0 && posicaoAtual.getLinha() > 0;
+	}
 
-	Elemento elementoAtual();
+	public boolean temProximo() {
+		return mapa.posicaoValida(posicaoAtual);
+	}
 
-	Posicao posicaoAtual();
+	public Posicao posicaoAtual() {
+		return posicaoAtual;
+	}
 
+	public Elemento elementoAtual() {
+		return mapa.getElemento(posicaoAtual);
+	}
+
+	public void avancar() {
+		int novaLinha = posicaoAtual.getLinha();
+		int novaColuna = posicaoAtual.getColuna();
+
+		if (++novaColuna >= mapa.getNumeroColunas()) {
+			novaColuna = 0;
+			++novaLinha;
+		}
+
+		posicaoAtual = aPosicao(novaLinha, novaColuna);
+	}
 }
