@@ -64,6 +64,9 @@ public class ControladorModoEditor implements KeyListener, MouseMotionListener {
 			break;
 
 		default:
+			mapeamento.direcaoDaTecla(e.getKeyCode()).ifPresent(direcao -> {
+				controlavel.rotacionar(direcao);
+			});
 			mapeamento.elementoDaTecla(e.getKeyChar()).ifPresent(elemento -> {
 				controlavel.alterarElemento(posicaoAtualCursor, elemento);
 				selecaoElemento = Optional.of(elemento);

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.Direcao;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
 
 public class MapeamentoDeTeclaParaElemento {
@@ -28,6 +29,10 @@ public class MapeamentoDeTeclaParaElemento {
 
 	public Optional<Elemento> elementoDaTecla(char codigoTecla) {
 		return Optional.ofNullable(mapeamento.get(codigoTecla));
+	}
+
+	public Optional<Direcao> direcaoDaTecla(int codigoTecla) {
+		return Direcao.doCodigoTecla(codigoTecla);
 	}
 
 	private void verificarMapeamentoDeTodosElementos() {

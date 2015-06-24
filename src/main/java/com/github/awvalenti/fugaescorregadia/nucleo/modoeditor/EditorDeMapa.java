@@ -3,6 +3,7 @@ package com.github.awvalenti.fugaescorregadia.nucleo.modoeditor;
 import java.io.File;
 
 import com.github.awvalenti.fugaescorregadia.componentes.ImportadorExportadorMapa;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.Direcao;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeituraEscrita;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
@@ -25,6 +26,11 @@ public class EditorDeMapa implements ControlavelModoEditor {
 	@Override
 	public void alterarElemento(Posicao posicao, Elemento novo) {
 		mapa.modificar(posicao, novo);
+	}
+
+	@Override
+	public void rotacionar(Direcao d) {
+		mapa.rotacionar(d);
 	}
 
 	@Override
