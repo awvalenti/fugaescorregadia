@@ -6,23 +6,25 @@ import com.github.awvalenti.fugaescorregadia.componentes.ImportadorExportadorMap
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeituraEscrita;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.SaidaMapaEscrita;
 
 public class EditorDeMapa implements ControlavelModoEditor {
 
-	private final SaidaModoEditor saida;
+	private final SaidaMapaEscrita saida;
 	private final ImportadorExportadorMapa impExp;
 	private MapaLeituraEscrita mapa;
 
-	public EditorDeMapa(SaidaModoEditor saida, ImportadorExportadorMapa impExp, MapaLeituraEscrita mapa) {
+	public EditorDeMapa(SaidaMapaEscrita saida, ImportadorExportadorMapa impExp, MapaLeituraEscrita mapa) {
 		this.saida = saida;
 		this.impExp = impExp;
 		this.mapa = mapa;
+		mapa.setSaida(saida);
 		iniciar();
 	}
 
 	@Override
 	public void alterarElemento(Posicao posicao, Elemento novo) {
-		mapa.modificarProduzindoSaida(posicao, novo, saida);
+		mapa.modificar(posicao, novo);
 	}
 
 	@Override
@@ -37,7 +39,7 @@ public class EditorDeMapa implements ControlavelModoEditor {
 	}
 
 	private void iniciar() {
-		saida.novoMapaCarregado(mapa);
+		saida.mapaCompletamenteAlterado(mapa);
 	}
 
 }

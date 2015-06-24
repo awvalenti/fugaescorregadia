@@ -2,6 +2,8 @@ package com.github.awvalenti.fugaescorregadia.nucleo.comum;
 
 public interface SaidaMapaEscrita {
 
-	void mapaAlterado(Posicao p, Elemento novo);
+	void mapaCompletamenteAlterado(MapaLeitura mapa);
+
+	void elementoAlterado(Posicao p, Elemento novo);
 
 }

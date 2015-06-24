@@ -7,7 +7,13 @@ import java.util.Optional;
 
 public class MapaLeituraEscrita implements MapaLeitura {
 
-	private Elemento[][] matriz;
+	private static final SaidaMapaEscrita SAIDA_NULA = new SaidaMapaEscrita() {
+		@Override public void elementoAlterado(Posicao p, Elemento novo) {}
+		@Override public void mapaCompletamenteAlterado(MapaLeitura mapa) {}
+	};
+
+	private final Elemento[][] matriz;
+	private SaidaMapaEscrita saida = SAIDA_NULA;
 
 	public MapaLeituraEscrita(Elemento[][] matriz) {
 		this.matriz = matriz;
@@ -17,8 +23,12 @@ public class MapaLeituraEscrita implements MapaLeitura {
 		this(new Elemento[outro.getNumeroLinhas()][outro.getNumeroColunas()]);
 
 		for (IteradorMapa it = outro.iterador(); it.temProximo(); it.avancar()) {
-			alterarMatriz(it.posicaoAtual(), it.elementoAtual(), SAIDA_NULA);
+			alterarMatriz(it.posicaoAtual(), it.elementoAtual());
 		}
+	}
+
+	public void setSaida(SaidaMapaEscrita saida) {
+		this.saida = saida;
 	}
 
 	@Override
@@ -36,44 +46,11 @@ public class MapaLeituraEscrita implements MapaLeitura {
 		return posicaoValida(p) ? matriz[p.getLinha()][p.getColuna()] : OBSTACULO;
 	}
 
-	public void rotacionar(Direcao d) {
-		int incLinha = d.getIncrementoLinha(), incColuna = d.getIncrementoColuna();
-
-		if (d.ehHorizontal()) {
-			int colunaPrimeiroElemento = ((getNumeroColunas() - 1) * (incColuna + 1)) / 2,
-					colunaUltimoElemento = ((getNumeroColunas() - 1) * (-incColuna + 1)) / 2;
-
-			for (int linha = 0; linha < getNumeroLinhas(); ++linha) {
-				Elemento primeiro = matriz[linha][colunaPrimeiroElemento];
-				for (int coluna = colunaPrimeiroElemento; coluna != colunaUltimoElemento; coluna -= incColuna) {
-					matriz[linha][coluna] = matriz[linha][coluna - incColuna];
-				}
-				matriz[linha][colunaUltimoElemento] = primeiro;
-			}
-		} else if (d.ehVertical()) {
-			int linhaPrimeiroElemento = ((getNumeroLinhas() - 1) * (incLinha + 1)) / 2,
-					linhaUltimoElemento = ((getNumeroLinhas() - 1) * (-incLinha + 1)) / 2;
-
-			for (int coluna = 0; coluna < getNumeroColunas(); ++coluna) {
-				Elemento primeiro = matriz[linhaPrimeiroElemento][coluna];
-				for (int linha = linhaPrimeiroElemento; linha != linhaUltimoElemento; linha -= incLinha) {
-					matriz[linha][coluna] = matriz[linha - incLinha][coluna];
-				}
-				matriz[linhaUltimoElemento][coluna] = primeiro;
-			}
-		}
-	}
-
-	public final void modificarSemProduzirSaida(Posicao p, Elemento novo) {
-		modificarProduzindoSaida(p, novo, SAIDA_NULA);
-	}
-
-	public final void modificarProduzindoSaida(Posicao p, Elemento novo, SaidaMapaEscrita saida) {
+	public final void modificar(Posicao p, Elemento novo) {
 		if (novo.somenteUmPorMapa()) {
-			encontrar(novo).ifPresent(
-					ondeEstavaAntes -> alterarMatriz(ondeEstavaAntes, VAZIO, saida));
+			encontrar(novo).ifPresent(ondeEstavaAntes -> alterarMatriz(ondeEstavaAntes, VAZIO));
 		}
-		alterarMatriz(p, novo, saida);
+		alterarMatriz(p, novo);
 	}
 
 	public final Optional<Posicao> encontrar(Elemento e) {
@@ -84,9 +61,44 @@ public class MapaLeituraEscrita implements MapaLeitura {
 		return Optional.empty();
 	}
 
-	private void alterarMatriz(Posicao p, Elemento elemento, SaidaMapaEscrita saida) {
+	private void alterarMatriz(Posicao p, Elemento elemento) {
 		matriz[p.getLinha()][p.getColuna()] = elemento;
-		saida.mapaAlterado(p, elemento);
+		saida.elementoAlterado(p, elemento);
+	}
+
+	public void rotacionar(Direcao d) {
+		int incLinha = d.getIncrementoLinha(), incColuna = d.getIncrementoColuna();
+
+		if (d.ehHorizontal()) {
+			rotacionarHorizontalmente(incColuna, ((getNumeroColunas() - 1) * (incColuna + 1)) / 2,
+					((getNumeroColunas() - 1) * (-incColuna + 1)) / 2);
+		} else if (d.ehVertical()) {
+			rotacionarVerticalmente(incLinha, ((getNumeroLinhas() - 1) * (incLinha + 1)) / 2,
+					((getNumeroLinhas() - 1) * (-incLinha + 1)) / 2);
+		}
+
+		saida.mapaCompletamenteAlterado(this);
+	}
+
+	private void rotacionarVerticalmente(int incLinha, int linhaPrimeiroElemento, int linhaUltimoElemento) {
+		for (int coluna = 0; coluna < getNumeroColunas(); ++coluna) {
+			Elemento primeiro = matriz[linhaPrimeiroElemento][coluna];
+			for (int linha = linhaPrimeiroElemento; linha != linhaUltimoElemento; linha -= incLinha) {
+				matriz[linha][coluna] = matriz[linha - incLinha][coluna];
+			}
+			matriz[linhaUltimoElemento][coluna] = primeiro;
+		}
+	}
+
+	private void rotacionarHorizontalmente(int incColuna, int colunaPrimeiroElemento,
+			int colunaUltimoElemento) {
+		for (int linha = 0; linha < getNumeroLinhas(); ++linha) {
+			Elemento primeiro = matriz[linha][colunaPrimeiroElemento];
+			for (int coluna = colunaPrimeiroElemento; coluna != colunaUltimoElemento; coluna -= incColuna) {
+				matriz[linha][coluna] = matriz[linha][coluna - incColuna];
+			}
+			matriz[linha][colunaUltimoElemento] = primeiro;
+		}
 	}
 
 	@Override
@@ -94,6 +106,11 @@ public class MapaLeituraEscrita implements MapaLeitura {
 		int linha = p.getLinha(), coluna = p.getColuna();
 		return linha >= 0 && linha < getNumeroLinhas() && coluna >= 0
 				&& coluna < getNumeroColunas();
+	}
+
+	@Override
+	public IteradorMapa iterador() {
+		return new IteradorMapa(this);
 	}
 
 	@Override
@@ -111,16 +128,5 @@ public class MapaLeituraEscrita implements MapaLeitura {
 	public String toString() {
 		return Arrays.deepToString(matriz);
 	}
-
-	@Override
-	public IteradorMapa iterador() {
-		return new IteradorMapa(this);
-	}
-
-	private static final SaidaMapaEscrita SAIDA_NULA = new SaidaMapaEscrita() {
-		@Override
-		public void mapaAlterado(Posicao p, Elemento novo) {
-		}
-	};
 
 }

@@ -7,9 +7,9 @@ import com.github.awvalenti.fugaescorregadia.interfacegrafica.comum.PainelElemen
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeitura;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
-import com.github.awvalenti.fugaescorregadia.nucleo.modoeditor.SaidaModoEditor;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.SaidaMapaEscrita;
 
-public class PainelElementosModoEditor extends PainelElementos implements SaidaModoEditor, ConversorDeXYParaPosicao {
+public class PainelElementosModoEditor extends PainelElementos implements SaidaMapaEscrita, ConversorDeXYParaPosicao {
 
 	private static final long serialVersionUID = 1L;
 
@@ -19,12 +19,12 @@ public class PainelElementosModoEditor extends PainelElementos implements SaidaM
 	}
 
 	@Override
-	public void novoMapaCarregado(MapaLeitura mapa) {
+	public void mapaCompletamenteAlterado(MapaLeitura mapa) {
 		preencher(mapa);
 	}
 
 	@Override
-	public void mapaAlterado(Posicao p, Elemento novo) {
+	public void elementoAlterado(Posicao p, Elemento novo) {
 		alterarElemento(p, novo);
 	}
 

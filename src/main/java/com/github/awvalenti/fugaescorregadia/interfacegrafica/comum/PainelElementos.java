@@ -1,7 +1,5 @@
 package com.github.awvalenti.fugaescorregadia.interfacegrafica.comum;
 
-import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao.*;
-
 import java.awt.Color;
 import java.awt.GridLayout;
 
@@ -9,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.IteradorMapa;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeitura;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
 
@@ -38,11 +37,8 @@ public abstract class PainelElementos extends JPanel {
 	}
 
 	protected final void preencher(MapaLeitura mapa) {
-		for (int linha = 0; linha < numeroLinhas; ++linha) {
-			for (int coluna = 0; coluna < numeroColunas; ++coluna) {
-				Posicao p = aPosicao(linha, coluna);
-				alterarElemento(p, mapa.getElemento(p));
-			}
+		for (IteradorMapa it = mapa.iterador(); it.temProximo(); it.avancar()) {
+			alterarElemento(it.posicaoAtual(), it.elementoAtual());
 		}
 	}
 
