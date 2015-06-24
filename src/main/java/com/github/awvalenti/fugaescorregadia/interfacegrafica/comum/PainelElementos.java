@@ -2,6 +2,7 @@ package com.github.awvalenti.fugaescorregadia.interfacegrafica.comum;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -45,6 +46,11 @@ public abstract class PainelElementos extends JPanel {
 	protected final void alterarElemento(Posicao posicao, Elemento elemento) {
 		int indiceLinear = numeroColunas * posicao.getLinha() + posicao.getColuna();
 		atualizarLabelElemento(((JLabel) getComponent(indiceLinear)), elemento);
+	}
+
+	protected final Rectangle areaDoElementoNaPosicao(Posicao p) {
+		int tamanho = fabricaIcones.tamanhoIcone();
+		return new Rectangle(tamanho * p.getColuna(), tamanho * p.getLinha(), tamanho, tamanho);
 	}
 
 	private JLabel criarLabelElemento() {

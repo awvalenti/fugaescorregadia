@@ -37,9 +37,8 @@ public class PainelElementosModoHistoria extends PainelElementos implements Said
 	public void movimento(Posicao origem, Elemento elementoNaOrigem, Posicao destino) {
 		alterarElemento(origem, elementoNaOrigem);
 		alterarElemento(destino, PERSONAGEM);
-		int tamanho = fabricaIcones.tamanhoIcone();
-		paintImmediately(tamanho * origem.getColuna(), tamanho * origem.getLinha(), tamanho, tamanho);
-		paintImmediately(tamanho * destino.getColuna(), tamanho * destino.getLinha(), tamanho, tamanho);
+		paintImmediately(areaDoElementoNaPosicao(origem));
+		paintImmediately(areaDoElementoNaPosicao(destino));
 		try {
 			Thread.sleep(atrasoAtualizacaoTela);
 		} catch (InterruptedException e) {
