@@ -19,8 +19,8 @@ public class MapaLeituraEscritaFuncionalidadesGeraisTest extends MapaLeituraEscr
 	}
 
 	@Test
-	public void deve_encontrar_elemento() {
-		assertThat(mapa.encontrar(PERSONAGEM), is(Optional.of(aPosicao(0, 1))));
+	public void deve_buscar_elemento() {
+		assertThat(mapa.buscar(PERSONAGEM), is(Optional.of(aPosicao(0, 1))));
 	}
 
 	@Test

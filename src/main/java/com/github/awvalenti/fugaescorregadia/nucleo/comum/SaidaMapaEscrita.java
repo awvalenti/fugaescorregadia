@@ -6,4 +6,9 @@ public interface SaidaMapaEscrita {
 
 	void elementoAlterado(Posicao p, Elemento novo);
 
+	SaidaMapaEscrita NULA = new SaidaMapaEscrita() {
+		@Override public void elementoAlterado(Posicao p, Elemento novo) {}
+		@Override public void mapaCompletamenteAlterado(MapaLeitura mapa) {}
+	};
+
 }

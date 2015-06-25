@@ -7,13 +7,8 @@ import java.util.Optional;
 
 public class MapaLeituraEscrita implements MapaLeitura {
 
-	private static final SaidaMapaEscrita SAIDA_NULA = new SaidaMapaEscrita() {
-		@Override public void elementoAlterado(Posicao p, Elemento novo) {}
-		@Override public void mapaCompletamenteAlterado(MapaLeitura mapa) {}
-	};
-
 	private final Elemento[][] matriz;
-	private SaidaMapaEscrita saida = SAIDA_NULA;
+	private SaidaMapaEscrita saida = SaidaMapaEscrita.NULA;
 
 	public MapaLeituraEscrita(Elemento[][] matriz) {
 		this.matriz = matriz;
@@ -48,12 +43,12 @@ public class MapaLeituraEscrita implements MapaLeitura {
 
 	public final void modificar(Posicao p, Elemento novo) {
 		if (novo.somenteUmPorMapa()) {
-			encontrar(novo).ifPresent(ondeEstavaAntes -> alterarMatriz(ondeEstavaAntes, VAZIO));
+			buscar(novo).ifPresent(ondeEstavaAntes -> alterarMatriz(ondeEstavaAntes, VAZIO));
 		}
 		alterarMatriz(p, novo);
 	}
 
-	public final Optional<Posicao> encontrar(Elemento e) {
+	public final Optional<Posicao> buscar(Elemento e) {
 		for (IteradorMapa it = iterador(); it.temProximo(); it.avancar()) {
 			if (it.elementoAtual().equals(e)) return Optional.of(it.posicaoAtual());
 		}
