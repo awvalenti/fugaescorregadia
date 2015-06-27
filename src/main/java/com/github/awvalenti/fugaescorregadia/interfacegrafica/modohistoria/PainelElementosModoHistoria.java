@@ -39,8 +39,7 @@ public class PainelElementosModoHistoria extends PainelElementos implements Said
 	public void movimento(Posicao origem, Elemento elementoNaOrigem, Posicao destino) {
 		alterarElemento(origem, elementoNaOrigem);
 		alterarElemento(destino, PERSONAGEM);
-		paintImmediately(areaDoElementoNaPosicao(origem));
-		paintImmediately(areaDoElementoNaPosicao(destino));
+		paintImmediately(areaDoElementoNaPosicao(origem).union(areaDoElementoNaPosicao(destino)));
 		try {
 			Thread.sleep(atrasoAtualizacaoTela);
 		} catch (InterruptedException e) {
