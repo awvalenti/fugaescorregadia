@@ -1,7 +1,9 @@
-package com.github.awvalenti.fugaescorregadia.nucleo.comum;
+package com.github.awvalenti.fugaescorregadia.nucleo.modohistoria;
 
-import com.github.awvalenti.fugaescorregadia.nucleo.modohistoria.ControlavelModoHistoria;
-import com.github.awvalenti.fugaescorregadia.nucleo.modohistoria.SaidaTentativa;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.Direcao;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeitura;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
 
 public class Tentativa implements ControlavelModoHistoria {
 

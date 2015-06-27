@@ -1,6 +1,11 @@
-package com.github.awvalenti.fugaescorregadia.nucleo.comum;
+package com.github.awvalenti.fugaescorregadia.nucleo.modohistoria;
 
 import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento.*;
+
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeitura;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeituraEscrita;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
 
 public class Tabuleiro {
 

@@ -7,8 +7,8 @@ import com.github.awvalenti.fugaescorregadia.componentes.ImportadorExportadorMap
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeitura;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
-import com.github.awvalenti.fugaescorregadia.nucleo.comum.Tentativa;
 import com.github.awvalenti.fugaescorregadia.nucleo.modohistoria.SaidaTentativa;
+import com.github.awvalenti.fugaescorregadia.nucleo.modohistoria.Tentativa;
 
 public abstract class TentativaTest extends TesteBase {
 

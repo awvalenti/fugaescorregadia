@@ -8,7 +8,7 @@ import com.github.awvalenti.fugaescorregadia.interfacegrafica.comum.JanelaJogo;
 import com.github.awvalenti.fugaescorregadia.interfacegrafica.modohistoria.ControladorModoHistoria;
 import com.github.awvalenti.fugaescorregadia.interfacegrafica.modohistoria.PainelElementosModoHistoria;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeitura;
-import com.github.awvalenti.fugaescorregadia.nucleo.comum.Tentativa;
+import com.github.awvalenti.fugaescorregadia.nucleo.modohistoria.Tentativa;
 
 public class MainModoHistoria {
 
