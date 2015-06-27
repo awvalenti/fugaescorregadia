@@ -1,28 +1,28 @@
 package com.github.awvalenti.fugaescorregadia.nucleo.comum;
 
-import static com.github.awvalenti.fugaescorregadia.nucleo.comum.AlgoritmoPassagem.*;
 import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Direcao.*;
+import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento.UtilidadesParaCriacaoDeElemento.*;
 
 import java.util.Arrays;
 
 public enum Elemento {
-	VAZIO('-', muitosPorMapa(), PERMITE_PASSAGEM),
-
 	PERSONAGEM('_', umPorMapa(), SE_TENTAR_PASSAR_OCORRE_ERRO),
 
-	PARTIDA('p', umPorMapa(), PERMITE_PASSAGEM),
+	VAZIO('-', muitosPorMapa(), PERMITE_PASSAGEM_TOTAL),
 
-	CHEGADA('c', umPorMapa(), PERMITE_PASSAGEM),
+	PARTIDA('p', umPorMapa(), PERMITE_ENTRADA_MAS_NAO_SAIDA),
 
-	OBSTACULO('o', muitosPorMapa(), BLOQUEIA_PASSAGEM),
+	CHEGADA('c', umPorMapa(), PERMITE_ENTRADA_MAS_NAO_SAIDA),
 
-	SETA_CIMA('^', muitosPorMapa(), passagemSomenteIndoPara(CIMA)),
+	OBSTACULO('o', muitosPorMapa(), BLOQUEIA_TOTALMENTE_PASSAGEM),
 
-	SETA_BAIXO('v', muitosPorMapa(), passagemSomenteIndoPara(BAIXO)),
+	SETA_CIMA('^', muitosPorMapa(), permitePassagemSomentePara(CIMA)),
 
-	SETA_ESQUERDA('<', muitosPorMapa(), passagemSomenteIndoPara(ESQUERDA)),
+	SETA_BAIXO('v', muitosPorMapa(), permitePassagemSomentePara(BAIXO)),
 
-	SETA_DIREITA('>', muitosPorMapa(), passagemSomenteIndoPara(DIREITA)),
+	SETA_ESQUERDA('<', muitosPorMapa(), permitePassagemSomentePara(ESQUERDA)),
+
+	SETA_DIREITA('>', muitosPorMapa(), permitePassagemSomentePara(DIREITA)),
 
 	;
 
@@ -50,8 +50,12 @@ public enum Elemento {
 		return caractere;
 	}
 
-	public boolean permitePassagem(Direcao paraOndeVai) {
-		return algoritmoPassagem.permitePasagem(paraOndeVai);
+	public boolean permiteEntrada(Direcao paraOndeVai) {
+		return algoritmoPassagem.permiteEntrada(paraOndeVai);
+	}
+
+	public boolean permiteSaidaImediata() {
+		return algoritmoPassagem.permiteSaidaImediata();
 	}
 
 	public boolean somenteUmPorMapa() {
@@ -62,21 +66,41 @@ public enum Elemento {
 		return equals(CHEGADA);
 	}
 
-}
-
-interface AlgoritmoPassagem {
-	boolean permitePasagem(Direcao paraOndeVai);
-
-	static final AlgoritmoPassagem BLOQUEIA_PASSAGEM = paraOndeVai -> false;
-	static final AlgoritmoPassagem PERMITE_PASSAGEM = paraOndeVai -> true;
-	static final AlgoritmoPassagem SE_TENTAR_PASSAR_OCORRE_ERRO = paraOndeVai -> {
-		throw new IllegalStateException();
-	};
-
-	static AlgoritmoPassagem passagemSomenteIndoPara(Direcao d) {
-		return paraOndeVai -> paraOndeVai.equals(d);
+	private static interface AlgoritmoPassagem {
+		boolean permiteEntrada(Direcao paraOndeVai);
+		boolean permiteSaidaImediata();
 	}
 
-	static boolean muitosPorMapa() { return false; }
-	static boolean umPorMapa() { return true; }
+	static class UtilidadesParaCriacaoDeElemento {
+		static boolean muitosPorMapa() { return false; }
+		static boolean umPorMapa() { return true; }
+
+		static final AlgoritmoPassagem BLOQUEIA_TOTALMENTE_PASSAGEM = new AlgoritmoPassagem() {
+			@Override public boolean permiteEntrada(Direcao paraOndeVai) { return false; }
+			@Override public boolean permiteSaidaImediata() { return false; }
+		};
+
+		static final AlgoritmoPassagem PERMITE_PASSAGEM_TOTAL = new AlgoritmoPassagem() {
+			@Override public boolean permiteEntrada(Direcao paraOndeVai) { return true; }
+			@Override public boolean permiteSaidaImediata() { return true; }
+		};
+
+		static final AlgoritmoPassagem PERMITE_ENTRADA_MAS_NAO_SAIDA = new AlgoritmoPassagem() {
+			@Override public boolean permiteEntrada(Direcao paraOndeVai) { return true; }
+			@Override public boolean permiteSaidaImediata() { return false; }
+		};
+
+		static final AlgoritmoPassagem SE_TENTAR_PASSAR_OCORRE_ERRO = new AlgoritmoPassagem() {
+			@Override public boolean permiteEntrada(Direcao paraOndeVai) { throw new IllegalStateException(); }
+			@Override public boolean permiteSaidaImediata() { throw new IllegalStateException(); }
+		};
+
+		static AlgoritmoPassagem permitePassagemSomentePara(Direcao d) {
+			return new AlgoritmoPassagem() {
+				@Override public boolean permiteEntrada(Direcao paraOndeVai) { return paraOndeVai.equals(d); }
+				@Override public boolean permiteSaidaImediata() { return true; }
+			};
+		}
+	}
+
 }

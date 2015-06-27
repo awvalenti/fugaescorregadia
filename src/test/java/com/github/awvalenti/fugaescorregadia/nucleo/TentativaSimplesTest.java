@@ -16,6 +16,7 @@ public class TentativaSimplesTest extends TentativaTest {
 				+ "- p - - o\n"
 				+ "- - - - -\n"
 				+ "o o - c -\n"
+				+ "o o - - -\n"
 				+ "";
 	}
 
@@ -39,14 +40,22 @@ public class TentativaSimplesTest extends TentativaTest {
 	@Test
 	public void segundo_movimento_deve_partir_de_onde_terminou_o_primeiro() {
 		tentativa.efetuarMovimento(CIMA);
-		tentativa.efetuarMovimento(BAIXO);
-		assertThat(saida.caminhoPercorrido(), is("11 01 01 11 11 21"));
+		tentativa.efetuarMovimento(DIREITA);
+		assertThat(saida.caminhoPercorrido(), is("11 01 01 02 02 03"));
 	}
 
 	@Test
-	public void ao_atingir_chegada_deve_informar_que_passou_de_fase() {
+	public void ao_voltar_para_ponto_de_partida_personsagem_deve_colar_nele() {
+		tentativa.efetuarMovimento(DIREITA);
+		tentativa.efetuarMovimento(ESQUERDA);
+		assertThat(saida.caminhoPercorrido(), is("11 12 12 13 13 12 12 11"));
+	}
+
+	@Test
+	public void ao_atingir_chegada_deve_parar_movimento_e_informar_passagem_de_fase() {
 		tentativa.efetuarMovimento(DIREITA);
 		tentativa.efetuarMovimento(BAIXO);
+		assertThat(saida.caminhoPercorrido(), is("11 12 12 13 13 23 23 33"));
 		assertThat(saida.passouDeFase(), is(true));
 	}
 

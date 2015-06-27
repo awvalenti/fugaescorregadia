@@ -20,13 +20,11 @@ public class Tentativa implements ControlavelModoHistoria {
 			Posicao origem = tabuleiro.getPosicaoPersonagem();
 			Posicao destino = origem.somar(d);
 			Elemento elementoAlcancado = tabuleiro.getElemento(destino);
-			if (!elementoAlcancado.permitePassagem(d)) break;
+			if (!elementoAlcancado.permiteEntrada(d)) break;
 			saida.movimento(origem, tabuleiro.getElemento(origem), destino);
 			tabuleiro.setPosicaoPersonagem(destino);
-			if (elementoAlcancado.fazPassarDeFase()) {
-				saida.passagemDeFase();
-				break;
-			}
+			if (elementoAlcancado.fazPassarDeFase()) saida.passagemDeFase();
+			if (!elementoAlcancado.permiteSaidaImediata()) break;
 		}
 	}
 
