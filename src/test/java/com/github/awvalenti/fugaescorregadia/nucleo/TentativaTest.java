@@ -25,10 +25,11 @@ public abstract class TentativaTest extends TesteBase {
 
 	protected abstract String obterMapaEmString();
 
-	public static class SaidaSpy implements SaidaTentativa {
+	protected static class SaidaSpy implements SaidaTentativa {
 
 		private final StringBuilder caminho = new StringBuilder();
 		private boolean iniciou = false;
+		private boolean passouDeFase = false;
 
 		public String caminhoPercorrido() {
 			return caminho.substring(0, caminho.length() - 1);
@@ -38,6 +39,15 @@ public abstract class TentativaTest extends TesteBase {
 			return iniciou;
 		}
 
+		public boolean passouDeFase() {
+			return passouDeFase;
+		}
+
+		@Override
+		public void inicioTentativa(MapaLeitura mapa) {
+			iniciou = true;
+		}
+
 		@Override
 		public void movimento(Posicao origem, Elemento elementoNaOrigem, Posicao destino) {
 			caminharPor(origem);
@@ -45,8 +55,8 @@ public abstract class TentativaTest extends TesteBase {
 		}
 
 		@Override
-		public void inicioTentativa(MapaLeitura mapa) {
-			iniciou = true;
+		public void passagemDeFase() {
+			passouDeFase = true;
 		}
 
 		private void caminharPor(Posicao p) {

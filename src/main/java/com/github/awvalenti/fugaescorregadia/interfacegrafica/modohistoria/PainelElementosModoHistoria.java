@@ -6,6 +6,8 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 
+import javax.swing.JOptionPane;
+
 import com.github.awvalenti.fugaescorregadia.interfacegrafica.comum.FabricaIcones;
 import com.github.awvalenti.fugaescorregadia.interfacegrafica.comum.PainelElementos;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
@@ -45,6 +47,11 @@ public class PainelElementosModoHistoria extends PainelElementos implements Said
 		} catch (InterruptedException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	@Override
+	public void passagemDeFase() {
+		JOptionPane.showMessageDialog(this, "Passou de fase!");
 	}
 
 }

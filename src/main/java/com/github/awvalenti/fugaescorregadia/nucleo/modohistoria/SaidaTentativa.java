@@ -10,4 +10,6 @@ public interface SaidaTentativa {
 
 	void movimento(Posicao origem, Elemento elementoNaOrigem, Posicao destino);
 
+	void passagemDeFase();
+
 }

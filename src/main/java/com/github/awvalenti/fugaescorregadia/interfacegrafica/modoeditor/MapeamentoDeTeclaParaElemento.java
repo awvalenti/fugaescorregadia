@@ -17,7 +17,7 @@ public class MapeamentoDeTeclaParaElemento {
 		mapeamento.put('0', VAZIO);
 		mapeamento.put('1', PERSONAGEM);
 		mapeamento.put('2', SETA_BAIXO);
-		mapeamento.put('3', PORTAL);
+		mapeamento.put('3', CHEGADA);
 		mapeamento.put('4', SETA_ESQUERDA);
 		mapeamento.put('5', OBSTACULO);
 		mapeamento.put('6', SETA_DIREITA);

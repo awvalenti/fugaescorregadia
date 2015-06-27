@@ -10,7 +10,7 @@ public enum Elemento {
 
 	PERSONAGEM('p', umPorMapa(), SE_TENTAR_PASSAR_OCORRE_ERRO),
 
-	PORTAL('*', umPorMapa(), PERMITE_PASSAGEM),
+	CHEGADA('*', umPorMapa(), PERMITE_PASSAGEM),
 
 	OBSTACULO('o', muitosPorMapa(), BLOQUEIA_PASSAGEM),
 
@@ -54,6 +54,10 @@ public enum Elemento {
 
 	public boolean somenteUmPorMapa() {
 		return somenteUmPorMapa;
+	}
+
+	public boolean fazPassarDeFase() {
+		return equals(CHEGADA);
 	}
 
 }
