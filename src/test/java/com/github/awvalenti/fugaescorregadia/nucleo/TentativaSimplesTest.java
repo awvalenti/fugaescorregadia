@@ -1,6 +1,7 @@
 package com.github.awvalenti.fugaescorregadia.nucleo;
 
 import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Direcao.*;
+import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao.*;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
@@ -20,7 +21,7 @@ public class TentativaSimplesTest extends TentativaTest {
 
 	@Test
 	public final void ao_ser_criada_deve_avisar_saida_jogo() {
-		assertThat(saida.iniciou(), is(true));
+		assertThat(saida.iniciouEm(), is(aPosicao(1, 1)));
 	}
 
 	@Test

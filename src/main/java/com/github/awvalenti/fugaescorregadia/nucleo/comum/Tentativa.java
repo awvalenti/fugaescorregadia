@@ -11,7 +11,7 @@ public class Tentativa implements ControlavelModoHistoria {
 	public Tentativa(MapaLeitura mapa, SaidaTentativa saida) {
 		this.saida = saida;
 		this.tabuleiro = new Tabuleiro(mapa);
-		saida.inicioTentativa(mapa);
+		saida.inicioTentativa(mapa, tabuleiro.getPosicaoPersonagem());
 	}
 
 	@Override

@@ -15,7 +15,7 @@ public class MapeamentoDeTeclaParaElemento {
 
 	public MapeamentoDeTeclaParaElemento() {
 		mapeamento.put('0', VAZIO);
-		mapeamento.put('1', PERSONAGEM);
+		mapeamento.put('1', PARTIDA);
 		mapeamento.put('2', SETA_BAIXO);
 		mapeamento.put('3', CHEGADA);
 		mapeamento.put('4', SETA_ESQUERDA);
@@ -23,8 +23,6 @@ public class MapeamentoDeTeclaParaElemento {
 		mapeamento.put('6', SETA_DIREITA);
 
 		mapeamento.put('8', SETA_CIMA);
-
-		verificarMapeamentoDeTodosElementos();
 	}
 
 	public Optional<Elemento> elementoDaTecla(char codigoTecla) {
@@ -33,14 +31,6 @@ public class MapeamentoDeTeclaParaElemento {
 
 	public Optional<Direcao> direcaoDaTecla(int codigoTecla) {
 		return Direcao.doCodigoTecla(codigoTecla);
-	}
-
-	private void verificarMapeamentoDeTodosElementos() {
-		for (Elemento e : Elemento.values()) {
-			if (!mapeamento.containsValue(e)) {
-				throw new IllegalStateException(e + " ausente do mapeamento de teclas");
-			}
-		}
 	}
 
 }

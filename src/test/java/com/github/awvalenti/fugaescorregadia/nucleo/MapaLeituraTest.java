@@ -32,7 +32,7 @@ public class MapaLeituraTest extends TesteBase {
 
 	@Test
 	public void deve_obter_elemento_por_posicao() {
-		assertThat(mapa.getElemento(aPosicao(0, 0)), is(PERSONAGEM));
+		assertThat(mapa.getElemento(aPosicao(0, 0)), is(PARTIDA));
 		assertThat(mapa.getElemento(aPosicao(0, 1)), is(VAZIO));
 		assertThat(mapa.getElemento(aPosicao(0, 2)), is(OBSTACULO));
 		assertThat(mapa.getElemento(aPosicao(1, 0)), is(VAZIO));

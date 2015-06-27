@@ -10,8 +10,7 @@ public class Tabuleiro {
 
 	public Tabuleiro(MapaLeitura mapaACopiar) {
 		mapa = new MapaLeituraEscrita(mapaACopiar);
-		posicaoPersonagem = mapa.buscar(PERSONAGEM).get();
-		mapa.modificar(posicaoPersonagem, VAZIO);
+		posicaoPersonagem = mapa.buscar(PARTIDA).get();
 	}
 
 	public Posicao getPosicaoPersonagem() {

@@ -6,7 +6,7 @@ import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
 
 public interface SaidaTentativa {
 
-	void inicioTentativa(MapaLeitura mapa);
+	void inicioTentativa(MapaLeitura mapa, Posicao posicaoPersonagem);
 
 	void movimento(Posicao origem, Elemento elementoNaOrigem, Posicao destino);
 

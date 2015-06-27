@@ -14,13 +14,13 @@ public class MapaLeituraEscritaFuncionalidadesGeraisTest extends MapaLeituraEscr
 
 	@Test
 	public void situacao_inicial() {
-		assertThat(mapa.getElemento(aPosicao(0, 1)), is(PERSONAGEM));
+		assertThat(mapa.getElemento(aPosicao(0, 1)), is(PARTIDA));
 		assertThat(mapa.getElemento(aPosicao(0, 2)), is(VAZIO));
 	}
 
 	@Test
 	public void deve_buscar_elemento() {
-		assertThat(mapa.buscar(PERSONAGEM), is(Optional.of(aPosicao(0, 1))));
+		assertThat(mapa.buscar(PARTIDA), is(Optional.of(aPosicao(0, 1))));
 	}
 
 	@Test
@@ -33,12 +33,12 @@ public class MapaLeituraEscritaFuncionalidadesGeraisTest extends MapaLeituraEscr
 
 	@Test
 	public void deve_informar_duas_alteracoes_ao_modificar_elementos_do_tipo_somente_um_por_mapa() {
-		mapa.modificar(aPosicao(0, 2), PERSONAGEM);
+		mapa.modificar(aPosicao(0, 2), PARTIDA);
 		verify(saida).elementoAlterado(aPosicao(0, 1), VAZIO);
-		verify(saida).elementoAlterado(aPosicao(0, 2), PERSONAGEM);
+		verify(saida).elementoAlterado(aPosicao(0, 2), PARTIDA);
 		verifyNoMoreInteractions(saida);
 		assertThat(mapa.getElemento(aPosicao(0, 1)), is(VAZIO));
-		assertThat(mapa.getElemento(aPosicao(0, 2)), is(PERSONAGEM));
+		assertThat(mapa.getElemento(aPosicao(0, 2)), is(PARTIDA));
 	}
 
 }

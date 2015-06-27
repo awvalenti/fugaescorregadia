@@ -25,7 +25,7 @@ public class ImportadorExportadorMapaTest extends TesteBase {
 	public void setUp() {
 		impExp = obterInstancia(ImportadorExportadorMapa.class);
 		mapaTeste = new MapaLeituraEscrita(new Elemento[][] {
-			{ VAZIO, PERSONAGEM, VAZIO },
+			{ VAZIO, PARTIDA, VAZIO },
 			{ OBSTACULO, VAZIO, VAZIO },
 		});
 	}

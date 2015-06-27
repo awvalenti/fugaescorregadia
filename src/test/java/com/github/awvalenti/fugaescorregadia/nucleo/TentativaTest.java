@@ -28,15 +28,15 @@ public abstract class TentativaTest extends TesteBase {
 	protected static class SaidaSpy implements SaidaTentativa {
 
 		private final StringBuilder caminho = new StringBuilder();
-		private boolean iniciou = false;
 		private boolean passouDeFase = false;
+		private Posicao posicaoInicial;
 
 		public String caminhoPercorrido() {
 			return caminho.substring(0, caminho.length() - 1);
 		}
 
-		public boolean iniciou() {
-			return iniciou;
+		public Posicao iniciouEm() {
+			return posicaoInicial;
 		}
 
 		public boolean passouDeFase() {
@@ -44,8 +44,8 @@ public abstract class TentativaTest extends TesteBase {
 		}
 
 		@Override
-		public void inicioTentativa(MapaLeitura mapa) {
-			iniciou = true;
+		public void inicioTentativa(MapaLeitura mapa, Posicao posicaoPersonagem) {
+			posicaoInicial = posicaoPersonagem;
 		}
 
 		@Override
@@ -62,6 +62,7 @@ public abstract class TentativaTest extends TesteBase {
 		private void caminharPor(Posicao p) {
 			caminho.append(p.getLinha()).append(p.getColuna()).append(' ');
 		}
+
 	}
 
 }

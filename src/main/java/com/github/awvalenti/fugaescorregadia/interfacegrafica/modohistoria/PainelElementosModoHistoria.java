@@ -33,8 +33,9 @@ public class PainelElementosModoHistoria extends PainelElementos implements Said
 	}
 
 	@Override
-	public void inicioTentativa(MapaLeitura mapa) {
+	public void inicioTentativa(MapaLeitura mapa, Posicao posicaoPersonagem) {
 		preencher(mapa);
+		alterarElemento(posicaoPersonagem, PERSONAGEM);
 	}
 
 	@Override
