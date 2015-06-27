@@ -11,9 +11,9 @@ import com.github.awvalenti.fugaescorregadia.interfacegrafica.comum.PainelElemen
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeitura;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
-import com.github.awvalenti.fugaescorregadia.nucleo.modohistoria.SaidaModoHistoria;
+import com.github.awvalenti.fugaescorregadia.nucleo.modohistoria.SaidaTentativa;
 
-public class PainelElementosModoHistoria extends PainelElementos implements SaidaModoHistoria {
+public class PainelElementosModoHistoria extends PainelElementos implements SaidaTentativa {
 
 	private static final long serialVersionUID = 1L;
 

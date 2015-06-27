@@ -8,7 +8,7 @@ import java.util.Optional;
 public class MapaLeituraEscrita implements MapaLeitura {
 
 	private final Elemento[][] matriz;
-	private SaidaMapaEscrita saida = SaidaMapaEscrita.NULA;
+	private SaidaMapa saida = SaidaMapa.NULA;
 
 	public MapaLeituraEscrita(Elemento[][] matriz) {
 		this.matriz = matriz;
@@ -22,7 +22,7 @@ public class MapaLeituraEscrita implements MapaLeitura {
 		}
 	}
 
-	public void setSaida(SaidaMapaEscrita saida) {
+	public void setSaida(SaidaMapa saida) {
 		this.saida = saida;
 	}
 

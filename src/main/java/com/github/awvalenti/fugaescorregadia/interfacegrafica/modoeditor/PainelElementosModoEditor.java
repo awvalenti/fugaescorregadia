@@ -12,9 +12,9 @@ import com.github.awvalenti.fugaescorregadia.interfacegrafica.comum.PainelElemen
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeitura;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
-import com.github.awvalenti.fugaescorregadia.nucleo.comum.SaidaMapaEscrita;
+import com.github.awvalenti.fugaescorregadia.nucleo.comum.SaidaMapa;
 
-public class PainelElementosModoEditor extends PainelElementos implements SaidaMapaEscrita, ConversorDeXYParaPosicao {
+public class PainelElementosModoEditor extends PainelElementos implements SaidaMapa, ConversorDeXYParaPosicao {
 
 	private static final long serialVersionUID = 1L;
 

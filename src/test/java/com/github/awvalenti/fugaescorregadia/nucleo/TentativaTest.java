@@ -8,7 +8,7 @@ import com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.MapaLeitura;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Posicao;
 import com.github.awvalenti.fugaescorregadia.nucleo.comum.Tentativa;
-import com.github.awvalenti.fugaescorregadia.nucleo.modohistoria.SaidaModoHistoria;
+import com.github.awvalenti.fugaescorregadia.nucleo.modohistoria.SaidaTentativa;
 
 public abstract class TentativaTest extends TesteBase {
 
@@ -25,7 +25,7 @@ public abstract class TentativaTest extends TesteBase {
 
 	protected abstract String obterMapaEmString();
 
-	public static class SaidaSpy implements SaidaModoHistoria {
+	public static class SaidaSpy implements SaidaTentativa {
 
 		private final StringBuilder caminho = new StringBuilder();
 		private boolean iniciou = false;
