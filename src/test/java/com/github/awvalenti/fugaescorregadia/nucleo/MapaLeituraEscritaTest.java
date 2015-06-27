@@ -23,7 +23,7 @@ public abstract class MapaLeituraEscritaTest extends TesteBase {
 				+ "o o - -\n"
 				+ "- < - -\n"
 				+ "- v v -\n"
-				+ "- - - *\n"
+				+ "- - - c\n"
 				+ "");
 		saida = mock(SaidaMapa.class);
 		mapa.setSaida(saida);

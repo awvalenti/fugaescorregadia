@@ -15,7 +15,7 @@ public class TentativaSimplesTest extends TentativaTest {
 				+ "- - - - o\n"
 				+ "- p - - o\n"
 				+ "- - - - -\n"
-				+ "o o - * -\n"
+				+ "o o - c -\n"
 				+ "";
 	}
 

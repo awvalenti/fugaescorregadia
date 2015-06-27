@@ -8,11 +8,11 @@ import java.util.Arrays;
 public enum Elemento {
 	VAZIO('-', muitosPorMapa(), PERMITE_PASSAGEM),
 
-	PERSONAGEM(' ', umPorMapa(), SE_TENTAR_PASSAR_OCORRE_ERRO),
+	PERSONAGEM('_', umPorMapa(), SE_TENTAR_PASSAR_OCORRE_ERRO),
 
 	PARTIDA('p', umPorMapa(), PERMITE_PASSAGEM),
 
-	CHEGADA('*', umPorMapa(), PERMITE_PASSAGEM),
+	CHEGADA('c', umPorMapa(), PERMITE_PASSAGEM),
 
 	OBSTACULO('o', muitosPorMapa(), BLOQUEIA_PASSAGEM),
 

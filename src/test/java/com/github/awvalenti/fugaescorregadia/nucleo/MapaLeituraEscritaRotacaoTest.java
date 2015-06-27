@@ -17,7 +17,7 @@ public class MapaLeituraEscritaRotacaoTest extends MapaLeituraEscritaTest {
 				+ "o - - o\n"
 				+ "< - - -\n"
 				+ "v v - -\n"
-				+ "- - * -\n"
+				+ "- - c -\n"
 				+ ""));
 		verifyNoMoreInteractions(saida);
 	}
@@ -30,7 +30,7 @@ public class MapaLeituraEscritaRotacaoTest extends MapaLeituraEscritaTest {
 				+ "o - - o\n"
 				+ "< - - -\n"
 				+ "v v - -\n"
-				+ "- - * -\n"
+				+ "- - c -\n"
 				+ "")));
 	}
 
@@ -42,7 +42,7 @@ public class MapaLeituraEscritaRotacaoTest extends MapaLeituraEscritaTest {
 				+ "- o o -\n"
 				+ "- - < -\n"
 				+ "- - v v\n"
-				+ "* - - -\n"
+				+ "c - - -\n"
 				+ "")));
 	}
 
@@ -53,7 +53,7 @@ public class MapaLeituraEscritaRotacaoTest extends MapaLeituraEscritaTest {
 				+ "o o - -\n"
 				+ "- < - -\n"
 				+ "- v v -\n"
-				+ "- - - *\n"
+				+ "- - - c\n"
 				+ "- p - -\n"
 				+ "")));
 	}
@@ -62,7 +62,7 @@ public class MapaLeituraEscritaRotacaoTest extends MapaLeituraEscritaTest {
 	public void deve_rotacionar_para_baixo() {
 		mapa.rotacionar(BAIXO);
 		assertThat(mapa, is(impExp.lerDeString(""
-				+ "- - - *\n"
+				+ "- - - c\n"
 				+ "- p - -\n"
 				+ "o o - -\n"
 				+ "- < - -\n"
