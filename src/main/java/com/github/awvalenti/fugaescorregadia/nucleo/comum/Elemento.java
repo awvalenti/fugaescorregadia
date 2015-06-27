@@ -50,12 +50,12 @@ public enum Elemento {
 		return caractere;
 	}
 
-	public boolean permiteEntrada(Direcao paraOndeVai) {
-		return algoritmoPassagem.permiteEntrada(paraOndeVai);
+	public boolean bloqueiaEntrada(Direcao paraOndeVai) {
+		return !algoritmoPassagem.permiteEntrada(paraOndeVai);
 	}
 
-	public boolean permiteSaidaImediata() {
-		return algoritmoPassagem.permiteSaidaImediata();
+	public boolean bloqueiaSaidaImediata() {
+		return !algoritmoPassagem.permiteSaidaImediata();
 	}
 
 	public boolean somenteUmPorMapa() {
