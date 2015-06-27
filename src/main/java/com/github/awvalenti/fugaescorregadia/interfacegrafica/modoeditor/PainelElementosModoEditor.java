@@ -20,9 +20,9 @@ public class PainelElementosModoEditor extends PainelElementos implements SaidaM
 
 	private final AlphaComposite alphaCompostie = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.1f);
 
-	public PainelElementosModoEditor(int atrasoAtualizacaoTela, int numeroLinhas,
-			int numeroColunas, FabricaIcones fabricaIcones) {
-		super(atrasoAtualizacaoTela, numeroLinhas, numeroColunas, fabricaIcones);
+	public PainelElementosModoEditor(int numeroLinhas, int numeroColunas,
+			FabricaIcones fabricaIcones) {
+		super(numeroLinhas, numeroColunas, fabricaIcones);
 	}
 
 	@Override

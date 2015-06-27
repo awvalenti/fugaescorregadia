@@ -20,9 +20,8 @@ public class MainModoEditor {
 
 		MapaLeituraEscrita mapa = impExp.criarMapaVazio();
 
-		PainelElementosModoEditor painel = new PainelElementosModoEditor(30,
-				mapa.getNumeroLinhas(), mapa.getNumeroColunas(),
-				obterInstancia(FabricaIcones.class));
+		PainelElementosModoEditor painel = new PainelElementosModoEditor(mapa.getNumeroLinhas(),
+				mapa.getNumeroColunas(), obterInstancia(FabricaIcones.class));
 
 		JanelaJogo telaJogo = new JanelaJogo(painel);
 

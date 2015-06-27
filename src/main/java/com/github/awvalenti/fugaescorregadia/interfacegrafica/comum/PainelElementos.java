@@ -16,14 +16,11 @@ public abstract class PainelElementos extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	protected final int atrasoAtualizacaoTela;
 	protected final int numeroLinhas;
 	protected final int numeroColunas;
 	protected final FabricaIcones fabricaIcones;
 
-	protected PainelElementos(int atrasoAtualizacaoTela, int numeroLinhas,
-			int numeroColunas, FabricaIcones fabricaIcones) {
-		this.atrasoAtualizacaoTela = atrasoAtualizacaoTela;
+	protected PainelElementos(int numeroLinhas, int numeroColunas, FabricaIcones fabricaIcones) {
 		this.numeroLinhas = numeroLinhas;
 		this.numeroColunas = numeroColunas;
 		this.fabricaIcones = fabricaIcones;

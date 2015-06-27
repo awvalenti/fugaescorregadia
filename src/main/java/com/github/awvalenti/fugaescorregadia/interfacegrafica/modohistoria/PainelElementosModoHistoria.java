@@ -16,10 +16,12 @@ import com.github.awvalenti.fugaescorregadia.nucleo.modohistoria.SaidaTentativa;
 public class PainelElementosModoHistoria extends PainelElementos implements SaidaTentativa {
 
 	private static final long serialVersionUID = 1L;
+	private final int atrasoAtualizacaoTela;
 
 	public PainelElementosModoHistoria(int atrasoAtualizacaoTela,
 			int numeroLinhas, int numeroColunas, FabricaIcones fabricaIcones) {
-		super(atrasoAtualizacaoTela, numeroLinhas, numeroColunas, fabricaIcones);
+		super(numeroLinhas, numeroColunas, fabricaIcones);
+		this.atrasoAtualizacaoTela = atrasoAtualizacaoTela;
 		esconderCursor();
 	}
 
