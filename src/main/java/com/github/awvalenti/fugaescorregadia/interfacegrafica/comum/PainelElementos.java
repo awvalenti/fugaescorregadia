@@ -1,8 +1,10 @@
 package com.github.awvalenti.fugaescorregadia.interfacegrafica.comum;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -32,6 +34,12 @@ public abstract class PainelElementos extends JPanel {
 				add(criarLabelElemento());
 			}
 		}
+	}
+
+	@Override
+	public void paint(Graphics g) {
+		super.paint(g);
+		Toolkit.getDefaultToolkit().sync();
 	}
 
 	protected final void preencher(MapaLeitura mapa) {
