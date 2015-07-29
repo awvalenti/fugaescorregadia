@@ -6,9 +6,9 @@ import static com.github.awvalenti.fugaescorregadia.nucleo.comum.Elemento.Utilid
 import java.util.Arrays;
 
 public enum Elemento {
-	PERSONAGEM('_', umPorMapa(), SE_TENTAR_PASSAR_OCORRE_ERRO),
-
 	VAZIO('-', muitosPorMapa(), PERMITE_PASSAGEM_TOTAL),
+
+	PERSONAGEM('_', umPorMapa(), SE_TENTAR_PASSAR_OCORRE_ERRO),
 
 	PARTIDA('p', umPorMapa(), PERMITE_ENTRADA_MAS_NAO_SAIDA),
 
