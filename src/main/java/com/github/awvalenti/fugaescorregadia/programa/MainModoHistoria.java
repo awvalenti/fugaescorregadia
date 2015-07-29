@@ -15,7 +15,7 @@ public class MainModoHistoria {
 	public static void main(String[] args) {
 		ImportadorExportadorMapa impExp = obterInstancia(ImportadorExportadorMapa.class);
 
-		MapaLeitura mapa = impExp.lerDoClasspath("/mapas/01.mapa");
+		MapaLeitura mapa = impExp.lerDoClasspath("/mapas/00.mapa");
 
 		PainelElementosModoHistoria painelTabuleiro = new PainelElementosModoHistoria(
 				30, mapa.getNumeroLinhas(), mapa.getNumeroColunas(),

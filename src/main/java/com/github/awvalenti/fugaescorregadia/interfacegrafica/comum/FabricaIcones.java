@@ -19,7 +19,8 @@ public class FabricaIcones {
 
 	public FabricaIcones() {
 		try {
-			BufferedImage spritesheet = ImageIO.read(getClass().getResource("/imagens/elementos/spritesheet.png"));
+			BufferedImage spritesheet = ImageIO.read(getClass().getResource(
+					"/imagens/elementos/spritesheet-papel.png"));
 			int tamanhoIcone = tamanhoIcone();
 			for (Elemento e : Elemento.values()) {
 				BufferedImage sprite = spritesheet.getSubimage(e.ordinal() % LARGURA_SPRITE_SHEET
