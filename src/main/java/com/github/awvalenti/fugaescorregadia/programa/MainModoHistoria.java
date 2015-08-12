@@ -17,15 +17,15 @@ public class MainModoHistoria {
 
 		MapaLeitura mapa = impExp.lerDoClasspath("/mapas/00.mapa");
 
-		PainelElementosModoHistoria painelTabuleiro = new PainelElementosModoHistoria(
-				30, mapa.getNumeroLinhas(), mapa.getNumeroColunas(),
+		PainelElementosModoHistoria painel = new PainelElementosModoHistoria(30,
+				mapa.getNumeroLinhas(), mapa.getNumeroColunas(),
 				obterInstancia(FabricaIcones.class));
 
-		JanelaJogo telaJogo = new JanelaJogo(painelTabuleiro);
+		JanelaJogo janela = new JanelaJogo(painel);
 
-		new ControladorModoHistoria(new Tentativa(mapa, painelTabuleiro), telaJogo);
+		new ControladorModoHistoria(new Tentativa(mapa, painel), janela);
 
-		telaJogo.exibirEmJanela();
+		janela.exibirEmJanela();
 	}
 
 }

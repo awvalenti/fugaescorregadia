@@ -23,12 +23,13 @@ public class MainModoEditor {
 		PainelElementosModoEditor painel = new PainelElementosModoEditor(mapa.getNumeroLinhas(),
 				mapa.getNumeroColunas(), obterInstancia(FabricaIcones.class));
 
-		JanelaJogo telaJogo = new JanelaJogo(painel);
+		JanelaJogo janela = new JanelaJogo(painel);
 
-		new ControladorModoEditor(new EditorDeMapa(painel, impExp, mapa), telaJogo, painel, painel,
-				obterInstancia(MapeamentoDeTeclaParaElemento.class), args.length > 0 ? new File(args[0]) : null);
+		new ControladorModoEditor(new EditorDeMapa(painel, impExp, mapa), janela, painel, painel,
+				obterInstancia(MapeamentoDeTeclaParaElemento.class), args.length > 0 ? new File(
+						args[0]) : null);
 
-		telaJogo.exibirEmJanela();
+		janela.exibirEmJanela();
 	}
 
 }
