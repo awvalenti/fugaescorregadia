@@ -22,25 +22,20 @@ Enquanto isso, mantenho os direitos reservados e, se for o caso, abro mão disso
 
 <dt>Por que Java?</dt>
 <dd>
-<p>É fato que Java tem todas as suas burocracias, principalmente no ambiente web. Porém, programar em Java puro,
+<p>É fato que Java tem todas as suas burocracias, principalmente no mundo web. Porém, programar em Java puro,
 com a ajuda do Eclipse e todos os seus atalhos de teclado e ferramentas de refatoração é uma atividade muito prazerosa.
 Fica muito fácil manter um código de qualidade.</p>
 <p>O projeto já esteve em JavaScript e, mais antigamente, em QBasic. JavaScript é legal, mas algumas coisas fazem falta,
 como facilidades para refatoração e soluções nativas para tarefas básicas, como criar módulos e classes, fazer herança etc.</p>
-<p>Sendo este um projeto despretensioso e primariamente focado em lazer, optei pela tecnologia com que tenho mais experiência.</p>
+<p>Sendo este um projeto despretensioso e primariamente focado em lazer, optei pela tecnologia com que tenho mais experiência.
+Nada contra as outras, e inclusive acho que programar esse jogo novamente em Ruby e em Haskell seria uma ótima experiência.</p>
 </dd>
 
 <dt>E por que Java 8?</dt>
-<dd>Para aprender as novas funcionalidades da linguagem. Optional é muito legal e stream, também, embora esse último seja meio complicadinho.</dd>
+<dd>Para aprender as novas funcionalidades da linguagem. <code>Optional</code> é muito legal e stream, também. Esse último às vezes é meio complicado, mas é interessante.</dd>
 
 <dt>Mas como você vai fazer o jogo rodar em qualquer plataforma?</dt>
-<dd>Existem inúmeras maneiras de fazer isso acontecer. Uma delas é o GWT, que converte código Java para JavaScript.
-Outra é usando um compilador para plataformas intermediárias, como LLVM. Além disso, rodar em todas as plataformas não é a maior prioridade. A maior prioridade é eu me divertir criando esse jogo e dar vazão à minha criatividade. Considerar todos os aspectos possíveis e imagináveis antes de fazer qualquer coisa é o melhor jeito de nunca fazer nada!</dd>
-
-<dt>Você subiu código com teste quebrado? Por quê?</dt>
-
-<dd>Como eu estou trabalhando sozinho no projeto, é um bom jeito de lembrar a mim mesmo
-onde exatamente eu parei. Essa ideia é sugerida pelo Kent Beck.</dd>
+<dd>Antes, essa era uma prioridade do projeto. Hoje, não é mais. Mesmo assim, há maneiras de fazer isso acontecer. Uma delas é usando um compilador para plataformas intermediárias, como LLVM.</dd>
 
 <dt>Tenho outra pergunta para lhe fazer. Posso?</dt>
 <dd>Claro!
