@@ -5,14 +5,16 @@ Jogo de labirinto cujo objetivo é escorregar pelo tabuleiro até conseguir cheg
 
 Licença
 =======
-Copyright (C) 2015 André Willik Valenti
-
-Por enquanto, o projeto está com todos os direitos reservados (mais 
-detalhes em http://choosealicense.com/no-license/). Caso tenha interesse em usar
-o código-fonte, entre em contato com o autor mandando uma mensagem pelo GitHub.
+Copyright (C) 2015, André Willik Valenti. Todos os direitos reservados.
 
 Perguntas e respostas
 =====================
+P: Código aberto e todos os direitos reservados?
+
+R: Sim, isso é possível! Veja mais detalhes aqui: http://choosealicense.com/no-license.
+Caso tenha interesse em usar o código para alguma coisa, basta contactar-me abrindo uma issue.
+Vou avaliar e, dependendo, posso liberar o uso sem problemas.
+
 P: Por que Java?
 
 R: Antes, o projeto estava em JavaScript (e, mais antigamente ainda, em QBasic).
