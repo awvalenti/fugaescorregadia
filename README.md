@@ -4,7 +4,7 @@ Jogo de labirinto cujo objetivo é escorregar pelo tabuleiro até conseguir cheg
 [![Build Status](https://travis-ci.org/awvalenti/fugaescorregadia.svg?branch=master)](https://travis-ci.org/awvalenti/fugaescorregadia)
 
 ## Licença
-Copyright (C) 2015, André Willik Valenti. Todos os direitos reservados.
+Copyright &copy; 2015, André Willik Valenti. Todos os direitos reservados.
 
 ## Perguntas e respostas
 <dl>
