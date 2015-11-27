@@ -26,7 +26,7 @@ Enquanto isso, mantenho os direitos reservados e, se for o caso, abro mão disso
 com a ajuda do Eclipse e todos os seus atalhos de teclado e ferramentas de refatoração é uma atividade muito prazerosa.
 Fica muito fácil manter um código de qualidade.</p>
 <p>O projeto já esteve em JavaScript e, mais antigamente, em QBasic. JavaScript é legal, mas algumas coisas fazem falta,
-como facilidades para refatoração e soluções nativas para tarefas básicas, como criar módulos e classes, fazer herança etc. Dá para fazer? Dá, sim, mas dá aquela sensação de gambiarra.</p>
+como facilidades para refatoração e soluções nativas para tarefas básicas, como criar módulos e classes, fazer herança etc. Dá para fazer? Dá, sim, mas fica aquela sensação de gambiarra.</p>
 <p>Sendo este um projeto despretensioso e primariamente focado em lazer, optei pela tecnologia com que tenho mais experiência.
 Nada contra as outras, e inclusive acho que programar esse jogo novamente em Ruby e em Haskell seria uma ótima experiência.</p>
 </dd>
