@@ -4,14 +4,15 @@ Jogo de labirinto cujo objetivo é escorregar pelo tabuleiro até conseguir cheg
 [![Build Status](https://travis-ci.org/awvalenti/fugaescorregadia.svg?branch=master)](https://travis-ci.org/awvalenti/fugaescorregadia)
 
 ## Licença
-Copyright &copy; 2015, André Willik Valenti. Todos os direitos reservados.
+Copyright &copy; 2015 - 2016, André Willik Valenti. Todos os direitos reservados.
 
 ## Perguntas e respostas
 <dl>
-<dt>Código aberto e todos os direitos reservados?</dt>
+<dt>Código aberto e direitos reservados... Pode isso, Arnaldo?</dt>
 <dd>Sim, isso é possível! Veja mais detalhes aqui: http://choosealicense.com/no-license.
-Resumindo, você só deve copiar o código para fora do projeto ou modificá-lo se receber permissão.
-Caso tenha interesse em usar o código para alguma coisa, basta contactar-me
+Resumindo: somente se receber permissão você legalmente poderá copiar o código para
+fora do projeto ou modificá-lo.
+Caso tenha interesse em fazer isso, basta contactar-me
 <a href="https://github.com/awvalenti/fugaescorregadia/issues/new">abrindo uma issue</a>.
 Vou avaliar e posso liberar o uso sem problemas.</dd>
 
@@ -25,8 +26,8 @@ Enquanto isso, mantenho os direitos reservados e, se for o caso, abro mão disso
 <p>É fato que Java tem todas as suas burocracias, principalmente no mundo web. Porém, programar em Java puro,
 com a ajuda do Eclipse e todos os seus atalhos de teclado e ferramentas de refatoração é uma atividade muito prazerosa.
 Fica muito fácil manter um código de qualidade.</p>
-<p>O projeto já esteve em JavaScript e, mais antigamente, em QBasic. JavaScript é legal, mas algumas coisas fazem falta,
-como facilidades para refatoração e soluções nativas para tarefas básicas, como criar módulos e classes, fazer herança etc. Dá para fazer? Dá, sim, mas fica aquela sensação de gambiarra.</p>
+<p>O projeto já esteve em JavaScript; mais antigamente, esteve em QBasic. JavaScript é legal, mas algumas coisas fazem falta,
+como facilidades para refatoração e soluções nativas para tarefas básicas, como criar módulos e classes, fazer herança etc. Dá para fazer? Dá. Tem zilhares de maneiras diferentes, a maioria dando aquela sensação de "eu não deveria estar fazendo isso".</p>
 <p>Sendo este um projeto despretensioso e primariamente focado em lazer, optei pela tecnologia com que tenho mais experiência.
 Nada contra as outras, e inclusive acho que programar esse jogo novamente em Ruby e em Haskell seria uma ótima experiência.</p>
 </dd>
