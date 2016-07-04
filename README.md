@@ -9,7 +9,9 @@ Copyright &copy; 2015 - 2016, André Willik Valenti. Todos os direitos reservado
 ## Perguntas e respostas
 <dl>
 <dt>Posso jogar?</dt>
-<dd>Claro! A versão demo 0.1.0 está disponível em <a href="releases">Releases</a>.</dd>
+<dd>Claro! A versão demo 0.1.0 está disponível em
+<a href="https://github.com/awvalenti/fugaescorregadia/releases">Releases</a>.
+</dd>
 
 <dt>Código aberto e direitos reservados... Pode isso, Arnaldo?</dt>
 <dd>Sim, isso é possível! Veja mais detalhes aqui: http://choosealicense.com/no-license.
