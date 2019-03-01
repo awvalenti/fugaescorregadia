@@ -1,0 +1,32 @@
+body {
+  background-color: black;
+  margin: 0;
+  padding: 0;
+}
+
+.board {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vmin;
+  height: 100vmin;
+}
+
+.tile {
+  float: left;
+  width: 5vmin;
+  height: 5vmin;
+}
+
+.tile.protagonist {
+  background-color: #f00;
+}
+
+.tile.obstacle {
+  background-color: #0ff;
+}
+
+.tile.empty {
+  border-color: #000;
+}
