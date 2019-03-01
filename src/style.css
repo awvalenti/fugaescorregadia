@@ -1,5 +1,5 @@
 body {
-  background-color: black;
+  background-color: #333;
   margin: 0;
   padding: 0;
 }
@@ -19,14 +19,22 @@ body {
   height: 5vmin;
 }
 
-.tile.protagonist {
-  background-color: #f00;
+.tile.empty {
+  background-color: #000;
+}
+
+.tile.exit {
+  background-color: #ff0;
 }
 
 .tile.obstacle {
   background-color: #0ff;
 }
 
-.tile.empty {
-  border-color: #000;
+.tile.starting-point {
+  background-color: #00f;
+}
+
+.tile.protagonist {
+  background-color: #f00;
 }
