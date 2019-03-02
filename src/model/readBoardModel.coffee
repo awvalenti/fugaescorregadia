@@ -22,8 +22,8 @@ module.exports = (levelIndex) ->
 
   readerIndex = 0
 
-  [0...ROWS].map ->
-    [0...COLUMNS].map ->
+  Array(ROWS).fill().map ->
+    Array(COLUMNS).fill().map ->
       loop
         tileChar = String.fromCharCode levelContent[readerIndex++]
         break unless tileChar in [' ', '\n']
