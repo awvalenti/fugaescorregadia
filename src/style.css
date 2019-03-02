@@ -11,16 +11,13 @@ body {
   transform: translate(-50%, -50%);
   width: 100vmin;
   height: 100vmin;
+  background-color: black;
 }
 
 .tile {
   float: left;
   width: 5vmin;
   height: 5vmin;
-}
-
-.tile.empty {
-  background-color: #000;
 }
 
 .tile.exit {
@@ -33,6 +30,7 @@ body {
 
 .tile.starting-point {
   background-color: #00f;
+  opacity: 0.4;
 }
 
 .tile.protagonist {
