@@ -1,40 +1,18 @@
-fs = require 'fs'
+readBoardModel = require '/model/readBoardModel'
 
-levelContent = fs.readFileSync(__dirname + '/../../src/levels/00.level')
+makeBoardDiv = (boardModel) ->
+  # TODO Check if string concatenation with only one appendChild
+  # call is more efficient
+  boardDiv = document.createElement 'div'
+  boardDiv.className = 'board'
 
-makeBoard = ->
-  board = document.createElement 'div'
-  board.className = 'board'
-
-  MAPPING =
-    '_': 'empty'
-    'x': 'exit'
-    'o': 'obstacle'
-    's': 'starting-point'
-
-  levelContent.forEach (charAsNumber) ->
-    char = String.fromCharCode charAsNumber
-
-    unless char in [' ', '\n']
-      tileType = MAPPING[char]
-
-      if not tileType
-        throw Error "'#{char}' <-- invalid tile character"
-
+  boardModel.forEach (row) ->
+    row.forEach (tileType) ->
       tile = document.createElement 'div'
       tile.className = "tile #{tileType}"
-      board.appendChild tile
-
-  ROWS = 20
-  COLUMNS = 20
-
-  actual = board.childElementCount
-  expected = ROWS * COLUMNS
-  if actual != expected
-    throw Error "#{actual} tiles; should have #{expected}"
-
-  board
+      boardDiv.appendChild tile
+  boardDiv
 
 module.exports = (i18n) ->
   title: i18n 'title'
-  board: makeBoard()
+  boardDiv: makeBoardDiv readBoardModel 0

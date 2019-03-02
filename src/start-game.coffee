@@ -4,4 +4,4 @@ domState = (require '/dom/domState') i18n
 
 document.title = domState.title
 
-document.body.appendChild domState.board
+document.body.appendChild domState.boardDiv
