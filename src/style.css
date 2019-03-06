@@ -16,8 +16,8 @@ body {
 
 .tile {
   float: left;
-  width: 5vmin;
-  height: 5vmin;
+  width: 5%;
+  height: 5%;
 }
 
 .tile.exit {
@@ -33,6 +33,9 @@ body {
   opacity: 0.4;
 }
 
-.tile.protagonist {
+.tile.player {
   background-color: #f00;
+  position: absolute;
+  transition-property: transform;
+  transition-timing-function: linear;
 }
