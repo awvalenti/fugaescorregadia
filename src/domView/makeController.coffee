@@ -2,18 +2,19 @@ updateGameModel = require '/model/updateGameModel'
 movePlayerDiv = require '/domView/movePlayerDiv'
 
 module.exports = (gameModel, domViewModel) ->
+  move = (direction) ->
+    oldPos = gameModel.playerPos
+    gameModel = updateGameModel gameModel, direction
+    newPos = gameModel.playerPos
+    if newPos != oldPos
+      movePlayerDiv oldPos, newPos, domViewModel.playerDiv
+
   keydown: (e) ->
     switch e.code
-      when 'ArrowDown'
-        oldPos = gameModel.playerPos
-
-        gameModel = updateGameModel gameModel,
-          x: gameModel.playerPos.x
-          y: Math.floor Math.random() * 20
-
-        newPos = gameModel.playerPos
-
-        movePlayerDiv oldPos, newPos, domViewModel.playerDiv
+      when 'ArrowUp'    then move 'up'
+      when 'ArrowRight' then move 'right'
+      when 'ArrowDown'  then move 'down'
+      when 'ArrowLeft'  then move 'left'
 
   touchstart: (e) ->
     # TODO
