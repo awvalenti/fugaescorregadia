@@ -5,9 +5,6 @@ findStartingPoint = (boardModel) ->
 
   throw Error 'Missing starting point'
 
-make = (boardModel, playerPos) ->
+module.exports = (boardModel, playerPos = findStartingPoint boardModel) ->
   boardModel: boardModel
   playerPos: playerPos
-  update: (playerPos) -> make boardModel, playerPos
-
-module.exports = (boardModel) -> make boardModel, findStartingPoint boardModel
