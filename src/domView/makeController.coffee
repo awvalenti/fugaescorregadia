@@ -1,3 +1,5 @@
+movePlayer = require '/domView/movePlayer'
+
 module.exports = (gameModel, domViewModel) ->
   keydown: (e) ->
     switch e.code
@@ -10,8 +12,7 @@ module.exports = (gameModel, domViewModel) ->
 
         newPos = gameModel.playerPos
 
-        domViewModel.movePlayer oldPos, newPos
+        movePlayer oldPos, newPos, domViewModel.playerDiv
 
   touchstart: (e) ->
-    y = Math.floor Math.random() * 20
-    gameModel.move()
+    # TODO

@@ -8,7 +8,7 @@ makeDiv = (className) ->
 makeTileDiv = (tileType) ->
   makeDiv "tile #{tileType}"
 
-makeBoardDiv = (gameModel) ->
+module.exports = (i18n) -> (gameModel) ->
   # TODO Check if string concatenation with only one appendChild
   # call is more efficient
 
@@ -24,11 +24,6 @@ makeBoardDiv = (gameModel) ->
 
   movePlayer gameModel.playerPos, gameModel.playerPos, playerDiv
 
-  boardDiv.movePlayer = (oldPos, newPos) -> movePlayer oldPos, newPos, playerDiv
-
-  boardDiv
-
-module.exports = (i18n) -> (gameModel) ->
   title: i18n 'title'
-  boardDiv: makeBoardDiv gameModel
-  movePlayer: -> @boardDiv.movePlayer.apply @boardDiv, arguments
+  boardDiv: boardDiv
+  playerDiv: playerDiv
