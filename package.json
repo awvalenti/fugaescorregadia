@@ -4,8 +4,10 @@
   "description": "Jogo de labirinto / Labyrinth game",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx parcel src/index.html"
+    "start": "npx parcel src/index.html",
+    "test": "npx parcel build src/run-tests.coffee --no-cache --no-minify && npx mocha dist",
+    "tdd1": "npx mocha -R list -w dist",
+    "tdd2": "npx parcel watch src/run-tests.coffee --no-cache"
   },
   "repository": {
     "type": "git",
@@ -26,6 +28,8 @@
   "dependencies": {},
   "devDependencies": {
     "coffeescript": "^2.3.2",
-    "parcel-bundler": "^1.11.0"
+    "mocha": "^6.0.2",
+    "parcel-bundler": "^1.11.0",
+    "should": "^13.2.3"
   }
 }
