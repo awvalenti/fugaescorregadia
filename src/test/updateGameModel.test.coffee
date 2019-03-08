@@ -1,15 +1,23 @@
 should = require 'should'
 
+makeGameModel   = require '/model/makeGameModel.coffee'
 updateGameModel = require '/model/updateGameModel.coffee'
 
 describe 'updateGameModel', ->
-  gameModel = null
+  gameModel = makeGameModel [
+    ['empty',          'empty', 'empty', 'empty'   ]
+    ['empty',          'empty', 'empty', 'empty'   ]
+    ['starting-point', 'empty', 'empty', 'obstacle']
+  ]
 
-  beforeEach ->
-    gameModel =
-      boardModel: null
-      playerPos: {x: 0, y: 0}
+  it 'moves player until before an obstacle', ->
+    updateGameModel(gameModel, 'up').should.have
+      .property('playerPos').deepEqual {x: 0, y: 0}
 
-  it 'increments playerPos', ->
-    updateGameModel(gameModel, 'down').should.have
-      .property('playerPos').deepEqual {x: 0, y: 1}
+  it 'moves player until before a board limit', ->
+    updateGameModel(gameModel, 'right').should.have
+      .property('playerPos').deepEqual {x: 2, y: 2}
+
+  it 'preserves gameModel instance when already at final position', ->
+    updateGameModel(gameModel, 'down').should.equal gameModel
+    updateGameModel(gameModel, 'left').should.equal gameModel

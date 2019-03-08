@@ -8,8 +8,23 @@ module.exports = (gameModel, direction) ->
     when 'left'  then increment = x: -1,  y:  0
     else throw Error "#{direction} <-- invalid direction"
 
-  newPos =
-    x: gameModel.playerPos.x + increment.x
-    y: gameModel.playerPos.y + increment.y
+  oldPos = gameModel.playerPos
 
-  makeGameModel gameModel.boardModel, newPos
+  x = oldPos.x
+  y = oldPos.y
+
+  board = gameModel.boardModel
+
+  inbounds = (x, y) -> 0 <= y < board.length and 0 <= x < board[y].length
+
+  loop
+    newX = x + increment.x
+    newY = y + increment.y
+    break if not inbounds(newX, newY) or board[newY][newX] == 'obstacle'
+    x = newX
+    y = newY
+
+  if x == oldPos.x and y == oldPos.y
+    gameModel
+  else
+    makeGameModel board, {x, y}
