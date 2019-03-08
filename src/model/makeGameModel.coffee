@@ -1,7 +1,7 @@
 findStartingPoint = (boardModel) ->
-  for row, y in boardModel
-    for tileType, x in row
-      return { x, y } if tileType == 'starting-point'
+  for rowData, row in boardModel
+    for tileType, col in rowData
+      return { row, col } if tileType == 'starting-point'
 
   throw Error 'Missing starting point'
 

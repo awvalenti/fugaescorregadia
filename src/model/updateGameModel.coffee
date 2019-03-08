@@ -2,29 +2,29 @@ makeGameModel = require '/model/makeGameModel'
 
 module.exports = (gameModel, direction) ->
   switch direction
-    when 'up'    then increment = x:  0,  y: -1
-    when 'right' then increment = x: +1,  y:  0
-    when 'down'  then increment = x:  0,  y: +1
-    when 'left'  then increment = x: -1,  y:  0
+    when 'up'    then incRow = -1; incCol =  0
+    when 'right' then incRow =  0; incCol = +1
+    when 'down'  then incRow = +1; incCol =  0
+    when 'left'  then incRow =  0; incCol = -1
     else throw Error "#{direction} <-- invalid direction"
 
   oldPos = gameModel.playerPos
 
-  x = oldPos.x
-  y = oldPos.y
+  row = oldPos.row
+  col = oldPos.col
 
   board = gameModel.boardModel
 
-  inbounds = (x, y) -> 0 <= y < board.length and 0 <= x < board[y].length
+  inbounds = (r, c) -> 0 <= r < board.length and 0 <= c < board[r].length
 
   loop
-    newX = x + increment.x
-    newY = y + increment.y
-    break if not inbounds(newX, newY) or board[newY][newX] == 'obstacle'
-    x = newX
-    y = newY
+    newRow = row + incRow
+    newCol = col + incCol
+    break if not inbounds(newRow, newCol) or board[newRow][newCol] == 'obstacle'
+    row = newRow
+    col = newCol
 
-  if x == oldPos.x and y == oldPos.y
+  if col == oldPos.col and row == oldPos.row
     gameModel
   else
-    makeGameModel board, {x, y}
+    makeGameModel board, {row, col}

@@ -1,7 +1,10 @@
 module.exports = (oldPos, newPos, playerDiv) ->
-  # Either x or y is changed, never both; hence the simple calculation
-  distance = Math.abs(newPos.x - oldPos.x) + Math.abs(newPos.y - oldPos.y)
+  np = newPos
+
+  # Either row or col is changed, never both; hence the simple calculation
+  distance = Math.abs(np.row - oldPos.row) + Math.abs(np.col - oldPos.col)
+
   playerDiv.style.transitionDuration = "#{distance * .04}s"
-  playerDiv.style.transform =
-    "translate(#{newPos.x * 100}%, #{newPos.y * 100}%)"
+  playerDiv.style.transform = "translate(#{np.col * 100}%, #{np.row * 100}%)"
+
   return
