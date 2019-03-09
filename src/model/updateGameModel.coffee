@@ -11,28 +11,27 @@ module.exports = (gameModel, direction) ->
   board = gameModel.boardModel
   oldPos = gameModel.playerPos
 
-  inbounds = (row, col) ->
-    0 <= row < board.length and 0 <= col < board[row].length
+  before = (newRow, newCol) ->
+    inbounds = 0 <= newRow < board.length and 0 <= newCol < board[newRow].length
+    if not inbounds or board[newRow][newCol] is 'obstacle'
+      'stop'
+    else
+      'go-on'
 
-  # Solution 1: iterative
+  during = (row, col) ->
+    switch board[row][col]
+      when 'goal' then 'stop'
+      else 'go-on'
+
   row = oldPos.row
   col = oldPos.col
   loop
     newRow = row + incRow
     newCol = col + incCol
-    break if not inbounds(newRow, newCol) or board[newRow][newCol] == 'obstacle'
+    break if before(newRow, newCol) is 'stop'
     row = newRow
     col = newCol
-
-  # # Solution 2: tail-recursive
-  # calculateNewPos = (row, col) ->
-  #   newRow = row + incRow
-  #   newCol = col + incCol
-  #   if not inbounds(newRow, newCol) or board[newRow][newCol] == 'obstacle'
-  #     {row, col}
-  #   else
-  #     calculateNewPos newRow, newCol
-  # {row, col} = calculateNewPos oldPos.row, oldPos.col
+    break if during(row, col) is 'stop'
 
   if row == oldPos.row and col == oldPos.col
     gameModel

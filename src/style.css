@@ -20,7 +20,7 @@ body {
   height: 5%;
 }
 
-.tile.exit {
+.tile.goal {
   background-color: #ff0;
 }
 
@@ -28,14 +28,14 @@ body {
   background-color: #0ff;
 }
 
-.tile.starting-point {
-  background-color: #00f;
-  opacity: 0.4;
-}
-
 .tile.player {
   background-color: #f00;
   position: absolute;
   transition-property: transform;
   transition-timing-function: linear;
+}
+
+.tile.starting-point {
+  background-color: #00f;
+  opacity: 0.4;
 }

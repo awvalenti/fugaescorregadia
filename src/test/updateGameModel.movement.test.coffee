@@ -12,11 +12,11 @@ describe 'updateGameModel', ->
 
   it 'moves player until before an obstacle', ->
     updateGameModel(gameModel, 'up').should.have
-      .property('playerPos').deepEqual {row: 0, col: 0}
+      .property('playerPos').deepEqual row: 0, col: 0
 
   it 'moves player until before a board limit', ->
     updateGameModel(gameModel, 'right').should.have
-      .property('playerPos').deepEqual {row: 2, col: 2}
+      .property('playerPos').deepEqual row: 2, col: 2
 
   it 'preserves gameModel instance when already at final position', ->
     updateGameModel(gameModel, 'down').should.equal gameModel
