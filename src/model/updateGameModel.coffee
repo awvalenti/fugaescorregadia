@@ -8,15 +8,15 @@ module.exports = (gameModel, direction) ->
     when 'left'  then incRow =  0; incCol = -1
     else throw Error "#{direction} <-- invalid direction"
 
+  board = gameModel.boardModel
   oldPos = gameModel.playerPos
 
+  inbounds = (row, col) ->
+    0 <= row < board.length and 0 <= col < board[row].length
+
+  # Solution 1: iterative
   row = oldPos.row
   col = oldPos.col
-
-  board = gameModel.boardModel
-
-  inbounds = (r, c) -> 0 <= r < board.length and 0 <= c < board[r].length
-
   loop
     newRow = row + incRow
     newCol = col + incCol
@@ -24,7 +24,17 @@ module.exports = (gameModel, direction) ->
     row = newRow
     col = newCol
 
-  if col == oldPos.col and row == oldPos.row
+  # # Solution 2: tail-recursive
+  # calculateNewPos = (row, col) ->
+  #   newRow = row + incRow
+  #   newCol = col + incCol
+  #   if not inbounds(newRow, newCol) or board[newRow][newCol] == 'obstacle'
+  #     {row, col}
+  #   else
+  #     calculateNewPos newRow, newCol
+  # {row, col} = calculateNewPos oldPos.row, oldPos.col
+
+  if row == oldPos.row and col == oldPos.col
     gameModel
   else
     makeGameModel board, {row, col}
