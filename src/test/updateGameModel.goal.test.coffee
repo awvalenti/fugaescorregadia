@@ -14,5 +14,5 @@ describe 'updateGameModel', ->
     it 'stops PLAYER at GOAL position', ->
       newGameModel.should.have.property('playerPos').deepEqual row: 0, col: 2
 
-    xit 'signals GOAL_REACHED', ->
-      newGameModel.should.have.property('extra').equal 'GOAL_REACHED'
+    it 'signals GOAL_REACHED', ->
+      newGameModel.should.have.property('event').equal 'GOAL_REACHED'

@@ -1,13 +1,14 @@
 updateGameModel = require '/model/updateGameModel'
-movePlayerDiv = require '/domView/movePlayerDiv'
+movePlayerDiv   = require '/domView/movePlayerDiv'
 
-module.exports = (gameModel, domViewModel) ->
+module.exports = (i18n) -> (gameModel, domViewModel) ->
   move = (direction) ->
     oldPos = gameModel.playerPos
     gameModel = updateGameModel gameModel, direction
-    newPos = gameModel.playerPos
-    if newPos != oldPos
-      movePlayerDiv oldPos, newPos, domViewModel.playerDiv
+    movePlayerDiv oldPos, gameModel.playerPos, domViewModel.playerDiv
+    if gameModel.event is 'GOAL_REACHED'
+      # TODO
+      alert (i18n 'goal-reached')
 
   keydown: (e) ->
     switch e.code

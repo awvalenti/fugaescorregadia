@@ -5,7 +5,7 @@ makeGameModel    = require '/model/makeGameModel'
 
 makeDomViewModel = (require '/domView/makeDomViewModel') i18n
 applyView        = require '/domView/applyView'
-makeController   = require '/domView/makeController'
+makeController   = (require '/domView/makeController') i18n
 
 boardModel   = readBoardModel 0
 gameModel    = makeGameModel boardModel

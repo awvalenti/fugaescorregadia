@@ -5,6 +5,5 @@ findStart = (boardModel) ->
 
   throw Error 'Missing START'
 
-module.exports = (boardModel, playerPos = findStart boardModel) ->
-  boardModel: boardModel
-  playerPos: playerPos
+module.exports = (boardModel, playerPos = findStart(boardModel), event) ->
+  {boardModel, playerPos, event}
