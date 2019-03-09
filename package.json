@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npx parcel src/index.html",
     "test": "npx parcel build src/run-tests.coffee --no-cache --no-minify && npx mocha dist/run-tests*.js",
-    "tdd1": "npx mocha -R list -w dist/run-tests*.js",
+    "tdd1": "npx mocha -w dist/run-tests*.js",
     "tdd2": "npx parcel watch src/run-tests.coffee --no-cache"
   },
   "repository": {
