@@ -11,10 +11,10 @@ module.exports = (gameModel, domViewModel) ->
 
   keydown: (e) ->
     switch e.code
-      when 'ArrowUp'    then move 'up'
-      when 'ArrowRight' then move 'right'
-      when 'ArrowDown'  then move 'down'
-      when 'ArrowLeft'  then move 'left'
+      when 'ArrowUp'    then move 'UP'
+      when 'ArrowRight' then move 'RIGHT'
+      when 'ArrowDown'  then move 'DOWN'
+      when 'ArrowLeft'  then move 'LEFT'
 
   touchstart: (e) ->
     # TODO

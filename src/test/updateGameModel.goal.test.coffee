@@ -5,14 +5,14 @@ updateGameModel = require '/model/updateGameModel.coffee'
 
 describe 'updateGameModel', ->
   gameModel = makeGameModel [
-    ['starting-point', 'empty', 'goal', 'empty']
+    ['START', 'EMPTY', 'GOAL', 'EMPTY']
   ]
 
-  newGameModel = updateGameModel gameModel, 'right'
+  newGameModel = updateGameModel gameModel, 'RIGHT'
 
-  describe 'when reaching goal', ->
-    it 'stops at proper position', ->
+  describe 'when reaching GOAL', ->
+    it 'stops PLAYER at GOAL position', ->
       newGameModel.should.have.property('playerPos').deepEqual row: 0, col: 2
 
-    xit 'signals goal reached', ->
-      newGameModel.should.have.property('extra').equal 'goal-reached'
+    xit 'signals GOAL_REACHED', ->
+      newGameModel.should.have.property('extra').equal 'GOAL_REACHED'

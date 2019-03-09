@@ -20,22 +20,22 @@ body {
   height: 5%;
 }
 
-.tile.goal {
+.tile.GOAL {
   background-color: #ff0;
 }
 
-.tile.obstacle {
+.tile.OBSTACLE {
   background-color: #0ff;
 }
 
-.tile.player {
+.tile.PLAYER {
   background-color: #f00;
   position: absolute;
   transition-property: transform;
   transition-timing-function: linear;
 }
 
-.tile.starting-point {
+.tile.START {
   background-color: #00f;
   opacity: 0.4;
 }

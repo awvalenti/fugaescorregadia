@@ -5,19 +5,19 @@ updateGameModel = require '/model/updateGameModel.coffee'
 
 describe 'updateGameModel', ->
   gameModel = makeGameModel [
-    ['empty',          'empty', 'empty', 'empty'   ]
-    ['empty',          'empty', 'empty', 'empty'   ]
-    ['starting-point', 'empty', 'empty', 'obstacle']
+    ['EMPTY', 'EMPTY', 'EMPTY', 'EMPTY'   ]
+    ['EMPTY', 'EMPTY', 'EMPTY', 'EMPTY'   ]
+    ['START', 'EMPTY', 'EMPTY', 'OBSTACLE']
   ]
 
-  it 'moves player until before an obstacle', ->
-    updateGameModel(gameModel, 'up').should.have
+  it 'moves PLAYER until before an OBSTACLE', ->
+    updateGameModel(gameModel, 'UP').should.have
       .property('playerPos').deepEqual row: 0, col: 0
 
-  it 'moves player until before a board limit', ->
-    updateGameModel(gameModel, 'right').should.have
+  it 'moves PLAYER until before a board limit', ->
+    updateGameModel(gameModel, 'RIGHT').should.have
       .property('playerPos').deepEqual row: 2, col: 2
 
   it 'preserves gameModel instance when already at final position', ->
-    updateGameModel(gameModel, 'down').should.equal gameModel
-    updateGameModel(gameModel, 'left').should.equal gameModel
+    updateGameModel(gameModel, 'DOWN').should.equal gameModel
+    updateGameModel(gameModel, 'LEFT').should.equal gameModel

@@ -18,7 +18,7 @@ module.exports = (i18n) -> (gameModel) ->
     row.forEach (tileType) ->
       boardDiv.appendChild makeTileDiv tileType
 
-  playerDiv = makeTileDiv 'player'
+  playerDiv = makeTileDiv 'PLAYER'
 
   boardDiv.appendChild playerDiv
 

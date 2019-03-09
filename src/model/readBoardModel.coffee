@@ -9,10 +9,10 @@ module.exports = (levelIndex) ->
 
   mapping = (tileChar) ->
     switch tileChar
-      when '_' then 'empty'
-      when 'g' then 'goal'
-      when 'o' then 'obstacle'
-      when 's' then 'starting-point'
+      when '_' then 'EMPTY'
+      when 'g' then 'GOAL'
+      when 'o' then 'OBSTACLE'
+      when 's' then 'START'
       else throw Error "'#{tileChar}' <-- invalid tileChar"
 
   # # Solution 1
