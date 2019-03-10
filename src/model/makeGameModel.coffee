@@ -1,7 +1,7 @@
 findStart = (boardModel) ->
   for rowData, row in boardModel
-    for tileType, col in rowData
-      return { row, col } if tileType == 'START'
+    for tileName, col in rowData
+      return { row, col } if tileName == 'START'
 
   throw Error 'Missing START'
 

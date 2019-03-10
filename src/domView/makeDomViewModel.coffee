@@ -5,8 +5,8 @@ makeDiv = (className) ->
   ret.className = className
   ret
 
-makeTileDiv = (tileType) ->
-  makeDiv "tile #{tileType}"
+makeTileDiv = (tileName) ->
+  makeDiv "tile #{tileName}"
 
 module.exports = (i18n) -> (gameModel) ->
   # TODO Check if string concatenation with only one appendChild
@@ -15,8 +15,8 @@ module.exports = (i18n) -> (gameModel) ->
   boardDiv = makeDiv 'board'
 
   gameModel.boardModel.forEach (row) ->
-    row.forEach (tileType) ->
-      boardDiv.appendChild makeTileDiv tileType
+    row.forEach (tileName) ->
+      boardDiv.appendChild makeTileDiv tileName
 
   playerDiv = makeTileDiv 'PLAYER'
 

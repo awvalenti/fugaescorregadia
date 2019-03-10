@@ -38,11 +38,11 @@ module.exports = (levelIndex) ->
   # Array::map.call levelBytes, (charCode) -> String.fromCharCode charCode
   #   .filter (tileChar) -> tileChar not in [' ', '\n']
   #   .map mapping
-  #   .reduce (ret, tileType, i) ->
+  #   .reduce (ret, tileName, i) ->
   #     row = Math.floor i / COLUMNS
   #     col = i % COLUMNS
   #     ret[row] = Array COLUMNS if col == 0
-  #     ret[row][col] = tileType
+  #     ret[row][col] = tileName
   #     ret
   #   , Array ROWS
 
