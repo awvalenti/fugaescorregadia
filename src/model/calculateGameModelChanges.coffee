@@ -1,5 +1,3 @@
-makeGameModel = require '/model/makeGameModel'
-
 module.exports = (gameModel, direction) ->
   switch direction
     when 'UP'    then incRow = -1; incCol =  0

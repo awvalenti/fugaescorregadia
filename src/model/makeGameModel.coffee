@@ -1,5 +1,3 @@
-readBoardModel = require '/model/readBoardModel'
-
 findStart = (boardModel) ->
   for rowData, row in boardModel
     for tileName, col in rowData
@@ -7,8 +5,5 @@ findStart = (boardModel) ->
 
   throw Error 'Missing START'
 
-module.exports =
-  (level = 0,
-  boardModel = readBoardModel(level),
-  playerPos = findStart(boardModel)) ->
-    {level, boardModel, playerPos}
+module.exports = (level, boardModel, playerPos = findStart(boardModel)) ->
+  {level, boardModel, playerPos}

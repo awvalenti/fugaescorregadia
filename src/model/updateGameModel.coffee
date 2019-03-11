@@ -1,8 +1,8 @@
 makeGameModel = require '/model/makeGameModel'
 
-module.exports = (gameModel, {movement, newLevel}) ->
+module.exports = (readBoardModel) -> (gameModel, {movement, newLevel}) ->
   if newLevel?
-    makeGameModel newLevel
+    makeGameModel newLevel, readBoardModel newLevel
   else if movement?
     makeGameModel gameModel.level, gameModel.boardModel, movement.to
   else
