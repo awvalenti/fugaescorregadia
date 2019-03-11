@@ -1,4 +1,4 @@
-i18n             = (require '/i18n') 'en'
+i18n           = (require '/i18n') 'en'
 
 readBoardModel = require '/model/readBoardModel'
 makeGameModel  = require '/model/makeGameModel'
