@@ -4,10 +4,9 @@
   "description": "Jogo de labirinto / Labyrinth game",
   "main": "index.js",
   "scripts": {
-    "start": "npx parcel src/index.html",
-    "test": "npx parcel build src/run-tests.coffee --no-cache --no-minify && npx mocha dist/run-tests*.js",
-    "tdd1": "npx mocha -w dist/run-tests*.js",
-    "tdd2": "npx parcel watch src/run-tests.coffee --no-cache"
+    "start": "npx parcel -p 1234 src/index.html",
+    "test": "npx parcel build src/run-tests-node.coffee --no-cache --no-minify && npx mocha dist/run-tests-node*.js",
+    "tdd": "npx parcel -p 5678 src/run-tests-browser.html --no-cache"
   },
   "repository": {
     "type": "git",
