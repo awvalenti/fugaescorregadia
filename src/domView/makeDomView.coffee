@@ -1,4 +1,4 @@
-mutateDivTile     = require '/domView/mutateDivTile'
+mutateDivTile = require '/domView/mutateDivTile'
 mutateTranslation = require '/domView/mutateTranslation'
 
 makeTileDiv = (tileName) ->
@@ -23,4 +23,4 @@ module.exports = (i18n) -> (gameModel) ->
 
   mutateTranslation gameModel.playerPos, playerDiv
 
-  {title: (i18n 'title'), boardDiv, playerDiv}
+  {title: i18n('title'), boardDiv, playerDiv}

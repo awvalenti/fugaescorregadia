@@ -1,4 +1,4 @@
-makeGameModel             = require '/model/makeGameModel'
+makeGameModel = require '/model/makeGameModel'
 
 module.exports = (gameModel, {movement, newLevel}) ->
   if newLevel?

@@ -1,5 +1,5 @@
 mutatePlayerDivPosition = require '/domView/mutatePlayerDivPosition'
-mutateDivTile     = require '/domView/mutateDivTile'
+mutateDivTile = require '/domView/mutateDivTile'
 mutateTranslation = require '/domView/mutateTranslation'
 
 module.exports = (gameModel, domView, {movement, newLevel}) ->

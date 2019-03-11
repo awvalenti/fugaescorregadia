@@ -1,6 +1,6 @@
 should = require 'should'
 
-makeGameModel             = require '/model/makeGameModel.coffee'
+makeGameModel = require '/model/makeGameModel.coffee'
 calculateGameModelChanges = require '/model/calculateGameModelChanges.coffee'
 
 describe 'calculateGameModelChanges', ->

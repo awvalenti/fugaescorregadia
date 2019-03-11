@@ -1,9 +1,9 @@
-i18n           = (require '/i18n') 'en'
+i18n = require('/i18n') 'en'
 
-makeGameModel  = require '/model/makeGameModel'
+makeGameModel = require '/model/makeGameModel'
 
-makeDomView    = (require '/domView/makeDomView') i18n
-makeController = (require '/domView/makeController') i18n
+makeDomView = require('/domView/makeDomView') i18n
+makeController = require('/domView/makeController') i18n
 mutateDocument = require '/domView/mutateDocument'
 
 gameModel  = makeGameModel()
