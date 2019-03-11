@@ -4,8 +4,25 @@ calculateGameModelChanges = require '/model/calculateGameModelChanges'
 
 mutateDomView = require '/domView/mutateDomView'
 
-module.exports = (gameModel, updateGameModel, domView) -> (direction) ->
-  changeset = calculateGameModelChanges gameModel, direction
-  gameModel = updateGameModel gameModel, changeset
-  await mutateDomView gameModel, domView, changeset
-  return
+module.exports = (gameModel, updateGameModel, domView) ->
+  queue = []
+  processing = off
+
+  (direction) ->
+    return if queue.length >= 3   # Maximum number of enqueued actions
+
+    queue.push direction
+
+    return if processing
+
+    processing = on
+    loop
+      direction = queue[0]
+      changeset = calculateGameModelChanges gameModel, direction
+      gameModel = updateGameModel gameModel, changeset
+      await mutateDomView gameModel, domView, changeset
+      queue.shift()
+      break if queue.length is 0
+    processing = off
+
+    return

@@ -1,5 +1,5 @@
 module.exports = (mutateAppState) ->
-  SENSITIVITY = 30
+  THRESHOLD = 60
 
   touchStartX = touchStartY = null
 
@@ -19,7 +19,7 @@ module.exports = (mutateAppState) ->
     absDifX = Math.abs difX
     absDifY = Math.abs difY
 
-    if Math.max(absDifX, absDifY) >= SENSITIVITY
+    if Math.max(absDifX, absDifY) >= THRESHOLD
       touchStartX = pageX
       touchStartY = pageY
       mutateAppState(
