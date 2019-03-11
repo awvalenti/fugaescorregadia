@@ -23,8 +23,7 @@ module.exports = (gameModel, direction) ->
       when 'GOAL' then 'STOP'
       else 'GO_ON'
 
-  row = oldPos.row
-  col = oldPos.col
+  {row, col} = oldPos
   loop
     newRow = row + incRow
     newCol = col + incCol

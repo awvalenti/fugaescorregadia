@@ -3,7 +3,7 @@ readBoardModel = require '/model/readBoardModel'
 findStart = (boardModel) ->
   for rowData, row in boardModel
     for tileName, col in rowData
-      return { row, col } if tileName == 'START'
+      return {row, col} if tileName == 'START'
 
   throw Error 'Missing START'
 
