@@ -1,4 +1,4 @@
-setPlayerDivTranslation = require '/domView/setPlayerDivTranslation'
+mutatePlayerDivTranslation = require '/domView/mutatePlayerDivTranslation'
 
 makeDiv = (className) ->
   ret = document.createElement 'div'
@@ -22,6 +22,6 @@ module.exports = (i18n) -> (gameModel) ->
 
   boardDiv.appendChild playerDiv
 
-  setPlayerDivTranslation gameModel.playerPos, playerDiv
+  mutatePlayerDivTranslation gameModel.playerPos, playerDiv
 
   { title: (i18n 'title'), boardDiv, playerDiv }

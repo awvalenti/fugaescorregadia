@@ -1,4 +1,4 @@
-setPlayerDivTranslation = require '/domView/setPlayerDivTranslation'
+mutatePlayerDivTranslation = require '/domView/mutatePlayerDivTranslation'
 
 module.exports = (oldPos, newPos, playerDiv) ->
   return Promise.resolve() if newPos == oldPos
@@ -9,4 +9,4 @@ module.exports = (oldPos, newPos, playerDiv) ->
       Math.abs(newPos.col - oldPos.col)
     playerDiv.style.transitionDuration = "#{distance * .04}s"
     playerDiv.addEventListener 'transitionend', -> resolve()
-    setPlayerDivTranslation newPos, playerDiv
+    mutatePlayerDivTranslation newPos, playerDiv
