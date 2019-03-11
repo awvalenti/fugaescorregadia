@@ -6,7 +6,8 @@
   "scripts": {
     "start": "npx parcel -p 1234 src/index.html",
     "test": "npx parcel build src/run-tests-node.coffee --no-cache --no-minify && npx mocha dist/run-tests-node*.js",
-    "tdd": "npx parcel -p 5678 src/run-tests-browser.html --no-cache"
+    "tdd": "npx parcel -p 5678 src/run-tests-browser.html --no-cache",
+    "build": "npx parcel build src/index.html"
   },
   "repository": {
     "type": "git",
