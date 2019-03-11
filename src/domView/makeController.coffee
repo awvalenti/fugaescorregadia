@@ -4,7 +4,7 @@ calculateGameModelChanges = require '/model/calculateGameModelChanges'
 
 mutateDomView = require '/domView/mutateDomView'
 
-module.exports = (i18n) -> (updateGameModel, gameModel, domView) ->
+module.exports = (updateGameModel, gameModel, domView) ->
   move = (direction) ->
     changeset = calculateGameModelChanges gameModel, direction
     gameModel = updateGameModel gameModel, changeset

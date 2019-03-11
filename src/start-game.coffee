@@ -5,7 +5,7 @@ readBoardModel = require '/model/readBoardModel'
 updateGameModel = require('/model/updateGameModel') readBoardModel
 
 makeDomView = require('/domView/makeDomView') i18n
-makeController = require('/domView/makeController') i18n
+makeController = require '/domView/makeController'
 mutateDocument = require '/domView/mutateDocument'
 
 gameModel = makeGameModel 0, readBoardModel 0
