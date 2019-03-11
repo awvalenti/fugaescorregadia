@@ -1,3 +1,7 @@
+html, body {
+  overscroll-behavior-y: contain;
+}
+
 body {
   background-color: #333;
   margin: 0;
@@ -8,6 +12,7 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
+  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   width: 100vmin;
   height: 100vmin;
@@ -31,7 +36,9 @@ body {
 .tile.PLAYER {
   background-color: #f00;
   position: absolute;
+  -webkit-transition-property: -webkit-transform;
   transition-property: transform;
+  -webkit-transition-timing-function: linear;
   transition-timing-function: linear;
 }
 

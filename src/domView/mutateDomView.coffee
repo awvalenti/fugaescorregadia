@@ -13,8 +13,8 @@ module.exports = (gameModel, {boardDiv, playerDiv}, {movement, newLevel}) ->
       rowData.forEach (tileName, colIndex) ->
         mutateDivTile tileName, divTiles[rowIndex * rowData.length + colIndex]
 
-    playerDiv = playerDiv
-    playerDiv.style.transitionDuration = null
+    st = playerDiv.style
+    st.transitionDuration = st['-webkit-transition-duration'] = null
     mutateTranslation gameModel.playerPos, playerDiv
 
   return

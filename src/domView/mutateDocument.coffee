@@ -1,18 +1,20 @@
-keydownListener = touchstartListener = null
+keydown = touchstart = touchmove = null
 
-module.exports = (document, domView, controller) ->
+module.exports = (document, domView, keyboardController, mobileController) ->
   document.title = domView.title
 
   document.body.appendChild domView.boardDiv
 
   # Removes old listeners between ParcelJS reloads
-  document.removeEventListener 'keydown', keydownListener
-  document.removeEventListener 'touchstart', touchstartListener
+  document.removeEventListener 'keydown', keydown
+  document.removeEventListener 'touchstart', touchstart
+  document.removeEventListener 'touchmove', touchmove
 
-  keydownListener = controller.keydown
-  touchstartListener = controller.touchstart
+  {keydown} = keyboardController
+  {touchstart, touchmove} = mobileController
 
-  document.addEventListener 'keydown', keydownListener
-  document.addEventListener 'touchstart', touchstartListener
+  document.addEventListener 'keydown', keydown
+  document.addEventListener 'touchstart', touchstart, passive: false
+  document.addEventListener 'touchmove', touchmove, passive: false
 
   return
