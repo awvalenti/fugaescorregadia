@@ -1,18 +1,17 @@
+mutateDivTile     = require '/domView/mutateDivTile'
 mutateTranslation = require '/domView/mutateTranslation'
 
-makeDiv = (className) ->
-  ret = document.createElement 'div'
-  ret.className = className
-  ret
-
 makeTileDiv = (tileName) ->
-  makeDiv "tile #{tileName}"
+  ret = document.createElement 'div'
+  mutateDivTile tileName, ret
+  ret
 
 module.exports = (i18n) -> (gameModel) ->
   # TODO Check if string concatenation with only one appendChild
   # call is more efficient
 
-  boardDiv = makeDiv 'board'
+  boardDiv = document.createElement 'div'
+  boardDiv.className = 'board'
 
   gameModel.boardModel.forEach (row) ->
     row.forEach (tileName) ->

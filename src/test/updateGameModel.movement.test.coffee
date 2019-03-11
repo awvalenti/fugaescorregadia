@@ -4,7 +4,7 @@ makeGameModel   = require '/model/makeGameModel.coffee'
 updateGameModel = require '/model/updateGameModel.coffee'
 
 describe 'updateGameModel', ->
-  gameModel = makeGameModel [
+  gameModel = makeGameModel 0, [
     ['EMPTY', 'EMPTY', 'EMPTY', 'EMPTY'   ]
     ['EMPTY', 'EMPTY', 'EMPTY', 'EMPTY'   ]
     ['START', 'EMPTY', 'EMPTY', 'OBSTACLE']

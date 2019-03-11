@@ -3,9 +3,14 @@ fs = require 'fs'
 module.exports = (levelIndex) ->
   # We can't concatenate strings to generate path, since it must be static.
   # We can lazy-load only the desired level.
-  levelBytes = {
-    0: -> fs.readFileSync "#{__dirname}/../../src/levels/00.level"
-  }[levelIndex]()
+  lazyLoad = [
+    -> fs.readFileSync "#{__dirname}/../../src/levels/00.level"
+    -> fs.readFileSync "#{__dirname}/../../src/levels/01.level"
+  ][levelIndex]
+
+  throw Error "Level #{levelIndex} not created yet" if not lazyLoad?
+
+  levelBytes = lazyLoad()
 
   mapping = (tileChar) ->
     switch tileChar

@@ -1,5 +1,8 @@
 require 'babel-polyfill' # Necessary for await
 
+makeGameModel  = require '/model/makeGameModel'
+mutateDomView  = require '/domView/mutateDomView'
+
 updateGameModel           = require '/model/updateGameModel'
 mutatePlayerDivPosition   = require '/domView/mutatePlayerDivPosition'
 
@@ -8,9 +11,11 @@ module.exports = (i18n) -> (gameModel, domView) ->
     oldPos = gameModel.playerPos
     gameModel = updateGameModel gameModel, direction
     await mutatePlayerDivPosition oldPos, gameModel.playerPos, domView.playerDiv
-    if gameModel.event is 'GOAL_REACHED'
-      # TODO
-      alert (i18n 'goal-reached')
+    newLevel = gameModel.event?.newLevel
+    if newLevel?
+      gameModel = makeGameModel newLevel
+      mutateDomView gameModel, domView
+    return
 
   keydown: (e) ->
     switch e.code
@@ -18,6 +23,7 @@ module.exports = (i18n) -> (gameModel, domView) ->
       when 'ArrowRight' then move 'RIGHT'
       when 'ArrowDown'  then move 'DOWN'
       when 'ArrowLeft'  then move 'LEFT'
+    return
 
   touchstart: (e) ->
     # TODO

@@ -36,5 +36,6 @@ module.exports = (gameModel, direction) ->
   if row == oldPos.row and col == oldPos.col
     gameModel
   else
-    event = 'GOAL_REACHED' if board[row][col] is 'GOAL'
-    makeGameModel board, {row, col}, event
+    level = gameModel.level
+    event = newLevel: level + 1 if board[row][col] is 'GOAL'
+    makeGameModel level, board, {row, col}, event
