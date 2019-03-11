@@ -10,6 +10,5 @@ findStart = (boardModel) ->
 module.exports =
   (level = 0,
   boardModel = readBoardModel(level),
-  playerPos = findStart(boardModel),
-  event = null) ->
-    {boardModel, playerPos, level, event}
+  playerPos = findStart(boardModel)) ->
+    {level, boardModel, playerPos}
