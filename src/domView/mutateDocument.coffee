@@ -1,6 +1,6 @@
 keydownListener = touchstartListener = null
 
-module.exports = (domView, controller) ->
+module.exports = (document, domView, controller) ->
   document.title = domView.title
 
   document.body.appendChild domView.boardDiv

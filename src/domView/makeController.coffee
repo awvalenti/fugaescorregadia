@@ -1,13 +1,13 @@
 require 'babel-polyfill' # Necessary for await
 
-updateGameModel = require '/model/updateGameModel'
-movePlayerDiv   = require '/domView/movePlayerDiv'
+updateGameModel           = require '/model/updateGameModel'
+mutatePlayerDivPosition   = require '/domView/mutatePlayerDivPosition'
 
 module.exports = (i18n) -> (gameModel, domView) ->
   move = (direction) ->
     oldPos = gameModel.playerPos
     gameModel = updateGameModel gameModel, direction
-    await movePlayerDiv oldPos, gameModel.playerPos, domView.playerDiv
+    await mutatePlayerDivPosition oldPos, gameModel.playerPos, domView.playerDiv
     if gameModel.event is 'GOAL_REACHED'
       # TODO
       alert (i18n 'goal-reached')
