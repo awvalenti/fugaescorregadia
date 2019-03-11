@@ -14,3 +14,5 @@ module.exports = (document, domView, controller) ->
 
   document.addEventListener 'keydown', keydownListener
   document.addEventListener 'touchstart', touchstartListener
+
+  return
