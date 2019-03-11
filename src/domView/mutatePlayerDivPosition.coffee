@@ -10,7 +10,7 @@ module.exports = (oldPos, newPos, playerDiv) ->
 
     # Animation speed is always the same:
     # duration is adjusted according to distance
-    playerDiv.style.transitionDuration = "#{distance * .04}s"
+    playerDiv.style.transitionDuration = "#{distance * 40}ms"
 
     playerDiv.addEventListener 'transitionend', -> resolve()
 

@@ -1,10 +1,10 @@
 require 'babel-polyfill' # Necessary for await
 
-makeGameModel  = require '/model/makeGameModel'
-mutateDomView  = require '/domView/mutateDomView'
+makeGameModel   = require '/model/makeGameModel'
+updateGameModel = require '/model/updateGameModel'
 
-updateGameModel           = require '/model/updateGameModel'
-mutatePlayerDivPosition   = require '/domView/mutatePlayerDivPosition'
+mutateDomView           = require '/domView/mutateDomView'
+mutatePlayerDivPosition = require '/domView/mutatePlayerDivPosition'
 
 module.exports = (i18n) -> (gameModel, domView) ->
   move = (direction) ->
