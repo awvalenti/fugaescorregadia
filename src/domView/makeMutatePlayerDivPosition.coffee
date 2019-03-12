@@ -9,13 +9,15 @@ module.exports = () ->
     return Promise.resolve() if newPos == oldPos
 
     new Promise (resolve) ->
+      delayedResolve = setTimeout.bind null, resolve, 20
+
       playerDiv.removeEventListener 'webkitTransitionEnd', oldResolve
       playerDiv.removeEventListener 'transitionend', oldResolve
 
-      playerDiv.addEventListener 'webkitTransitionEnd', resolve
-      playerDiv.addEventListener 'transitionend', resolve
+      playerDiv.addEventListener 'webkitTransitionEnd', delayedResolve
+      playerDiv.addEventListener 'transitionend', delayedResolve
 
-      oldResolve = resolve
+      oldResolve = delayedResolve
 
       # Either row or col is changed, never both; a simple sum will do
       dist = Math.abs(newPos.row - oldPos.row) +
