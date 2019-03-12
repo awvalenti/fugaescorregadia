@@ -3,7 +3,7 @@ mutateDivTile = require '/domView/mutateDivTile'
 mutateTranslation = require '/domView/mutateTranslation'
 
 module.exports = () ->
-  mutatePlayerDivPosition = makeMutatePlayerDivPosition()
+  mutatePlayerDivPosition = do makeMutatePlayerDivPosition
 
   (gameModel, {boardDiv, playerDiv}, {movement, newLevel}) ->
     if movement?

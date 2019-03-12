@@ -4,13 +4,13 @@ module.exports = (mutateAppState) ->
   touchStartX = touchStartY = null
 
   touchstart: (e) ->
-    e.preventDefault()
+    do e.preventDefault
     {pageX, pageY} = e.touches[0]
     touchStartX = pageX
     touchStartY = pageY
 
   touchmove: (e) ->
-    e.preventDefault()
+    do e.preventDefault
     {pageX, pageY} = e.touches[0]
 
     difX = pageX - touchStartX

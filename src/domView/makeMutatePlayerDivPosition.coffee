@@ -6,7 +6,7 @@ module.exports = () ->
   oldResolve = null
 
   (oldPos, newPos, playerDiv) ->
-    return Promise.resolve() if newPos == oldPos
+    return do Promise.resolve if newPos == oldPos
 
     new Promise (resolve) ->
       delayedResolve = setTimeout.bind null, resolve, 20

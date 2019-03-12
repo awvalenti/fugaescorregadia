@@ -6,18 +6,18 @@ changeResult = (icon) ->
 # When ParcelJS does a soft reload, we do a hard one.
 if Mocha?
   changeResult '⏳'
-  location.reload()
+  do location.reload
   return
 
 require 'mocha'
 
 mocha.setup 'bdd'
-# mocha.checkLeaks()
-# mocha.allowUncaught()
+# do mocha.checkLeaks
+# do mocha.allowUncaught
 
 require '/test/setup/load-tests.coffee'
 
-runner = mocha.run()
+runner = do mocha.run
 
 runner.on Mocha.Runner.constants.EVENT_RUN_END, ->
   changeResult if runner.failures is 0 then '✔️' else '❌'

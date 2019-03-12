@@ -10,7 +10,7 @@ module.exports = (levelIndex) ->
 
   throw Error "Level #{levelIndex} not created yet" if not lazyLoad?
 
-  levelBytes = lazyLoad()
+  levelBytes = do lazyLoad
 
   mapping = (tileChar) ->
     switch tileChar

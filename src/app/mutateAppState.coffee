@@ -6,7 +6,7 @@ makeMutateDomView = require '/domView/makeMutateDomView'
 
 module.exports =
   (gameModel, updateGameModel, domView) ->
-    mutateDomView = makeMutateDomView()
+    mutateDomView = do makeMutateDomView
 
     queue = []
     processing = off
@@ -24,7 +24,7 @@ module.exports =
         changeset = calculateGameModelChanges gameModel, direction
         gameModel = updateGameModel gameModel, changeset
         await mutateDomView gameModel, domView, changeset
-        queue.shift()
+        do queue.shift
         break if queue.length is 0
       processing = off
 
