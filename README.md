@@ -1,4 +1,4 @@
-For English, please [see here](#slippery-escape).
+For English, please [see here](#slippery-escape---click-here-to-play).
 
 # Fuga Escorregadia - clique [aqui](http://awvalenti.github.io/fugaescorregadia/) para jogar!
 Projeto em andamento de um jogo de labirinto. Objetivo: escorregar pelo
