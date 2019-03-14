@@ -27,11 +27,10 @@ seu destino ainda será decidido. Enquanto isso, os direitos ficam reservados.
 
 <dt>E esse monte de funções soltas no código? Cadê as classes?</dt>
 <dd>Estou usando o paradigma funcional, com imutabilidade etc.
-Estou tentando não criar nenhuma classe e ver como fica o código dessa
-maneira. Estou percebendo que fazer injeção de dependências
-dessa maneira torna o código meio obscuro às vezes. Talvez eu acabe
-criando algumas classes. De qualquer maneira, a imutabilidade
-deve continuar.</dd>
+Estou tentando não criar nenhuma classe e ver como fica o resultado.
+Fazer injeção de dependências dessa maneira tem deixado o código meio
+obscuro às vezes. Talvez eu acabe criando algumas classes. De qualquer
+maneira, a imutabilidade está indo bem e deve ser mantida.</dd>
 
 <dt>Tenho outra pergunta para lhe fazer. Posso?</dt>
 <dd>Claro!
