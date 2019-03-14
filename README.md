@@ -1,7 +1,8 @@
 For English, please [see here](#slippery-escape).
 
-# Fuga Escorregadia
-Jogo de labirinto cujo objetivo é escorregar pelo tabuleiro até conseguir chegar à saída.
+# Fuga Escorregadia - clique [aqui](http://awvalenti.github.io/fugaescorregadia/) para jogar!
+Projeto em andamento de um jogo de labirinto. Objetivo: escorregar pelo
+tabuleiro até conseguir chegar à saída.
 
 ## Licença
 Copyright &copy; 2019, André Willik Valenti. Todos os direitos reservados.
@@ -24,6 +25,14 @@ Este é um pouco diferente. É um projeto pessoal muito antigo e
 seu destino ainda será decidido. Enquanto isso, os direitos ficam reservados.
 É possível que ele se torne totalmente aberto no futuro.</dd>
 
+<dt>E esse monte de funções soltas no código? Cadê as classes?</dt>
+<dd>Estou usando o paradigma funcional, com imutabilidade etc.
+Estou tentando não criar nenhuma classe e ver como fica o código dessa
+maneira. Estou percebendo que fazer injeção de dependências
+dessa maneira torna o código meio obscuro às vezes. Talvez eu acabe
+criando algumas classes. De qualquer maneira, a imutabilidade
+deve continuar.</dd>
+
 <dt>Tenho outra pergunta para lhe fazer. Posso?</dt>
 <dd>Claro!
 <a href="https://github.com/awvalenti/fugaescorregadia/issues/new">
@@ -31,7 +40,9 @@ Abra uma issue</a> e mande ver!</dd>
 
 </dl>
 
-# Slippery Escape
+# Slippery Escape - click [here](http://awvalenti.github.io/fugaescorregadia/) to play!
+Work-in-progress labyrinth game. Objective is to reach the goal by
+slipping around the board.
 
 ## License
 Copyright &copy; 2019, André Willik Valenti. All rights reserved.
@@ -53,6 +64,13 @@ issue</a>.</dd>
 different case. It's a very old project of mine and its future is to be
 decided. You're free to look at the
 code in the meantime. It might eventually become fully open-source, anyway.</dd>
+
+<dt>What's up with all those functions? Where are the classes?</dt>
+<dd>I'm coding in a functional programming fashion, with immutability and
+all that stuff. I'm trying not to create any classes, to see in practice
+what the result will look like. Dependency injection, in that context, seems
+to be getting unwieldy sometimes. I might end up creating some classes.
+Immutability, however, is doing fine and should be kept.</dd>
 
 <dt>Can I ask you some other question?</dt>
 <dd>Sure! Please
