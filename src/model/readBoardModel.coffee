@@ -20,11 +20,11 @@ module.exports = (levelIndex) ->
       when 's' then 'START'
       else throw Error "'#{tileChar}' <-- invalid tileChar"
 
-  # # Solution 1
-  # String levelBytes
-  #   .replace /\s+$/gm, ''
-  #   .split '\n'
-  #   .map (row) -> row.split(' ').map mapping
+  # Solution 1
+  String levelBytes
+    .replace /\s+$/gm, ''
+    .split '\n'
+    .map (row) -> row.split(' ').map mapping
 
   # # Solution 2
   # ROWS = 20
@@ -51,17 +51,17 @@ module.exports = (levelIndex) ->
   #     ret
   #   , Array ROWS
 
-  # Solution 4
-  ROWS = 20
-  COLUMNS = 20
-  ret = Array ROWS
-  tileCount = 0
-  for charCode in levelBytes
-    tileChar = String.fromCharCode charCode
-    continue if tileChar in [' ', '\n']
-    row = Math.floor tileCount / COLUMNS
-    col = tileCount % COLUMNS
-    ret[row] = Array COLUMNS if col == 0
-    ret[row][col] = mapping tileChar
-    ++tileCount
-  ret
+  # # Solution 4
+  # ROWS = 20
+  # COLUMNS = 20
+  # ret = Array ROWS
+  # tileCount = 0
+  # for charCode in levelBytes
+  #   tileChar = String.fromCharCode charCode
+  #   continue if tileChar in [' ', '\n']
+  #   row = Math.floor tileCount / COLUMNS
+  #   col = tileCount % COLUMNS
+  #   ret[row] = Array COLUMNS if col == 0
+  #   ret[row][col] = mapping tileChar
+  #   ++tileCount
+  # ret

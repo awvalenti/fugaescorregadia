@@ -22,8 +22,6 @@ body {
 
 .tile {
   float: left;
-  width: 5%;
-  height: 5%;
 }
 
 .tile.GOAL {

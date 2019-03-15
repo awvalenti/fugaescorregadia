@@ -5,7 +5,7 @@ module.exports = () ->
 
   oldResolve = null
 
-  (oldPos, newPos, playerDiv) ->
+  (rowCount, colCount, oldPos, newPos, playerDiv) ->
     return do Promise.resolve if newPos == oldPos
 
     new Promise (resolve) ->
@@ -27,6 +27,6 @@ module.exports = () ->
       st.transitionDuration = st['-webkit-transition-duration'] =
         "#{dist * MILLISECONDS_PER_TILE}ms"
 
-      mutateTranslation newPos, playerDiv
+      mutateTranslation rowCount, colCount, newPos, playerDiv
 
       return

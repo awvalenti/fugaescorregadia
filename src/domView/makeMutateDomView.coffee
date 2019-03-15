@@ -7,7 +7,9 @@ module.exports = () ->
 
   (gameModel, {boardDiv, playerDiv}, {movement, newLevel}) ->
     if movement?
-      await mutatePlayerDivPosition movement.from, movement.to, playerDiv
+      await mutatePlayerDivPosition gameModel.boardModel.length,
+        gameModel.boardModel[0].length,
+        movement.from, movement.to, playerDiv
 
     if newLevel?
       divTiles = boardDiv.children
@@ -18,6 +20,7 @@ module.exports = () ->
 
       st = playerDiv.style
       st.transitionDuration = st['-webkit-transition-duration'] = null
-      mutateTranslation gameModel.playerPos, playerDiv
+      mutateTranslation gameModel.boardModel.length,
+        gameModel.boardModel[0].length, gameModel.playerPos, playerDiv
 
     return
