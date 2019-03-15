@@ -10,10 +10,11 @@ body {
 
 .board {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
   width: 100vmin;
   height: 100vmin;
   background-color: black;
@@ -36,8 +37,8 @@ body {
 .tile.PLAYER {
   background-color: #f00;
   position: absolute;
-  -webkit-transition-property: -webkit-transform;
-  transition-property: transform;
+  -webkit-transition-property: top left;
+  transition-property: top left;
   -webkit-transition-timing-function: linear;
   transition-timing-function: linear;
 }
