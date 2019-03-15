@@ -1,6 +1,6 @@
 module.exports = (mutateAppState) ->
   keydown: (e) ->
-    switch e.code
+    switch e.key
       when 'ArrowUp'    then mutateAppState 'UP'
       when 'ArrowRight' then mutateAppState 'RIGHT'
       when 'ArrowDown'  then mutateAppState 'DOWN'
