@@ -3,7 +3,12 @@ keydown = touchstart = touchmove = null
 module.exports = (document, domView, keyboardController, mobileController) ->
   document.title = domView.title
 
-  document.body.appendChild domView.boardDiv
+  main = document.querySelector 'main'
+
+  while do main.hasChildNodes
+    main.removeChild main.lastChild
+
+  main.appendChild domView.boardDiv
 
   # Removes old listeners between ParcelJS reloads
   document.removeEventListener 'keydown', keydown
