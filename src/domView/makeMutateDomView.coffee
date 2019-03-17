@@ -19,7 +19,7 @@ module.exports = () ->
           mutateDivTile tileName, divTiles[rowIndex * rowData.length + colIndex]
 
       st = playerDiv.style
-      st.transitionDuration = st['-webkit-transition-duration'] = null
+      st.transitionDuration = st.webkitTransitionDuration = null
       mutateTranslation gameModel.boardModel.length,
         gameModel.boardModel[0].length, gameModel.playerPos, playerDiv
 

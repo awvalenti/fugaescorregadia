@@ -24,7 +24,7 @@ module.exports = () ->
         Math.abs(newPos.col - oldPos.col)
 
       st = playerDiv.style
-      st.transitionDuration = st['-webkit-transition-duration'] =
+      st.transitionDuration = st.webkitTransitionDuration =
         "#{dist * MILLISECONDS_PER_TILE}ms"
 
       mutateTranslation rowCount, colCount, newPos, playerDiv
