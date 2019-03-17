@@ -1,25 +1,51 @@
-keydown = touchstart = touchmove = null
+getCssStyle = require '/domView/util/getCssStyle'
 
-module.exports = (document, domView, keyboardController, mobileController) ->
-  document.title = domView.title
-
+updateMainElement = ({boardDiv}) ->
   main = document.querySelector 'main'
 
   while do main.hasChildNodes
     main.removeChild main.lastChild
 
-  main.appendChild domView.boardDiv
+  main.appendChild boardDiv
 
-  # Removes old listeners between ParcelJS reloads
-  document.removeEventListener 'keydown', keydown
-  document.removeEventListener 'touchstart', touchstart
-  document.removeEventListener 'touchmove', touchmove
+updateTileSize = (rowCount, colCount) ->
+  st = getCssStyle '.tile'
+  st.width = 100 / colCount + '%'
+  st.height = 100 / rowCount + '%'
 
-  {keydown} = keyboardController
-  {touchstart, touchmove} = mobileController
+immediateResize = (rowCount, colCount) ->
+  tileDimension = Math.min Math.floor(window.innerWidth / colCount),
+    Math.floor(window.innerHeight / rowCount)
 
-  document.addEventListener 'keydown', keydown
-  document.addEventListener 'touchstart', touchstart, passive: false
-  document.addEventListener 'touchmove', touchmove, passive: false
+  boardStyle = getCssStyle '.board'
+  boardStyle.width = tileDimension * colCount + 'px'
+  boardStyle.height = tileDimension * rowCount + 'px'
+
+throttledResize = (rowCount, colCount) ->
+  # https://developer.mozilla.org/en-US/docs/Web/Events/resize
+  # provides a good explanation of why we should do this.
+  # Following code was translated to JavaScript and posted
+  # on the address above.
+  resizeTaskId = null
+  ->
+    clearTimeout resizeTaskId if resizeTaskId?
+    resizeTaskId = setTimeout (->
+        resizeTaskId = null
+        immediateResize rowCount, colCount
+      ), 50
+
+module.exports = (rowCount, colCount, domView, {keydown},
+  {touchstart, touchmove}) ->
+
+  document.title = domView.title
+
+  updateMainElement domView
+  updateTileSize rowCount, colCount
+  immediateResize rowCount, colCount
+
+  window.onkeydown = keydown
+  window.ontouchstart = touchstart
+  window.ontouchmove = touchmove
+  window.onresize = throttledResize rowCount, colCount
 
   return

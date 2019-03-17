@@ -16,4 +16,5 @@ mutateAppState = require('/app/mutateAppState') gameModel, updateGameModel,
 keyboardController = makeKeyboardController mutateAppState
 mobileController = makeMobileController mutateAppState
 
-mutateDocument document, domView, keyboardController, mobileController
+mutateDocument gameModel.boardModel.length, gameModel.boardModel[0].length,
+  domView, keyboardController, mobileController
