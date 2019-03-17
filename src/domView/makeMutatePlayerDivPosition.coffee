@@ -1,8 +1,8 @@
 mutateTranslation = require '/domView/mutateTranslation'
 
-module.exports = () ->
-  MILLISECONDS_PER_TILE = 40
+MILLISECONDS_PER_TILE = 40
 
+module.exports = () ->
   (oldPos, newPos, arrivalHandler, playerDiv) ->
     return do Promise.resolve if newPos == oldPos
 

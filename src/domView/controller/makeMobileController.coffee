@@ -1,6 +1,6 @@
-module.exports = (mutateAppState) ->
-  THRESHOLD = 60
+THRESHOLD = 60
 
+module.exports = (mutateAppState) ->
   touchStartX = touchStartY = null
 
   touchstart: (e) ->
