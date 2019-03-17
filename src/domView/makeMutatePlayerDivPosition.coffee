@@ -2,6 +2,9 @@ mutateTranslation = require '/domView/mutateTranslation'
 
 MILLISECONDS_PER_TILE = 40
 
+# TODO Make this a non-factory function. It used to be useful, but now there's
+# no dependency injection here anymore.
+
 module.exports = () ->
   (oldPos, newPos, arrivalHandler, playerDiv) ->
     return do Promise.resolve if newPos == oldPos
