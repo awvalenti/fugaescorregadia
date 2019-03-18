@@ -40,6 +40,13 @@ makeBoardDiv = (gameModel, playerDiv) ->
 
 module.exports = (i18n) -> (gameModel) ->
   arrivalHandler = do makeArrivalHandler
+
   playerDiv = makePlayerDiv arrivalHandler, gameModel
-  boardDiv = makeBoardDiv gameModel, playerDiv
-  {title: i18n('title'), boardDiv, playerDiv, arrivalHandler}
+
+  {
+    title: i18n 'title'
+    version: require('/../package.json').version
+    boardDiv: makeBoardDiv gameModel, playerDiv
+    playerDiv
+    arrivalHandler
+  }

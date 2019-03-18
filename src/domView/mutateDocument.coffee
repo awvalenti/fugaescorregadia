@@ -34,11 +34,14 @@ throttledResize = (rowCount, colCount) ->
         immediateResize rowCount, colCount
       ), 50
 
+updateTexts = ({title, version}) ->
+  document.title = title
+  document.querySelector('footer').textContent = version
+
 module.exports = (rowCount, colCount, domView, {keydown},
   {touchstart, touchmove}) ->
 
-  document.title = domView.title
-
+  updateTexts domView
   updateMainElement domView
   updateTileSize rowCount, colCount
   immediateResize rowCount, colCount

@@ -8,6 +8,14 @@ body {
   padding: 0;
 }
 
+footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  color: white;
+  opacity: 0.75;
+}
+
 .board {
   position: absolute;
   top: 0;
@@ -20,6 +28,11 @@ body {
 
 .tile {
   float: left;
+
+  /* width and height are here only to allow ParcelJS hot reload
+   * when CSS is changed. These properties are dynamically replaced. */
+  width: 5%;
+  height: 5%;
 }
 
 .tile.GOAL {

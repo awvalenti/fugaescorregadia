@@ -1,6 +1,6 @@
 For English, please [see here](#slippery-escape---click-here-to-play).
 
-# Fuga Escorregadia - clique [aqui](http://awvalenti.github.io/fugaescorregadia/) para jogar!
+# Fuga Escorregadia - clique [aqui](https://awvalenti.github.io/fugaescorregadia/) para jogar!
 Projeto em andamento de um jogo de labirinto. Objetivo: escorregar pelo
 tabuleiro até conseguir chegar à saída.
 
@@ -39,7 +39,7 @@ Abra uma issue</a> e mande ver!</dd>
 
 </dl>
 
-# Slippery Escape - click [here](http://awvalenti.github.io/fugaescorregadia/) to play!
+# Slippery Escape - click [here](https://awvalenti.github.io/fugaescorregadia/) to play!
 Work-in-progress labyrinth game. Objective is to reach the goal by
 slipping around the board.
 
