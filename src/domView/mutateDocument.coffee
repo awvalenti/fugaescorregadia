@@ -1,4 +1,4 @@
-getCssStyle = require '/domView/util/getCssStyle'
+getDynamicStyle = require '/domView/util/getDynamicStyle'
 
 updateMainElement = ({boardDiv}) ->
   main = document.querySelector 'main'
@@ -9,7 +9,7 @@ updateMainElement = ({boardDiv}) ->
   main.appendChild boardDiv
 
 updateTileSize = (rowCount, colCount) ->
-  st = getCssStyle '.tile'
+  st = getDynamicStyle '.tile'
   st.width = 100 / colCount + '%'
   st.height = 100 / rowCount + '%'
 
@@ -17,7 +17,7 @@ immediateResize = (rowCount, colCount) ->
   tileDimension = Math.min Math.floor(window.innerWidth / colCount),
     Math.floor(window.innerHeight / rowCount)
 
-  boardStyle = getCssStyle '.board'
+  boardStyle = getDynamicStyle '.board'
   boardStyle.width = tileDimension * colCount + 'px'
   boardStyle.height = tileDimension * rowCount + 'px'
 

@@ -5,7 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Slippery Escape</title>
-  <link rel="stylesheet" href="style.css">
+
+  <link id="static-stylesheet" rel="stylesheet" href="style.css">
+
+  <style id="dynamic-stylesheet">
+    /*
+      Over file://, a stylesheet can only be changed dynamically if it's
+      directly on the HTML. That's why we've separated stylesheets into
+      static and dynamic, an external one and an internal one.
+     */
+    .board {
+      width: 100vmin;
+      height: 100vmin;
+    }
+
+    .tile {
+      width: 5%;
+      height: 5%;
+    }
+  </style>
+
   <script defer src="start-game.coffee"></script>
 </head>
 <body>
