@@ -27,7 +27,7 @@ seu destino ainda será decidido. Enquanto isso, os direitos ficam reservados.
 
 <dt>E esse monte de funções soltas no código? Cadê as classes?</dt>
 <dd>Estou usando o paradigma funcional, com imutabilidade etc.
-Estou tentando não criar nenhuma classe e ver como fica o resultado.
+Estou tentando criar poucas classes e ver como fica o resultado.
 Fazer injeção de dependências dessa maneira tem deixado o código meio
 obscuro às vezes. Talvez eu acabe criando algumas classes. De qualquer
 maneira, a imutabilidade está indo bem e deve ser mantida.</dd>
@@ -66,7 +66,7 @@ code in the meantime. It might eventually become fully open-source, anyway.</dd>
 
 <dt>What's up with all those functions? Where are the classes?</dt>
 <dd>I'm coding in a functional programming fashion, with immutability and
-all that stuff. I'm trying not to create any classes, to see in practice
+all that stuff. I'm trying to create few classes, to see in practice
 what the result will look like. Dependency injection, in that context, seems
 to be getting unwieldy sometimes. I might end up creating some classes.
 Immutability, however, is doing fine and should be kept.</dd>

@@ -6,35 +6,34 @@ makeMutateDomView = require '/domView/makeMutateDomView'
 
 MAX_ENQUEUED_MOVES = 2
 
-class Q
-  constructor: ->
-    @q = []
+class ProcessingQueue
+  constructor: (maxSize) ->
+    @maxSize = maxSize
     @processing = off
-    @maxSize = 2
+    @tasks = []
 
   add: (item) ->
-    return if @q.length >= @maxSize
-    @q.push item
-    return if @processing
-    do @_process
+    return if @tasks.length >= @maxSize
+    @tasks.push item
+    do @_process unless @processing
     return
 
   _process: ->
     @processing = on
     loop
-      result = await do do @q.shift
-      if result == 'CANCEL_NEXT_ONES'
-        @q.length = 0
-      break if @q.length is 0
+      currentTask = do @tasks.shift
+      result = await do currentTask
+      if result is 'CANCEL_NEXT_TASKS'
+        @tasks.length = 0
+      break if @tasks.length is 0
     @processing = off
     return
-
 
 module.exports =
   (gameModel, updateGameModel, domView) ->
     mutateDomView = do makeMutateDomView
 
-    queue = new Q
+    queue = new ProcessingQueue MAX_ENQUEUED_MOVES
 
     (direction) ->
       queue.add ->
@@ -42,7 +41,7 @@ module.exports =
         gameModel = updateGameModel gameModel, changeset
         await mutateDomView gameModel, domView, changeset
         if changeset.newLevel?
-          'CANCEL_NEXT_ONES'
+          'CANCEL_NEXT_TASKS'
         else
           'GO_ON'
       return
