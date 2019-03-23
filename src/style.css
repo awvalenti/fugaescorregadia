@@ -8,12 +8,23 @@ body {
   padding: 0;
 }
 
-footer {
+aside {
   position: fixed;
+  opacity: 0.8;
+}
+
+aside, aside a {
+  color: white;
+}
+
+aside#github {
+  top: 0;
+  left: 0;
+}
+
+aside#version {
   bottom: 0;
   right: 0;
-  color: white;
-  opacity: 0.75;
 }
 
 .board {

@@ -36,7 +36,7 @@ throttledResize = (rowCount, colCount) ->
 
 updateTexts = ({title, version}) ->
   document.title = title
-  document.querySelector('footer').textContent = version
+  document.getElementById('version-number').textContent = version
 
 module.exports = (rowCount, colCount, domView, {keydown},
   {touchstart, touchmove}) ->
