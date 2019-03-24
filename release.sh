@@ -13,11 +13,12 @@ fi
 
 rm -rf .cache/ dist/ && \
   npm run parcel-build && \
+  git tag $1 && \
   git checkout gh-pages && \
   git rm *.html *.css *.js && \
   mv dist/* . && \
   git add *.html *.css *.js *.map && \
-  git commit -m "Releasing version $version" && \
+  git commit -m "Delivering version $version" && \
   echo && \
   echo ---- Build successful! ---- && \
   echo Running OK on the browser? If so, git push to finish! && \

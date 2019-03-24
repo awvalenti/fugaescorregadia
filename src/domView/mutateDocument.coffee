@@ -21,6 +21,12 @@ immediateResize = (rowCount, colCount) ->
   boardStyle.width = tileDimension * colCount + 'px'
   boardStyle.height = tileDimension * rowCount + 'px'
 
+initialResize = (rowCount, colCount) ->
+  if window.innerWidth > 0 and window.innerHeight > 0
+    immediateResize rowCount, colCount
+  else
+    setTimeout initialResize, 10, rowCount, colCount
+
 throttledResize = (rowCount, colCount) ->
   # https://developer.mozilla.org/en-US/docs/Web/Events/resize
   # provides a good explanation of why we should do this.
@@ -44,7 +50,7 @@ module.exports = (rowCount, colCount, domView, {keydown},
   updateTexts domView
   updateMainElement domView
   updateTileSize rowCount, colCount
-  immediateResize rowCount, colCount
+  initialResize rowCount, colCount
 
   window.onkeydown = keydown
   window.ontouchstart = touchstart
