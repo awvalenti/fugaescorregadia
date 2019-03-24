@@ -44,7 +44,7 @@ updateTexts = ({title, version}) ->
   document.title = title
   document.getElementById('version-number').textContent = version
 
-module.exports = (rowCount, colCount, domView, {keydown},
+module.exports = (rowCount, colCount, domView, {keydown, keyup},
   {touchstart, touchmove, touchend}) ->
 
   updateTexts domView
@@ -53,6 +53,7 @@ module.exports = (rowCount, colCount, domView, {keydown},
   initialResize rowCount, colCount
 
   window.onkeydown = keydown
+  window.onkeyup = keyup
   window.ontouchstart = touchstart
   window.ontouchmove = touchmove
   window.ontouchend = touchend
