@@ -6,6 +6,7 @@ module.exports = (levelIndex) ->
   lazyLoad = [
     -> fs.readFileSync "#{__dirname}/../../src/levels/00.level"
     -> fs.readFileSync "#{__dirname}/../../src/levels/01.level"
+    -> fs.readFileSync "#{__dirname}/../../src/levels/02.level"
   ][levelIndex]
 
   throw Error "Level #{levelIndex} not created yet" if not lazyLoad?
@@ -14,7 +15,7 @@ module.exports = (levelIndex) ->
 
   mapping = (tileChar) ->
     switch tileChar
-      when '_' then 'EMPTY'
+      when '-' then 'EMPTY'
       when 'g' then 'GOAL'
       when 'o' then 'OBSTACLE'
       when 's' then 'START'
