@@ -11,13 +11,15 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then open_browser=open
 else open_browser=start
 fi
 
+files_to_replace='*.html *.css *.js *.map'
+
 rm -rf .cache/ dist/ && \
   npm run parcel-build && \
   git tag $1 && \
   git checkout gh-pages && \
-  git rm *.html *.css *.js && \
+  git rm $files_to_replace && \
   mv dist/* . && \
-  git add *.html *.css *.js *.map && \
+  git add $files_to_replace && \
   git commit -m "Delivering version $version" && \
   echo && \
   echo ---- Build successful! ---- && \
