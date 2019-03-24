@@ -1,6 +1,6 @@
 {
   "name": "fugaescorregadia",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "Jogo de labirinto / Labyrinth game",
   "main": "index.js",
   "scripts": {
