@@ -35,7 +35,10 @@ aside#version {
   right: 0;
   margin: auto;
   background-color: black;
-  /* cursor: none; */
+}
+
+.board.game {
+  cursor: none;
 }
 
 .tile {

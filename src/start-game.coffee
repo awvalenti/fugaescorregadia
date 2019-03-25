@@ -1,5 +1,7 @@
 {domView, gameModel, readBoardModel} = require('/_common') 1
 
+domView.boardDiv.classList.add 'game'
+
 updateGameModel = require('/model/updateGameModel') readBoardModel
 
 mutateAppState = require('/app/mutateAppState') gameModel, updateGameModel,
