@@ -1,8 +1,7 @@
 module.exports = (mutateAppState) ->
   pressedKeys = {}
 
-  keydown: (e) ->
-    {key} = e
+  keydown: ({key}) ->
     return if key of pressedKeys
     pressedKeys[key] = true
     switch key
@@ -11,5 +10,5 @@ module.exports = (mutateAppState) ->
       when 'ArrowDown'  then mutateAppState 'DOWN'
       when 'ArrowLeft'  then mutateAppState 'LEFT'
 
-  keyup: (e) ->
-    delete pressedKeys[e.key]
+  keyup: ({key}) ->
+    delete pressedKeys[key]
