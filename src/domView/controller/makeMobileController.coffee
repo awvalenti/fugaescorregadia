@@ -20,6 +20,10 @@ module.exports = (mutateAppState) ->
     setSwipeStart pageX, pageY
     return
 
+  touchend: ->
+    lastMoveDirection = null
+    return
+
   touchmove: (e) ->
     do e.preventDefault
     {pageX, pageY} = e.touches[0]
@@ -53,8 +57,4 @@ module.exports = (mutateAppState) ->
       if newDirection?
         lastMoveDirection = newDirection
         mutateAppState newDirection
-    return
-
-  touchend: ->
-    lastMoveDirection = null
     return
