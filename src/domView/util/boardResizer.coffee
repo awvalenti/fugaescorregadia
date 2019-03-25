@@ -1,18 +1,5 @@
 getDynamicStyle = require '/domView/util/getDynamicStyle'
 
-updateMainElement = ({boardDiv}) ->
-  main = document.querySelector 'main'
-
-  while do main.hasChildNodes
-    main.removeChild main.lastChild
-
-  main.appendChild boardDiv
-
-updateTileSize = (rowCount, colCount) ->
-  st = getDynamicStyle '.tile'
-  st.width = 100 / colCount + '%'
-  st.height = 100 / rowCount + '%'
-
 immediateResize = (rowCount, colCount) ->
   tileDimension = Math.min Math.floor(window.innerWidth / colCount),
     Math.floor(window.innerHeight / rowCount)
@@ -40,23 +27,4 @@ throttledResize = (rowCount, colCount) ->
         immediateResize rowCount, colCount
       ), 50
 
-updateTexts = ({title, version}) ->
-  document.title = title
-  document.getElementById('version-number').textContent = version
-
-module.exports = (rowCount, colCount, domView, {keydown, keyup},
-  {touchstart, touchmove, touchend}) ->
-
-  updateTexts domView
-  updateMainElement domView
-  updateTileSize rowCount, colCount
-  initialResize rowCount, colCount
-
-  window.onkeydown = keydown
-  window.onkeyup = keyup
-  window.ontouchstart = touchstart
-  window.ontouchmove = touchmove
-  window.ontouchend = touchend
-  window.onresize = throttledResize rowCount, colCount
-
-  return
+module.exports = {initialResize, throttledResize}
