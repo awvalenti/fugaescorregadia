@@ -1,8 +1,13 @@
 getDynamicStyle = require '/domView/util/getDynamicStyle'
 
 immediateResize = (rowCount, colCount) ->
+  height = window.innerHeight
+
+  # https://github.com/awvalenti/fugaescorregadia/issues/27
+  ++height if window.outerHeight is height + 1
+
   tileDimension = Math.min Math.floor(window.innerWidth / colCount),
-    Math.floor(window.innerHeight / rowCount)
+    Math.floor height / rowCount
 
   boardStyle = getDynamicStyle '.board'
   boardStyle.width = tileDimension * colCount + 'px'
