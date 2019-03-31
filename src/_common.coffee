@@ -8,7 +8,9 @@ module.exports = (level) ->
   gameModel = makeGameModel level, readBoardModel level
   domView = makeDomView gameModel
 
-  applyDomView gameModel.boardModel.length, gameModel.boardModel[0].length,
-    domView
+  rowCount = gameModel.boardModel.length
+  colCount = gameModel.boardModel[0].length
 
-  {domView, gameModel, readBoardModel}
+  applyDomView rowCount, colCount, domView
+
+  {domView, gameModel, readBoardModel, colCount}
