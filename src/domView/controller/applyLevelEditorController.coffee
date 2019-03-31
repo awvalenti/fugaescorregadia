@@ -1,6 +1,6 @@
 mutateDivTile = require '/domView/mutateDivTile'
 
-tileNameForKey = (key) ->
+tileNameFor = (key) ->
   switch key
     when '0' then 'EMPTY'
     when '1' then 'START'
@@ -8,11 +8,11 @@ tileNameForKey = (key) ->
 
 module.exports = ({boardDiv, playerDiv}) ->
   pointedTileDiv = null
-  keysPressed = []
+  pressedKeys = []
 
   trySetTile = ->
     mutateDivTile tileName, pointedTileDiv if pointedTileDiv? and
-      tileName = tileNameForKey keysPressed[keysPressed.length - 1]
+      tileName = tileNameFor pressedKeys[pressedKeys.length - 1]
 
   mouseenter = (tileDiv) ->
     pointedTileDiv = tileDiv
@@ -22,11 +22,11 @@ module.exports = ({boardDiv, playerDiv}) ->
     pointedTileDiv = null
 
   keydown = ({key}) ->
-    keysPressed.push key unless key in keysPressed
+    pressedKeys.push key unless key in pressedKeys
     do trySetTile
 
   keyup = ({key}) ->
-    keysPressed.splice (keysPressed.indexOf key), 1
+    pressedKeys.splice (pressedKeys.indexOf key), 1
     do trySetTile
 
   boardDiv.removeChild playerDiv
