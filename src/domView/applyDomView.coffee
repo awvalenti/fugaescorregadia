@@ -8,7 +8,7 @@ updateTexts = ({title, version}) ->
 updateMainElement = ({boardDiv}) ->
   main = document.querySelector 'main'
 
-  # Cleans DOM between ParcelJS reloads
+  # Clears DOM between ParcelJS reloads
   while do main.hasChildNodes
     main.removeChild main.lastChild
 
