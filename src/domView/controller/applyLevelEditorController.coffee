@@ -2,7 +2,7 @@ mutateDivTile = require '/domView/mutateDivTile'
 
 tileNameFor = (key) ->
   switch key
-    when '0' then 'EMPTY'
+    when '0', 'Delete', '.', ',' then 'EMPTY'
     when '1' then 'START'
     when '2' then 'OBSTACLE'
 
