@@ -2,7 +2,7 @@ require 'babel-polyfill' # Necessary for await
 
 calculateGameModelChanges = require '/model/calculateGameModelChanges'
 
-makeMutateDomView = require '/domView/makeMutateDomView'
+mutateDomView = require '/domView/mutateDomView'
 
 MAX_ENQUEUED_MOVES = 2
 
@@ -29,19 +29,16 @@ class ProcessingQueue
     @processing = off
     return
 
-module.exports =
-  (gameModel, updateGameModel, domView) ->
-    mutateDomView = do makeMutateDomView
+module.exports = (gameModel, updateGameModel, domView) ->
+  queue = new ProcessingQueue MAX_ENQUEUED_MOVES
 
-    queue = new ProcessingQueue MAX_ENQUEUED_MOVES
-
-    (direction) ->
-      queue.add ->
-        changeset = calculateGameModelChanges gameModel, direction
-        gameModel = updateGameModel gameModel, changeset
-        await mutateDomView gameModel, domView, changeset
-        if changeset.newLevel?
-          'CANCEL_NEXT_TASKS'
-        else
-          'GO_ON'
-      return
+  (direction) ->
+    queue.add ->
+      changeset = calculateGameModelChanges gameModel, direction
+      gameModel = updateGameModel gameModel, changeset
+      await mutateDomView gameModel, domView, changeset
+      if changeset.newLevel?
+        'CANCEL_NEXT_TASKS'
+      else
+        'GO_ON'
+    return

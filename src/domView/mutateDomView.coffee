@@ -1,13 +1,10 @@
-makeMutatePlayerDivPosition = require '/domView/makeMutatePlayerDivPosition'
+require 'babel-polyfill' # Necessary for await
+
+mutatePlayerDivPosition = require '/domView/mutatePlayerDivPosition'
 mutateDivTile = require '/domView/mutateDivTile'
 mutateTranslation = require '/domView/mutateTranslation'
 
-# TODO Make this a non-factory function. It used to be useful, but now there's
-# no dependency injection here anymore.
-
-module.exports = () ->
-  mutatePlayerDivPosition = do makeMutatePlayerDivPosition
-
+module.exports =
   (gameModel, {boardDiv, playerDiv, arrivalHandler}, {movement, newLevel}) ->
     if movement?
       await mutatePlayerDivPosition movement.from, movement.to, arrivalHandler,

@@ -1,5 +1,6 @@
 mutateDivTile = require '/domView/mutateDivTile'
 mutateTranslation = require '/domView/mutateTranslation'
+appVersion = require '/app/appVersion'
 
 makeArrivalHandler = ->
   # arrivalHandler is the function that will be called when the
@@ -45,7 +46,7 @@ module.exports = (i18n) -> (gameModel) ->
 
   {
     title: i18n 'title'
-    version: require('/../package.json').version
+    version: appVersion
     boardDiv: makeBoardDiv gameModel, playerDiv
     playerDiv
     arrivalHandler
