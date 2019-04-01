@@ -1,5 +1,15 @@
 getDynamicStyle = require '/domView/util/getDynamicStyle'
 
+# Fixes https://github.com/awvalenti/fugaescorregadia/issues/3.
+# WebKit seems to have a bug with transform/translate in percentage
+# (see https://bugs.chromium.org/p/chromium/issues/detail?id=947843).
+# Checking userAgent is not very reliable. But, in this case,
+# there's no other way.
+agent = navigator.userAgent
+isWebKit = /WebKit/.test(agent) and not /Edge/.test agent
+isSafari = /^((?!chrome|android).)*safari/i.test agent
+needsEvenDimension = isWebKit and not isSafari
+
 immediateResize = (rowCount, colCount) ->
   height = window.innerHeight
 
@@ -8,6 +18,8 @@ immediateResize = (rowCount, colCount) ->
 
   tileDimension = Math.min Math.floor(window.innerWidth / colCount),
     Math.floor height / rowCount
+
+  --tileDimension if needsEvenDimension and tileDimension % 2 is 1
 
   boardStyle = getDynamicStyle '.board'
   boardStyle.width = tileDimension * colCount + 'px'
