@@ -1,3 +1,5 @@
+EMPTY_CHANGESET = {}
+
 module.exports = (gameModel, direction) ->
   switch direction
     when 'UP'    then incRow = -1; incCol =  0
@@ -31,7 +33,7 @@ module.exports = (gameModel, direction) ->
     break if during(row, col) is 'STOP'
 
   if row == oldPos.row and col == oldPos.col
-    {}
+    EMPTY_CHANGESET
   else
     movement: from: oldPos, to: {row, col}
     newLevel: gameModel.level + 1 if board[row][col] is 'GOAL'
