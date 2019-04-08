@@ -23,29 +23,31 @@ files_to_replace='*.html *.css *.js *.map'
 
 old_branch=$(git rev-parse --abbrev-ref HEAD)
 
-echo && \
-  echo If something fails, consider git reset --hard HEAD~ on these branches: \
-  [gh-pages, $old_branch, master] && \
-  echo
-
-sed -i -E "s/^$version_regex/\1$releasing_version\3/" package.json && \
-  git commit package.json -m "Releasing version $releasing_version" && \
+sed -i -E "s/$version_regex/\1$releasing_version\3/" package.json && \
+  echo "Releasing version $releasing_version" > commit.template &&
+  git commit package.json -t commit.template && \
+  rm commit.template &&
   rm -rf .cache/ dist/ && \
   npm run parcel-build && \
-  git tag $1 && \
+  git tag $releasing_version && \
   git checkout gh-pages && \
   git rm $files_to_replace && \
   mv dist/* . && \
   git add $files_to_replace && \
   git commit -m "Deploying version $releasing_version" && \
   $open_browser index.html && \
-  git checkout master && \
-  git merge $old_branch && \
-  git checkout -b $next_version && \
-  sed -i -E "s/^$version_regex/\1$next_version\3/" package.json && \
-  git commit package.json -m "Starting version $next_version" && \
   echo && \
-  echo ---- Finished ---- && \
-  echo Everything ok? If so, to finish: && \
+  echo && \
+  echo Check in browser if everything is ok. If so: && \
+  echo && \
+  echo From now on, automation didn\'t work. Please run manually: && \
+  echo && \
+  echo git checkout -b $next_version $old_branch && \
+  echo sed -i -E \'s/$version_regex/\\1$next_version\\3/\' package.json && \
+  echo git commit package.json -m \
+    \'Starting version $(npx semver -i $next_version)\' && \
+  echo git checkout master && \
+  echo git merge $old_branch && \
+  echo git checkout $next_version && \
   echo git push -u origin HEAD && \
   echo git push --all
