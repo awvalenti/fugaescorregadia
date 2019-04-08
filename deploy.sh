@@ -50,4 +50,4 @@ sed -i -E "s/$version_regex/\1$releasing_version\3/" package.json && \
   echo git merge $old_branch && \
   echo git checkout $next_version && \
   echo git push -u origin HEAD && \
-  echo git push --all
+  echo git push origin $releasing_version gh-pages $old_branch master
