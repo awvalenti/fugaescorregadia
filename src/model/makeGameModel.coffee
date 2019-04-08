@@ -5,5 +5,5 @@ findStart = (boardModel) ->
 
   throw Error 'Missing START'
 
-module.exports = (level, boardModel, playerPos = findStart(boardModel)) ->
-  {level, boardModel, playerPos}
+module.exports = (levelNumber, boardModel, playerPos = findStart(boardModel)) ->
+  {levelNumber, boardModel, playerPos}

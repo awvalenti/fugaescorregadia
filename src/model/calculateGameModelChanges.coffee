@@ -36,4 +36,4 @@ module.exports = (gameModel, direction) ->
     EMPTY_CHANGESET
   else
     movement: from: oldPos, to: {row, col}
-    newLevel: gameModel.level + 1 if board[row][col] is 'GOAL'
+    newLevel: gameModel.levelNumber + 1 if board[row][col] is 'GOAL'

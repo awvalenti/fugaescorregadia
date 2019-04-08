@@ -4,9 +4,9 @@ readBoardModel = require '/model/readBoardModel'
 makeDomView = require('/domView/makeDomView') i18n
 applyDomView = require '/domView/applyDomView'
 
-module.exports = (level) ->
-  gameModel = makeGameModel level, readBoardModel level
-  domView = makeDomView gameModel, level
+module.exports = (levelNumber) ->
+  gameModel = makeGameModel levelNumber, readBoardModel levelNumber
+  domView = makeDomView gameModel, levelNumber
 
   rowCount = gameModel.boardModel.length
   colCount = gameModel.boardModel[0].length

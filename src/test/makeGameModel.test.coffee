@@ -9,8 +9,8 @@ describe 'makeGameModel', ->
     ['EMPTY', 'EMPTY']
   ]
 
-  it 'stores level', ->
-    gameModel.should.have.property('level').equal 2
+  it 'stores levelNumber', ->
+    gameModel.should.have.property('levelNumber').equal 2
 
   it 'finds PLAYER position', ->
     gameModel.should.have.property('playerPos').deepEqual row: 1, col: 0
