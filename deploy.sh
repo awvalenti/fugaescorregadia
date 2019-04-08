@@ -23,6 +23,11 @@ files_to_replace='*.html *.css *.js *.map'
 
 old_branch=$(git rev-parse --abbrev-ref HEAD)
 
+echo && \
+  echo If something fails, consider git reset --hard HEAD~ on these branches: \
+  [gh-pages, $old_branch, master] && \
+  echo
+
 sed -i -E "s/^$version_regex/\1$releasing_version\3/" package.json && \
   git commit package.json -m "Releasing version $releasing_version" && \
   rm -rf .cache/ dist/ && \
@@ -35,11 +40,12 @@ sed -i -E "s/^$version_regex/\1$releasing_version\3/" package.json && \
   git commit -m "Deploying version $releasing_version" && \
   $open_browser index.html && \
   git checkout master && \
-  git merge old_branch && \
+  git merge $old_branch && \
   git checkout -b $next_version && \
-  git branch --set-upstream-to=$next_version && \
   sed -i -E "s/^$version_regex/\1$next_version\3/" package.json && \
-  git commit package.json -m "Starting version $next_version"
+  git commit package.json -m "Starting version $next_version" && \
   echo && \
   echo ---- Finished ---- && \
-  echo Everything ok? If so, git push --all to finish!
+  echo Everything ok? If so, to finish: && \
+  echo git push -u origin HEAD && \
+  echo git push --all
