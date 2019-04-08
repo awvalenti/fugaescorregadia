@@ -10,7 +10,8 @@ tileNameFor = (key) ->
   switch key
     when '0', 'Delete', '.', ',' then 'EMPTY'
     when '1' then 'START'
-    when '2' then 'OBSTACLE'
+    when '2' then 'GOAL'
+    when '3' then 'OBSTACLE'
 
 setUnsaved = () -> document.title = '⚪ Unsaved'
 setSaved = () -> document.title = '✔️ Saved'
@@ -63,32 +64,33 @@ module.exports = ({boardDiv, playerDiv}, colCount) ->
     {key} = e
 
     if e.ctrlKey
-      if key in ['s', 'S']
-        do e.preventDefault
-        do save
+      switch key
+        when 's', 'S'
+          do e.preventDefault
+          do save
 
-      if key in ['e', 'E']
-        do e.preventDefault
-        do save
-        a = document.createElement 'a'
-        a.download = '00.level'
-        a.href = URL.createObjectURL new Blob [myStorage.get 'level']
-        document.body.appendChild a
-        do a.click
-        document.body.removeChild a
+        when 'e', 'E'
+          do e.preventDefault
+          do save
+          a = document.createElement 'a'
+          a.download = '00.level'
+          a.href = URL.createObjectURL new Blob [myStorage.get 'level']
+          document.body.appendChild a
+          do a.click
+          document.body.removeChild a
 
-      else if key in ['o', 'O']
-        do e.preventDefault
-        input = document.createElement 'input'
-        input.type = 'file'
-        input.accept = '.level'
-        input.onchange = ->
-          chosenFile = input.files[0]
-          return if not chosenFile?
-          reader = new FileReader
-          reader.onload = -> load reader.result
-          reader.readAsText chosenFile
-        do input.click
+        when 'o', 'O'
+          do e.preventDefault
+          input = document.createElement 'input'
+          input.type = 'file'
+          input.accept = '.level'
+          input.onchange = ->
+            chosenFile = input.files[0]
+            return if not chosenFile?
+            reader = new FileReader
+            reader.onload = -> load reader.result
+            reader.readAsText chosenFile
+          do input.click
 
     pressedKeys.push key unless key in pressedKeys
     do trySetTile
