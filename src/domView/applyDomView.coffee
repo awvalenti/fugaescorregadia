@@ -3,7 +3,7 @@ getDynamicStyle = require '/domView/util/getDynamicStyle'
 
 updateTexts = ({title, version}) ->
   document.title = title
-  document.getElementById('version-number').textContent = version
+  document.getElementById('version').textContent = 'v' + version
 
 updateMainElement = ({boardDiv}) ->
   main = document.querySelector 'main'
