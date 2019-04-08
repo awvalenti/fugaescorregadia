@@ -1,9 +1,10 @@
 {initialResize, throttledResize} = require '/domView/util/boardResizer'
 getDynamicStyle = require '/domView/util/getDynamicStyle'
 
-updateTexts = ({title, version}) ->
+updateTexts = ({title, version, levelText}) ->
   document.title = title
-  document.getElementById('version').textContent = 'v' + version
+  document.getElementById('version').textContent = version
+  document.getElementById('level-text').textContent = levelText
 
 updateMainElement = ({boardDiv}) ->
   main = document.querySelector 'main'

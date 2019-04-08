@@ -6,7 +6,7 @@ applyDomView = require '/domView/applyDomView'
 
 module.exports = (level) ->
   gameModel = makeGameModel level, readBoardModel level
-  domView = makeDomView gameModel
+  domView = makeDomView gameModel, level
 
   rowCount = gameModel.boardModel.length
   colCount = gameModel.boardModel[0].length

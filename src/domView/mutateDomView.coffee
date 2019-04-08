@@ -4,21 +4,25 @@ mutatePlayerDivPosition = require '/domView/mutatePlayerDivPosition'
 mutateDivTile = require '/domView/mutateDivTile'
 mutateTranslation = require '/domView/mutateTranslation'
 
-module.exports =
-  (gameModel, {boardDiv, playerDiv, arrivalHandler}, {movement, newLevel}) ->
-    if movement?
-      await mutatePlayerDivPosition movement.from, movement.to, arrivalHandler,
-        playerDiv
+module.exports = (gameModel, domView, changeset) ->
+  {boardDiv, playerDiv, levelNumberElement, arrivalHandler} = domView
+  {movement, newLevel} = changeset
 
-    if newLevel?
-      divTiles = boardDiv.children
+  if movement?
+    await mutatePlayerDivPosition movement.from, movement.to, arrivalHandler,
+      playerDiv
 
-      gameModel.boardModel.forEach (rowData, rowIndex) ->
-        rowData.forEach (tileName, colIndex) ->
-          mutateDivTile tileName, divTiles[rowIndex * rowData.length + colIndex]
+  if newLevel?
+    divTiles = boardDiv.children
 
-      st = playerDiv.style
-      st.transitionDuration = st.webkitTransitionDuration = null
-      mutateTranslation gameModel.playerPos, playerDiv
+    gameModel.boardModel.forEach (rowData, rowIndex) ->
+      rowData.forEach (tileName, colIndex) ->
+        mutateDivTile tileName, divTiles[rowIndex * rowData.length + colIndex]
 
-    return
+    st = playerDiv.style
+    st.transitionDuration = st.webkitTransitionDuration = null
+    mutateTranslation gameModel.playerPos, playerDiv
+
+    levelNumberElement.textContent = newLevel
+
+  return

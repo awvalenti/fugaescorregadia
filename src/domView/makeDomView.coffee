@@ -39,14 +39,21 @@ makeBoardDiv = (gameModel, playerDiv) ->
   ret.appendChild playerDiv
   ret
 
-module.exports = (i18n) -> (gameModel) ->
+module.exports = (i18n) -> (gameModel, level) ->
   arrivalHandler = do makeArrivalHandler
 
   playerDiv = makePlayerDiv arrivalHandler, gameModel
 
+  # XXX Maybe should build this element dynamically
+  # instead of relying on its presence on the page
+  levelNumberElement = document.getElementById('level-number')
+  levelNumberElement.textContent = level
+
   {
     title: i18n 'title'
-    version: appVersion
+    version: 'v' + appVersion
+    levelText: i18n 'level'
+    levelNumberElement
     boardDiv: makeBoardDiv gameModel, playerDiv
     playerDiv
     arrivalHandler
