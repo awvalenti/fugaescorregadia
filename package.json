@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "npx parcel -p 1234 src/index.html",
-    "editor": "npx parcel -p 1234 src/level-editor.html",
+    "editor": "npx parcel -p 2345 src/level-editor.html",
+    "tdd": "npx parcel -p 3456 src/run-tests-browser.html --no-cache",
     "test": "npx parcel build src/run-tests-node.coffee --no-cache --no-minify && npx mocha dist/run-tests-node*.js",
-    "tdd": "npx parcel -p 5678 src/run-tests-browser.html --no-cache",
     "parcel-build": "npx parcel build src/index.html --public-url=.",
     "release": "bash release.sh"
   },
