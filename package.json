@@ -1,6 +1,6 @@
 {
   "name": "fugaescorregadia",
-  "version": "0.5.0",
+  "version": "0.5.0-snapshot.0",
   "description": "Jogo de labirinto / Labyrinth game",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "tdd": "npx parcel -p 3456 src/run-tests-browser.html --no-cache",
     "test": "npx parcel build src/run-tests-node.coffee --no-cache --no-minify && npx mocha dist/run-tests-node*.js",
     "parcel-build": "npx parcel build src/index.html --public-url=.",
-    "release": "bash release.sh"
+    "deploy": "bash deploy.sh"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,7 @@
     "mocha": "^6.0.2",
     "parcel-bundler": "^1.12.3",
     "posthtml-modules": "^0.4.2",
+    "semver": "^6.0.0",
     "should": "^13.2.3"
   }
 }
