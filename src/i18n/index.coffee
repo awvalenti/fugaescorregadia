@@ -7,6 +7,6 @@ loader =
   en: -> require '/i18n/langs/en'
   pt: -> require '/i18n/langs/pt'
 
-strings = loader[if lang of loader then lang else 'en']()
+strings = do loader[if lang of loader then lang else 'en']
 
 module.exports = (key) -> strings[key]
