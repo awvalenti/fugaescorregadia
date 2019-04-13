@@ -1,16 +1,27 @@
+DIRECTION_FOR =
+  37: 'LEFT'
+  38: 'UP'
+  39: 'RIGHT'
+  40: 'DOWN'
+
 module.exports = (mutateAppState) ->
   pressedKeys = new Set
 
-  keydown: ({key}) ->
-    return if pressedKeys.has key
-    pressedKeys.add key
-    switch key
-      when 'ArrowUp'    then mutateAppState 'UP'
-      when 'ArrowRight' then mutateAppState 'RIGHT'
-      when 'ArrowDown'  then mutateAppState 'DOWN'
-      when 'ArrowLeft'  then mutateAppState 'LEFT'
+  keydown: (e) ->
+    {keyCode} = e
+
+    return if pressedKeys.has keyCode
+
+    pressedKeys.add keyCode
+
+    direction = DIRECTION_FOR[keyCode]
+
+    if direction?
+      mutateAppState direction
+      do e.preventDefault
+
     return
 
-  keyup: ({key}) ->
-    pressedKeys.delete key
+  keyup: ({keyCode}) ->
+    pressedKeys.delete keyCode
     return
