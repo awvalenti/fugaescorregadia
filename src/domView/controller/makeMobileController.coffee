@@ -1,6 +1,6 @@
 # How many pixels long the swipe must be, either horizontally or vertically,
 # for a movement attempt to be considered
-SWIPE_THRESHOLD = 20
+SWIPE_THRESHOLD = 10
 
 # How many times the x offset must be greater than the y offset
 # for the movement to be considered horizontal instead of vertical,
