@@ -1,5 +1,5 @@
-mutateDivTile = require '/domView/mutateDivTile'
-mutateTranslation = require '/domView/mutateTranslation'
+updateDivTile$ = require '/domView/updateDivTile$'
+setTranslation$ = require '/domView/setTranslation$'
 appVersion = require '/app/appVersion'
 
 makeArrivalHandler = ->
@@ -20,14 +20,14 @@ makeArrivalHandler = ->
 
 makeTileDiv = (tileName) ->
   ret = document.createElement 'div'
-  mutateDivTile tileName, ret
+  updateDivTile$ tileName, ret
   ret
 
 makePlayerDiv = (arrivalHandler, {playerPos}) ->
   ret = makeTileDiv 'PLAYER'
   ret.addEventListener 'webkitTransitionEnd', arrivalHandler
   ret.addEventListener 'transitionend', arrivalHandler
-  mutateTranslation playerPos, ret
+  setTranslation$ playerPos, ret
   ret
 
 makeBoardDiv = (gameModel, playerDiv) ->

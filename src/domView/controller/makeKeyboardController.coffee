@@ -25,7 +25,7 @@ directionFor = ({code, keyCode}) ->
     when 'ArrowDown',  'KeyS', 'KeyJ' then 'DOWN'
     when 'ArrowRight', 'KeyD', 'KeyL' then 'RIGHT'
 
-module.exports = (mutateAppState) ->
+module.exports = (setAppState$) ->
   pressedKeys = new Set
 
   keydown: (e) ->
@@ -35,7 +35,7 @@ module.exports = (mutateAppState) ->
     pressedKeys.add e.keyCode
 
     if (direction = directionFor e)?
-      mutateAppState direction
+      setAppState$ direction
       do e.preventDefault
 
     return

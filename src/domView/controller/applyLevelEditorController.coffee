@@ -1,9 +1,9 @@
 # TODO Refactor: separate into many files
 
 readBoardModel = require '/model/readBoardModel'
-mutateDomView = require '/domView/mutateDomView'
+updateDomView$ = require '/domView/updateDomView$'
 makeGameModel = require '/model/makeGameModel'
-mutateDivTile = require '/domView/mutateDivTile'
+updateDivTile$ = require '/domView/updateDivTile$'
 myStorage = require '/domView/util/myStorage'
 
 tileNameFor = (key) ->
@@ -40,7 +40,7 @@ module.exports = ({boardDiv, playerDiv}, colCount) ->
     do setSaved
 
   load = (levelString) ->
-    mutateDomView makeGameModel(0, readBoardModel levelString),
+    updateDomView$ makeGameModel(0, readBoardModel levelString),
       {boardDiv, playerDiv}, {newLevel: 0}
     do save
 
@@ -50,7 +50,7 @@ module.exports = ({boardDiv, playerDiv}, colCount) ->
   trySetTile = ->
     keys = pressedKeys
     if pointedTileDiv? and tileName = tileNameFor keys[keys.length - 1]
-      mutateDivTile tileName, pointedTileDiv
+      updateDivTile$ tileName, pointedTileDiv
       do setUnsaved
 
   mouseenter = (tileDiv) ->

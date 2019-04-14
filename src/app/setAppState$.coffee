@@ -2,7 +2,7 @@ require 'babel-polyfill' # Necessary for await
 
 calculateGameModelChanges = require '/model/calculateGameModelChanges'
 
-mutateDomView = require '/domView/mutateDomView'
+updateDomView$ = require '/domView/updateDomView$'
 
 MAX_ENQUEUED_MOVES = 2
 
@@ -36,7 +36,7 @@ module.exports = (gameModel, updateGameModel, domView) ->
     queue.add ->
       changeset = calculateGameModelChanges gameModel, direction
       gameModel = updateGameModel gameModel, changeset
-      await mutateDomView gameModel, domView, changeset
+      await updateDomView$ gameModel, domView, changeset
       if changeset.newLevel?
         'CANCEL_NEXT_TASKS'
       else

@@ -7,7 +7,7 @@ SWIPE_THRESHOLD = 10
 # or vice-versa
 ORIENTATION_FACTOR = 3
 
-module.exports = (mutateAppState) ->
+module.exports = (setAppState$) ->
   swipeStartX = swipeStartY = lastMoveDirection = null
 
   setSwipeStart = (x, y) ->
@@ -56,5 +56,5 @@ module.exports = (mutateAppState) ->
 
       if newDirection?
         lastMoveDirection = newDirection
-        mutateAppState newDirection
+        setAppState$ newDirection
     return

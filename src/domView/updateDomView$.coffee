@@ -1,15 +1,15 @@
 require 'babel-polyfill' # Necessary for await
 
-mutatePlayerDivPosition = require '/domView/mutatePlayerDivPosition'
-mutateDivTile = require '/domView/mutateDivTile'
-mutateTranslation = require '/domView/mutateTranslation'
+setPlayerDivPosition$ = require '/domView/setPlayerDivPosition$'
+updateDivTile$ = require '/domView/updateDivTile$'
+setTranslation$ = require '/domView/setTranslation$'
 
 module.exports = (gameModel, domView, changeset) ->
   {boardDiv, playerDiv, levelNumberElement, arrivalHandler} = domView
   {movement, newLevel} = changeset
 
   if movement?
-    await mutatePlayerDivPosition movement.from, movement.to, arrivalHandler,
+    await setPlayerDivPosition$ movement.from, movement.to, arrivalHandler,
       playerDiv
 
   if newLevel?
@@ -17,11 +17,11 @@ module.exports = (gameModel, domView, changeset) ->
 
     gameModel.boardModel.forEach (rowData, rowIndex) ->
       rowData.forEach (tileName, colIndex) ->
-        mutateDivTile tileName, divTiles[rowIndex * rowData.length + colIndex]
+        updateDivTile$ tileName, divTiles[rowIndex * rowData.length + colIndex]
 
     st = playerDiv.style
     st.transitionDuration = st.webkitTransitionDuration = null
-    mutateTranslation gameModel.playerPos, playerDiv
+    setTranslation$ gameModel.playerPos, playerDiv
 
     levelNumberElement.textContent = newLevel
 

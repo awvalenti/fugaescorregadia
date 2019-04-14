@@ -1,4 +1,4 @@
-mutateTranslation = require '/domView/mutateTranslation'
+setTranslation$ = require '/domView/setTranslation$'
 
 MILLISECONDS_PER_TILE = 40
 
@@ -16,6 +16,6 @@ module.exports = (oldPos, newPos, arrivalHandler, playerDiv) ->
     st.transitionDuration = st.webkitTransitionDuration =
       dist * MILLISECONDS_PER_TILE + 'ms'
 
-    mutateTranslation newPos, playerDiv
+    setTranslation$ newPos, playerDiv
 
     return
