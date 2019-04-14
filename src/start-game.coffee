@@ -13,5 +13,5 @@ keyboardController =
 mobileController =
   require('/domView/controller/makeMobileController') setAppState$
 
-require('/domView/applyGeneralController') {...keyboardController,
+require('/domView/applyGeneralController$') {...keyboardController,
   ...mobileController}

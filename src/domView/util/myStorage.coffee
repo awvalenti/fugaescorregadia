@@ -6,8 +6,8 @@ if appVersion isnt localStorage.getItem 'appVersion'
   localStorage.setItem 'appVersion', appVersion
 
 module.exports =
-  set: (name, value) ->
+  set$: (name, value) ->
     localStorage.setItem name, value
 
-  get: (name) ->
+  get$: (name) ->
     localStorage.getItem name

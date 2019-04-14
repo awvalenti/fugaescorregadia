@@ -12,13 +12,13 @@ class ProcessingQueue
     @processing = off
     @tasks = []
 
-  add: (item) ->
+  add$: (item) ->
     return if @tasks.length >= @maxSize
     @tasks.push item
-    do @_process unless @processing
+    do @_process$ unless @processing
     return
 
-  _process: ->
+  _process$: ->
     @processing = on
     loop
       currentTask = do @tasks.shift
@@ -33,7 +33,7 @@ module.exports = (gameModel, updateGameModel, domView) ->
   queue = new ProcessingQueue MAX_ENQUEUED_MOVES
 
   (direction) ->
-    queue.add ->
+    queue.add$ ->
       changeset = calculateGameModelChanges gameModel, direction
       gameModel = updateGameModel gameModel, changeset
       await updateDomView$ gameModel, domView, changeset

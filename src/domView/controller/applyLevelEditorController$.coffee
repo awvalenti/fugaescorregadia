@@ -31,7 +31,7 @@ module.exports = ({boardDiv, playerDiv}, colCount) ->
         when 'START' then 's'
         else throw Error "'#{tileName}' <-- invalid tileName"
 
-    myStorage.set 'level', Array::reduce.call boardDiv.childNodes,
+    myStorage.set$ 'level', Array::reduce.call boardDiv.childNodes,
       (ret, tileDiv, i) ->
         ret += mapping tileDiv.classList[1]
         ret += if (i + 1) % colCount is 0 then '\n' else ' '
@@ -44,7 +44,7 @@ module.exports = ({boardDiv, playerDiv}, colCount) ->
       {boardDiv, playerDiv}, {newLevel: 0}
     do save
 
-  level = myStorage.get 'level'
+  level = myStorage.get$ 'level'
   load level if level?
 
   trySetTile = ->
@@ -74,7 +74,7 @@ module.exports = ({boardDiv, playerDiv}, colCount) ->
           do save
           a = document.createElement 'a'
           a.download = '00.level'
-          a.href = URL.createObjectURL new Blob [myStorage.get 'level']
+          a.href = URL.createObjectURL new Blob [myStorage.get$ 'level']
           document.body.appendChild a
           do a.click
           document.body.removeChild a

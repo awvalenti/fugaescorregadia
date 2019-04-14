@@ -10,7 +10,7 @@ isWebKit = /WebKit/.test(agent) and not /Edge/.test agent
 isSafari = /^((?!chrome|android).)*safari/i.test agent
 needsEvenDimension = isWebKit and not isSafari
 
-immediateResize = (rowCount, colCount) ->
+immediateResize$ = (rowCount, colCount) ->
   height = window.innerHeight
 
   # https://github.com/awvalenti/fugaescorregadia/issues/27
@@ -25,13 +25,13 @@ immediateResize = (rowCount, colCount) ->
   boardStyle.width = tileDimension * colCount + 'px'
   boardStyle.height = tileDimension * rowCount + 'px'
 
-initialResize = (rowCount, colCount) ->
+initialResize$ = (rowCount, colCount) ->
   if window.innerWidth > 0 and window.innerHeight > 0
-    immediateResize rowCount, colCount
+    immediateResize$ rowCount, colCount
   else
-    setTimeout initialResize, 10, rowCount, colCount
+    setTimeout initialResize$, 10, rowCount, colCount
 
-throttledResize = (rowCount, colCount) ->
+throttledResize$ = (rowCount, colCount) ->
   # https://developer.mozilla.org/en-US/docs/Web/Events/resize
   # provides a good explanation of why we should do this.
   # Following code was translated to JavaScript and posted
@@ -41,7 +41,7 @@ throttledResize = (rowCount, colCount) ->
     clearTimeout resizeTaskId if resizeTaskId?
     resizeTaskId = setTimeout (->
         resizeTaskId = null
-        immediateResize rowCount, colCount
+        immediateResize$ rowCount, colCount
       ), 50
 
-module.exports = {initialResize, throttledResize}
+module.exports = {initialResize$, throttledResize$}
