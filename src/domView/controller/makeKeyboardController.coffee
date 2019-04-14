@@ -17,7 +17,7 @@ KEY_NAME_FOR =
 directionFor = ({code, keyCode}) ->
   # We prefer event.code because it maps uniformly among different
   # keyboard layouts (Brazilian, American, French, German etc.).
-  # When not available (older browsers of Edge), we fall back to
+  # When not available (older browsers or Edge), we fall back to
   # event.keyCode.
   switch code ? KEY_NAME_FOR[keyCode]
     when 'ArrowUp',    'KeyW', 'KeyK' then 'UP'
