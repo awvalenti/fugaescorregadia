@@ -15,6 +15,10 @@ KEY_NAME_FOR =
   76: 'KeyL'
 
 directionFor = ({code, keyCode}) ->
+  # We prefer event.code because it maps uniformly among different
+  # keyboard layouts (Brazilian, American, French, German etc.).
+  # When not available (older browsers of Edge), we fall back to
+  # event.keyCode.
   switch code ? KEY_NAME_FOR[keyCode]
     when 'ArrowUp',    'KeyW', 'KeyK' then 'UP'
     when 'ArrowLeft',  'KeyA', 'KeyH' then 'LEFT'
@@ -25,6 +29,7 @@ module.exports = (mutateAppState) ->
   pressedKeys = new Set
 
   keydown: (e) ->
+    # Avoids key repeat
     return if pressedKeys.has e.keyCode
 
     pressedKeys.add e.keyCode
