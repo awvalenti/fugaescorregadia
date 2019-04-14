@@ -8,25 +8,25 @@ MAX_ENQUEUED_MOVES = 2
 
 class ProcessingQueue
   constructor: (maxSize) ->
-    @maxSize = maxSize
-    @processing = off
-    @tasks = []
+    @_maxSize = maxSize
+    @_processing = off
+    @_tasks = []
 
   add$: (item) ->
-    return if @tasks.length >= @maxSize
-    @tasks.push item
-    do @_process$ unless @processing
+    return if @_tasks.length >= @_maxSize
+    @_tasks.push item
+    do @_process$ unless @_processing
     return
 
   _process$: ->
-    @processing = on
+    @_processing = on
     loop
-      currentTask = do @tasks.shift
+      currentTask = do @_tasks.shift
       result = await do currentTask
       if result is 'CANCEL_NEXT_TASKS'
-        @tasks.length = 0
-      break if @tasks.length is 0
-    @processing = off
+        @_tasks.length = 0
+      break if @_tasks.length is 0
+    @_processing = off
     return
 
 module.exports = (gameModel, updateGameModel, domView) ->
