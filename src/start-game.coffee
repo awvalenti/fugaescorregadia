@@ -1,10 +1,10 @@
-{domView, gameModel, readBoardModel} = require('/_common') 1
+{domView, coreState, readBoardState} = require('/_common') 1
 
 domView.boardDiv.classList.add 'game'
 
-updateGameModel = require('/model/updateGameModel') readBoardModel
+updateCoreState = require('/app/core/updateCoreState') readBoardState
 
-updateAppState$ = require('/app/updateAppState$') gameModel, updateGameModel,
+updateAppState$ = require('/app/updateAppState$') coreState, updateCoreState,
   domView
 
 keyboardController =

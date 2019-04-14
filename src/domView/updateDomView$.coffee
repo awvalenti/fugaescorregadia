@@ -4,9 +4,9 @@ setPlayerDivPosition$ = require '/domView/setPlayerDivPosition$'
 updateDivTile$ = require '/domView/updateDivTile$'
 setTranslation$ = require '/domView/setTranslation$'
 
-module.exports = (gameModel, domView, changeset) ->
+module.exports = (coreState, domView, delta) ->
   {boardDiv, playerDiv, levelNumberElement, arrivalHandler} = domView
-  {movement, newLevel} = changeset
+  {movement, newLevel} = delta
 
   if movement?
     await setPlayerDivPosition$ movement.from, movement.to, arrivalHandler,
@@ -15,13 +15,13 @@ module.exports = (gameModel, domView, changeset) ->
   if newLevel?
     divTiles = boardDiv.children
 
-    gameModel.boardModel.forEach (rowData, rowIndex) ->
+    coreState.boardState.forEach (rowData, rowIndex) ->
       rowData.forEach (tileName, colIndex) ->
         updateDivTile$ tileName, divTiles[rowIndex * rowData.length + colIndex]
 
     st = playerDiv.style
     st.transitionDuration = st.webkitTransitionDuration = null
-    setTranslation$ gameModel.playerPos, playerDiv
+    setTranslation$ coreState.playerPos, playerDiv
 
     levelNumberElement.textContent = newLevel
 

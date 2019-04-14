@@ -1,9 +1,9 @@
-appVersion = require '/app/appVersion'
+version = require '/app/version'
 
-if appVersion isnt localStorage.getItem 'appVersion'
-  console.warn 'Clearing localStorage and updating appVersion'
+if version isnt localStorage.getItem 'version'
+  console.warn 'Clearing localStorage and updating version'
   do localStorage.clear
-  localStorage.setItem 'appVersion', appVersion
+  localStorage.setItem 'version', version
 
 module.exports =
   set$: (name, value) ->

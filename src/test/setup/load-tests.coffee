@@ -1,3 +1,3 @@
-require '/test/makeGameModel.test.coffee'
-require '/test/calculateGameModelChanges.movement.test.coffee'
-require '/test/calculateGameModelChanges.goal.test.coffee'
+require '/test/makeCoreState.test.coffee'
+require '/test/deltaCoreState.movement.test.coffee'
+require '/test/deltaCoreState.goal.test.coffee'

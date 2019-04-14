@@ -1,8 +1,8 @@
 # TODO Refactor: separate into many files
 
-readBoardModel = require '/model/readBoardModel'
+readBoardState = require '/app/core/readBoardState'
 updateDomView$ = require '/domView/updateDomView$'
-makeGameModel = require '/model/makeGameModel'
+makeCoreState = require '/app/core/makeCoreState'
 updateDivTile$ = require '/domView/updateDivTile$'
 myStorage = require '/domView/util/myStorage'
 
@@ -40,7 +40,7 @@ module.exports = ({boardDiv, playerDiv}, colCount) ->
     do setSaved
 
   load = (levelString) ->
-    updateDomView$ makeGameModel(0, readBoardModel levelString),
+    updateDomView$ makeCoreState(0, readBoardState levelString),
       {boardDiv, playerDiv}, {newLevel: 0}
     do save
 

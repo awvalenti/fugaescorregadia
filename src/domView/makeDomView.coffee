@@ -1,6 +1,6 @@
 updateDivTile$ = require '/domView/updateDivTile$'
 setTranslation$ = require '/domView/setTranslation$'
-appVersion = require '/app/appVersion'
+version = require '/app/version'
 
 makeArrivalHandler = ->
   # arrivalHandler is the function that will be called when the
@@ -30,19 +30,19 @@ makePlayerDiv = (arrivalHandler, {playerPos}) ->
   setTranslation$ playerPos, ret
   ret
 
-makeBoardDiv = (gameModel, playerDiv) ->
+makeBoardDiv = (coreState, playerDiv) ->
   ret = document.createElement 'div'
   ret.className = 'board'
-  gameModel.boardModel.forEach (row) ->
+  coreState.boardState.forEach (row) ->
     row.forEach (tileName) ->
       ret.appendChild makeTileDiv tileName
   ret.appendChild playerDiv
   ret
 
-module.exports = (i18n) -> (gameModel, levelNumber) ->
+module.exports = (i18n) -> (coreState, levelNumber) ->
   arrivalHandler = do makeArrivalHandler
 
-  playerDiv = makePlayerDiv arrivalHandler, gameModel
+  playerDiv = makePlayerDiv arrivalHandler, coreState
 
   # XXX Maybe should build this element dynamically
   # instead of relying on its presence on the page
@@ -51,10 +51,10 @@ module.exports = (i18n) -> (gameModel, levelNumber) ->
 
   {
     title: i18n 'title'
-    version: 'v' + appVersion
+    version: 'v' + version
     levelText: i18n 'level'
     levelNumberElement
-    boardDiv: makeBoardDiv gameModel, playerDiv
+    boardDiv: makeBoardDiv coreState, playerDiv
     playerDiv
     arrivalHandler
   }
