@@ -1,4 +1,4 @@
-setTranslation$ = require '/domView/setTranslation$'
+setTranslation$ = require '/app/view/setTranslation$'
 
 MILLISECONDS_PER_TILE = 40
 

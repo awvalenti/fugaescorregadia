@@ -1,4 +1,4 @@
-getDynamicStyle = require '/domView/util/getDynamicStyle'
+getDynamicStyle = require '/app/util/getDynamicStyle'
 
 # Fixes https://github.com/awvalenti/fugaescorregadia/issues/3.
 # WebKit seems to have a bug with transform/translate in percentage

@@ -1,5 +1,5 @@
-{initialResize$, throttledResize$} = require '/domView/util/BoardResizer'
-getDynamicStyle = require '/domView/util/getDynamicStyle'
+{initialResize$, throttledResize$} = require '/app/util/BoardResizer'
+getDynamicStyle = require '/app/util/getDynamicStyle'
 
 updateTexts$ = ({title, version, levelText}) ->
   document.title = title

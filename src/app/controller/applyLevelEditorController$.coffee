@@ -1,10 +1,10 @@
 # TODO Refactor: separate into many files
 
 readBoardState = require '/app/core/readBoardState'
-updateDomView$ = require '/domView/updateDomView$'
+updateDomView$ = require '/app/view/updateDomView$'
 makeCoreState = require '/app/core/makeCoreState'
-updateDivTile$ = require '/domView/updateDivTile$'
-myStorage = require '/domView/util/myStorage'
+updateDivTile$ = require '/app/view/updateDivTile$'
+myStorage = require '/app/util/myStorage'
 
 tileNameFor = (key) ->
   switch key

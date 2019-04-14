@@ -8,10 +8,10 @@ updateAppState$ = require('/app/updateAppState$') coreState, updateCoreState,
   domView
 
 keyboardController =
-  require('/domView/controller/makeKeyboardController') updateAppState$
+  require('/app/controller/makeKeyboardController') updateAppState$
 
 mobileController =
-  require('/domView/controller/makeMobileController') updateAppState$
+  require('/app/controller/makeMobileController') updateAppState$
 
-require('/domView/applyGeneralController$') {...keyboardController,
+require('/app/controller/applyGeneralController$') {...keyboardController,
   ...mobileController}

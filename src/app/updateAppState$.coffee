@@ -4,7 +4,7 @@ ProcessingQueue = require '/app/ProcessingQueue'
 
 deltaCoreState = require '/app/core/deltaCoreState'
 
-updateDomView$ = require '/domView/updateDomView$'
+updateDomView$ = require '/app/view/updateDomView$'
 
 MAX_ENQUEUED_MOVES = 2
 

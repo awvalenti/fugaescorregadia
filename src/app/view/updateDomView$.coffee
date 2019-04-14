@@ -1,8 +1,8 @@
 require 'babel-polyfill' # Necessary for await
 
-setPlayerDivPosition$ = require '/domView/setPlayerDivPosition$'
-updateDivTile$ = require '/domView/updateDivTile$'
-setTranslation$ = require '/domView/setTranslation$'
+setPlayerDivPosition$ = require '/app/view/setPlayerDivPosition$'
+updateDivTile$ = require '/app/view/updateDivTile$'
+setTranslation$ = require '/app/view/setTranslation$'
 
 module.exports = (coreState, domView, delta) ->
   {boardDiv, playerDiv, levelNumberElement, arrivalHandler} = domView

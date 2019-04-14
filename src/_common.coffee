@@ -1,8 +1,8 @@
-i18n = require '/i18n'
+i18n = require '/app/i18n'
 makeCoreState = require '/app/core/makeCoreState'
 readBoardState = require '/app/core/readBoardState'
-makeDomView = require('/domView/makeDomView') i18n
-applyDomView$ = require '/domView/applyDomView$'
+makeDomView = require('/app/view/makeDomView') i18n
+applyDomView$ = require '/app/view/applyDomView$'
 
 module.exports = (levelNumber) ->
   coreState = makeCoreState levelNumber, readBoardState levelNumber

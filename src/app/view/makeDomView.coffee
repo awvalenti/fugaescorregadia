@@ -1,5 +1,5 @@
-updateDivTile$ = require '/domView/updateDivTile$'
-setTranslation$ = require '/domView/setTranslation$'
+updateDivTile$ = require '/app/view/updateDivTile$'
+setTranslation$ = require '/app/view/setTranslation$'
 version = require '/app/version'
 
 makeArrivalHandler = ->
