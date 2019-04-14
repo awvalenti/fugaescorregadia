@@ -2,7 +2,7 @@ version_regex='^(.*"version": ")(.+)(".*)$'
 
 releasing_version=$(
   grep version package.json | \
-  sed -E "s/$version_regex/\2/" | \
+  sed -r "s/$version_regex/\2/" | \
   xargs npx semver -i
   )
 
@@ -23,7 +23,7 @@ files_to_replace='*.html *.css *.js *.map'
 
 old_branch=$(git rev-parse --abbrev-ref HEAD)
 
-sed -i -E "s/$version_regex/\1$releasing_version\3/" package.json && \
+sed -r "s/$version_regex/\1$releasing_version\3/" -i package.json && \
   echo "Releasing version $releasing_version" > commit.template &&
   git commit package.json -t commit.template && \
   rm commit.template &&
@@ -43,7 +43,7 @@ sed -i -E "s/$version_regex/\1$releasing_version\3/" package.json && \
   echo From now on, automation didn\'t work. Please run manually: && \
   echo && \
   echo git checkout -b $next_version $old_branch && \
-  echo sed -i -E \'s/$version_regex/\\1$next_version\\3/\' package.json && \
+  echo sed -r \'s/$version_regex/\\1$next_version\\3/\' -i package.json && \
   echo git commit package.json -m \
     \'Starting version $(npx semver -i $next_version)\' && \
   echo git checkout master && \
