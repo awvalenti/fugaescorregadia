@@ -37,8 +37,5 @@ module.exports = (gameModel, updateGameModel, domView) ->
       changeset = calculateGameModelChanges gameModel, direction
       gameModel = updateGameModel gameModel, changeset
       await updateDomView$ gameModel, domView, changeset
-      if changeset.newLevel?
-        'CANCEL_NEXT_TASKS'
-      else
-        'GO_ON'
+      if changeset.newLevel? then 'CANCEL_NEXT_TASKS' else 'GO_ON'
     return
