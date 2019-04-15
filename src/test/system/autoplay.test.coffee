@@ -2,6 +2,7 @@ require 'should'
 
 START_DELAY = 1
 KEYSTROKES_DELAY = 150
+END_DELAY = 200
 
 setTimeout ->
     Array::map
@@ -23,7 +24,10 @@ setTimeout ->
                 reject e
         , do Promise.resolve
 
-      .then (resolve) ->
+      .then ->
+        new Promise (resolve) -> setTimeout resolve, END_DELAY
+
+      .then ->
         document.querySelector('.PLAYER').style.transform.should
           .equal 'translate(200%, 1500%)'
         document.body.style.backgroundColor = '#a3ffa3'
