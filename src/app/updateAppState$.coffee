@@ -1,14 +1,15 @@
 require 'babel-polyfill' # Necessary for await
 
-ProcessingQueue = require '/app/ProcessingQueue'
-
-deltaCoreState = require '/app/core/deltaCoreState'
-
-updateDomView$ = require '/app/view/updateDomView$'
-
 MAX_ENQUEUED_MOVES = 2
 
-module.exports = (coreState, updateCoreState, domView) ->
+module.exports = ({
+  ProcessingQueue
+  deltaCoreState
+  updateDomView$
+  coreState
+  updateCoreState
+  domView
+}) ->
   queue = new ProcessingQueue MAX_ENQUEUED_MOVES
 
   (direction) ->
