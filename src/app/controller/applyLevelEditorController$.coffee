@@ -16,7 +16,9 @@ tileNameFor = (key) ->
 setUnsaved = () -> document.title = '⚪ Unsaved'
 setSaved = () -> document.title = '✔️ Saved'
 
-module.exports = ({boardDiv, playerDiv}, colCount) ->
+module.exports = (domView, colCount) ->
+  {boardDiv, playerDiv} = domView
+
   pointedTileDiv = null
   pressedKeys = []
 
@@ -40,8 +42,8 @@ module.exports = ({boardDiv, playerDiv}, colCount) ->
     do setSaved
 
   load = (levelString) ->
-    updateDomView$ makeCoreState(0, readBoardState levelString),
-      {boardDiv, playerDiv}, {newLevel: 0}
+    updateDomView$ makeCoreState(0, readBoardState levelString), domView,
+      {newLevel: 0}
     do save
 
   level = myStorage.get$ 'level'
