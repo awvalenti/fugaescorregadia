@@ -1,3 +1,10 @@
+makeCoreState = require '/app/core/makeCoreState'
+
+makeLevelModel = require '/app/core/makeLevelModel'
+loadLevelModel = require('/app/core/loadLevelModel') {
+  makeLevelModel
+}
+
 makeDomView = require('/app/view/makeDomView')
   i18n: require '/app/i18n'
   updateDivTile$: require '/app/view/updateDivTile$'
@@ -8,11 +15,8 @@ applyDomView$ = require('/app/view/applyDomView$')
   BoardResizer: require '/app/util/BoardResizer'
   getDynamicStyle: require '/app/util/getDynamicStyle'
 
-makeCoreState = require '/app/core/makeCoreState'
-makeLevelModel = require '/app/core/makeLevelModel'
-
 module.exports = (levelNumber, viewMode) ->
-  coreState = makeCoreState levelNumber, makeLevelModel levelNumber
+  coreState = makeCoreState levelNumber, loadLevelModel levelNumber
   domView = makeDomView coreState, levelNumber, viewMode
 
   rowCount = coreState.boardState.length
@@ -20,4 +24,4 @@ module.exports = (levelNumber, viewMode) ->
 
   applyDomView$ rowCount, colCount, domView
 
-  {coreState, domView, makeLevelModel, colCount}
+  {coreState, domView, colCount, makeLevelModel, loadLevelModel}

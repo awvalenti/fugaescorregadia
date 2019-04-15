@@ -1,4 +1,4 @@
-{domView, makeLevelModel, colCount} = require('/_common') 0, 'LEVEL_EDITOR'
+{domView, colCount, makeLevelModel} = require('/_common') 0, 'LEVEL_EDITOR'
 
 updateDivTile$ = require '/app/view/updateDivTile$'
 

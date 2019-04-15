@@ -36,4 +36,4 @@ module.exports = (coreState, direction) ->
     EMPTY_DELTA
   else
     movement: from: oldPos, to: {row, col}
-    newLevel: coreState.levelNumber + 1 if board[row][col] is 'GOAL'
+    newLevelNumber: coreState.levelNumber + 1 if board[row][col] is 'GOAL'

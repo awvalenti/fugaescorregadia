@@ -35,7 +35,7 @@ module.exports = ({
   boardDiv.removeChild playerDiv
 
   save$ = ->
-    myStorage.set$ 'level', Array::reduce.call boardDiv.childNodes,
+    myStorage.set$ 'levelString', Array::reduce.call boardDiv.childNodes,
       (ret, tileDiv, i) ->
         ret += mapping tileDiv.classList[1]
         ret += if (i + 1) % colCount is 0 then '\n' else ' '
@@ -45,7 +45,7 @@ module.exports = ({
 
   load$ = (levelString) ->
     updateDomView$ makeCoreState(0, makeLevelModel levelString), domView,
-      {newLevel: 0}
+      {newLevelNumber: 0}
     do save$
     return
 
@@ -79,7 +79,7 @@ module.exports = ({
           do save$
           a = document.createElement 'a'
           a.download = '00.level'
-          a.href = URL.createObjectURL new Blob [myStorage.get$ 'level']
+          a.href = URL.createObjectURL new Blob [myStorage.get$ 'levelString']
           document.body.appendChild a
           do a.click
           document.body.removeChild a
@@ -105,7 +105,7 @@ module.exports = ({
     do trySetTile$
     return
 
-  load$ level if (level = myStorage.get$ 'level')?
+  load$ levelString if (levelString = myStorage.get$ 'levelString')?
 
   for tileDiv in boardDiv.childNodes
     tileDiv.onmouseenter = mouseenter.bind null, tileDiv

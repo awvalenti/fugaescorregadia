@@ -16,5 +16,5 @@ describe 'deltaCoreState', ->
         from: row: 0, col: 0
         to: row: 0, col: 2
 
-    it 'informs newLevel', ->
-      changes.should.have.property('newLevel').equal 4
+    it 'informs newLevelNumber', ->
+      changes.should.have.property('newLevelNumber').equal 4

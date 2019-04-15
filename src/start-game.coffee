@@ -1,7 +1,7 @@
-{coreState, domView, makeLevelModel} = require('/_common') 1, 'GAME'
+{coreState, domView, loadLevelModel} = require('/_common') 1, 'GAME'
 
 updateCoreState = require('/app/core/updateCoreState') {
-  makeLevelModel
+  loadLevelModel
   makeCoreState: require '/app/core/makeCoreState'
 }
 

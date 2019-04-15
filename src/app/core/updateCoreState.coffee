@@ -1,10 +1,10 @@
 module.exports = ({
-  makeLevelModel
+  loadLevelModel
   makeCoreState
 }) ->
-  (coreState, {movement, newLevel}) ->
-    if newLevel?
-      makeCoreState newLevel, makeLevelModel newLevel
+  (coreState, {movement, newLevelNumber}) ->
+    if newLevelNumber?
+      makeCoreState newLevelNumber, loadLevelModel newLevelNumber
     else if movement?
       makeCoreState coreState.levelNumber, coreState.boardState, movement.to
     else

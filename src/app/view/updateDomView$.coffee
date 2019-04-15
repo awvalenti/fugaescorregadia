@@ -7,13 +7,13 @@ module.exports = ({
 }) ->
   (coreState, domView, delta) ->
     {boardDiv, playerDiv, levelNumberElement, arrivalHandler} = domView
-    {movement, newLevel} = delta
+    {movement, newLevelNumber} = delta
 
     if movement?
       await setPlayerDivPosition$ movement.from, movement.to, arrivalHandler,
         playerDiv
 
-    if newLevel?
+    if newLevelNumber?
       divTiles = boardDiv.children
 
       coreState.boardState.forEach (rowData, rowIndex) ->
@@ -24,6 +24,6 @@ module.exports = ({
       st.transitionDuration = st.webkitTransitionDuration = null
       setTranslation$ coreState.playerPos, playerDiv
 
-      levelNumberElement.textContent = newLevel
+      levelNumberElement.textContent = newLevelNumber
 
     return

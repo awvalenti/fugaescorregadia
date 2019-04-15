@@ -17,5 +17,5 @@ module.exports = ({
       delta = deltaCoreState coreState, direction
       coreState = updateCoreState coreState, delta
       await updateDomView$ coreState, domView, delta
-      if delta.newLevel? then 'CANCEL_NEXT_TASKS' else 'GO_ON'
+      if delta.newLevelNumber? then 'CANCEL_NEXT_TASKS' else 'GO_ON'
     return
