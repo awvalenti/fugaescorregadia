@@ -1,16 +1,9 @@
-{domView, colCount, makeLevelModel} = require('/_common') 0, 'LEVEL_EDITOR'
-
-updateDivTile$ = require '/app/view/updateDivTile$'
+{domView, colCount, updateDomView$, updateDivTile$, makeLevelModel} =
+  require('/_common') 0, 'LEVEL_EDITOR'
 
 require('/app/controller/applyLevelEditorController$') {
   makeLevelModel
-  updateDomView$: require('/app/view/updateDomView$') {
-    setPlayerDivPosition$: require('/app/view/setPlayerDivPosition$') {
-      setTranslation$: require '/app/view/setTranslation$'
-    }
-    updateDivTile$
-    setTranslation$: require '/app/view/setTranslation$'
-  }
+  updateDomView$
   makeCoreModel: require '/app/core/makeCoreModel'
   updateDivTile$
   myStorage: require('/app/util/myStorage') {

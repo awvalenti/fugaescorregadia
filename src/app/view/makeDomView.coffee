@@ -1,19 +1,3 @@
-makeArrivalHandler = ->
-  # arrivalHandler is the function that will be called when the
-  # playerDiv animation (a.k.a. transition) ends.
-  #
-  # We need to handle the transitionend event in order to process user
-  # input and animations correctly. Browsers fire this event too soon,
-  # when the animation hasn't really finished yet.
-  #
-  # That's why we add a small additional delay. That's what the setTimeout
-  # below is about.
-  #
-  # arrivalHandler.resolve is currently undefined, but will be set later
-  # by the funciton that starts the animation. It will be set to a
-  # resolve function of a Promise.
-  ret = -> setTimeout ret.resolve, 20
-
 module.exports = ({
   i18n
   updateDivTile$
@@ -25,10 +9,10 @@ module.exports = ({
     updateDivTile$ tileName, ret
     ret
 
-  makePlayerDiv = (arrivalHandler, {playerPos}) ->
+  makePlayerDiv = (moveEndListener, {playerPos}) ->
     ret = makeTileDiv 'PLAYER'
-    ret.addEventListener 'webkitTransitionEnd', arrivalHandler
-    ret.addEventListener 'transitionend', arrivalHandler
+    ret.addEventListener 'webkitTransitionEnd', moveEndListener
+    ret.addEventListener 'transitionend', moveEndListener
     setTranslation$ playerPos, ret
     ret
 
@@ -42,10 +26,8 @@ module.exports = ({
     ret.appendChild playerDiv
     ret
 
-  (coreModel, levelNumber, viewMode) ->
-    arrivalHandler = do makeArrivalHandler
-
-    playerDiv = makePlayerDiv arrivalHandler, coreModel
+  (coreModel, levelNumber, viewMode, moveEndListener) ->
+    playerDiv = makePlayerDiv moveEndListener, coreModel
 
     # XXX Maybe should build this element dynamically
     # instead of relying on its presence on the page
@@ -59,5 +41,4 @@ module.exports = ({
       levelNumberElement
       boardDiv: makeBoardDiv coreModel, playerDiv, viewMode
       playerDiv
-      arrivalHandler
     }

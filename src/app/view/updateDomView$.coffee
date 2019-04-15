@@ -4,13 +4,14 @@ module.exports = ({
   setPlayerDivPosition$
   updateDivTile$
   setTranslation$
+  moveEndListener
 }) ->
   (coreModel, domView, delta) ->
-    {boardDiv, playerDiv, levelNumberElement, arrivalHandler} = domView
+    {boardDiv, playerDiv, levelNumberElement} = domView
     {movement, newLevelNumber} = delta
 
     if movement?
-      await setPlayerDivPosition$ movement.from, movement.to, arrivalHandler,
+      await setPlayerDivPosition$ movement.from, movement.to, moveEndListener,
         playerDiv
 
     if newLevelNumber?

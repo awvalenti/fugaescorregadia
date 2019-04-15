@@ -3,11 +3,11 @@ MILLISECONDS_PER_TILE = 40
 module.exports = ({
   setTranslation$
 }) ->
-  (oldPos, newPos, arrivalHandler, playerDiv) ->
+  (oldPos, newPos, moveEndListener, playerDiv) ->
     return do Promise.resolve if newPos == oldPos
 
     new Promise (resolve) ->
-      arrivalHandler.resolve = resolve
+      moveEndListener.resolve = resolve
 
       # Either row or col is changed, never both; a simple sum will do
       dist = Math.abs(newPos.row - oldPos.row) +
