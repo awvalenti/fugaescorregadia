@@ -1,6 +1,4 @@
-{domView, coreState, readBoardState} = require('/_common') 1
-
-domView.boardDiv.classList.add 'game'
+{domView, coreState, readBoardState} = require('/_common') 1, 'GAME'
 
 updateCoreState = require('/app/core/updateCoreState') readBoardState
 

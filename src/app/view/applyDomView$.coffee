@@ -1,6 +1,3 @@
-{initialResize$, throttledResize$} = require '/app/util/BoardResizer'
-getDynamicStyle = require '/app/util/getDynamicStyle'
-
 updateTexts$ = ({title, version, levelText}) ->
   document.title = title
   document.getElementById('version').textContent = version
@@ -15,15 +12,19 @@ updateMainElement$ = ({boardDiv}) ->
 
   main.appendChild boardDiv
 
-updateTileSize$ = (rowCount, colCount) ->
-  st = getDynamicStyle '.tile'
-  st.width = 100 / colCount + '%'
-  st.height = 100 / rowCount + '%'
+module.exports = ({
+  BoardResizer: {initialResize$, throttledResize$}
+  getDynamicStyle
+}) ->
+  updateTileSize$ = (rowCount, colCount) ->
+    st = getDynamicStyle '.tile'
+    st.width = 100 / colCount + '%'
+    st.height = 100 / rowCount + '%'
 
-module.exports = (rowCount, colCount, domView) ->
-  updateTexts$ domView
-  updateMainElement$ domView
-  updateTileSize$ rowCount, colCount
-  initialResize$ rowCount, colCount
-  window.onresize = throttledResize$ rowCount, colCount
-  return
+  (rowCount, colCount, domView) ->
+    updateTexts$ domView
+    updateMainElement$ domView
+    updateTileSize$ rowCount, colCount
+    initialResize$ rowCount, colCount
+    window.onresize = throttledResize$ rowCount, colCount
+    return

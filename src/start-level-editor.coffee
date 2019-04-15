@@ -1,3 +1,3 @@
-{domView, colCount} = require('/_common') 0
+{domView, colCount} = require('/_common') 0, 'LEVEL_EDITOR'
 
-require('/app/view/controller/applyLevelEditorController$') domView, colCount
+require('/app/controller/applyLevelEditorController$') domView, colCount
