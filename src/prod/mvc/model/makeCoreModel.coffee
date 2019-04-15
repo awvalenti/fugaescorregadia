@@ -1,9 +1,9 @@
-findStart = (boardState) ->
-  for rowData, row in boardState
+findStart = (boardModel) ->
+  for rowData, row in boardModel
     for tileName, col in rowData
       return {row, col} if tileName == 'START'
 
   throw Error 'Missing START'
 
-module.exports = (levelNumber, boardState, playerPos = findStart(boardState)) ->
-  {levelNumber, boardState, playerPos}
+module.exports = (levelNumber, boardModel, playerPos = findStart(boardModel)) ->
+  {levelNumber, boardModel, playerPos}

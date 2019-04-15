@@ -8,7 +8,7 @@ module.exports = (coreModel, direction) ->
     when 'LEFT'  then incRow =  0; incCol = -1
     else throw Error "#{direction} <-- invalid direction"
 
-  board = coreModel.boardState
+  board = coreModel.boardModel
   oldPos = coreModel.playerPos
 
   before = (newRow, newCol) ->

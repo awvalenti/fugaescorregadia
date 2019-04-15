@@ -20,7 +20,7 @@ module.exports = ({
     ret = document.createElement 'div'
     ret.className = 'board ' + viewMode
 
-    coreModel.boardState.forEach (row) ->
+    coreModel.boardModel.forEach (row) ->
       row.forEach (tileName) ->
         ret.appendChild makeTileDiv tileName
     ret.appendChild playerDiv

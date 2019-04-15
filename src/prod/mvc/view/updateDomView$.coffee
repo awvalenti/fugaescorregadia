@@ -17,7 +17,7 @@ module.exports = ({
     if newLevelNumber?
       divTiles = boardDiv.children
 
-      coreModel.boardState.forEach (rowData, rowIndex) ->
+      coreModel.boardModel.forEach (rowData, rowIndex) ->
         rowData.forEach (tileName, colIndex) ->
           updateDivTile$ tileName, divTiles[rowIndex * rowData.length + colIndex]
 

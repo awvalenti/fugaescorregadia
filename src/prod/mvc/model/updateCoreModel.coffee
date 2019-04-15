@@ -6,6 +6,6 @@ module.exports = ({
     if newLevelNumber?
       makeCoreModel newLevelNumber, loadLevelModel newLevelNumber
     else if movement?
-      makeCoreModel coreModel.levelNumber, coreModel.boardState, movement.to
+      makeCoreModel coreModel.levelNumber, coreModel.boardModel, movement.to
     else
       coreModel
