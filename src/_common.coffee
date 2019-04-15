@@ -1,21 +1,13 @@
-i18n = require '/app/i18n'
-updateDivTile$ = require '/app/view/updateDivTile$'
-setTranslation$ = require '/app/view/setTranslation$'
-version = require '/app/version'
-
 makeDomView = require('/app/view/makeDomView') {
-  i18n
-  updateDivTile$
-  setTranslation$
-  version
+  i18n: require '/app/i18n'
+  updateDivTile$: require '/app/view/updateDivTile$'
+  setTranslation$: require '/app/view/setTranslation$'
+  version: require '/app/version'
 }
 
-BoardResizer = require '/app/util/BoardResizer'
-getDynamicStyle = require '/app/util/getDynamicStyle'
-
 applyDomView$ = require('/app/view/applyDomView$') {
-  BoardResizer
-  getDynamicStyle
+  BoardResizer: require '/app/util/BoardResizer'
+  getDynamicStyle: require '/app/util/getDynamicStyle'
 }
 
 makeCoreState = require '/app/core/makeCoreState'
