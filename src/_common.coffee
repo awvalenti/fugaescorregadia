@@ -6,7 +6,7 @@ loadLevelModel = require('/app/core/loadLevelModel') {
 }
 
 makeDomView = require('/app/view/makeDomView')
-  i18n: require '/app/i18n'
+  i18n: require '/app/view/i18n'
   updateDivTile$: require '/app/view/updateDivTile$'
   setTranslation$: require '/app/view/setTranslation$'
   version: require '/app/version'
