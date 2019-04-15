@@ -16,6 +16,7 @@ module.exports = ({
   BoardResizer: {initialResize$, throttledResize$}
   getDynamicStyle
 }) ->
+
   updateTileSize$ = (rowCount, colCount) ->
     st = getDynamicStyle '.tile'
     st.width = 100 / colCount + '%'

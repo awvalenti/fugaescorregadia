@@ -11,9 +11,14 @@ makeDomView = require('/app/view/makeDomView')
   setTranslation$: require '/app/view/setTranslation$'
   version: require '/app/version'
 
-applyDomView$ = require('/app/view/applyDomView$')
-  BoardResizer: require '/app/util/BoardResizer'
-  getDynamicStyle: require '/app/util/getDynamicStyle'
+getDynamicStyle = require '/app/view/getDynamicStyle'
+
+applyDomView$ = require('/app/view/applyDomView$') {
+  BoardResizer: require('/app/view/BoardResizer') {
+    getDynamicStyle
+  }
+  getDynamicStyle
+}
 
 module.exports = (levelNumber, viewMode) ->
   coreModel = makeCoreModel levelNumber, loadLevelModel levelNumber
