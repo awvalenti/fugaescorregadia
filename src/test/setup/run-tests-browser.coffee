@@ -12,6 +12,8 @@ if Mocha?
 require 'mocha'
 
 mocha.setup 'bdd'
+
+# Possible options for mocha
 # do mocha.checkLeaks
 # do mocha.allowUncaught
 
