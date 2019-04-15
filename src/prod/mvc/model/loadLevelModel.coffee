@@ -18,7 +18,7 @@ LEVELS_AS_STRINGS = [
 ].map String
 
 module.exports = ({
-  makeLevelModel = require '/app/core/makeLevelModel'
+  makeLevelModel = require '/prod/mvc/model/makeLevelModel'
 }) ->
 
   levelsModels = LEVELS_AS_STRINGS.map makeLevelModel

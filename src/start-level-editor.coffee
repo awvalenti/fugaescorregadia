@@ -1,13 +1,13 @@
 {domView, colCount, updateDomView$, updateDivTile$, makeLevelModel} =
   require('/_common') 0, 'LEVEL_EDITOR'
 
-require('/app/controller/applyLevelEditorController$') {
+require('/prod/mvc/controller/applyLevelEditorController$') {
   makeLevelModel
   updateDomView$
-  makeCoreModel: require '/app/core/makeCoreModel'
+  makeCoreModel: require '/prod/mvc/model/makeCoreModel'
   updateDivTile$
-  myStorage: require('/app/util/myStorage') {
-    version: require '/app/version'
+  myStorage: require('/prod/infra/myStorage') {
+    version: require '/prod/app/version'
   }
   domView
   colCount

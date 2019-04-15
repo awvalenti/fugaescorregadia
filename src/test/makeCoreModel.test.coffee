@@ -1,6 +1,6 @@
 should = require 'should'
 
-makeCoreModel = require '/app/core/makeCoreModel'
+makeCoreModel = require '/prod/mvc/model/makeCoreModel'
 
 describe 'makeCoreModel', ->
   coreModel = makeCoreModel 2, [

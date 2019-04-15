@@ -1,26 +1,26 @@
-makeCoreModel = require '/app/core/makeCoreModel'
+makeCoreModel = require '/prod/mvc/model/makeCoreModel'
 
-makeLevelModel = require '/app/core/makeLevelModel'
-loadLevelModel = require('/app/core/loadLevelModel') {
+makeLevelModel = require '/prod/mvc/model/makeLevelModel'
+loadLevelModel = require('/prod/mvc/model/loadLevelModel') {
   makeLevelModel
 }
 
-updateDivTile$ = require '/app/view/updateDivTile$'
-setTranslation$ = require '/app/view/setTranslation$'
+updateDivTile$ = require '/prod/mvc/view/updateDivTile$'
+setTranslation$ = require '/prod/mvc/view/setTranslation$'
 
-makeDomView = require('/app/view/makeDomView') {
-  i18n: require '/app/view/i18n'
+makeDomView = require('/prod/mvc/view/makeDomView') {
+  i18n: require '/prod/mvc/view/i18n'
   updateDivTile$
   setTranslation$
-  version: require '/app/version'
+  version: require '/prod/app/version'
 }
 
-makeMoveEndListener = require '/app/view/makeMoveEndListener'
+makeMoveEndListener = require '/prod/mvc/view/makeMoveEndListener'
 
-getDynamicStyle = require '/app/view/getDynamicStyle'
+getDynamicStyle = require '/prod/mvc/view/getDynamicStyle'
 
-applyDomView$ = require('/app/view/applyDomView$') {
-  BoardResizer: require('/app/view/BoardResizer') {
+applyDomView$ = require('/prod/mvc/view/applyDomView$') {
+  BoardResizer: require('/prod/mvc/view/BoardResizer') {
     getDynamicStyle
   }
   getDynamicStyle
@@ -28,8 +28,8 @@ applyDomView$ = require('/app/view/applyDomView$') {
 
 moveEndListener = do makeMoveEndListener
 
-updateDomView$ = require('/app/view/updateDomView$') {
-  setPlayerDivPosition$: require('/app/view/setPlayerDivPosition$') {
+updateDomView$ = require('/prod/mvc/view/updateDomView$') {
+  setPlayerDivPosition$: require('/prod/mvc/view/setPlayerDivPosition$') {
     setTranslation$
   }
   updateDivTile$

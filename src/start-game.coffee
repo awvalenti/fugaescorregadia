@@ -1,14 +1,14 @@
 {coreModel, domView, updateDomView$, loadLevelModel} =
   require('/_common') 1, 'GAME'
 
-updateCoreModel = require('/app/core/updateCoreModel') {
+updateCoreModel = require('/prod/mvc/model/updateCoreModel') {
   loadLevelModel
-  makeCoreModel: require '/app/core/makeCoreModel'
+  makeCoreModel: require '/prod/mvc/model/makeCoreModel'
 }
 
-updateAppState$ = require('/app/updateAppState$') {
-  ProcessingQueue: require '/app/ProcessingQueue'
-  deltaCoreModel: require '/app/core/deltaCoreModel'
+updateAppState$ = require('/prod/mvc/updateAppState$') {
+  ProcessingQueue: require '/prod/mvc/view/ProcessingQueue'
+  deltaCoreModel: require '/prod/mvc/model/deltaCoreModel'
   updateDomView$
   coreModel
   updateCoreModel
@@ -16,10 +16,10 @@ updateAppState$ = require('/app/updateAppState$') {
 }
 
 keyboardController =
-  require('/app/controller/makeKeyboardController') updateAppState$
+  require('/prod/mvc/controller/makeKeyboardController') updateAppState$
 
 mobileController =
-  require('/app/controller/makeMobileController') updateAppState$
+  require('/prod/mvc/controller/makeMobileController') updateAppState$
 
-require('/app/controller/applyGeneralController$') {...keyboardController,
+require('/prod/mvc/controller/applyGeneralController$') {...keyboardController,
   ...mobileController}
