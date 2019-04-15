@@ -15,7 +15,7 @@ mocha.setup 'bdd'
 # do mocha.checkLeaks
 # do mocha.allowUncaught
 
-require '/test/setup/load-tests.coffee'
+require '/test/setup/load-tests'
 
 runner = do mocha.run
 

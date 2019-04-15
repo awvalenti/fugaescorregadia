@@ -1,6 +1,6 @@
 should = require 'should'
 
-makeCoreModel = require '/app/core/makeCoreModel.coffee'
+makeCoreModel = require '/app/core/makeCoreModel'
 
 describe 'makeCoreModel', ->
   coreModel = makeCoreModel 2, [

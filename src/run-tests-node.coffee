@@ -1,1 +1,1 @@
-require '/test/setup/load-tests.coffee'
+require '/test/setup/load-tests'

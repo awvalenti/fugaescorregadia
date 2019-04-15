@@ -1,7 +1,7 @@
 should = require 'should'
 
-makeCoreModel = require '/app/core/makeCoreModel.coffee'
-deltaCoreModel = require '/app/core/deltaCoreModel.coffee'
+makeCoreModel = require '/app/core/makeCoreModel'
+deltaCoreModel = require '/app/core/deltaCoreModel'
 
 describe 'deltaCoreModel', ->
   coreModel = makeCoreModel 0, [
