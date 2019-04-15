@@ -20,4 +20,4 @@ module.exports = (levelNumber, viewMode) ->
 
   applyDomView$ rowCount, colCount, domView
 
-  {domView, coreState, readBoardState, colCount}
+  {coreState, domView, readBoardState, colCount}

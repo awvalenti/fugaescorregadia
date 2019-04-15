@@ -1,4 +1,4 @@
-{domView, coreState, readBoardState} = require('/_common') 1, 'GAME'
+{coreState, domView, readBoardState} = require('/_common') 1, 'GAME'
 
 updateCoreState = require('/app/core/updateCoreState') {
   readBoardState
