@@ -1,5 +1,5 @@
 {coreModel, domView, updateDomView$, loadLevelModel} =
-  require('/_common') 1, 'GAME'
+  require('/entry-points/_common') 1, 'GAME'
 
 updateCoreModel = require('/prod/mvc/model/updateCoreModel') {
   loadLevelModel

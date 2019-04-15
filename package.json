@@ -6,9 +6,9 @@
   "scripts": {
     "start": "npx parcel -p 1234 src/index.html",
     "editor": "npx parcel -p 2345 src/level-editor.html",
-    "tdd": "npx parcel -p 3456 src/run-tests-browser.html --no-cache",
-    "autoplay": "npx parcel -p 4567 src/run-autoplay-test.html --no-cache",
-    "test": "npx parcel build src/run-tests-node.coffee --no-cache --no-minify && npx mocha dist/run-tests-node*.js",
+    "tdd": "npx parcel -p 3456 src/test-browser-unit-integration.html --no-cache",
+    "autoplay": "npx parcel -p 4567 src/test-browser-system.html --no-cache",
+    "test": "npx parcel build src/test-node-unit-integration.coffee --no-cache --no-minify && npx mocha dist/test-node-unit-integration*.js",
     "parcel-build": "npx parcel build src/index.html --public-url=.",
     "deploy": "bash scripts/deploy.sh"
   },

@@ -1,5 +1,5 @@
 {domView, colCount, updateDomView$, updateDivTile$, makeLevelModel} =
-  require('/_common') 0, 'LEVEL_EDITOR'
+  require('/entry-points/_common') 0, 'LEVEL_EDITOR'
 
 require('/prod/mvc/controller/applyLevelEditorController$') {
   makeLevelModel

@@ -17,7 +17,7 @@ mocha.setup 'bdd'
 # do mocha.checkLeaks
 # do mocha.allowUncaught
 
-require '/test/setup/load-tests'
+require '/test/load-unit-integrations-tests'
 
 runner = do mocha.run
 
