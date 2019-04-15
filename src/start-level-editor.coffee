@@ -11,7 +11,7 @@ require('/app/controller/applyLevelEditorController$') {
     updateDivTile$
     setTranslation$: require '/app/view/setTranslation$'
   }
-  makeCoreState: require '/app/core/makeCoreState'
+  makeCoreModel: require '/app/core/makeCoreModel'
   updateDivTile$
   myStorage: require('/app/util/myStorage') {
     version: require '/app/version'

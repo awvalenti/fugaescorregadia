@@ -4,18 +4,18 @@ MAX_ENQUEUED_MOVES = 2
 
 module.exports = ({
   ProcessingQueue
-  deltaCoreState
+  deltaCoreModel
   updateDomView$
-  coreState
-  updateCoreState
+  coreModel
+  updateCoreModel
   domView
 }) ->
   queue = new ProcessingQueue MAX_ENQUEUED_MOVES
 
   (direction) ->
     queue.add$ ->
-      delta = deltaCoreState coreState, direction
-      coreState = updateCoreState coreState, delta
-      await updateDomView$ coreState, domView, delta
+      delta = deltaCoreModel coreModel, direction
+      coreModel = updateCoreModel coreModel, delta
+      await updateDomView$ coreModel, domView, delta
       if delta.newLevelNumber? then 'CANCEL_NEXT_TASKS' else 'GO_ON'
     return

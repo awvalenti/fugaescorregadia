@@ -1,6 +1,6 @@
 EMPTY_DELTA = {}
 
-module.exports = (coreState, direction) ->
+module.exports = (coreModel, direction) ->
   switch direction
     when 'UP'    then incRow = -1; incCol =  0
     when 'RIGHT' then incRow =  0; incCol = +1
@@ -8,8 +8,8 @@ module.exports = (coreState, direction) ->
     when 'LEFT'  then incRow =  0; incCol = -1
     else throw Error "#{direction} <-- invalid direction"
 
-  board = coreState.boardState
-  oldPos = coreState.playerPos
+  board = coreModel.boardState
+  oldPos = coreModel.playerPos
 
   before = (newRow, newCol) ->
     inbounds = 0 <= newRow < board.length and 0 <= newCol < board[newRow].length
@@ -36,4 +36,4 @@ module.exports = (coreState, direction) ->
     EMPTY_DELTA
   else
     movement: from: oldPos, to: {row, col}
-    newLevelNumber: coreState.levelNumber + 1 if board[row][col] is 'GOAL'
+    newLevelNumber: coreModel.levelNumber + 1 if board[row][col] is 'GOAL'

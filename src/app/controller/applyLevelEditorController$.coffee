@@ -21,7 +21,7 @@ markAsSaved$ = () -> document.title = '✔️ Saved'
 module.exports = ({
   makeLevelModel
   updateDomView$
-  makeCoreState
+  makeCoreModel
   updateDivTile$
   myStorage
   domView
@@ -44,7 +44,7 @@ module.exports = ({
     return
 
   load$ = (levelString) ->
-    updateDomView$ makeCoreState(0, makeLevelModel levelString), domView,
+    updateDomView$ makeCoreModel(0, makeLevelModel levelString), domView,
       {newLevelNumber: 0}
     do save$
     return

@@ -32,20 +32,20 @@ module.exports = ({
     setTranslation$ playerPos, ret
     ret
 
-  makeBoardDiv = (coreState, playerDiv, viewMode) ->
+  makeBoardDiv = (coreModel, playerDiv, viewMode) ->
     ret = document.createElement 'div'
     ret.className = 'board ' + viewMode
 
-    coreState.boardState.forEach (row) ->
+    coreModel.boardState.forEach (row) ->
       row.forEach (tileName) ->
         ret.appendChild makeTileDiv tileName
     ret.appendChild playerDiv
     ret
 
-  (coreState, levelNumber, viewMode) ->
+  (coreModel, levelNumber, viewMode) ->
     arrivalHandler = do makeArrivalHandler
 
-    playerDiv = makePlayerDiv arrivalHandler, coreState
+    playerDiv = makePlayerDiv arrivalHandler, coreModel
 
     # XXX Maybe should build this element dynamically
     # instead of relying on its presence on the page
@@ -57,7 +57,7 @@ module.exports = ({
       version: 'v' + version
       levelText: i18n 'level'
       levelNumberElement
-      boardDiv: makeBoardDiv coreState, playerDiv, viewMode
+      boardDiv: makeBoardDiv coreModel, playerDiv, viewMode
       playerDiv
       arrivalHandler
     }

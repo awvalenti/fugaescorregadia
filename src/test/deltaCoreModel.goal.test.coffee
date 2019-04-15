@@ -1,14 +1,14 @@
 should = require 'should'
 
-makeCoreState = require '/app/core/makeCoreState.coffee'
-deltaCoreState = require '/app/core/deltaCoreState.coffee'
+makeCoreModel = require '/app/core/makeCoreModel.coffee'
+deltaCoreModel = require '/app/core/deltaCoreModel.coffee'
 
-describe 'deltaCoreState', ->
-  coreState = makeCoreState 3, [
+describe 'deltaCoreModel', ->
+  coreModel = makeCoreModel 3, [
     ['START', 'EMPTY', 'GOAL', 'EMPTY']
   ]
 
-  changes = deltaCoreState coreState, 'RIGHT'
+  changes = deltaCoreModel coreModel, 'RIGHT'
 
   context 'when GOAL is reached', ->
     it 'tells PLAYER to stop at GOAL position', ->

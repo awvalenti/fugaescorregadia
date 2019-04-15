@@ -1,3 +1,3 @@
-require '/test/makeCoreState.test.coffee'
-require '/test/deltaCoreState.movement.test.coffee'
-require '/test/deltaCoreState.goal.test.coffee'
+require '/test/makeCoreModel.test.coffee'
+require '/test/deltaCoreModel.movement.test.coffee'
+require '/test/deltaCoreModel.goal.test.coffee'

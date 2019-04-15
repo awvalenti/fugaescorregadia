@@ -1,4 +1,4 @@
-makeCoreState = require '/app/core/makeCoreState'
+makeCoreModel = require '/app/core/makeCoreModel'
 
 makeLevelModel = require '/app/core/makeLevelModel'
 loadLevelModel = require('/app/core/loadLevelModel') {
@@ -16,12 +16,12 @@ applyDomView$ = require('/app/view/applyDomView$')
   getDynamicStyle: require '/app/util/getDynamicStyle'
 
 module.exports = (levelNumber, viewMode) ->
-  coreState = makeCoreState levelNumber, loadLevelModel levelNumber
-  domView = makeDomView coreState, levelNumber, viewMode
+  coreModel = makeCoreModel levelNumber, loadLevelModel levelNumber
+  domView = makeDomView coreModel, levelNumber, viewMode
 
-  rowCount = coreState.boardState.length
-  colCount = coreState.boardState[0].length
+  rowCount = coreModel.boardState.length
+  colCount = coreModel.boardState[0].length
 
   applyDomView$ rowCount, colCount, domView
 
-  {coreState, domView, colCount, makeLevelModel, loadLevelModel}
+  {coreModel, domView, colCount, makeLevelModel, loadLevelModel}

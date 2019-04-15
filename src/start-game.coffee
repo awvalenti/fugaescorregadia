@@ -1,13 +1,13 @@
-{coreState, domView, loadLevelModel} = require('/_common') 1, 'GAME'
+{coreModel, domView, loadLevelModel} = require('/_common') 1, 'GAME'
 
-updateCoreState = require('/app/core/updateCoreState') {
+updateCoreModel = require('/app/core/updateCoreModel') {
   loadLevelModel
-  makeCoreState: require '/app/core/makeCoreState'
+  makeCoreModel: require '/app/core/makeCoreModel'
 }
 
 updateAppState$ = require('/app/updateAppState$') {
   ProcessingQueue: require '/app/ProcessingQueue'
-  deltaCoreState: require '/app/core/deltaCoreState'
+  deltaCoreModel: require '/app/core/deltaCoreModel'
 
   updateDomView$: require('/app/view/updateDomView$') {
     setPlayerDivPosition$: require('/app/view/setPlayerDivPosition$') {
@@ -17,8 +17,8 @@ updateAppState$ = require('/app/updateAppState$') {
     setTranslation$: require '/app/view/setTranslation$'
   }
 
-  coreState
-  updateCoreState
+  coreModel
+  updateCoreModel
   domView
 }
 
