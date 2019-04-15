@@ -1,9 +1,9 @@
-{domView, readBoardState, colCount} = require('/_common') 0, 'LEVEL_EDITOR'
+{domView, makeLevelModel, colCount} = require('/_common') 0, 'LEVEL_EDITOR'
 
 updateDivTile$ = require '/app/view/updateDivTile$'
 
 require('/app/controller/applyLevelEditorController$') {
-  readBoardState
+  makeLevelModel
   updateDomView$: require('/app/view/updateDomView$') {
     setPlayerDivPosition$: require('/app/view/setPlayerDivPosition$') {
       setTranslation$: require '/app/view/setTranslation$'

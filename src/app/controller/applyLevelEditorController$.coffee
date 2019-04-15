@@ -19,7 +19,7 @@ markAsUnsaved$ = () -> document.title = '⚪ Unsaved'
 markAsSaved$ = () -> document.title = '✔️ Saved'
 
 module.exports = ({
-  readBoardState
+  makeLevelModel
   updateDomView$
   makeCoreState
   updateDivTile$
@@ -44,7 +44,7 @@ module.exports = ({
     return
 
   load$ = (levelString) ->
-    updateDomView$ makeCoreState(0, readBoardState levelString), domView,
+    updateDomView$ makeCoreState(0, makeLevelModel levelString), domView,
       {newLevel: 0}
     do save$
     return
