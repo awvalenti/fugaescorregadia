@@ -2,7 +2,8 @@ module.exports = ({
   loadLevelModel
   makeCoreModel
 }) ->
-  (coreModel, {movement, newLevelNumber}) ->
+  (coreModel, delta) ->
+    {movement, newLevelNumber} = delta
     if newLevelNumber?
       makeCoreModel newLevelNumber, loadLevelModel newLevelNumber
     else if movement?
