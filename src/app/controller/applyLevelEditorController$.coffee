@@ -1,10 +1,12 @@
 # TODO Refactor: separate into many files
 
-readBoardState = require '/app/core/readBoardState'
-updateDomView$ = require '/app/view/updateDomView$'
-makeCoreState = require '/app/core/makeCoreState'
-updateDivTile$ = require '/app/view/updateDivTile$'
-myStorage = require '/app/util/myStorage'
+mapping = (tileName) ->
+  switch tileName
+    when 'EMPTY' then '-'
+    when 'GOAL' then 'g'
+    when 'OBSTACLE' then 'o'
+    when 'START' then 's'
+    else throw Error "'#{tileName}' <-- invalid tileName"
 
 tileNameFor = (key) ->
   switch key
@@ -13,10 +15,18 @@ tileNameFor = (key) ->
     when '2' then 'GOAL'
     when '3' then 'OBSTACLE'
 
-setUnsaved = () -> document.title = '⚪ Unsaved'
-setSaved = () -> document.title = '✔️ Saved'
+markAsUnsaved$ = () -> document.title = '⚪ Unsaved'
+markAsSaved$ = () -> document.title = '✔️ Saved'
 
-module.exports = (domView, colCount) ->
+module.exports = ({
+  readBoardState
+  updateDomView$
+  makeCoreState
+  updateDivTile$
+  myStorage
+  domView
+  colCount
+}) ->
   {boardDiv, playerDiv} = domView
 
   pointedTileDiv = null
@@ -24,43 +34,36 @@ module.exports = (domView, colCount) ->
 
   boardDiv.removeChild playerDiv
 
-  save = ->
-    mapping = (tileName) ->
-      switch tileName
-        when 'EMPTY' then '-'
-        when 'GOAL' then 'g'
-        when 'OBSTACLE' then 'o'
-        when 'START' then 's'
-        else throw Error "'#{tileName}' <-- invalid tileName"
-
+  save$ = ->
     myStorage.set$ 'level', Array::reduce.call boardDiv.childNodes,
       (ret, tileDiv, i) ->
         ret += mapping tileDiv.classList[1]
         ret += if (i + 1) % colCount is 0 then '\n' else ' '
       , ''
+    do markAsSaved$
+    return
 
-    do setSaved
-
-  load = (levelString) ->
+  load$ = (levelString) ->
     updateDomView$ makeCoreState(0, readBoardState levelString), domView,
       {newLevel: 0}
-    do save
+    do save$
+    return
 
-  level = myStorage.get$ 'level'
-  load level if level?
-
-  trySetTile = ->
+  trySetTile$ = ->
     keys = pressedKeys
     if pointedTileDiv? and tileName = tileNameFor keys[keys.length - 1]
       updateDivTile$ tileName, pointedTileDiv
-      do setUnsaved
+      do markAsUnsaved$
+    return
 
   mouseenter = (tileDiv) ->
     pointedTileDiv = tileDiv
-    do trySetTile
+    do trySetTile$
+    return
 
   mouseleave = ->
     pointedTileDiv = null
+    return
 
   keydown = (e) ->
     {key} = e
@@ -69,11 +72,11 @@ module.exports = (domView, colCount) ->
       switch key
         when 's', 'S'
           do e.preventDefault
-          do save
+          do save$
 
         when 'e', 'E'
           do e.preventDefault
-          do save
+          do save$
           a = document.createElement 'a'
           a.download = '00.level'
           a.href = URL.createObjectURL new Blob [myStorage.get$ 'level']
@@ -90,16 +93,19 @@ module.exports = (domView, colCount) ->
             chosenFile = input.files[0]
             return if not chosenFile?
             reader = new FileReader
-            reader.onload = -> load reader.result
+            reader.onload = -> load$ reader.result
             reader.readAsText chosenFile
           do input.click
 
     pressedKeys.push key unless key in pressedKeys
-    do trySetTile
+    do trySetTile$
 
   keyup = ({key}) ->
     pressedKeys.splice (pressedKeys.indexOf key), 1
-    do trySetTile
+    do trySetTile$
+    return
+
+  load$ level if (level = myStorage.get$ 'level')?
 
   for tileDiv in boardDiv.childNodes
     tileDiv.onmouseenter = mouseenter.bind null, tileDiv
