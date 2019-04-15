@@ -3,7 +3,6 @@ require 'babel-polyfill' # Necessary for await
 MAX_SEQUENTIAL_MOVES = 3
 
 module.exports = ({
-  ProcessingQueue
   deltaCoreModel
   updateDomView$
   coreModel

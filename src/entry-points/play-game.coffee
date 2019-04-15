@@ -7,7 +7,6 @@ updateCoreModel = require('/prod/mvc/model/updateCoreModel') {
 }
 
 updateAppState$ = require('/prod/mvc/updateAppState$') {
-  ProcessingQueue: require '/prod/mvc/view/ProcessingQueue'
   deltaCoreModel: require '/prod/mvc/model/deltaCoreModel'
   updateDomView$
   coreModel
