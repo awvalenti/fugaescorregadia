@@ -18,9 +18,9 @@ module.exports = ({
       direction = moves$[0]
       delta = deltaCoreModel coreModel$, direction
       coreModel$ = updateCoreModel coreModel$, delta
-      await updateDomView$ coreModel$, domView, delta
+      await updateDomView$ domView, delta
       do moves$.shift
-      return if moves$.length is 0 or delta.newLevelNumber?
+      return if moves$.length is 0 or delta.coreModelForNewLevel?
 
   (direction) ->
     if moves$.length < MAX_SEQUENTIAL_MOVES

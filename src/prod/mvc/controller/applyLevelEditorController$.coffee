@@ -44,8 +44,8 @@ module.exports = ({
     return
 
   load$ = (levelString) ->
-    updateDomView$ makeCoreModel(0, makeLevelModel levelString), domView,
-      {newLevelNumber: 0}
+    updateDomView$ domView, coreModelForNewLevel: makeCoreModel 0,
+      makeLevelModel levelString
     do save$
     return
 

@@ -1,20 +1,34 @@
 should = require 'should'
 
 makeCoreModel = require '/prod/mvc/model/makeCoreModel'
-deltaCoreModel = require '/prod/mvc/model/deltaCoreModel'
+
+coreModel = makeCoreModel 1, [
+  ['START', 'EMPTY', 'GOAL', 'EMPTY']
+  ['EMPTY', 'EMPTY', 'EMPTY', 'EMPTY']
+]
+
+level2 = [
+  ['EMPTY', 'GOAL', 'EMPTY', 'START']
+]
+
+deltaCoreModel = require('/prod/mvc/model/deltaCoreModel')
+  loadLevelModel: (levelNumber) -> level2 if levelNumber is 2
+  makeCoreModel: require '/prod/mvc/model/makeCoreModel'
 
 describe 'deltaCoreModel', ->
-  coreModel = makeCoreModel 3, [
-    ['START', 'EMPTY', 'GOAL', 'EMPTY']
-  ]
-
-  changes = deltaCoreModel coreModel, 'RIGHT'
-
   context 'when GOAL is reached', ->
-    it 'tells PLAYER to stop at GOAL position', ->
-      changes.should.have.property('movement').deepEqual
+    delta = deltaCoreModel coreModel, 'RIGHT'
+
+    it 'moves PLAYER to GOAL position', ->
+      delta.should.have.property('movement').deepEqual
         from: row: 0, col: 0
         to: row: 0, col: 2
 
-    it 'informs newLevelNumber', ->
-      changes.should.have.property('newLevelNumber').equal 4
+    it 'stores a new coreModel with new level', ->
+      delta.should.have.property('coreModelForNewLevel').deepEqual \
+        makeCoreModel 2, level2
+
+  context 'when GOAL is not reached', ->
+    it 'does not include coreModelForNewLevel property', ->
+      deltaCoreModel(coreModel, 'DOWN').should.not.have.property \
+        'coreModelForNewLevel'

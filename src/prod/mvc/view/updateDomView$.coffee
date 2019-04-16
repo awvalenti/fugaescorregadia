@@ -6,25 +6,27 @@ module.exports = ({
   setTranslation$
   moveEndListener
 }) ->
-  (coreModel, domView, delta) ->
+  (domView, delta) ->
     {boardDiv, playerDiv, levelNumberElement} = domView
-    {movement, newLevelNumber} = delta
+    {movement, coreModelForNewLevel} = delta
 
     if movement?
       await setPlayerDivPosition$ movement.from, movement.to, moveEndListener,
         playerDiv
 
-    if newLevelNumber?
+    if coreModelForNewLevel?
+      {levelNumber, levelModel, playerPos} = coreModelForNewLevel
       divTiles = boardDiv.children
 
-      coreModel.boardModel.forEach (rowData, rowIndex) ->
+      levelModel.forEach (rowData, rowIndex) ->
         rowData.forEach (tileName, colIndex) ->
-          updateDivTile$ tileName, divTiles[rowIndex * rowData.length + colIndex]
+          updateDivTile$ tileName, divTiles[rowIndex * rowData.length +
+            colIndex]
 
       st = playerDiv.style
       st.transitionDuration = st.webkitTransitionDuration = null
-      setTranslation$ coreModel.playerPos, playerDiv
+      setTranslation$ playerPos, playerDiv
 
-      levelNumberElement.textContent = newLevelNumber
+      levelNumberElement.textContent = levelNumber
 
     return

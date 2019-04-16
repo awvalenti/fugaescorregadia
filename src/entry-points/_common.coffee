@@ -41,8 +41,8 @@ module.exports = (levelNumber, viewMode) ->
   coreModel = makeCoreModel levelNumber, loadLevelModel levelNumber
   domView = makeDomView coreModel, levelNumber, viewMode, moveEndListener
 
-  rowCount = coreModel.boardModel.length
-  colCount = coreModel.boardModel[0].length
+  rowCount = coreModel.levelModel.length
+  colCount = coreModel.levelModel[0].length
 
   applyDomView$ rowCount, colCount, domView
 

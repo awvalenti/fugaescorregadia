@@ -16,11 +16,10 @@ module.exports = ({
     setTranslation$ playerPos, ret
     ret
 
-  makeBoardDiv = (coreModel, playerDiv, viewMode) ->
+  makeBoardDiv = ({levelModel}, playerDiv, viewMode) ->
     ret = document.createElement 'div'
     ret.className = 'board ' + viewMode
-
-    coreModel.boardModel.forEach (row) ->
+    levelModel.forEach (row) ->
       row.forEach (tileName) ->
         ret.appendChild makeTileDiv tileName
     ret.appendChild playerDiv

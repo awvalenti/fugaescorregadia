@@ -1,13 +1,17 @@
 {coreModel, domView, updateDomView$, loadLevelModel} =
   require('/entry-points/_common') 1, 'GAME'
 
+makeCoreModel = require '/prod/mvc/model/makeCoreModel'
+
 updateCoreModel = require('/prod/mvc/model/updateCoreModel') {
-  loadLevelModel
-  makeCoreModel: require '/prod/mvc/model/makeCoreModel'
+  makeCoreModel
 }
 
 updateAppState$ = require('/prod/mvc/updateAppState$') {
-  deltaCoreModel: require '/prod/mvc/model/deltaCoreModel'
+  deltaCoreModel: require('/prod/mvc/model/deltaCoreModel') {
+    loadLevelModel
+    makeCoreModel
+  }
   updateDomView$
   coreModel
   updateCoreModel
