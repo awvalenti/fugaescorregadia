@@ -2,9 +2,9 @@ fs = require 'fs'
 
 LEVELS_AS_STRINGS = [
   # Build process transforms these calls into static content directly on
-  # source code. It works for paths that are compile-time strings (except
-  # for the __dirname part). Creating a dynamic path by concatenating a
-  # number doesn't work.
+  # source code. It works for paths starting with #{__dirname} concatenated
+  # to compile-time strings. Creating a dynamic path by concatenating to a
+  # number stored in a variable doesn't work.
   fs.readFileSync "#{__dirname}/levels/00.level"
   fs.readFileSync "#{__dirname}/levels/01.level"
   fs.readFileSync "#{__dirname}/levels/02.level"
