@@ -10,7 +10,7 @@
     "autoplay": "npx parcel -p 4567 src/test-browser-system.html --no-cache",
     "test": "npx parcel build src/test-node-unit-integration.coffee --no-cache --no-minify && npx mocha dist/test-node-unit-integration*.js",
     "parcel-build": "npx parcel build src/index.html --public-url=.",
-    "deploy": "bash scripts/deploy.sh"
+    "deploy": "cp scripts/deploy.sh /tmp/deploy.sh && bash /tmp/deploy.sh"
   },
   "repository": {
     "type": "git",
