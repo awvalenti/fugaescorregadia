@@ -4,10 +4,11 @@
 
 [![Gameplay screenshot](docs/screenshot.png)](https://awvalenti.github.io/fugaescorregadia)
 
-***Slippery Escape*** is a labyrinth game that runs on the browser. You can play it anywhere:
-computer, mobile phone, tablet and so on.
+***Slippery Escape*** is a labyrinth game that runs on the browser.
 
-It is a work in progress. Feedback is welcome! You can
+You can play it anywhere: computer, mobile phone, tablet and so on.
+
+It is work in progress and feedback is welcome! You can
 [open an issue](https://github.com/awvalenti/fugaescorregadia/issues/new)
 and tell me what you think.
 
@@ -20,10 +21,11 @@ nice language that compiles to JavaScript.
 ## Development
 
 Tools include:
-- `ParcelJS`: fast alternative to webpack. Creates development server
-  and generates distribution package.
+- `ParcelJS`: creates development server and generates distribution package.
+  Fast alternative to [webpack](https://webpack.js.org/).
 - `Babel`: translates new JavaScript code to older versions
-- `NodeJS`: runs `npm`, `ParcelJS` and some other tools
+- `Mocha`: automated testing
+- `NodeJS`: JavaScript runtime, runs many development tools
 - `VSCode`: awesome editor
 
 To run Slippery Escape on development mode, you basically need to:
