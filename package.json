@@ -31,8 +31,8 @@
   "dependencies": {},
   "devDependencies": {
     "babel-polyfill": "^6.26.0",
-    "coffeescript": "^2.3.2",
-    "mocha": "^6.0.2",
+    "coffeescript": "^2.4.1",
+    "mocha": "^6.1.3",
     "parcel-bundler": "^1.12.3",
     "posthtml-modules": "^0.4.2",
     "semver": "^6.0.0",
