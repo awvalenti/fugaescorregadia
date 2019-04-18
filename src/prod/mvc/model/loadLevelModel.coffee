@@ -14,7 +14,6 @@ LEVELS_AS_STRINGS = [
   fs.readFileSync "#{__dirname}/levels/06.level"
   fs.readFileSync "#{__dirname}/levels/07.level"
   fs.readFileSync "#{__dirname}/levels/08.level"
-  fs.readFileSync "#{__dirname}/levels/09.level"
 ].map String
 
 module.exports = ({

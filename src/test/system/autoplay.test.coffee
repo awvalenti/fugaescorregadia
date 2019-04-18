@@ -1,12 +1,12 @@
 require 'should'
 
 START_DELAY = 1
-KEYSTROKES_DELAY = 150
+KEYSTROKES_DELAY = 300
 END_DELAY = 200
 
 setTimeout ->
     Array::map
-      .call '→↑←↓→', (d) ->
+      .call '→↑←↓→↑←↓→', (d) ->
         switch d
           when '←' then 'ArrowLeft'
           when '↑' then 'ArrowUp'
@@ -29,7 +29,7 @@ setTimeout ->
 
       .then ->
         document.querySelector('.PLAYER').style.transform.should
-          .equal 'translate(200%, 1500%)'
+          .equal 'translate(0%, 1900%)'
         document.body.style.backgroundColor = '#a3ffa3'
         document.body.innerText = '✔️'
 
