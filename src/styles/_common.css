@@ -57,6 +57,7 @@ aside#version {
 
 .tile.GOAL {
   background-color: #ff0;
+  border-radius: 25%;
 }
 
 .tile.OBSTACLE {
@@ -68,9 +69,11 @@ aside#version {
   position: absolute;
   -webkit-transition-timing-function: linear;
   transition-timing-function: linear;
+  border-radius: 100%;
 }
 
 .tile.START {
   background-color: #00f;
-  opacity: 0.4;
+  opacity: 0.6;
+  border-radius: 25%;
 }
