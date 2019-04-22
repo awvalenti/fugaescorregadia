@@ -21,5 +21,5 @@ module.exports = ({
     updateMainElement$ domView
     updateTileSize$ rowCount, colCount
     initialResize$ rowCount, colCount
-    window.onresize = throttledResize$ rowCount, colCount
+    window.addEventListener 'resize', throttledResize$ rowCount, colCount
     return

@@ -89,11 +89,11 @@ module.exports = ({
           input = document.createElement 'input'
           input.type = 'file'
           input.accept = '.level'
-          input.onchange = ->
+          input.addEventListener 'change', ->
             chosenFile = input.files[0]
             return if not chosenFile?
             reader = new FileReader
-            reader.onload = -> load$ reader.result
+            reader.addEventListener 'load', load$.bind null, reader.result
             reader.readAsText chosenFile
           do input.click
 
@@ -108,11 +108,11 @@ module.exports = ({
   load$ levelString if (levelString = myStorage.get$ 'levelString')?
 
   for tileDiv in boardDiv.childNodes
-    tileDiv.onmouseenter = mouseenter.bind null, tileDiv
+    tileDiv.addEventListener 'mouseenter', mouseenter.bind null, tileDiv
 
-  boardDiv.onmouseleave = mouseleave
+  boardDiv.addEventListener 'mouseleave', mouseleave
 
-  window.onkeydown = keydown
-  window.onkeyup = keyup
+  document.addEventListener 'keydown', keydown
+  document.addEventListener 'keyup', keyup
 
   return
