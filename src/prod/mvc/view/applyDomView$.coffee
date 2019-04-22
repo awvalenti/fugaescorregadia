@@ -4,13 +4,7 @@ updateTexts$ = ({title, version, levelText}) ->
   document.getElementById('level-text').textContent = levelText
 
 updateMainElement$ = ({boardDiv}) ->
-  main = document.querySelector 'main'
-
-  # Clears DOM between ParcelJS reloads
-  while do main.hasChildNodes
-    main.removeChild main.lastChild
-
-  main.appendChild boardDiv
+  document.querySelector('main').appendChild boardDiv
 
 module.exports = ({
   BoardResizer: {initialResize$, throttledResize$}
