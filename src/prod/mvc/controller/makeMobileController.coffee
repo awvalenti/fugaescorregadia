@@ -16,6 +16,10 @@ module.exports = (updateAppState$) ->
     return
 
   touchstart: (e) ->
+    # Mobile Safari 6.0: prevents scrolling
+    # Mobile Firefox: prevents vibration if touch is held
+    do e.preventDefault unless e.target.tagName is 'A'
+
     {pageX, pageY} = e.touches[0]
     setSwipeStart pageX, pageY
     return
@@ -25,7 +29,6 @@ module.exports = (updateAppState$) ->
     return
 
   touchmove: (e) ->
-    do e.preventDefault
     {pageX, pageY} = e.touches[0]
 
     offsetX = pageX - swipeStartX

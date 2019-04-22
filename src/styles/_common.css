@@ -1,5 +1,10 @@
-html, body {
-  overscroll-behavior-y: contain;
+html {
+  /*
+    - Mobile Chrome: prevents reloading page when swiping down
+    - Touch-enabled desktop Chrome or Edge: prevents running commands or
+      scrolling when swiping (any direction)
+  */
+  touch-action: none;
 }
 
 body {
