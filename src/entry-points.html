@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Slippery Escape: entry points</title>
+  <style>
+    h1, a {
+      text-align: center;
+    }
+
+    ul {
+      padding: 0;
+      list-style-type: none;
+    }
+
+    a {
+      display: block;
+      margin: 0 auto;
+      width: 50%;
+      font-size: 125%;
+      padding: 1em;
+      background-color: #ddddff;
+      border: thin dotted black;
+      border-radius: 1em;
+      margin-bottom: 1em;
+    }
+
+    a:focus {
+      background-color: aquamarine;
+    }
+  </style>
+</head>
+<body>
+  <h1>Slippery Escape: entry points</h1>
+  <nav>
+    <ul>
+      <li><a href="/entry-points/play-game.html">Play game</a></li>
+      <li><a href="/entry-points/level-editor.html">Level editor</a></li>
+      <li><a href="/entry-points/unit-int-test-browser.html">
+        Unit and integration testing</a></li>
+      <li><a href="/entry-points/system-test-browser.html">
+        System testing</a></li>
+    </ul>
+  </nav>
+  <script>
+    document.querySelector('a').focus()
+  </script>
+</body>

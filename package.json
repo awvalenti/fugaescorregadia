@@ -4,11 +4,8 @@
   "description": "Jogo de labirinto / Labyrinth game",
   "main": "index.js",
   "scripts": {
-    "start": "npx parcel -p 1234 src/index.html",
-    "editor": "npx parcel -p 2345 src/level-editor.html",
-    "tdd": "npx parcel -p 3456 src/test-browser-unit-integration.html --no-cache",
-    "autoplay": "npx parcel -p 4567 src/test-browser-system.html --no-cache",
-    "test": "npx parcel build src/test-node-unit-integration.coffee --no-cache --no-minify && npx mocha dist/test-node-unit-integration*.js",
+    "start": "npx parcel src/entry-points.html --no-cache",
+    "test": "npx parcel build src/unit-int-test-node.coffee --no-cache --no-minify && npx mocha dist/unit-int-test-node*.js",
     "parcel-build": "npx parcel build src/index.html --public-url=.",
     "deploy": "cp scripts/deploy.sh /tmp/deploy.sh && bash /tmp/deploy.sh"
   },

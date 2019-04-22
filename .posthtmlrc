@@ -1,5 +1,7 @@
 {
   "plugins": {
-    "posthtml-modules": {}
+    "posthtml-modules": {
+      "root": "src"
+    }
   }
 }
