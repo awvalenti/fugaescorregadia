@@ -34,6 +34,8 @@ module.exports = (updateAppState$) ->
 
     pressedKeys.add e.keyCode
 
+    return if e.altKey or e.ctrlKey
+
     if (direction = directionFor e)?
       updateAppState$ direction
       do e.preventDefault
