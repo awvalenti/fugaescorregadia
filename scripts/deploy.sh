@@ -1,3 +1,5 @@
+set -e
+
 version_regex='^(.*"version": ")(.+)(".*)$'
 
 releasing_version=$(
@@ -23,29 +25,28 @@ files_to_replace='*.html *.css *.js *.map'
 
 old_branch=$(git rev-parse --abbrev-ref HEAD)
 
-sed -r "s/$version_regex/\1$releasing_version\3/" -i package.json &&
-  echo "Releasing version $releasing_version" > commit.template &&
-  git commit package.json -t commit.template &&
-  rm commit.template &&
-  rm -rf .cache/ dist/ &&
-  npm run parcel-build &&
-  git tag $releasing_version &&
-  git checkout gh-pages &&
-  git rm $files_to_replace &&
-  mv dist/* . &&
-  git add $files_to_replace &&
-  git commit -m "Deploying version $releasing_version" &&
-  $open_browser index.html &&
-  echo Check in browser if everything is ok &&
-  sleep 5 &&
-  git checkout -b $next_version $old_branch &&
-  sed -r "s/$version_regex/\1$next_version\3/" -i package.json &&
-  git commit package.json -m \
-    "Starting version $(npx semver -i $next_version)" &&
-  git checkout master &&
-  git merge $old_branch &&
-  git checkout $next_version &&
-  echo &&
-  echo If everythin is ok, run: &&
-  echo git push -u origin HEAD &&
-  echo git push origin $releasing_version gh-pages $old_branch master
+sed -r "s/$version_regex/\1$releasing_version\3/" -i package.json
+echo "Releasing version $releasing_version" > commit.template
+git commit package.json -t commit.template
+rm commit.template
+rm -rf .cache/ dist/
+npm run parcel-build
+git tag $releasing_version
+git checkout gh-pages
+git rm $files_to_replace
+mv dist/* .
+git add $files_to_replace
+git commit -m "Deploying version $releasing_version"
+$open_browser index.html
+echo Check in browser if everything is ok
+sleep 5
+git checkout -b $next_version $old_branch
+sed -r "s/$version_regex/\1$next_version\3/" -i package.json
+git commit package.json -m "Starting version $(npx semver -i $next_version)"
+git checkout master
+git merge $old_branch
+git checkout $next_version
+echo
+echo If everythin is ok, run:
+echo git push -u origin HEAD
+echo git push origin $releasing_version gh-pages $old_branch master
