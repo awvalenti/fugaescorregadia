@@ -30,7 +30,7 @@ echo "Releasing version $releasing_version" > commit.template
 git commit package.json -t commit.template
 rm commit.template
 rm -rf .cache/ dist/
-npm run parcel-build
+npm run build
 git tag $releasing_version
 git checkout gh-pages
 git rm $files_to_replace
