@@ -24,11 +24,11 @@
   "homepage": "https://github.com/awvalenti/fugaescorregadia#readme",
   "devDependencies": {
     "parcel": "^1.12.4",
-    "sass": "^1.23.7",
-    "typescript": "^3.7.2"
+    "typescript": "^3.7.2",
+    "mocha": "^6.2.2",
+    "sass": "^1.23.7"
   },
   "dependencies": {
-    "mocha": "^6.2.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
   }
