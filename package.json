@@ -24,6 +24,7 @@
   "homepage": "https://github.com/awvalenti/fugaescorregadia#readme",
   "devDependencies": {
     "parcel": "^1.12.4",
+    "sass": "^1.23.7",
     "typescript": "^3.7.2"
   },
   "dependencies": {
