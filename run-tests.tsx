@@ -2,7 +2,7 @@ import { Mocha, mocha } from 'mocha'
 
 mocha.setup('bdd')
 
-import './Hello.test'
+import './src/test/load-tests'
 
 const runner = mocha.run()
 

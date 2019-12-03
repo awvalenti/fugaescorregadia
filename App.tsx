@@ -1,3 +1,7 @@
-import Hello from './Hello';
+import * as React from 'react'
 
-export default Hello
+import Board from "./src/components/Board";
+
+export default function App() {
+  return <Board />
+}

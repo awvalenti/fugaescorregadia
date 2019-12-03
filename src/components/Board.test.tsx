@@ -1,13 +1,13 @@
 import * as React from 'react'
 import ReactDOM from 'react-dom'
-import Hello from './Hello'
+import Board from './Board'
 
 import { describe, it } from 'mocha'
 
-describe(Hello.name, () => {
-  it('renders without crashing', () => {
+describe(Board.name, () => {
+  it('mounts and unmounts', () => {
     const div = document.createElement('div')
-    ReactDOM.render(<Hello />, div)
+    ReactDOM.render(<Board />, div)
     ReactDOM.unmountComponentAtNode(div)
   })
 })
