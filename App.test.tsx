@@ -10,6 +10,7 @@ import Board from './src/components/Board'
 describe(App.name, () => {
   before(() => {
     const ret = <>mock {Board.name}</>
+    // @ts-ignore Mocking React component
     Board = () => ret
   })
 
