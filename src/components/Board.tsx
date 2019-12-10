@@ -1,5 +1,9 @@
 import * as React from 'react'
 
-export default function Board() {
-  return <h1>Hello, world!</h1>
+interface PropTypes {
+  matrix: Array<Array<string>>
+}
+
+export default function Board({ matrix }: PropTypes) {
+  return <div><div></div></div>
 }
