@@ -8,10 +8,17 @@ import { expect } from 'chai'
 import Board from './src/components/Board'
 
 describe(App.name, () => {
+  const original = Board
+
   before(() => {
     const ret = <>mock {Board.name}</>
-    // @ts-ignore Mocking React component
+    // @ts-ignore
     Board = () => ret
+  })
+
+  after(() => {
+    // @ts-ignore
+    Board = original
   })
 
   let ctn: HTMLDivElement
