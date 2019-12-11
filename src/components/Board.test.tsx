@@ -14,7 +14,22 @@ describe(Board.name, () => {
   })
 
   it('creates rows and columns', () => {
-    const wrapper = shallow(<Board matrix={[[]]} />)
-    expect(wrapper.html()).to.equal('<div><div></div></div>')
+    const wrapper = shallow(
+      <Board matrix={[['a', 'b', 'c'], ['d', 'e', 'f']]} />)
+
+    expect(wrapper.html()).to.equal(`
+      <div>
+        <div>
+          <div>a</div>
+          <div>b</div>
+          <div>c</div>
+        </div>
+        <div>
+          <div>d</div>
+          <div>e</div>
+          <div>f</div>
+        </div>
+      </div>
+    `.replace(/\s/g, ''))
   })
 })
