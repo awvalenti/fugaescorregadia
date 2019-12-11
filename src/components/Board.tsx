@@ -1,9 +1,14 @@
 import * as React from 'react'
 
-interface PropTypes {
-  matrix: Array<Array<string>>
-}
+const Board: React.FC<{
 
-export default function Board({ matrix }: PropTypes) {
-  return <div><div></div></div>
-}
+  matrix: string[][]
+
+}> = ({ matrix }) =>
+  <div>{matrix.map((rowData, rowIndex) =>
+    <div key={rowIndex}>{rowData.map((element, colIndex) =>
+      <div key={colIndex}>{element}</div>)}
+    </div>)}
+  </div>
+
+export default Board
