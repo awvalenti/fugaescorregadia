@@ -1,14 +1,21 @@
+import { cleanup, render } from '@testing-library/react'
+import { expect } from 'chai'
+import { after, before, describe, it } from 'mocha'
 import * as React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
-
-import { describe, it, before, after } from 'mocha'
-import { expect } from 'chai'
-
 import Board from './src/components/Board'
 
 describe(App.name, () => {
-  const original = Board
+  after(cleanup)
+
+  it('mounts and unmounts', () => {
+    const div = document.createElement('div')
+    ReactDOM.render(<App />, div)
+    ReactDOM.unmountComponentAtNode(div)
+  })
+
+  const originalBoard = Board
 
   before(() => {
     const ret = <>mock {Board.name}</>
@@ -18,21 +25,16 @@ describe(App.name, () => {
 
   after(() => {
     // @ts-ignore
-    Board = original
+    Board = originalBoard
   })
 
-  let ctn: HTMLDivElement
+  let innerHTML: string
 
   before(() => {
-    ctn = document.createElement('div')
-    ReactDOM.render(<App />, ctn)
+    ({ container: { innerHTML } } = render(<App />))
   })
 
   it(`renders ${Board.name}`, () => {
-    expect(ctn.textContent).to.equal('mock Board')
-  })
-
-  after(() => {
-    ReactDOM.unmountComponentAtNode(ctn)
+    expect(innerHTML).to.equal('mock Board')
   })
 })

@@ -1,23 +1,29 @@
+import { cleanup, render } from '@testing-library/react'
+import { expect } from 'chai'
+import { after, describe, it } from 'mocha'
 import * as React from 'react'
 import ReactDOM from 'react-dom'
+import { renderToStaticMarkup } from 'react-dom/server'
 import Board from './Board'
 
-import { describe, it, before, after } from 'mocha'
-import { expect } from 'chai'
-import { shallow, render, mount } from 'enzyme';
-
 describe(Board.name, () => {
+  after(cleanup)
+
   it('mounts and unmounts', () => {
     const div = document.createElement('div')
     ReactDOM.render(<Board matrix={[[]]} />, div)
     ReactDOM.unmountComponentAtNode(div)
   })
 
-  it('creates rows and columns', () => {
-    const wrapper = shallow(
-      <Board matrix={[['a', 'b', 'c'], ['d', 'e', 'f']]} />)
+  let innerHTML: string
 
-    expect(wrapper.html()).to.equal(`
+  before(() => {
+    ({ container: { innerHTML } } = render(
+      <Board matrix={[['a', 'b', 'c'], ['d', 'e', 'f']]} />))
+  })
+
+  it('creates rows and columns', () => {
+    expect(innerHTML).to.equal(renderToStaticMarkup(
       <div>
         <div>
           <div>a</div>
@@ -30,6 +36,6 @@ describe(Board.name, () => {
           <div>f</div>
         </div>
       </div>
-    `.replace(/\s/g, ''))
+    ))
   })
 })
