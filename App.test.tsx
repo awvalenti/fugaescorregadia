@@ -34,7 +34,7 @@ describe(App.name, () => {
     ({ container: { innerHTML } } = render(<App />))
   })
 
-  it(`renders ${Board.name}`, () => {
+  it(`renders <${Board.name}>`, () => {
     expect(innerHTML).to.equal('mock Board')
   })
 })
