@@ -14,15 +14,15 @@ describe(SpriteLayer.name, () => {
     ReactDOM.unmountComponentAtNode(div)
   })
 
-  let firstElementChild: ParentNode
+  let spriteLayer: ParentNode
 
   before(() => {
-    ({ container: { firstElementChild } } = render(
-      <SpriteLayer playerPos={{ row: 1, col: 2 }} />)) as {}
+    ({ container: { firstElementChild: spriteLayer } } = render(
+      <SpriteLayer playerPos={{ row: 1, col: 2 }} />))
   })
 
   it('sets style > transform > translate appropriately', () => {
-    expect(firstElementChild.querySelector('.PLAYER')).to.have.nested.property(
+    expect(spriteLayer.querySelector('.PLAYER')).to.have.nested.property(
       'style.transform', 'translate(200%, 100%)')
   })
 })
