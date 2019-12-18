@@ -5,6 +5,9 @@ import * as React from 'react'
 import ReactDOM from 'react-dom'
 import { renderToStaticMarkup } from 'react-dom/server'
 import Board from './Board'
+import TileType from '../domain/TileType'
+
+const { EMPTY, PLAYER } = TileType
 
 describe(Board.name, () => {
   after(cleanup)
@@ -19,21 +22,24 @@ describe(Board.name, () => {
 
   before(() => {
     ({ container: { innerHTML } } = render(
-      <Board matrix={[['a', 'b', 'c'], ['d', 'e', 'f']]} />))
+      <Board matrix={[
+        [PLAYER, EMPTY, EMPTY],
+        [EMPTY,  EMPTY, EMPTY],
+      ]} />))
   })
 
   it('creates rows and columns', () => {
     expect(innerHTML).to.equal(renderToStaticMarkup(
       <div>
         <div>
-          <div>a</div>
-          <div>b</div>
-          <div>c</div>
+          <div>PLAYER</div>
+          <div>EMPTY</div>
+          <div>EMPTY</div>
         </div>
         <div>
-          <div>d</div>
-          <div>e</div>
-          <div>f</div>
+          <div>EMPTY</div>
+          <div>EMPTY</div>
+          <div>EMPTY</div>
         </div>
       </div>
     ))
