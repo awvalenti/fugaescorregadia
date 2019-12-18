@@ -24,9 +24,9 @@ describe(Tile.name, () => {
     ({ container: { innerHTML } } = render(<Tile type={OBSTACLE} />))
   })
 
-  it('creates a div with classes TILE and {type}', () => {
+  it('creates a <div> with classes TILE and {type}', () => {
     expect(innerHTML).to.equal(renderToStaticMarkup(
-      <div className="TILE OBSTACLE"/>
+      <div className="TILE OBSTACLE" />
     ))
   })
 })
