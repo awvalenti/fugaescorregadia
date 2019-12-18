@@ -3,7 +3,7 @@ import TileType from '../domain/TileType'
 
 const Board: React.FC<{
 
-  matrix: TileType  [][]
+  matrix: TileType[][]
 
 }> = ({ matrix }) =>
   <div>{matrix.map((rowData, rowIndex) =>
