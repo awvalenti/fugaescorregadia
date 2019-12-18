@@ -1,6 +1,6 @@
 enum TileType {
-  EMPTY  = 'EMPTY',
-  PLAYER = 'PLAYER',
+  EMPTY    = 'EMPTY',
+  OBSTACLE = 'OBSTACLE',
 }
 
 export default TileType

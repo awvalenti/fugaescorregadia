@@ -7,7 +7,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import Board from './Board'
 import TileType from '../domain/TileType'
 
-const { EMPTY, PLAYER } = TileType
+const { EMPTY, OBSTACLE } = TileType
 
 describe(Board.name, () => {
   after(cleanup)
@@ -23,8 +23,8 @@ describe(Board.name, () => {
   before(() => {
     ({ container: { innerHTML } } = render(
       <Board matrix={[
-        [PLAYER, EMPTY, EMPTY],
-        [EMPTY,  EMPTY, EMPTY],
+        [OBSTACLE, EMPTY, EMPTY],
+        [EMPTY,    EMPTY, EMPTY],
       ]} />))
   })
 
@@ -32,7 +32,7 @@ describe(Board.name, () => {
     expect(innerHTML).to.equal(renderToStaticMarkup(
       <div>
         <div>
-          <div>PLAYER</div>
+          <div>OBSTACLE</div>
           <div>EMPTY</div>
           <div>EMPTY</div>
         </div>
