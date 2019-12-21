@@ -1,13 +1,11 @@
 import * as React from 'react'
 import Position from '../domain/Position'
 
-export type Type = React.FC<{
+const SpriteLayer: React.FC<{
 
   playerPos: Position
 
-}>
-
-const SpriteLayer: Type = ({ playerPos: { row, col } }) =>
+}> = ({ playerPos: { row, col } }) =>
   <div>
     <div
       className="PLAYER"

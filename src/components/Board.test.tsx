@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom'
 import { renderToStaticMarkup } from 'react-dom/server'
 import Board from './Board'
 import TileId from '../domain/TileId'
-import Tile, { Type as TileType } from './Tile'
+import Tile from './Tile'
 
 const { EMPTY, OBSTACLE } = TileId
 
@@ -16,9 +16,10 @@ describe(Board.name, () => {
   const real = Tile
 
   before(() => {
-    const mock: TileType = ({ tileId }) => <p>{tileId}</p>
+    const stub: typeof Tile = ({ tileId }) => <p>{tileId}</p>
+
     // @ts-ignore
-    Tile = mock
+    Tile = stub
   })
 
   after(() => {
