@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Board from './src/components/Board'
+import Board from './Board'
 
 export type Type = React.FC<{
 

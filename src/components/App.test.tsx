@@ -4,7 +4,7 @@ import { after, before, describe, it } from 'mocha'
 import * as React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
-import Board from './src/components/Board'
+import Board from './Board'
 
 describe(App.name, () => {
   after(cleanup)
