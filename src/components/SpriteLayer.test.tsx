@@ -14,11 +14,11 @@ describe(SpriteLayer.name, () => {
     ReactDOM.unmountComponentAtNode(div)
   })
 
-  let spriteLayer: ParentNode
+  let spriteLayer: Element
 
   before(() => {
-    ({ container: { firstElementChild: spriteLayer } } = render(
-      <SpriteLayer playerPos={{ row: 1, col: 2 }} />))
+    spriteLayer = render(<SpriteLayer playerPos={{ row: 1, col: 2 }} />)
+      .container.firstElementChild as Element
   })
 
   it('sets style > transform > translate appropriately', () => {

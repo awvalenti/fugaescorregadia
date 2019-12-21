@@ -1,15 +1,17 @@
 import * as React from 'react'
-import TileType from '../domain/TileType'
+import TileId from '../domain/TileId'
 import Tile from './Tile'
 
-const Board: React.FC<{
+export type Type = React.FC<{
 
-  matrix: TileType[][]
+  matrix: TileId[][]
 
-}> = ({ matrix }) =>
+}>
+
+const Board: Type = ({ matrix }) =>
   <div>{matrix.map((rowData, rowIndex) =>
-    <div key={rowIndex}>{rowData.map((element, colIndex) =>
-      <Tile key={colIndex} type={element} />)}
+    <div key={rowIndex}>{rowData.map((tileId, colIndex) =>
+      <Tile key={colIndex} tileId={tileId} />)}
     </div>)}
   </div>
 

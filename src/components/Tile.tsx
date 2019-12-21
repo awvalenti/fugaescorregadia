@@ -1,11 +1,13 @@
 import * as React from 'react'
-import TileType from '../domain/TileType'
+import TileId from '../domain/TileId'
 
-const Tile: React.FC<{
+export type Type = React.FC<{
 
-  type: TileType
+  tileId: TileId
 
-}> = ({ type }) =>
-  <div className={`TILE ${type}`} />
+}>
+
+const Tile: Type = ({ tileId }) =>
+  <div className={`TILE ${tileId}`} />
 
 export default Tile
