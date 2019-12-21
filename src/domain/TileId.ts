@@ -1,6 +1,6 @@
-enum TileType {
+enum TileId {
   EMPTY    = 'EMPTY',
   OBSTACLE = 'OBSTACLE',
 }
 
-export default TileType
+export default TileId

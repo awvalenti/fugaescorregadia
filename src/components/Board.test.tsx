@@ -5,24 +5,25 @@ import * as React from 'react'
 import ReactDOM from 'react-dom'
 import { renderToStaticMarkup } from 'react-dom/server'
 import Board from './Board'
-import TileType from '../domain/TileType'
-import Tile from './Tile'
+import TileId from '../domain/TileId'
+import Tile, { Type as TileType } from './Tile'
 
-const { EMPTY, OBSTACLE } = TileType
+const { EMPTY, OBSTACLE } = TileId
 
 describe(Board.name, () => {
   after(cleanup)
 
-  const originalTile = Tile
+  const real = Tile
 
   before(() => {
+    const mock: TileType = ({ tileId }) => <p>{tileId}</p>
     // @ts-ignore
-    Tile = ({ type }) => <p>{type}</p>
+    Tile = mock
   })
 
   after(() => {
     // @ts-ignore
-    Tile = originalTile
+    Tile = real
   })
 
   it('mounts and unmounts', () => {
