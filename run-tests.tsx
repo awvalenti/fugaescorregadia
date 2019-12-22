@@ -1,4 +1,4 @@
-import { Mocha, mocha } from 'mocha'
+import 'mocha'
 
 mocha.setup('bdd')
 
@@ -6,8 +6,8 @@ import './src/test/load-tests'
 
 const runner = mocha.run()
 
-runner.on(Mocha.Runner.constants.EVENT_RUN_END, () => {
+runner.on('end', () => {
   const icon = runner.failures === 0 ? '✔️' : '❌'
   document.title = icon
-  document.getElementById('test-running-indicator').className = icon
+  document.getElementById('test-running-indicator')!.className = icon
 })
