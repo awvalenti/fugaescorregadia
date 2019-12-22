@@ -15,17 +15,17 @@ describe(App.name, () => {
     ReactDOM.unmountComponentAtNode(div)
   })
 
-  const originalBoard = Board
+  const real = Board
 
   before(() => {
-    const ret = <>mock {Board.name}</>
+    const stub: typeof Board = () => <>Board</>
     // @ts-ignore
-    Board = () => ret
+    Board = stub
   })
 
   after(() => {
     // @ts-ignore
-    Board = originalBoard
+    Board = real
   })
 
   let innerHTML: string
@@ -35,6 +35,6 @@ describe(App.name, () => {
   })
 
   it(`renders <${Board.name}>`, () => {
-    expect(innerHTML).to.equal('mock Board')
+    expect(innerHTML).to.equal('Board')
   })
 })
