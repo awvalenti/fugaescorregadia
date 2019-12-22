@@ -18,7 +18,7 @@ describe(SpriteLayer.name, () => {
 
   before(() => {
     spriteLayer = render(<SpriteLayer playerPos={{ row: 1, col: 2 }} />)
-      .container.firstElementChild as Element
+      .container.firstElementChild!
   })
 
   it('sets style > transform > translate appropriately', () => {
