@@ -37,7 +37,7 @@ describe(BackgroundLayer.name, () => {
     ({ container: { innerHTML } } = render(
       <BackgroundLayer matrix={[
         [OBSTACLE, EMPTY, EMPTY],
-        [EMPTY, EMPTY, EMPTY],
+        [EMPTY,    EMPTY, EMPTY],
       ]} />))
   })
 
