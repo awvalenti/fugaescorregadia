@@ -1,6 +1,4 @@
-import TileId from './TileId'
-
-const { PLAYER, GOAL } = TileId
+import TileId, { PLAYER, GOAL } from './TileId'
 
 export default class LevelValidator {
 

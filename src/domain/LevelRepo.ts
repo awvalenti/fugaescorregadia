@@ -1,7 +1,5 @@
-import TileId from './TileId'
+import { EMPTY, OBSTACLE } from './TileId'
 import LevelModel from './LevelModel'
-
-const { EMPTY, OBSTACLE } = TileId
 
 export default class LevelRepo {
 
