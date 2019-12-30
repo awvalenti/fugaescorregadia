@@ -1,5 +1,6 @@
 import '../components/App.test'
 import '../components/BackgroundLayer.test'
+import '../components/Board.test'
 import '../components/SpriteLayer.test'
 import '../components/Tile.test'
 import '../domain/LevelModel.test'

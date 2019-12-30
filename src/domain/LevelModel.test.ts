@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import LevelModel from './LevelModel'
-import { EMPTY, OBSTACLE, PLAYER } from './TileId'
+import { EMPTY, OBSTACLE, PLAYER, GOAL } from './TileId'
 
 describe(LevelModel.name, () => {
 
@@ -24,15 +24,23 @@ describe(LevelModel.name, () => {
   describe('#playerPos', () => {
     context('for valid level', () => {
       it('finds position of PLAYER', () => {
-        expect(new LevelModel([[EMPTY, PLAYER]])).to.have.deep.property(
-          'playerPos', { row: 0, col: 1 })
+        expect(new LevelModel([[EMPTY, PLAYER]]).playerPos).to.deep.equal(
+          { row: 0, col: 1 })
       })
     })
 
     context('for invalid level', () => {
-      it('returns null', () => {
-        expect(new LevelModel([])).to.have.property('playerPos', null)
+      it('throws NO_PLAYER', () => {
+        expect(() => new LevelModel([]).playerPos).to.throw('NO_PLAYER')
       })
     })
   })
+
+  describe('#background', () => {
+    it('returns tile matrix without sprites', () => {
+      expect(new LevelModel([[EMPTY, PLAYER], [OBSTACLE, GOAL]]).background)
+        .to.deep.equal([[EMPTY, EMPTY], [OBSTACLE, GOAL]])
+    })
+  })
+
 })
