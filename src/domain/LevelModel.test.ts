@@ -1,8 +1,6 @@
 import { expect } from 'chai'
 import LevelModel from './LevelModel'
-import TileId from './TileId'
-
-const { EMPTY, OBSTACLE } = TileId
+import { EMPTY, OBSTACLE } from './TileId'
 
 describe(LevelModel.name, () => {
   const [ooee1, ooee2, ee, oo] = [

@@ -5,9 +5,7 @@ import * as React from 'react'
 import ReactDOM from 'react-dom'
 import { renderToStaticMarkup } from 'react-dom/server'
 import Tile from './Tile'
-import TileId from '../domain/TileId'
-
-const { EMPTY, OBSTACLE } = TileId
+import { EMPTY, OBSTACLE } from '../domain/TileId'
 
 describe(Tile.name, () => {
   after(cleanup)
