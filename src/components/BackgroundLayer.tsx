@@ -2,7 +2,7 @@ import * as React from 'react'
 import TileId from '../domain/TileId'
 import Tile from './Tile'
 
-const Board: React.FC<{
+const BackgroundLayer: React.FC<{
 
   matrix: TileId[][]
 
@@ -13,4 +13,4 @@ const Board: React.FC<{
     </div>)}
   </div>
 
-export default Board
+export default BackgroundLayer

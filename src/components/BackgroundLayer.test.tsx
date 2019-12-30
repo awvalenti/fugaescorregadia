@@ -4,11 +4,11 @@ import { after, describe, it } from 'mocha'
 import * as React from 'react'
 import ReactDOM from 'react-dom'
 import { renderToStaticMarkup } from 'react-dom/server'
-import Board from './Board'
+import BackgroundLayer from './BackgroundLayer'
 import { EMPTY, OBSTACLE } from '../domain/TileId'
 import Tile from './Tile'
 
-describe(Board.name, () => {
+describe(BackgroundLayer.name, () => {
   after(cleanup)
 
   const real = Tile
@@ -27,7 +27,7 @@ describe(Board.name, () => {
 
   it('mounts and unmounts', () => {
     const div = document.createElement('div')
-    ReactDOM.render(<Board matrix={[[]]} />, div)
+    ReactDOM.render(<BackgroundLayer matrix={[[]]} />, div)
     ReactDOM.unmountComponentAtNode(div)
   })
 
@@ -35,9 +35,9 @@ describe(Board.name, () => {
 
   before(() => {
     ({ container: { innerHTML } } = render(
-      <Board matrix={[
+      <BackgroundLayer matrix={[
         [OBSTACLE, EMPTY, EMPTY],
-        [EMPTY,    EMPTY, EMPTY],
+        [EMPTY, EMPTY, EMPTY],
       ]} />))
   })
 

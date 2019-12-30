@@ -1,10 +1,10 @@
 import * as React from 'react'
-import Board from './Board'
+import BackgroundLayer from './BackgroundLayer'
 import './App.sass'
 
 const App: React.FC<{
 
 }> = () =>
-  <Board matrix={[[]]} />
+  <BackgroundLayer matrix={[[]]} />
 
 export default App
