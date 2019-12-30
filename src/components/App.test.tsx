@@ -4,7 +4,7 @@ import { after, before, describe, it } from 'mocha'
 import * as React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
-import BackgroundLayer from './BackgroundLayer'
+import Board from './Board'
 
 describe(App.name, () => {
   after(cleanup)
@@ -15,18 +15,18 @@ describe(App.name, () => {
     ReactDOM.unmountComponentAtNode(div)
   })
 
-  const real = BackgroundLayer
+  const real = Board
 
   before(() => {
-    const { name } = BackgroundLayer
-    const stub: typeof BackgroundLayer = () => <>{name}</>
+    const { name } = Board
+    const stub: typeof Board = () => <>{name}</>
     // @ts-ignore
-    BackgroundLayer = stub
+    Board = stub
   })
 
   after(() => {
     // @ts-ignore
-    BackgroundLayer = real
+    Board = real
   })
 
   let innerHTML: string
@@ -35,7 +35,7 @@ describe(App.name, () => {
     ({ container: { innerHTML } } = render(<App />))
   })
 
-  it(`renders <${BackgroundLayer.name}>`, () => {
-    expect(innerHTML).to.equal('BackgroundLayer')
+  it(`renders <${Board.name}>`, () => {
+    expect(innerHTML).to.equal('Board')
   })
 })
