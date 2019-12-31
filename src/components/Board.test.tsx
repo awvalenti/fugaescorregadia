@@ -4,11 +4,12 @@ import { after, describe, it } from 'mocha'
 import * as React from 'react'
 import ReactDOM from 'react-dom'
 import Board from './Board'
-import BackgroundLayer from './BackgroundLayer'
-import SpriteLayer from './SpriteLayer'
+import * as BackgroundLayer from './BackgroundLayer'
+import * as SpriteLayer from './SpriteLayer'
 import { renderToStaticMarkup } from 'react-dom/server'
 import LevelModel from '../domain/LevelModel'
 import TileId, { EMPTY, OBSTACLE } from '../domain/TileId'
+import Mooca from '../my-libs/mooca'
 
 describe(Board.name, () => {
 
@@ -26,34 +27,18 @@ describe(Board.name, () => {
     ReactDOM.unmountComponentAtNode(div)
   })
 
-  const realBl = BackgroundLayer
-  const realSl = SpriteLayer
+  const mooca = new Mooca
 
   before(() => {
-    const blName = BackgroundLayer.name
-    const blStub: typeof BackgroundLayer = ({ matrix }) =>
-      <p>
-        {blName}: [
-          {matrix.map(rowData =>
-            `[${rowData.join(',')}]`
-          ).join(',')}
-        ]
-      </p>
-    // @ts-ignore
-    BackgroundLayer = blStub
+    mooca.stub(BackgroundLayer, 'default', ({ matrix }) =>
+      <p>[{matrix.map(rowData => `[${rowData.join(',')}]`).join(',')}]</p>)
 
-    const slName = SpriteLayer.name
-    const slStub: typeof SpriteLayer = ({ playerPos: { row, col } }) =>
-      <p>{slName}: PLAYER@({row},{col})</p>
-    // @ts-ignore
-    SpriteLayer = slStub
+    mooca.stub(SpriteLayer, 'default', ({ playerPos: { row, col } }) =>
+      <p>PLAYER@({row},{col})</p>)
   })
 
   after(() => {
-    // @ts-ignore
-    BackgroundLayer = realBl
-    // @ts-ignore
-    SpriteLayer = realSl
+    mooca.restore()
   })
 
   let innerHTML: string
@@ -68,12 +53,12 @@ describe(Board.name, () => {
     } as LevelModel} />))
   })
 
-  it(`decomposes levelModel to render ${BackgroundLayer.name}
-    and ${SpriteLayer.name}`, () => {
+  it(`renders ${BackgroundLayer.default.name} and ${SpriteLayer.default.name}
+    using ${LevelModel.name}`, () => {
     expect(innerHTML).to.equal(renderToStaticMarkup(
       <div>
-        <p>BackgroundLayer: [[EMPTY,OBSTACLE],[EMPTY,EMPTY]]</p>
-        <p>SpriteLayer: PLAYER@(1,0)</p>
+        <p>[[EMPTY,OBSTACLE],[EMPTY,EMPTY]]</p>
+        <p>PLAYER@(1,0)</p>
       </div>
     ))
   })
