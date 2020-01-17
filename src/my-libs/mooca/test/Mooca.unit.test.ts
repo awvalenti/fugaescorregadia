@@ -1,56 +1,38 @@
 import { expect } from 'chai'
 import Mooca from '../lib/Mooca'
-import * as a from './module-a'
-import * as b from './module-b'
 
 describe(Mooca.name, () => {
 
   describe(Mooca.prototype.stub.name, () => {
-    let mooca: Mooca
-
-    before(() => {
-      mooca = new Mooca()
-    })
-
-    after(() => {
-      mooca.restore()
-    })
-
-    context("default export", () => {
-      before(() => {
-        mooca.stub(a, () => 'stubbed-a')
-      })
-
-      it('replaces default export with stubbed value', () => {
-        expect(a.default()).to.equal('stubbed-a')
+    context('when property name is specified', () => {
+      it('replaces original value with stubbed value', () => {
+        const mooca = new Mooca()
+        const obj = { a: 1 }
+        mooca.stub(obj, 'a', 2)
+        expect(obj.a).to.equal(2)
       })
     })
 
-    context("named export", () => {
-      before(() => {
-        mooca.stub(a, 'y', () => ({ district: 'Mooca' }))
-      })
-
-      it('replaces named export with stubbed value', () => {
-        expect(a.y()).to.deep.equal({ district: 'Mooca' })
+    context('when property name is not specified', () => {
+      it('replaces original value of "default" with stubbed value', () => {
+        const mooca = new Mooca()
+        const obj = { default: 1 }
+        mooca.stub(obj, 2)
+        expect(obj.default).to.equal(2)
       })
     })
   })
 
   describe(Mooca.prototype.restore.name, () => {
-    const mooca = new Mooca
-
-    before(() => {
-      mooca.stub(a, () => 'stubbed-a')
-      mooca.stub(a, 'y', () => ({ district: 'Mooca' }))
-      mooca.stub(b, () => 'stubbed-b')
+    it('restores stubbed properties to original values', () => {
+      const mooca = new Mooca()
+      const obj = { a: 10, default: 20 }
+      mooca.stub(obj, 'a', 11)
+      mooca.stub(obj, 21)
       mooca.restore()
-    })
-
-    it('restores original exported values', () => {
-      expect(a.default()).to.equal('default-a')
-      expect(a.y()).to.deep.equal({ district: 'Jabaquara' })
-      expect(b.default()).to.equal('default-b')
+      expect(obj.a).to.equal(10)
+      expect(obj.default).to.equal(20)
     })
   })
+
 })
