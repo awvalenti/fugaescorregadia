@@ -3,8 +3,9 @@ import { expect } from 'chai'
 import { after, before, describe, it } from 'mocha'
 import * as React from 'react'
 import ReactDOM from 'react-dom'
+import Mooca from '../my-libs/mooca'
 import App from './App'
-import Board from './Board'
+import * as Board from './Board'
 
 describe(App.name, () => {
   after(cleanup)
@@ -15,18 +16,15 @@ describe(App.name, () => {
     ReactDOM.unmountComponentAtNode(div)
   })
 
-  const real = Board
+  const mooca = new Mooca()
 
   before(() => {
-    const { name } = Board
-    const stub: typeof Board = () => <>{name}</>
-    // @ts-ignore
-    Board = stub
+    const { name } = Board.default
+    mooca.stub(Board, () => <>{name}</>)
   })
 
   after(() => {
-    // @ts-ignore
-    Board = real
+    mooca.restore()
   })
 
   let innerHTML: string
@@ -35,7 +33,7 @@ describe(App.name, () => {
     ({ container: { innerHTML } } = render(<App />))
   })
 
-  it(`renders <${Board.name}>`, () => {
+  it(`renders <${Board.default.name}>`, () => {
     expect(innerHTML).to.equal('Board')
   })
 })

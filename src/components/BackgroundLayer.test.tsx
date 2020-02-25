@@ -4,25 +4,22 @@ import { after, describe, it } from 'mocha'
 import * as React from 'react'
 import ReactDOM from 'react-dom'
 import { renderToStaticMarkup } from 'react-dom/server'
-import BackgroundLayer from './BackgroundLayer'
 import { EMPTY, OBSTACLE } from '../domain/TileId'
-import Tile from './Tile'
+import Mooca from '../my-libs/mooca'
+import BackgroundLayer from './BackgroundLayer'
+import * as Tile from './Tile'
 
 describe(BackgroundLayer.name, () => {
   after(cleanup)
 
-  const real = Tile
+  const mooca = new Mooca()
 
   before(() => {
-    const stub: typeof Tile = ({ tileId }) => <p>{tileId}</p>
-
-    // @ts-ignore
-    Tile = stub
+    mooca.stub(Tile, ({ tileId }) => <p>{tileId}</p>)
   })
 
   after(() => {
-    // @ts-ignore
-    Tile = real
+    mooca.restore()
   })
 
   it('mounts and unmounts', () => {
@@ -41,7 +38,7 @@ describe(BackgroundLayer.name, () => {
       ]} />))
   })
 
-  it(`renders rows and columns of <${Tile.name}>s`, () => {
+  it(`renders rows and columns of <${Tile.default.name}>s`, () => {
     expect(innerHTML).to.equal(renderToStaticMarkup(
       <div>
         <div>

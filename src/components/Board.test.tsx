@@ -30,10 +30,10 @@ describe(Board.name, () => {
   const mooca = new Mooca
 
   before(() => {
-    mooca.stub(BackgroundLayer, 'default', ({ matrix }) =>
+    mooca.stub(BackgroundLayer, ({ matrix }) =>
       <p>[{matrix.map(rowData => `[${rowData.join(',')}]`).join(',')}]</p>)
 
-    mooca.stub(SpriteLayer, 'default', ({ playerPos: { row, col } }) =>
+    mooca.stub(SpriteLayer, ({ playerPos: { row, col } }) =>
       <p>PLAYER@({row},{col})</p>)
   })
 
