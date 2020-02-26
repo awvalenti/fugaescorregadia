@@ -12,7 +12,7 @@ describe(LevelValidator.name, () => {
       twoPlayers: [[PLAYER, PLAYER], [GOAL, OBSTACLE]],
       noGoal: [[PLAYER, EMPTY], [OBSTACLE, OBSTACLE]],
       twoGoals: [[GOAL, GOAL], [PLAYER, OBSTACLE]],
-    }
+    },
   }
 
   let validator: LevelValidator

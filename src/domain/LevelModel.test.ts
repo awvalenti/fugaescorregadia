@@ -5,10 +5,10 @@ import { EMPTY, OBSTACLE, PLAYER, GOAL } from './TileId'
 describe(LevelModel.name, () => {
 
   const [ooee1, ooee2, ee, oo] = [
-      [[OBSTACLE, OBSTACLE], [EMPTY, EMPTY]],
-      [[OBSTACLE, OBSTACLE], [EMPTY, EMPTY]],
-      [[EMPTY, EMPTY]],
-      [[OBSTACLE, OBSTACLE]],
+    [[OBSTACLE, OBSTACLE], [EMPTY, EMPTY]],
+    [[OBSTACLE, OBSTACLE], [EMPTY, EMPTY]],
+    [[EMPTY, EMPTY]],
+    [[OBSTACLE, OBSTACLE]],
   ].map(tileMatrix => new LevelModel(tileMatrix))
 
   describe('equality', () => {

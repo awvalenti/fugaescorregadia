@@ -8,19 +8,19 @@ import bDefault, { y } from './module-that-uses-b'
 describe(Mooca.name, () => {
 
   it('stubs default export', () => {
-    const mooca = new Mooca()
+    const mooca = new Mooca
     mooca.stub(moduleA, () => 'stubbed-a')
     expect(aDefault()).to.equal('stubbed-a')
   })
 
   it('stubs named export', () => {
-    const mooca = new Mooca()
-    mooca.stub(moduleA, 'x', (n) => n - 1)
+    const mooca = new Mooca
+    mooca.stub(moduleA, 'x', n => n - 1)
     expect(x(1)).to.equal(0)
   })
 
   it('restores all stubs to original values', () => {
-    const mooca = new Mooca()
+    const mooca = new Mooca
     mooca.stub(moduleB, () => 'stubbed-b')
     mooca.stub(moduleB, 'y', () => 'stubbed-y')
     mooca.restore()
