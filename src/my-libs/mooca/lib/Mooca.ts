@@ -28,7 +28,7 @@ export default class Mooca {
     module: T, exportName: K, stubbedValue: T[K]): void {
     let exportToValue = this.moduleToExport.get(module)
     if (exportToValue === undefined) {
-      exportToValue = new Map()
+      exportToValue = new Map
       this.moduleToExport.set(module, exportToValue)
     }
 

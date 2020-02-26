@@ -1,8 +1,8 @@
 enum TileId {
-  EMPTY    = 'EMPTY',
-  PLAYER   = 'PLAYER',
+  EMPTY = 'EMPTY',
+  PLAYER = 'PLAYER',
   OBSTACLE = 'OBSTACLE',
-  GOAL     = 'GOAL',
+  GOAL = 'GOAL',
 }
 
 export const {
