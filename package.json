@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/awvalenti/fugaescorregadia#readme",
   "devDependencies": {
-    "@testing-library/react": "^9.3.3",
+    "@testing-library/react": "^9.4.1",
     "@types/chai": "^4.2.5",
     "@types/mocha": "^5.2.7",
     "@types/react": "^16.9.13",
@@ -43,7 +43,7 @@
     "typescript": "^3.7.2"
   },
   "dependencies": {
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0"
   }
 }
