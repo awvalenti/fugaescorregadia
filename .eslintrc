@@ -24,6 +24,7 @@
   },
   "plugins": ["@typescript-eslint", "react", "react-hooks"],
   "rules": {
+    "array-bracket-spacing": "error",
     "arrow-parens": ["error", "as-needed"],
     "arrow-spacing": ["error", { "after": true, "before": true }],
     "block-scoped-var": "error",
@@ -63,13 +64,13 @@
     "no-eval": "error",
     "no-extra-bind": "error",
     "no-extra-label": "error",
+    "no-extra-parens": "error",
     "no-floating-decimal": "error",
     "no-implicit-coercion": "error",
     "no-iterator": "error",
     "no-lone-blocks": "error",
     "no-lonely-if": "error",
     "no-loop-func": "error",
-    "no-mixed-operators": "error",
     "no-multi-spaces": "error",
     "no-multi-str": "error",
     "no-multiple-empty-lines": [
@@ -106,9 +107,10 @@
     "no-whitespace-before-property": "error",
     "no-with": "error",
     "object-curly-spacing": ["error", "always"],
+    "object-shorthand": "error",
     "operator-assignment": "error",
     "operator-linebreak": "error",
-    "quote-props": ["error", "as-needed"],
+    "quote-props": ["error", "consistent-as-needed"],
     "quotes": ["error", "single", { "allowTemplateLiterals": true }],
     "radix": "error",
     "react-hooks/exhaustive-deps": "warn",
@@ -141,6 +143,10 @@
         "singleline": { "delimiter": "semi" },
         "multiline": { "delimiter": "none" }
       }
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { "argsIgnorePattern": "^_" }
     ]
   },
   "settings": {
