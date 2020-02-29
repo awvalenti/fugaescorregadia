@@ -55,7 +55,7 @@
     "max-depth": "warn",
     "max-nested-callbacks": ["warn", 6],
     "new-cap": "error",
-    "new-parens": ["error", "never"],
+    "new-parens": "error",
     "no-alert": "error",
     "no-array-constructor": "error",
     "no-dupe-class-members": "off",

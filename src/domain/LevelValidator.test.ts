@@ -18,7 +18,7 @@ describe(LevelValidator.name, () => {
   let validator: LevelValidator
 
   before(() => {
-    validator = new LevelValidator
+    validator = new LevelValidator()
   })
 
   it('rejects level without tiles', () => {

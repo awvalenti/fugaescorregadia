@@ -7,7 +7,7 @@ describe(LevelRepo.name, () => {
   let repo: LevelRepo
 
   before(() => {
-    repo = new LevelRepo
+    repo = new LevelRepo()
   })
 
   it('allows retrieving game levels', () => {
