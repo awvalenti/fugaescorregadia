@@ -24,7 +24,7 @@ export default class Mooca {
     })
   }
 
-  _stub<T extends object, K extends keyof T & string>(
+  private _stub<T extends object, K extends keyof T & string>(
     module: T, exportName: K, stubbedValue: T[K]): void {
     let exportToValue = this.moduleToExport.get(module)
     if (exportToValue === undefined) {
