@@ -6,7 +6,7 @@ describe(LevelValidator.name, () => {
 
   const testCases: [string, string, TileId[][]][] = [
     ['accepts', `one ${PLAYER} and one ${GOAL}`, [[PLAYER, GOAL], [OBSTACLE, EMPTY]]],
-    ['rejects', 'nothing', [[]]],
+    ['rejects', 'inconsistent cols count', [[PLAYER, GOAL], [OBSTACLE], [EMPTY, EMPTY]]],
     ['rejects', `no ${PLAYER}`, [[GOAL, EMPTY], [OBSTACLE, OBSTACLE]]],
     ['rejects', `more than one ${PLAYER}`, [[PLAYER, PLAYER], [GOAL, OBSTACLE]]],
     ['rejects', `no ${GOAL}`, [[PLAYER, EMPTY], [OBSTACLE, OBSTACLE]]],
