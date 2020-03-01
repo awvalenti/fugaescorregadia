@@ -1,19 +1,17 @@
 import { expect } from 'chai'
 import LevelValidator from './LevelValidator'
-import { EMPTY, PLAYER, OBSTACLE, GOAL } from './TileId'
+import TileId, { EMPTY, GOAL, OBSTACLE, PLAYER } from './TileId'
 
 describe(LevelValidator.name, () => {
 
-  const fixtures = {
-    valid: [[PLAYER, GOAL], [OBSTACLE, EMPTY]],
-    invalid: {
-      nothing: [[]],
-      noPlayer: [[GOAL, EMPTY], [OBSTACLE, OBSTACLE]],
-      twoPlayers: [[PLAYER, PLAYER], [GOAL, OBSTACLE]],
-      noGoal: [[PLAYER, EMPTY], [OBSTACLE, OBSTACLE]],
-      twoGoals: [[GOAL, GOAL], [PLAYER, OBSTACLE]],
-    },
-  }
+  const testCases: [string, string, TileId[][]][] = [
+    ['accepts', `one ${PLAYER} and one ${GOAL}`, [[PLAYER, GOAL], [OBSTACLE, EMPTY]]],
+    ['rejects', 'nothing', [[]]],
+    ['rejects', `no ${PLAYER}`, [[GOAL, EMPTY], [OBSTACLE, OBSTACLE]]],
+    ['rejects', `more than one ${PLAYER}`, [[PLAYER, PLAYER], [GOAL, OBSTACLE]]],
+    ['rejects', `no ${GOAL}`, [[PLAYER, EMPTY], [OBSTACLE, OBSTACLE]]],
+    ['rejects', `more than one ${GOAL}`, [[GOAL, GOAL], [PLAYER, OBSTACLE]]],
+  ]
 
   let validator: LevelValidator
 
@@ -21,28 +19,10 @@ describe(LevelValidator.name, () => {
     validator = new LevelValidator()
   })
 
-  it('rejects level without tiles', () => {
-    expect(validator.run(fixtures.invalid.nothing)).to.equal(false)
-  })
-
-  it('rejects level without PLAYER', () => {
-    expect(validator.run(fixtures.invalid.noPlayer)).to.equal(false)
-  })
-
-  it('rejects level with more than one PLAYER', () => {
-    expect(validator.run(fixtures.invalid.twoPlayers)).to.equal(false)
-  })
-
-  it('rejects level without GOAL', () => {
-    expect(validator.run(fixtures.invalid.noGoal)).to.equal(false)
-  })
-
-  it('rejects level with more than one GOAL', () => {
-    expect(validator.run(fixtures.invalid.twoGoals)).to.equal(false)
-  })
-
-  it('accepts level with exactly one PLAYER and one GOAL', () => {
-    expect(validator.run(fixtures.valid)).to.equal(true)
+  testCases.forEach(([acceptsOrRejects, scenario, matrix]) => {
+    it(`${acceptsOrRejects} level with ${scenario}`, () => {
+      expect(validator.run(matrix)).to.equal(acceptsOrRejects === 'accepts')
+    })
   })
 
 })
