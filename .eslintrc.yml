@@ -1,0 +1,198 @@
+env:
+  browser: true
+  es6: true
+  mocha: true
+  node: true
+extends:
+  - eslint:recommended
+  - plugin:react/recommended
+  - plugin:@typescript-eslint/recommended
+globals:
+  module: readonly
+  require: readonly
+parser: '@typescript-eslint/parser'
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+  ecmaVersion: 2020
+  sourceType: module
+plugins:
+  - '@typescript-eslint'
+  - react
+  - react-hooks
+rules:
+  array-bracket-spacing: error
+  arrow-parens:
+    - error
+    - as-needed
+  arrow-spacing:
+    - error
+    - after: true
+      before: true
+  block-scoped-var: error
+  brace-style: error
+  comma-dangle:
+    - error
+    - arrays: always-multiline
+      objects: always-multiline
+      imports: always-multiline
+      exports: always-multiline
+      functions: never
+  comma-spacing: error
+  comma-style: error
+  complexity:
+    - error
+    - 4
+  consistent-return: error
+  default-case: error
+  dot-notation: error
+  eol-last:
+    - error
+    - always
+  eqeqeq: error
+  func-names:
+    - error
+    - never
+  indent:
+    - error
+    - 2
+    - SwitchCase: 1
+  key-spacing: error
+  keyword-spacing: error
+  linebreak-style:
+    - error
+    - unix
+  max-depth: warn
+  max-nested-callbacks:
+    - warn
+    - 6
+  new-cap: error
+  new-parens: error
+  no-alert: error
+  no-array-constructor: error
+  no-dupe-class-members: 'off'
+  no-duplicate-imports:
+    - error
+    - includeExports: true
+  no-eq-null: error
+  no-eval: error
+  no-extra-bind: error
+  no-extra-label: error
+  no-extra-parens: error
+  no-floating-decimal: error
+  no-implicit-coercion: error
+  no-iterator: error
+  no-lone-blocks: error
+  no-lonely-if: error
+  no-loop-func: error
+  no-multi-spaces: error
+  no-multi-str: error
+  no-multiple-empty-lines:
+    - error
+    - max: 1
+      maxBOF: 0
+      maxEOF: 0
+  no-negated-condition: error
+  no-new: error
+  no-new-func: error
+  no-new-object: error
+  no-octal-escape: error
+  no-param-reassign: error
+  no-proto: error
+  no-restricted-syntax:
+    - error
+    - WithStatement
+  no-return-assign:
+    - error
+    - always
+  no-self-compare: error
+  no-sequences: error
+  no-shadow-restricted-names: error
+  no-template-curly-in-string: error
+  no-throw-literal: error
+  no-trailing-spaces: error
+  no-undef:
+    - error
+    - typeof: true
+  no-undef-init: error
+  no-unmodified-loop-condition: error
+  no-unneeded-ternary: error
+  no-unused-expressions: error
+  no-use-before-define:
+    - error
+    - nofunc
+  no-useless-call: error
+  no-useless-computed-key: error
+  no-useless-concat: error
+  no-useless-constructor: error
+  no-useless-rename: error
+  no-void: error
+  no-whitespace-before-property: error
+  no-with: error
+  object-curly-spacing:
+    - error
+    - always
+  object-shorthand: error
+  operator-assignment: error
+  operator-linebreak: error
+  quote-props:
+    - error
+    - consistent-as-needed
+  quotes:
+    - error
+    - single
+    - allowTemplateLiterals: true
+  radix: error
+  react-hooks/exhaustive-deps: warn
+  react-hooks/rules-of-hooks: error
+  rest-spread-spacing: error
+  semi:
+    - error
+    - never
+  semi-spacing:
+    - error
+    - after: true
+      before: false
+  space-before-blocks: error
+  space-before-function-paren:
+    - error
+    - never
+  space-in-parens: error
+  space-infix-ops: error
+  space-unary-ops: error
+  spaced-comment:
+    - error
+    - always
+    - block:
+        balanced: true
+        markers:
+          - '!'
+      line:
+        exceptions:
+          - '-'
+  strict:
+    - error
+    - safe
+  symbol-description: error
+  template-curly-spacing: error
+  unicode-bom: error
+  '@typescript-eslint/explicit-function-return-type': 'off'
+  '@typescript-eslint/no-explicit-any': 'off'
+  '@typescript-eslint/member-delimiter-style':
+    - error
+    - singleline:
+        delimiter: semi
+      multiline:
+        delimiter: none
+  '@typescript-eslint/no-non-null-assertion': 'off'
+  '@typescript-eslint/no-unused-vars':
+    - error
+    - argsIgnorePattern: ^_
+settings:
+  import/resolver:
+    node:
+      extensions:
+        - .js
+        - .jsx
+  react:
+    version: detect
