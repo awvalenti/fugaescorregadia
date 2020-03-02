@@ -82,6 +82,7 @@ rules:
   new-parens: error
   no-alert: error
   no-array-constructor: error
+  no-console: warn
   no-dupe-class-members: 'off'
   no-duplicate-imports:
     - error
