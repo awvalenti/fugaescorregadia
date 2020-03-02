@@ -13,7 +13,7 @@ describe(LevelFactory.name, () => {
     })
   })
 
-  context('for invalid input', () => {
+  context('for input containing invalid character', () => {
     it(`throws error informing invalid character`, () => {
       expect(() => new LevelFactory().convert('- - - -\no o ? o'))
         .to.throw(Error, 'Invalid character: ?')

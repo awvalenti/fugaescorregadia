@@ -2,9 +2,8 @@ import TileId, { GOAL, PLAYER } from './TileId'
 
 export default class LevelValidator {
 
-  private _consistentColsCount(matrix: TileId[][]) {
-    return matrix.length < 2 || matrix.slice(1).every(
-      row => row.length === matrix[0].length)
+  private _consistentColsCount(m: TileId[][]) {
+    return m.length <= 1 || m.every(row => row.length === m[0].length)
   }
 
   private _correctAmounts(matrix: TileId[][]) {
