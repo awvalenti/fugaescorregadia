@@ -153,7 +153,7 @@ rules:
   quotes:
     - error
     - single
-    - allowTemplateLiterals: true
+    - avoidEscape: true
   radix: error
   react-hooks/exhaustive-deps: warn
   react-hooks/rules-of-hooks: error
