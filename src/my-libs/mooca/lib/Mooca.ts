@@ -1,6 +1,6 @@
 export default class Mooca {
 
-  private moduleToExport: Map<any, Map<string, any>> = new Map()
+  private _moduleToExport: Map<any, Map<string, any>> = new Map()
 
   stub<T extends { default: any }>(
     module: T, stubbedValue: T['default']): void
@@ -17,7 +17,7 @@ export default class Mooca {
   }
 
   restore(): void {
-    this.moduleToExport.forEach((exportToValue, module) => {
+    this._moduleToExport.forEach((exportToValue, module) => {
       exportToValue.forEach((originalValue, exportName) => {
         module[exportName] = originalValue
       })
@@ -26,10 +26,10 @@ export default class Mooca {
 
   private _stub<T extends object, K extends keyof T & string>(
     module: T, exportName: K, stubbedValue: T[K]): void {
-    let exportToValue = this.moduleToExport.get(module)
+    let exportToValue = this._moduleToExport.get(module)
     if (exportToValue === undefined) {
       exportToValue = new Map()
-      this.moduleToExport.set(module, exportToValue)
+      this._moduleToExport.set(module, exportToValue)
     }
 
     const originalValue = module[exportName]
