@@ -158,6 +158,7 @@ rules:
   radix: error
   react-hooks/exhaustive-deps: warn
   react-hooks/rules-of-hooks: error
+  react/prop-types: off
   rest-spread-spacing: error
   semi:
     - error
