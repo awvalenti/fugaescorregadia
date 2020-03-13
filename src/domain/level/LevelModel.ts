@@ -3,16 +3,16 @@ import TileId, { EMPTY, PLAYER } from '../TileId'
 
 export default class LevelModel {
 
-  private matrix: TileId[][]
+  private _matrix: TileId[][]
 
   constructor(matrix: TileId[][]) {
-    this.matrix = matrix
+    this._matrix = matrix
   }
 
   get playerPos(): Position {
-    for (let row = 0; row < this.matrix.length; ++row) {
-      for (let col = 0; col < this.matrix[row].length; ++col) {
-        if (this.matrix[row][col] === PLAYER) return { row, col }
+    for (let row = 0; row < this._matrix.length; ++row) {
+      for (let col = 0; col < this._matrix[row].length; ++col) {
+        if (this._matrix[row][col] === PLAYER) return { row, col }
       }
     }
 
@@ -20,7 +20,7 @@ export default class LevelModel {
   }
 
   get background(): TileId[][] {
-    return this.matrix.map(rowData =>
+    return this._matrix.map(rowData =>
       rowData.map(tile => tile === PLAYER ? EMPTY : tile)
     )
   }
