@@ -1,10 +1,10 @@
 import { expect } from 'chai'
-import LevelReader from './LevelReader'
+import LevelLoader from './LevelLoader'
 
-describe(LevelReader.name, () => {
+describe(LevelLoader.name, () => {
   context('for valid id', () => {
-    it('reads level as string', () => {
-      expect(new LevelReader().read('00')).to.equal(`
+    it('loads level as string', () => {
+      expect(new LevelLoader().read('00')).to.equal(`
 - - - - - - - - - - - - - - - - - - - -
 - - - - - - - - - - - - - - - - - - - -
 - - - - - - - - - - - - - - - - - - - -
@@ -32,7 +32,7 @@ describe(LevelReader.name, () => {
 
   context('for invalid id', () => {
     it('throws error informing invalid character', () => {
-      expect(() => new LevelReader().read('9999'))
+      expect(() => new LevelLoader().read('9999'))
         .to.throw(Error, 'Invalid id: 9999')
     })
   })
