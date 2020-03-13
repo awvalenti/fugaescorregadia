@@ -1,4 +1,4 @@
-import TileId, { GOAL, PLAYER } from './TileId'
+import TileId, { GOAL, PLAYER } from '../TileId'
 
 export default class LevelValidator {
 

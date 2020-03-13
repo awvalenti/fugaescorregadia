@@ -1,7 +1,7 @@
 import { expect } from 'chai'
+import { EMPTY, OBSTACLE } from '../TileId'
 import LevelModel from './LevelModel'
 import LevelRepo from './LevelRepo'
-import { EMPTY, OBSTACLE } from './TileId'
 
 describe(LevelRepo.name, () => {
   let repo: LevelRepo

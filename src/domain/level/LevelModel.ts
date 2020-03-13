@@ -1,5 +1,5 @@
-import Position from './Position'
-import TileId, { EMPTY, PLAYER } from './TileId'
+import Position from '../Position'
+import TileId, { EMPTY, PLAYER } from '../TileId'
 
 export default class LevelModel {
 

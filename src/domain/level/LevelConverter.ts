@@ -1,6 +1,6 @@
-import TileId, { EMPTY, OBSTACLE } from './TileId'
+import TileId, { EMPTY, OBSTACLE } from '../TileId'
 
-export default class LevelFactory {
+export default class LevelConverter {
   convert(levelAsString: string): TileId[][] {
     return levelAsString
       .split('\n')
