@@ -1,6 +1,6 @@
 import TileId, { EMPTY, OBSTACLE } from '../TileId'
 
-export default class LevelConverter {
+export default class LevelParser {
   convert(levelAsString: string): TileId[][] {
     return levelAsString
       .split('\n')
