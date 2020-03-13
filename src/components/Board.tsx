@@ -1,7 +1,7 @@
 import * as React from 'react'
+import LevelModel from '../domain/level/LevelModel'
 import BackgroundLayer from './BackgroundLayer'
 import SpriteLayer from './SpriteLayer'
-import LevelModel from '../domain/LevelModel'
 
 const Board: React.FC<{
 
