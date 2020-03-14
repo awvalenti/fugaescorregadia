@@ -41,6 +41,7 @@
     "parcel": "^1.12.4",
     "prettier": "1.19.1",
     "sass": "^1.23.7",
+    "ts-mockito": "^2.5.0",
     "tslint": "^5.20.1",
     "typescript": "^3.7.2"
   },
