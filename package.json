@@ -4,7 +4,8 @@
   "description": "Jogo de labirinto / Labyrinth game",
   "scripts": {
     "start": "parcel start.html",
-    "test": "parcel test.html"
+    "test": "parcel test.html",
+    "rename": "bash scripts/rename.sh"
   },
   "repository": {
     "type": "git",
