@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import TileId, { EMPTY, GOAL, OBSTACLE, PLAYER } from '../TileId'
+import TileId, { EMPTY, GOAL, OBSTACLE, PLAYER } from '../../TileId'
 import LevelValidator from './LevelValidator'
 
 describe(LevelValidator.name, () => {

@@ -1,6 +1,6 @@
 import Position from '../Position'
 import TileId, { EMPTY, PLAYER } from '../TileId'
-import { NO_PLAYER } from './Error'
+import { NO_PLAYER } from './private/Error'
 
 export default class LevelModel {
 

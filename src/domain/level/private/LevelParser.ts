@@ -1,4 +1,4 @@
-import TileId, { EMPTY, GOAL, OBSTACLE, PLAYER } from '../TileId'
+import TileId, { EMPTY, GOAL, OBSTACLE, PLAYER } from '../../TileId'
 
 export default class LevelParser {
   parse(levelAsString: string): TileId[][] {

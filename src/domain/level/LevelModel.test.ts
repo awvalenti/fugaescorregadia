@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { EMPTY, GOAL, OBSTACLE, PLAYER } from '../TileId'
-import { NO_PLAYER } from './Error'
 import LevelModel from './LevelModel'
+import { NO_PLAYER } from './private/Error'
 
 describe(LevelModel.name, () => {
 
