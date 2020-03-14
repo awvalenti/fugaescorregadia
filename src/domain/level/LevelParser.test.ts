@@ -1,14 +1,14 @@
 import { expect } from 'chai'
-import { EMPTY, OBSTACLE } from '../TileId'
+import { EMPTY, GOAL, OBSTACLE, PLAYER } from '../TileId'
 import LevelParser from './LevelParser'
 
 describe(LevelParser.name, () => {
   context('for valid input', () => {
     it('converts string to tile matrix', () => {
-      expect(new LevelParser().convert('- - - -\no o o o'))
+      expect(new LevelParser().convert('- o g p\n- - - -'))
         .to.deep.equal([
+          [EMPTY, OBSTACLE, GOAL, PLAYER],
           [EMPTY, EMPTY, EMPTY, EMPTY],
-          [OBSTACLE, OBSTACLE, OBSTACLE, OBSTACLE],
         ])
     })
   })

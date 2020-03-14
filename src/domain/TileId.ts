@@ -1,15 +1,15 @@
 enum TileId {
   EMPTY = 'EMPTY',
-  PLAYER = 'PLAYER',
   OBSTACLE = 'OBSTACLE',
   GOAL = 'GOAL',
+  PLAYER = 'PLAYER',
 }
 
 export const {
   EMPTY,
-  PLAYER,
   OBSTACLE,
   GOAL,
+  PLAYER,
 } = TileId
 
 export default TileId
