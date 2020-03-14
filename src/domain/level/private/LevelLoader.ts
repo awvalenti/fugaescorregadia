@@ -1,4 +1,4 @@
-import level00 from '../../game-design/levels/00.level'
+import level00 from '../../../game-design/levels/00.level'
 
 export default class LevelLoader {
   read(id: string): string {

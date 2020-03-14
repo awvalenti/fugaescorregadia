@@ -1,10 +1,10 @@
 import { expect } from 'chai'
-import { INVALID_LEVEL } from '../level/Error'
 import { GOAL, PLAYER } from '../TileId'
 import LevelFactory from './LevelFactory'
 import LevelModel from './LevelModel'
-import LevelParser from './LevelParser'
 import LevelValidator from './LevelValidator'
+import { INVALID_LEVEL } from './private/Error'
+import LevelParser from './private/LevelParser'
 
 describe(LevelFactory.name, () => {
 

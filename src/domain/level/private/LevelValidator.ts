@@ -1,4 +1,4 @@
-import TileId, { GOAL, PLAYER } from '../TileId'
+import TileId, { GOAL, PLAYER } from '../../TileId'
 
 const _consistentColsCount = (m: TileId[][]) =>
   m.length <= 1 || m.every(row => row.length === m[0].length)

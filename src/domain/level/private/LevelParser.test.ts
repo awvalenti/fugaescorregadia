@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { EMPTY, GOAL, OBSTACLE, PLAYER } from '../TileId'
+import { EMPTY, GOAL, OBSTACLE, PLAYER } from '../../TileId'
 import LevelParser from './LevelParser'
 
 describe(LevelParser.name, () => {
