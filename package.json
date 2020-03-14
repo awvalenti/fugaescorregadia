@@ -5,6 +5,7 @@
   "scripts": {
     "start": "parcel start.html",
     "test": "parcel test.html",
+    "new": "bash scripts/new.sh",
     "rename": "bash scripts/rename.sh"
   },
   "repository": {
