@@ -1,50 +1,50 @@
 import { expect } from 'chai'
-import { GOAL, PLAYER } from '../TileId'
+import { instance, mock, when } from 'ts-mockito'
+import { PLAYER } from '../TileId'
 import LevelFactory from './LevelFactory'
 import LevelModel from './LevelModel'
-import LevelValidator from './LevelValidator'
 import { INVALID_LEVEL } from './private/Error'
 import LevelParser from './private/LevelParser'
+import LevelValidator from './private/LevelValidator'
 
 describe(LevelFactory.name, () => {
 
-  const parser: LevelParser = {
-    parse: levelAsString => levelAsString === 'p g' ? [[PLAYER, GOAL]] : [],
-  }
-
-  const successValidator: LevelValidator = {
-    run: matrix => matrix[0][0] === PLAYER && matrix[0][1] === GOAL,
-  }
-
-  const errorValidator: LevelValidator = {
-    run: matrix => !successValidator.run(matrix),
-  }
-
-  const arrange = (validator: LevelValidator) => new LevelFactory(parser, validator)
-
-  const act = (f: LevelFactory) => f.create('p g')
+  const matrix = [[PLAYER]]
 
   let factory: LevelFactory
 
+  const arrange = (validator: LevelValidator) => {
+    const LevelParserMock = mock(LevelParser)
+    when(LevelParserMock.parse('my-level')).thenReturn(matrix)
+
+    factory = new LevelFactory(instance(LevelParserMock), validator)
+  }
+
+  const act = () => factory.create('my-level')
+
   context('for valid level', () => {
     before(() => {
-      factory = arrange(successValidator)
+      const SuccessValidator = mock(LevelValidator)
+      when(SuccessValidator.run(matrix)).thenReturn(true)
+
+      arrange(instance(SuccessValidator))
     })
 
     it('parses, validates and creates level from string', () => {
-      expect(act(factory)).to.deep.equal(new LevelModel([
-        [PLAYER, GOAL],
-      ]))
+      expect(act()).to.deep.equal(new LevelModel(matrix))
     })
   })
 
   context('for invalid level', () => {
     before(() => {
-      factory = arrange(errorValidator)
+      const ErrorValidator = mock(LevelValidator)
+      when(ErrorValidator.run(matrix)).thenReturn(false)
+
+      arrange(instance(ErrorValidator))
     })
 
     it(`throws ${INVALID_LEVEL}`, () => {
-      expect(() => act(factory)).to.throw(INVALID_LEVEL)
+      expect(() => act()).to.throw(INVALID_LEVEL)
     })
   })
 })
