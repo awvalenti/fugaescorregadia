@@ -1,5 +1,6 @@
 import Position from '../Position'
 import TileId, { EMPTY, PLAYER } from '../TileId'
+import { NO_PLAYER } from './Error'
 
 export default class LevelModel {
 
@@ -16,7 +17,7 @@ export default class LevelModel {
       }
     }
 
-    throw Error('NO_PLAYER')
+    throw NO_PLAYER
   }
 
   get background(): TileId[][] {

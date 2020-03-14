@@ -1,5 +1,6 @@
 import { expect } from 'chai'
 import { EMPTY, GOAL, OBSTACLE, PLAYER } from '../TileId'
+import { NO_PLAYER } from './Error'
 import LevelModel from './LevelModel'
 
 describe(LevelModel.name, () => {
@@ -30,8 +31,8 @@ describe(LevelModel.name, () => {
     })
 
     context('for invalid level', () => {
-      it('throws NO_PLAYER', () => {
-        expect(() => new LevelModel([]).playerPos).to.throw('NO_PLAYER')
+      it(`throws ${NO_PLAYER}`, () => {
+        expect(() => new LevelModel([]).playerPos).to.throw(NO_PLAYER)
       })
     })
   })
