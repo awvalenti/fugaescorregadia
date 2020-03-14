@@ -1,7 +1,7 @@
 import TileId, { EMPTY, GOAL, OBSTACLE, PLAYER } from '../TileId'
 
 export default class LevelParser {
-  convert(levelAsString: string): TileId[][] {
+  parse(levelAsString: string): TileId[][] {
     return levelAsString
       .split('\n')
       .map(rowString => rowString
