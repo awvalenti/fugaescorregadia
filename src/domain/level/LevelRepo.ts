@@ -1,13 +1,18 @@
-import { EMPTY, OBSTACLE } from '../TileId'
+import LevelFactory from './LevelFactory'
 import LevelModel from './LevelModel'
+import LevelLoader from './private/LevelLoader'
 
 export default class LevelRepo {
+  private _levelLoader: LevelLoader
+  private _levelFactory: LevelFactory
 
-  get() {
-    return new LevelModel([
-      [OBSTACLE, EMPTY, EMPTY, OBSTACLE],
-      [EMPTY, EMPTY, EMPTY, OBSTACLE],
-    ])
+  constructor(levelLoader: LevelLoader, levelFactory: LevelFactory) {
+    this._levelLoader = levelLoader
+    this._levelFactory = levelFactory
+  }
+
+  get(levelId: number): LevelModel {
+    return this._levelFactory.create(this._levelLoader.read(String(levelId)))
   }
 
 }
