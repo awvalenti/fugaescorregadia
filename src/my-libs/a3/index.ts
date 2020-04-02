@@ -1,4 +1,15 @@
-export function a3(sut: Function, testSpecification: any) {
+export function a3<T>(
+  sut: (new (...args: any) => T),
+  testSpecification: {
+    [key: string]: {
+      arrange: () => any
+      act: (arg0: any) => any
+      assert: {
+        [key: string]: (arg0: any) => void
+      }
+    }
+  }
+) {
   describe(sut.name, () => {
     Object.keys(testSpecification).forEach(ctx => {
       const { arrange, act, assert } = testSpecification[ctx]
