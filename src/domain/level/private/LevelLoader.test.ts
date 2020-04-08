@@ -1,39 +1,47 @@
 import { expect } from 'chai'
+import { a3 } from '../../../my-libs/a3'
 import LevelLoader from './LevelLoader'
 
-describe(LevelLoader.name, () => {
-  context('for valid id', () => {
-    it('loads level as string', () => {
-      expect(new LevelLoader().read('00')).to.equal(`
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-`
-      )
-    })
-  })
+const newSut = () => new LevelLoader()
 
-  context('for invalid id', () => {
-    it('throws error informing invalid character', () => {
-      expect(() => new LevelLoader().read('9999'))
-        .to.throw(Error, 'Invalid id: 9999')
-    })
-  })
+a3(LevelLoader, {
+  'for valid id': {
+    arrange: newSut,
+    act: sut => sut.read('00'),
+    assert: {
+      'loads level as string': result => {
+        expect(result).to.equal(`
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+`)
+      },
+    },
+  },
+  'for invalid id': {
+    arrange: newSut,
+    act: sut => () => sut.read('9999'),
+    assert: {
+      'throws error informing invalid character': fn => {
+        expect(fn).to.throw(Error, 'Invalid id: 9999')
+      },
+    },
+  },
 })

@@ -1,22 +1,31 @@
 import { expect } from 'chai'
+import { a3 } from '../../../my-libs/a3'
 import { EMPTY, GOAL, OBSTACLE, PLAYER } from '../../TileId'
 import LevelParser from './LevelParser'
 
-describe(LevelParser.name, () => {
-  context('for valid input', () => {
-    it('converts string to tile matrix', () => {
-      expect(new LevelParser().parse('- o g p\n- - - -'))
-        .to.deep.equal([
+const newSut = () => new LevelParser()
+
+a3(LevelParser, {
+  'for valid input': {
+    arrange: newSut,
+    act: sut => sut.parse('- o g p\n- - - -'),
+    assert: {
+      'converts string to tile matrix': result => {
+        expect(result).to.deep.equal([
           [EMPTY, OBSTACLE, GOAL, PLAYER],
           [EMPTY, EMPTY, EMPTY, EMPTY],
         ])
-    })
-  })
+      },
+    },
+  },
 
-  context('for input containing invalid character', () => {
-    it('throws error informing invalid character', () => {
-      expect(() => new LevelParser().parse('- - - -\no o ? o'))
-        .to.throw(Error, 'Invalid character: ?')
-    })
-  })
+  'for input containing invalid character': {
+    arrange: newSut,
+    act: sut => () => sut.parse('- - - -\no o ? o'),
+    assert: {
+      'throws error informing invalid character': fn => {
+        expect(fn).to.throw(Error, 'Invalid character: ?')
+      },
+    },
+  },
 })
