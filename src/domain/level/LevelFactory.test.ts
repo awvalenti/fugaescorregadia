@@ -10,10 +10,8 @@ import LevelValidator from './private/LevelValidator'
 
 const matrix = [[PLAYER]]
 
-function newSut(validator: LevelValidator) {
-  const parser = myStub(LevelParser, 'parse', ['my-level'], matrix)
-  return new LevelFactory(parser, validator)
-}
+const newSut = (validator: LevelValidator) =>
+  new LevelFactory(myStub(LevelParser, 'parse', ['my-level'], matrix), validator)
 
 a3(LevelFactory, {
   'for valid level': {
