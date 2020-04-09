@@ -29,6 +29,7 @@ rules:
       multiline:
         delimiter: none
   '@typescript-eslint/no-explicit-any': 'off'
+  '@typescript-eslint/no-extra-parens': 'error'
   '@typescript-eslint/no-non-null-assertion': 'off'
   '@typescript-eslint/no-unused-vars':
     - error
@@ -91,7 +92,6 @@ rules:
   no-eval: error
   no-extra-bind: error
   no-extra-label: error
-  no-extra-parens: error
   no-floating-decimal: error
   no-implicit-coercion: error
   no-iterator: error
