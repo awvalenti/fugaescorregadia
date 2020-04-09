@@ -1,47 +1,69 @@
 import { expect } from 'chai'
-import { EMPTY, GOAL, OBSTACLE, PLAYER } from '../TileId'
+import { a3 } from '../../my-libs/a3'
+import TileId, { EMPTY, GOAL, OBSTACLE, PLAYER } from '../TileId'
 import LevelModel from './LevelModel'
 import { NO_PLAYER } from './private/Error'
 
-describe(LevelModel.name, () => {
+const newSut = (matrix: TileId[][]) => new LevelModel(matrix)
 
-  const [ooee1, ooee2, ee, oo] = [
-    [[OBSTACLE, OBSTACLE], [EMPTY, EMPTY]],
-    [[OBSTACLE, OBSTACLE], [EMPTY, EMPTY]],
-    [[EMPTY, EMPTY]],
-    [[OBSTACLE, OBSTACLE]],
-  ].map(tileMatrix => new LevelModel(tileMatrix))
+a3(LevelModel, {
+  'for valid level': {
+    'equality': {
+      'for equal objects': {
+        arrange: () => ({
+          instance1: newSut([[OBSTACLE, EMPTY]]),
+          instance2: newSut([[OBSTACLE, EMPTY]]),
+        }),
+        assert: {
+          'does happen': ({ instance1, instance2 }) => {
+            expect(instance1).to.deep.equal(instance2)
+          },
+        },
+      },
 
-  describe('equality', () => {
-    it('deep equals an equal object', () => {
-      expect(ooee1).to.deep.equal(ooee2)
-    })
+      'for different objects': {
+        arrange: () => ({
+          instance1: newSut([[EMPTY, EMPTY]]),
+          instance2: newSut([[OBSTACLE, OBSTACLE]]),
+        }),
+        assert: {
+          'does not happen': ({ instance1, instance2 }) => {
+            expect(instance1).not.to.deep.equal(instance2)
+          },
+        },
+      },
+    },
 
-    it('does not deep equal a different object', () => {
-      expect(ee).not.to.deep.equal(oo)
-    })
-  })
+    '#playerPos': {
+      arrange: () => newSut([[EMPTY, PLAYER]]),
+      act: sut => sut.playerPos,
+      assert: {
+        'finds position of PLAYER': result => {
+          expect(result).to.deep.equal({ row: 0, col: 1 })
+        },
+      },
+    },
 
-  describe('#playerPos', () => {
-    context('for valid level', () => {
-      it('finds position of PLAYER', () => {
-        expect(new LevelModel([[EMPTY, PLAYER]]).playerPos).to.deep.equal(
-          { row: 0, col: 1 })
-      })
-    })
+    '#background': {
+      arrange: () => newSut([[EMPTY, PLAYER], [OBSTACLE, GOAL]]),
+      act: sut => sut.background,
+      assert: {
+        'returns tile matrix without sprites': result => {
+          expect(result).to.deep.equal([[EMPTY, EMPTY], [OBSTACLE, GOAL]])
+        },
+      },
+    },
 
-    context('for invalid level', () => {
-      it(`throws ${NO_PLAYER}`, () => {
-        expect(() => new LevelModel([]).playerPos).to.throw(NO_PLAYER)
-      })
-    })
-  })
+  },
 
-  describe('#background', () => {
-    it('returns tile matrix without sprites', () => {
-      expect(new LevelModel([[EMPTY, PLAYER], [OBSTACLE, GOAL]]).background)
-        .to.deep.equal([[EMPTY, EMPTY], [OBSTACLE, GOAL]])
-    })
-  })
+  'for invalid level': {
+    arrange: () => newSut([[]]),
+    act: sut => () => sut.playerPos,
+    assert: {
+      [`throws ${NO_PLAYER}`]: fn => {
+        expect(fn).to.throw(NO_PLAYER)
+      },
+    },
+  },
 
 })
