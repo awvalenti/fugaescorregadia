@@ -47,13 +47,8 @@ export function a3<Sut, TestCase>(
   testSpecOrTestCases: TestSpec | TestCase[],
   testSpecFactory?: (arg0: TestCase) => TestSpec,
 ) {
-  // Using local variable to avoid inline typecast, which
-  // would cause a bug in eslint. See:
-  // https://github.com/eslint/eslint/issues/13159
-  const testCases = testSpecOrTestCases as TestCase[]
-
   _a3(sut, testSpecFactory === undefined
-    ? testSpecOrTestCases
-    : Object.assign({}, ...testCases.map(testSpecFactory))
+    ? testSpecOrTestCases as TestSpec
+    : Object.assign({}, ...(testSpecOrTestCases as TestCase[]).map(testSpecFactory))
   )
 }
