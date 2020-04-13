@@ -8,14 +8,14 @@ const newSut = (matrix: TileId[][]) => new LevelModel(matrix)
 
 a3(LevelModel, {
   'for valid level': {
-    'equality': {
+    'deep equality': {
       'for equal objects': {
         arrange: () => ({
           instance1: newSut([[OBSTACLE, EMPTY]]),
           instance2: newSut([[OBSTACLE, EMPTY]]),
         }),
         assert: {
-          'does happen': ({ instance1, instance2 }) => {
+          'is true': ({ instance1, instance2 }) => {
             expect(instance1).to.deep.equal(instance2)
           },
         },
@@ -27,7 +27,7 @@ a3(LevelModel, {
           instance2: newSut([[OBSTACLE, OBSTACLE]]),
         }),
         assert: {
-          'does not happen': ({ instance1, instance2 }) => {
+          'is false': ({ instance1, instance2 }) => {
             expect(instance1).not.to.deep.equal(instance2)
           },
         },
