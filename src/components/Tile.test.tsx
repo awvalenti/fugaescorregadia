@@ -2,19 +2,12 @@ import { cleanup, render } from '@testing-library/react'
 import { expect } from 'chai'
 import { after, describe, it } from 'mocha'
 import * as React from 'react'
-import ReactDOM from 'react-dom'
 import { renderToStaticMarkup } from 'react-dom/server'
+import { OBSTACLE } from '../domain/TileId'
 import Tile from './Tile'
-import { EMPTY, OBSTACLE } from '../domain/TileId'
 
 describe(Tile.name, () => {
   after(cleanup)
-
-  it('mounts and unmounts', () => {
-    const div = document.createElement('div')
-    ReactDOM.render(<Tile tileId={EMPTY} />, div)
-    ReactDOM.unmountComponentAtNode(div)
-  })
 
   let innerHTML: string
 
