@@ -2,7 +2,6 @@ import { cleanup, render } from '@testing-library/react'
 import { expect } from 'chai'
 import { after, describe, it } from 'mocha'
 import * as React from 'react'
-import ReactDOM from 'react-dom'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { EMPTY, OBSTACLE } from '../domain/TileId'
 import Mooca from '../my-libs/mooca'
@@ -22,19 +21,13 @@ describe(BackgroundLayer.name, () => {
     mooca.restore()
   })
 
-  it('mounts and unmounts', () => {
-    const div = document.createElement('div')
-    ReactDOM.render(<BackgroundLayer matrix={[[]]} />, div)
-    ReactDOM.unmountComponentAtNode(div)
-  })
-
   let innerHTML: string
 
   before(() => {
     ({ container: { innerHTML } } = render(
       <BackgroundLayer matrix={[
         [OBSTACLE, EMPTY, EMPTY],
-        [EMPTY,    EMPTY, EMPTY],
+        [EMPTY, EMPTY, EMPTY],
       ]} />))
   })
 

@@ -2,10 +2,9 @@ import { cleanup, render } from '@testing-library/react'
 import { expect } from 'chai'
 import { after, describe, it } from 'mocha'
 import * as React from 'react'
-import ReactDOM from 'react-dom'
 import { renderToStaticMarkup } from 'react-dom/server'
 import LevelModel from '../domain/level/LevelModel'
-import TileId, { EMPTY, OBSTACLE } from '../domain/TileId'
+import { EMPTY, OBSTACLE } from '../domain/TileId'
 import Mooca from '../my-libs/mooca'
 import * as BackgroundLayer from './BackgroundLayer'
 import Board from './Board'
@@ -14,18 +13,6 @@ import * as SpriteLayer from './SpriteLayer'
 describe(Board.name, () => {
 
   after(cleanup)
-
-  it('mounts and unmounts', () => {
-    const div = document.createElement('div')
-    ReactDOM.render(
-      <Board level={{
-        playerPos: { row: 0, col: 0 },
-        background: [] as TileId[][],
-      } as LevelModel} />,
-      div
-    )
-    ReactDOM.unmountComponentAtNode(div)
-  })
 
   const mooca = new Mooca()
 
