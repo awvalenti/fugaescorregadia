@@ -35,7 +35,7 @@ a3(Board, {
   act: ({ component }) => component.container.innerHTML,
 
   assert: {
-    [`renders ${BackgroundLayer.default.name} and ${SpriteLayer.default.name}
+    [`renders <${BackgroundLayer.default.name}> and <${SpriteLayer.default.name}>
     using ${LevelModel.name}`]: innerHTML => {
       expect(innerHTML).to.equal(renderToStaticMarkup(
         <div>
