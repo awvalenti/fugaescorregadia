@@ -1,12 +1,12 @@
 import { expect } from 'chai'
-import { a3 } from '../../my-libs/a3'
-import { myStub } from '../../my-libs/my-stub'
-import { PLAYER } from '../TileId'
+import { a3 } from '../../../my-libs/a3'
+import { myStub } from '../../../my-libs/my-stub'
+import { PLAYER } from '../../TileId'
+import LevelModel from '../LevelModel'
+import { INVALID_LEVEL } from './Error'
 import LevelFactory from './LevelFactory'
-import LevelModel from './LevelModel'
-import { INVALID_LEVEL } from './private/Error'
-import LevelParser from './private/LevelParser'
-import LevelValidator from './private/LevelValidator'
+import LevelParser from './LevelParser'
+import LevelValidator from './LevelValidator'
 
 const matrix = [[PLAYER]]
 

@@ -1,5 +1,5 @@
-import LevelFactory from './LevelFactory'
 import LevelModel from './LevelModel'
+import LevelFactory from './private/LevelFactory'
 import LevelLoader from './private/LevelLoader'
 
 export default class LevelRepo {

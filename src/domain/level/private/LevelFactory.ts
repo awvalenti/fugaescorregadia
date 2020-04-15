@@ -1,7 +1,7 @@
-import LevelModel from './LevelModel'
-import { INVALID_LEVEL } from './private/Error'
-import LevelParser from './private/LevelParser'
-import LevelValidator from './private/LevelValidator'
+import LevelModel from '../LevelModel'
+import { INVALID_LEVEL } from './Error'
+import LevelParser from './LevelParser'
+import LevelValidator from './LevelValidator'
 
 export default class LevelFactory {
   private _parser: LevelParser
