@@ -6,6 +6,7 @@ import LevelModel from '../domain/level/LevelModel'
 import { EMPTY, OBSTACLE } from '../domain/TileId'
 import { a3 } from '../my-libs/a3'
 import Mooca from '../my-libs/mooca'
+import nameof from '../my-libs/nameof'
 import * as BackgroundLayer from './BackgroundLayer'
 import Board from './Board'
 import * as SpriteLayer from './SpriteLayer'
@@ -35,8 +36,8 @@ a3(Board, {
   act: ({ component }) => component.container.innerHTML,
 
   assert: {
-    [`renders <${BackgroundLayer.default.name}> and <${SpriteLayer.default.name}>
-    using ${LevelModel.name}`]: innerHTML => {
+    [`renders <${nameof(BackgroundLayer)}> and <${nameof(SpriteLayer)}>
+    using ${nameof(LevelModel)}`]: innerHTML => {
       expect(innerHTML).to.equal(renderToStaticMarkup(
         <div>
           <p>[[EMPTY,OBSTACLE],[EMPTY,EMPTY]]</p>
