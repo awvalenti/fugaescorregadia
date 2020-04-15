@@ -1,23 +1,26 @@
 import { cleanup, render } from '@testing-library/react'
 import { expect } from 'chai'
-import { after, describe, it } from 'mocha'
 import * as React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { OBSTACLE } from '../domain/TileId'
+import { a3 } from '../my-libs/a3'
 import Tile from './Tile'
 
-describe(Tile.name, () => {
-  after(cleanup)
+a3(Tile, {
+  arrange: () => render(<Tile tileId={OBSTACLE} />),
 
-  let innerHTML: string
+  act: component => component.container.innerHTML,
 
-  before(() => {
-    ({ container: { innerHTML } } = render(<Tile tileId={OBSTACLE} />))
-  })
+  assert: {
+    'renders a <div> with classes TILE and {tileId}': innerHTML => {
+      expect(innerHTML).to.equal(renderToStaticMarkup(
+        <div className="TILE OBSTACLE" />
+      ))
+    },
+  },
 
-  it('creates a <div> with classes TILE and {type}', () => {
-    expect(innerHTML).to.equal(renderToStaticMarkup(
-      <div className="TILE OBSTACLE" />
-    ))
-  })
+  after: () => {
+    cleanup()
+  },
+
 })

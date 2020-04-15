@@ -55,7 +55,7 @@ rules:
   comma-style: error
   complexity:
     - error
-    - 4
+    - 5
   consistent-return: error
   default-case: error
   dot-notation: error
