@@ -2,9 +2,9 @@ import { expect } from 'chai'
 import { instance, mock } from 'ts-mockito'
 import { a3 } from '../../my-libs/a3'
 import { myStub } from '../../my-libs/my-stub'
-import LevelFactory from './LevelFactory'
 import LevelModel from './LevelModel'
 import LevelRepo from './LevelRepo'
+import LevelFactory from './private/LevelFactory'
 import LevelLoader from './private/LevelLoader'
 
 const level1234 = instance(mock(LevelModel))
