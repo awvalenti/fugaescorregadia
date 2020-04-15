@@ -8,6 +8,7 @@ type Leaf = {
   arrange?: () => any
   act?: (arg0: any) => any
   assert: { [key: string]: (arg0: any) => void }
+  after?: (arg0: any) => void
 }
 
 function __a3(
@@ -18,12 +19,12 @@ function __a3(
     const isLeaf = (n: TestSpec): n is Leaf => 'assert' in n
 
     if (isLeaf(node)) {
-      const { arrange, act, assert } = node
+      const { arrange, act, assert, after: afterBlock } = node
 
-      let acted: any
+      let arranged: any, acted: any
 
       if (arrange || act) before(() => {
-        const arranged = arrange && arrange()
+        arranged = arrange && arrange()
         acted = act ? act(arranged) : arranged
       })
 
@@ -34,6 +35,8 @@ function __a3(
         })
       })
 
+      if (afterBlock) after(() => afterBlock(arranged))
+
     } else {
       Object.keys(node).forEach(name => {
         __a3(name, node[name])
@@ -42,26 +45,26 @@ function __a3(
   })
 }
 
-function _a3<T>(
-  sut: new (...args: any) => T,
+function _a3<Sut extends Function>(
+  sut: Sut,
   testSpec: TestSpec
 ) {
   __a3(sut.name, testSpec)
 }
 
-export function a3<Sut>(
-  sut: new (...args: any) => Sut,
+export function a3<Sut extends Function>(
+  sut: Sut,
   testSpec: TestSpec,
 ): void
 
-export function a3<Sut, TestCase>(
-  sut: new (...args: any) => Sut,
+export function a3<Sut extends Function, TestCase>(
+  sut: Sut,
   testCases: TestCase[],
   testCaseToTestSpecification: (arg0: TestCase) => TestSpec,
 ): void
 
-export function a3<Sut, TestCase>(
-  sut: new (...args: any) => Sut,
+export function a3<Sut extends Function, TestCase>(
+  sut: Sut,
   testSpecOrTestCases: TestSpec | TestCase[],
   testSpecFactory?: (arg0: TestCase) => TestSpec,
 ) {

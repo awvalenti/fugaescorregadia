@@ -1,21 +1,23 @@
 import { cleanup, render } from '@testing-library/react'
 import { expect } from 'chai'
-import { after, describe, it } from 'mocha'
 import * as React from 'react'
+import { a3 } from '../my-libs/a3'
 import SpriteLayer from './SpriteLayer'
 
-describe(SpriteLayer.name, () => {
-  after(cleanup)
+a3(SpriteLayer, {
+  arrange: () => render(<SpriteLayer playerPos={{ row: 1, col: 2 }} />),
 
-  let spriteLayer: Element
+  act: component => component.container.firstElementChild,
 
-  before(() => {
-    spriteLayer = render(<SpriteLayer playerPos={{ row: 1, col: 2 }} />)
-      .container.firstElementChild!
-  })
+  assert: {
+    'sets style > transform > translate appropriately': spriteLayer => {
+      expect(spriteLayer.querySelector('.PLAYER')).to.have.nested.property(
+        'style.transform', 'translate(200%, 100%)')
+    },
+  },
 
-  it('sets style > transform > translate appropriately', () => {
-    expect(spriteLayer.querySelector('.PLAYER')).to.have.nested.property(
-      'style.transform', 'translate(200%, 100%)')
-  })
+  after: () => {
+    cleanup()
+  },
+
 })
