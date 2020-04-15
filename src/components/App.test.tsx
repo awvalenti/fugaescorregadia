@@ -3,6 +3,7 @@ import { expect } from 'chai'
 import * as React from 'react'
 import { a3 } from '../my-libs/a3'
 import Mooca from '../my-libs/mooca'
+import nameof from '../my-libs/nameof'
 import App from './App'
 import * as Board from './Board'
 
@@ -22,7 +23,7 @@ a3(App, {
   act: ({ component }) => component.container.innerHTML,
 
   assert: {
-    [`renders <${Board.default.name}>`]: innerHTML => {
+    [`renders <${nameof(Board)}>`]: innerHTML => {
       expect(innerHTML).to.equal('Board')
     },
   },
