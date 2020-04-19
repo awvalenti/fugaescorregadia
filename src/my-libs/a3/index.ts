@@ -1,23 +1,27 @@
-type TestSpec = Internal | Leaf
+import nameof from '../nameof'
 
-type Internal = {
-  [key: string]: TestSpec
+type TestSpec<Arranged, Acted> = Internal<Arranged, Acted> | Leaf<Arranged, Acted>
+
+type Internal<Arranged, Acted> = {
+  [key: string]: TestSpec<Arranged, Acted>
 }
 
-type Leaf = {
-  arrange?: () => any
-  act?: (arg0: any) => any
-  assert: { [key: string]: (arg0: any) => void }
-  after?: (arg0: any) => void
+type Leaf<Arranged, Acted> = {
+  arrange?: () => Arranged
+  act?: (arg0: Arranged) => Acted
+  assert: { [key: string]: (arg0: Acted) => void }
+  after?: (arg0: Arranged) => void
 }
+
+type TestSpecAny = TestSpec<any, any>
+
+const isLeaf = (n: TestSpecAny): n is Leaf<any, any> => 'assert' in n
 
 function __a3(
   sut: string,
-  node: TestSpec,
+  node: TestSpecAny,
 ) {
   describe(sut, () => {
-    const isLeaf = (n: TestSpec): n is Leaf => 'assert' in n
-
     if (isLeaf(node)) {
       const { arrange, act, assert, after: afterBlock } = node
 
@@ -47,29 +51,43 @@ function __a3(
 
 function _a3<Sut extends Function>(
   sut: Sut,
-  testSpec: TestSpec
+  testSpec: TestSpecAny
 ) {
-  __a3(sut.name, testSpec)
+  __a3(nameof(sut), testSpec)
+}
+
+function privateA3<Sut extends Function, TestCase>(
+  sut: Sut,
+  testSpecOrTestCases: TestSpecAny | TestCase[],
+  testSpecFactory?: (arg0: TestCase) => TestSpecAny,
+) {
+  _a3(sut, testSpecFactory === undefined
+    ? testSpecOrTestCases as TestSpecAny
+    : Object.assign({}, ...(testSpecOrTestCases as TestCase[]).map(testSpecFactory))
+  )
 }
 
 export function a3<Sut extends Function>(
   sut: Sut,
-  testSpec: TestSpec,
+  testSpec: TestSpecAny,
 ): void
 
 export function a3<Sut extends Function, TestCase>(
   sut: Sut,
   testCases: TestCase[],
-  testCaseToTestSpecification: (arg0: TestCase) => TestSpec,
+  testCaseToTestSpecification: (arg0: TestCase) => TestSpecAny,
 ): void
 
 export function a3<Sut extends Function, TestCase>(
   sut: Sut,
-  testSpecOrTestCases: TestSpec | TestCase[],
-  testSpecFactory?: (arg0: TestCase) => TestSpec,
+  testSpecOrTestCases: TestSpecAny | TestCase[],
+  testSpecFactory?: (arg0: TestCase) => TestSpecAny,
 ) {
-  _a3(sut, testSpecFactory === undefined
-    ? testSpecOrTestCases as TestSpec
-    : Object.assign({}, ...(testSpecOrTestCases as TestCase[]).map(testSpecFactory))
-  )
+  privateA3(sut, testSpecOrTestCases, testSpecFactory)
 }
+
+export const newA4 = <Sut extends Function>(sut: Sut) =>
+  <Arranged, Acted, TestCase>(
+    testSpecOrTestCases: TestSpec<Arranged, Acted> | TestCase[],
+    testSpecFactory?: (arg0: TestCase) => TestSpec<Arranged, Acted>
+  ) => privateA3(sut, testSpecOrTestCases, testSpecFactory)
