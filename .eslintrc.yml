@@ -109,10 +109,10 @@ rules:
   #   - error
   #   - never
 
-  # 'space-before-function-paren': 'off'
-  # '@typescript-eslint/space-before-function-paren':
-  #   - error
-  #   - never
+  'space-before-function-paren': 'off'
+  '@typescript-eslint/space-before-function-paren':
+    - error
+    - never
   #######################
   # End extension rules
   #######################
@@ -251,9 +251,9 @@ rules:
     - after: true
       before: false
   space-before-blocks: error
-  space-before-function-paren:
-    - error
-    - never
+  # space-before-function-paren:
+  #   - error
+  #   - never
   space-in-parens: error
   space-infix-ops: error
   space-unary-ops: error
