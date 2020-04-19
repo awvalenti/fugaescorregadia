@@ -52,11 +52,11 @@ rules:
   'func-call-spacing': 'off'
   '@typescript-eslint/func-call-spacing': 'error'
 
-  'indent': 'off'
-  '@typescript-eslint/indent':
-    - error
-    - 2
-    - SwitchCase: 1
+  # 'indent': 'off'
+  # '@typescript-eslint/indent':
+  #   - error
+  #   - 2
+  #   - SwitchCase: 1
 
   'no-array-constructor': 'off'
   '@typescript-eslint/no-array-constructor': 'error'
@@ -84,10 +84,10 @@ rules:
     - error
     - argsIgnorePattern: ^_
 
-  'no-use-before-define': 'off'
-  '@typescript-eslint/no-use-before-define':
-    - error
-    - nofunc
+  # 'no-use-before-define': 'off'
+  # '@typescript-eslint/no-use-before-define':
+  #   - error
+  #   - nofunc
 
   'no-useless-constructor': 'off'
   '@typescript-eslint/no-useless-constructor': 'error'
@@ -149,10 +149,10 @@ rules:
   func-names:
     - error
     - never
-  # indent:
-  #   - error
-  #   - 2
-  #   - SwitchCase: 1
+  indent:
+    - error
+    - 2
+    - SwitchCase: 1
   key-spacing: error
   keyword-spacing: error
   linebreak-style:
@@ -214,9 +214,9 @@ rules:
   no-unmodified-loop-condition: error
   no-unneeded-ternary: error
   # no-unused-expressions: error
-  # no-use-before-define:
-  #   - error
-  #   - nofunc
+  no-use-before-define:
+    - error
+    - nofunc
   no-useless-call: error
   no-useless-computed-key: error
   no-useless-concat: error
