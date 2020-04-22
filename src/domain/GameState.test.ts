@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { newA4 } from '../my-libs/a3'
+import { each, newA4 } from '../my-libs/a3'
 import GameState from './GameState'
 import LevelFactory from './level/private/LevelFactory'
 import LevelParser from './level/private/LevelParser'
@@ -58,21 +58,19 @@ const borderLevel = newLevel(
 
 a4({
   [GameState.newPos.name]: {
-    ...testCases1.reduce((ret, [direction, row, col]) => ({
-      ...ret,
-      [`when an obstacle is found in the way ${direction}`]: {
+    ...each(testCases1, ([direction, row, col]) => ({
+      'when an obstacle is found in the way ': {
         arrange: () => obstacleLevel,
         act: level => GameState.newPos(level, direction),
         assert: {
-          'moves player until before the obstacle': (result: Position) => {
+          [ `moves player until before the obstacle ${direction}` ]: result => {
             expect(result).to.deep.equal({ row, col })
           },
         },
       },
-    }), {}),
+    })),
 
-    ...testCases2.reduce((ret, [direction, row, col]) => ({
-      ...ret,
+    ...each(testCases2, ([direction, row, col]) => ({
       [`when a border is found in the way ${direction}`]: {
         arrange: () => borderLevel,
         act: level => GameState.newPos(level, direction),
@@ -82,6 +80,6 @@ a4({
           },
         },
       },
-    }), {}),
+    })),
   },
 })
