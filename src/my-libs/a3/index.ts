@@ -18,7 +18,7 @@ type TestSpecAny = TestSpec<any, any>
 
 const isLeaf = (n: TestSpecAny): n is Leaf<any, any> => 'assert' in n
 
-function __a3(
+function _a3(
   sut: string,
   nodeOrArray: TestSpecAny | TestSpecAny[],
 ) {
@@ -46,76 +46,28 @@ function __a3(
 
       } else {
         Object.keys(node).forEach(name => {
-          __a3(name, node[name])
+          _a3(name, node[name])
         })
       }
     }
   })
 }
 
-function _a3<Sut extends Function>(
+export function a3<Sut extends Function>(
   sut: Sut,
   testSpec: TestSpecAny
-) {
-  __a3(nameof(sut), testSpec)
+): void {
+  _a3(nameof(sut), testSpec)
 }
-
-function privateA3<Sut extends Function, TestCase>(
-  sut: Sut,
-  testSpecOrTestCases: TestSpecAny | TestCase[],
-  testSpecFactory?: (arg0: TestCase) => TestSpecAny,
-) {
-  _a3(sut, testSpecFactory === undefined
-    ? testSpecOrTestCases as TestSpecAny
-    : Object.assign({}, ...(testSpecOrTestCases as TestCase[])
-      .map(testSpecFactory))
-  )
-}
-
-// export const each = <TestCaseData>(
-//   testCases: TestCaseData[],
-//   testSpecFactory: (testCase: TestCaseData) => TestSpecAny,
-// ) => testCases.map(current => testSpecFactory(current))
 
 export const each = <TestCaseData>(
   testCases: TestCaseData[],
   testSpecFactory: (testCase: TestCaseData) => TestSpecAny,
-) => testCases.reduce((ret, testCase) => {
-    const obj = testSpecFactory(testCase)
-    Object.keys(obj).forEach(key => {
+): TestSpecAny => testCases.reduce((ret, testCase) => {
+    const testSpec: any = testSpecFactory(testCase)
+    Object.keys(testSpec).forEach(key => {
       if (!(key in ret)) ret[key] = []
-      ret[key].push(obj[key])
+      ret[key].push(testSpec[key])
     })
     return ret
-  }, {})
-
-// export const each = <TestCaseData>(
-//   testCases: TestCaseData[],
-//   testSpecFactory: (testCase: TestCaseData) => TestSpecAny,
-// ) => testCases.reduce((ret, current) => !Object.keys(current).some(key => key in ret) && Object.assign(ret,
-//     testSpecFactory(current)), {})
-
-export function a3<Sut extends Function>(
-  sut: Sut,
-  testSpec: TestSpecAny,
-): void
-
-export function a3<Sut extends Function, TestCase>(
-  sut: Sut,
-  testCases: TestCase[],
-  testCaseToTestSpecification: (arg0: TestCase) => TestSpecAny,
-): void
-
-export function a3<Sut extends Function, TestCase>(
-  sut: Sut,
-  testSpecOrTestCases: TestSpecAny | TestCase[],
-  testSpecFactory?: (arg0: TestCase) => TestSpecAny,
-) {
-  privateA3(sut, testSpecOrTestCases, testSpecFactory)
-}
-
-export const newA4 = <Sut extends Function>(sut: Sut) =>
-  <Arranged, Acted, TestCase>(
-    testSpecOrTestCases: TestSpec<Arranged, Acted> | TestCase[],
-    testSpecFactory?: (arg0: TestCase) => TestSpec<Arranged, Acted>
-  ) => privateA3(sut, testSpecOrTestCases, testSpecFactory)
+  }, {} as any)
