@@ -1,39 +1,17 @@
 import { expect } from 'chai'
-import { each, newA4 } from '../my-libs/a3'
+import { a3, each } from '../my-libs/a3'
+import Direction, { DOWN, LEFT, RIGHT, UP } from './Direction'
 import GameState from './GameState'
 import LevelFactory from './level/private/LevelFactory'
 import LevelParser from './level/private/LevelParser'
 import LevelValidator from './level/private/LevelValidator'
-import Position from './Position'
 
-const a4 = newA4(GameState)
+const newLevel = (levelAsString: string) => new LevelFactory(
+  new LevelParser(), new LevelValidator()).create(levelAsString)
 
-const newLevel = (levelAsString: string) =>
-  new LevelFactory(new LevelParser(), new LevelValidator()).create(levelAsString)
-
-const LEFT = 'LEFT'
-const UP = 'UP'
-const RIGHT = 'RIGHT'
-const DOWN = 'DOWN'
-
-type Direction='LEFT'|'UP'|'RIGHT'|'DOWN'
-
-const testCases1: [Direction, number, number][] = [
-  [LEFT, 4, 2],
-  [UP, 2, 4],
-  [RIGHT, 4, 6],
-  [DOWN, 6, 4],
-]
-
-const testCases2: [Direction, number, number][] = [
-  [LEFT, 4, 0],
-  [UP, 0, 4],
-  [RIGHT, 4, 8],
-  [DOWN, 8, 4],
-]
-
-const obstacleLevel = newLevel(
-  `- - - - - - - - -
+const levels = {
+  obstacle: newLevel(
+    `- - - - - - - - -
 - - - - o - - - -
 - - - - - - - - -
 - - - - - - - - -
@@ -42,10 +20,10 @@ const obstacleLevel = newLevel(
 - - - - - - - - -
 - - - - o - - - g
 - - - - - - - - -`
-)
+  ),
 
-const borderLevel = newLevel(
-  `- - - - - - - - -
+  border: newLevel(
+    `- - - - - - - - -
 - - - - - - - - -
 - - - - - - - - -
 - - - - - - - - -
@@ -54,29 +32,31 @@ const borderLevel = newLevel(
 - - - - - - - - -
 - - - - - - - - g
 - - - - - - - - -`
-)
+  ),
+}
 
-a4({
+const testCases: [keyof typeof levels, Direction, number, number][] = [
+  ['obstacle', LEFT, 4, 2],
+  ['obstacle', UP, 2, 4],
+  ['obstacle', RIGHT, 4, 6],
+  ['obstacle', DOWN, 6, 4],
+  ['border', LEFT, 4, 0],
+  ['border', UP, 0, 4],
+  ['border', RIGHT, 4, 8],
+  ['border', DOWN, 8, 4],
+]
+
+a3(GameState, {
   [GameState.newPos.name]: {
-    ...each(testCases1, ([direction, row, col]) => ({
-      'when an obstacle is found in the way ': {
-        arrange: () => obstacleLevel,
-        act: level => GameState.newPos(level, direction),
-        assert: {
-          [ `moves player until before the obstacle ${direction}` ]: result => {
-            expect(result).to.deep.equal({ row, col })
-          },
-        },
-      },
-    })),
-
-    ...each(testCases2, ([direction, row, col]) => ({
-      [`when a border is found in the way ${direction}`]: {
-        arrange: () => borderLevel,
-        act: level => GameState.newPos(level, direction),
-        assert: {
-          'moves player until before the border': (result: Position) => {
-            expect(result).to.deep.equal({ row, col })
+    ...each(testCases, ([object, direction, row, col]) => ({
+      [`when ${object} is found in the way`]: {
+        [`moving ${direction}`]: {
+          arrange: () => levels[object],
+          act: level => GameState.newPos(level, direction),
+          assert: {
+            'stops player just before it': result => {
+              expect(result).to.deep.equal({ row, col })
+            },
           },
         },
       },
