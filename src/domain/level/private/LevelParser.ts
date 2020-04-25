@@ -3,6 +3,7 @@ import TileId, { EMPTY, GOAL, OBSTACLE, PLAYER } from '../../TileId'
 export default class LevelParser {
   parse(levelAsString: string): TileId[][] {
     return levelAsString
+      .replace(/^\s+|\s+$/g, '')
       .split('\n')
       .map(rowString => rowString
         .split(' ')
@@ -13,7 +14,7 @@ export default class LevelParser {
             case 'o': return OBSTACLE
             case 'g': return GOAL
             case 'p': return PLAYER
-            default: throw Error(`Invalid character: ${tileCharCandidate}`)
+            default: throw Error(`Invalid character: "${tileCharCandidate}"`)
           }
         })
       )
