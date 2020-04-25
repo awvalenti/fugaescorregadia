@@ -8,9 +8,9 @@ const newSut = () => new LevelParser()
 a3(LevelParser, {
   'for valid input': {
     arrange: newSut,
-    act: sut => sut.parse('- o g p\n- - - -'),
+    act: sut => sut.parse('\n   \n\n  - o g p\n- - - -   \n\n \n  '),
     assert: {
-      'converts string to tile matrix': result => {
+      'converts string to tile matrix, ignoring outer spaces': result => {
         expect(result).to.deep.equal([
           [EMPTY, OBSTACLE, GOAL, PLAYER],
           [EMPTY, EMPTY, EMPTY, EMPTY],
@@ -19,12 +19,12 @@ a3(LevelParser, {
     },
   },
 
-  'for input containing invalid character': {
+  'for invalid input': {
     arrange: newSut,
     act: sut => () => sut.parse('- - - -\no o ? o'),
     assert: {
       'throws error informing invalid character': fn => {
-        expect(fn).to.throw(Error, 'Invalid character: ?')
+        expect(fn).to.throw(Error, 'Invalid character: "?"')
       },
     },
   },
