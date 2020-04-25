@@ -2,7 +2,7 @@ import { cleanup, render } from '@testing-library/react'
 import { expect } from 'chai'
 import * as React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
-import LevelModel from '../domain/level/LevelModel'
+import Level from '../domain/level/Level'
 import { EMPTY, OBSTACLE } from '../domain/TileId'
 import { a3 } from '../my-libs/a3'
 import Mooca from '../my-libs/mooca'
@@ -29,7 +29,7 @@ a3(Board, {
           [EMPTY, OBSTACLE],
           [EMPTY, EMPTY],
         ],
-      } as LevelModel} />),
+      } as Level} />),
     }
   },
 
@@ -37,7 +37,7 @@ a3(Board, {
 
   assert: {
     [`renders <${nameof(BackgroundLayer)}> and <${nameof(SpriteLayer)}>
-    using ${nameof(LevelModel)}`]: innerHTML => {
+    using ${nameof(Level)}`]: innerHTML => {
       expect(innerHTML).to.equal(renderToStaticMarkup(
         <div>
           <p>[[EMPTY,OBSTACLE],[EMPTY,EMPTY]]</p>

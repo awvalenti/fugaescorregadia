@@ -2,7 +2,7 @@ import Position from '../Position'
 import TileId, { EMPTY, PLAYER } from '../TileId'
 import { NO_PLAYER } from './private/Error'
 
-export default class LevelModel {
+export default class Level {
 
   private _matrix: TileId[][]
 
