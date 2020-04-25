@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import { a3 } from '../../../my-libs/a3'
 import { myStub } from '../../../my-libs/my-stub'
 import { PLAYER } from '../../TileId'
-import LevelModel from '../LevelModel'
+import Level from '../Level'
 import { INVALID_LEVEL } from './Error'
 import LevelFactory from './LevelFactory'
 import LevelParser from './LevelParser'
@@ -19,7 +19,7 @@ a3(LevelFactory, {
     act: sut => sut.create('my-level'),
     assert: {
       'parses, validates and creates level from string': result => {
-        expect(result).to.deep.equal(new LevelModel(matrix))
+        expect(result).to.deep.equal(new Level(matrix))
       },
     },
   },

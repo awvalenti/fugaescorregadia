@@ -1,11 +1,11 @@
 import * as React from 'react'
-import LevelModel from '../domain/level/LevelModel'
+import Level from '../domain/level/Level'
 import BackgroundLayer from './BackgroundLayer'
 import SpriteLayer from './SpriteLayer'
 
 const Board: React.FC<{
 
-  level: LevelModel
+  level: Level
 
 }> = ({ level }) =>
   <div>

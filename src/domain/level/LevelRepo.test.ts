@@ -3,12 +3,12 @@ import { instance, mock } from 'ts-mockito'
 import { a3 } from '../../my-libs/a3'
 import { myStub } from '../../my-libs/my-stub'
 import nameof from '../../my-libs/nameof'
-import LevelModel from './LevelModel'
+import Level from './Level'
 import LevelRepo from './LevelRepo'
 import LevelFactory from './private/LevelFactory'
 import LevelLoader from './private/LevelLoader'
 
-const level1234 = instance(mock(LevelModel))
+const level1234 = instance(mock(Level))
 
 a3(LevelRepo, {
   arrange: () =>

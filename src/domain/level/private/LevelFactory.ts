@@ -1,4 +1,4 @@
-import LevelModel from '../LevelModel'
+import Level from '../Level'
 import { INVALID_LEVEL } from './Error'
 import LevelParser from './LevelParser'
 import LevelValidator from './LevelValidator'
@@ -12,9 +12,9 @@ export default class LevelFactory {
     this._validator = validator
   }
 
-  create(levelAsString: string): LevelModel {
+  create(levelAsString: string): Level {
     const parsed = this._parser.parse(levelAsString)
     if (!this._validator.run(parsed)) throw INVALID_LEVEL
-    return new LevelModel(parsed)
+    return new Level(parsed)
   }
 }

@@ -1,5 +1,5 @@
 import Direction from './Direction'
-import LevelModel from './level/LevelModel'
+import Level from './level/Level'
 import Position from './Position'
 import TileId, { OBSTACLE } from './TileId'
 
@@ -14,7 +14,7 @@ const walk = (curPos: Position, background: TileId[][], dir: Position): Position
 }
 
 export default class GameState {
-  static newPos(level: LevelModel, direction: Direction): Position {
+  static newPos(level: Level, direction: Direction): Position {
     const { playerPos, background } = level
 
     return walk(playerPos, background, direction)
