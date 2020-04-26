@@ -8,17 +8,22 @@ export default class GameState {
   private _level: Level
   private _playerPos: Position
 
-  constructor(level: Level) {
+  constructor(level: Level, playerPos: Position = level.playerPos) {
     this._level = level
-    this._playerPos = level.playerPos
+    this._playerPos = playerPos
+  }
+
+  get level(): Level {
+    return this._level
   }
 
   get playerPos(): Position {
     return this._playerPos
   }
 
-  movePlayer(direction: Direction): Position {
-    return this._movePlayer(this._level.playerPos, direction)
+  movePlayer(direction: Direction): GameState {
+    return new GameState(this._level, this._movePlayer(
+      this.playerPos, direction))
   }
 
   private _movePlayer(curPos: Position, dir: Direction): Position {
