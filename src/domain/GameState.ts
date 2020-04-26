@@ -1,16 +1,19 @@
 import Direction from './Direction'
 import Level from './level/Level'
+import Mover from './Mover'
 import Position from './Position'
-import { OBSTACLE } from './TileId'
 
 export default class GameState {
 
   private _level: Level
   private _playerPos: Position
+  private _mover: Mover
 
-  constructor(level: Level, playerPos: Position = level.playerPos) {
+  constructor(level: Level, mover: Mover,
+    playerPos: Position = level.playerPos) {
     this._level = level
     this._playerPos = playerPos
+    this._mover = mover
   }
 
   get level(): Level {
@@ -22,18 +25,8 @@ export default class GameState {
   }
 
   movePlayer(direction: Direction): GameState {
-    return new GameState(this._level, this._movePlayer(
-      this.playerPos, direction))
-  }
-
-  private _movePlayer(curPos: Position, dir: Direction): Position {
-    const { background } = this._level
-
-    const newPos = { row: curPos.row + dir.row, col: curPos.col + dir.col }
-
-    return !this._level.inbounds(newPos) || background[newPos.row][newPos.col] === OBSTACLE
-      ? curPos
-      : this._movePlayer(newPos, dir)
+    return new GameState(this._level, this._mover,
+      this._mover.move(this._level, this.playerPos, direction))
   }
 
 }

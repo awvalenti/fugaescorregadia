@@ -1,53 +1,27 @@
 import { expect } from 'chai'
-import { a3, each } from '../my-libs/a3'
+import { a3 } from '../my-libs/a3'
+import { myStub } from '../my-libs/my-stub'
 import nameof from '../my-libs/nameof'
-import Direction, { DOWN, LEFT, RIGHT, UP } from './Direction'
+import { DOWN, LEFT, RIGHT, UP } from './Direction'
 import GameState from './GameState'
 import Level from './level/Level'
 import LevelFactory from './level/private/LevelFactory'
 import LevelParser from './level/private/LevelParser'
 import LevelValidator from './level/private/LevelValidator'
+import Mover from './Mover'
+import Position from './Position'
 
 const newLevel = (levelAsString: string) => new LevelFactory(
   new LevelParser(), new LevelValidator()).create(levelAsString)
 
-const levels = {
-  obstacle: newLevel(`
-- - - - - - - - -
-- - - - o - - - -
-- - - - - - - - -
-- - - - - - - - -
-- o - - p - - o -
-- - - - - - - - -
-- - - - - - - - -
-- - - - o - - - -
-- - - - - - - - g
-`
-  ),
-
-  border: newLevel(`
-- - - - - - - - -
-- - - - - - - - -
-- - - - - - - - -
-- - - - - - - - -
-- - - - p - - - -
-- - - - - - - - -
-- - - - - - - - -
-- - - - - - - - g
-- - - - - - - - -
-`
-  ),
-}
-
-const newSut = (level: Level) => new GameState(level)
+const newSut = (level: Level, mover: Mover = new Mover()) =>
+  new GameState(level, mover)
 
 a3(GameState, {
   playerPos: {
-    initially: {
+    'when not specified via constructor': {
       arrange: () => newSut({ playerPos: { row: 1, col: 2 } } as Level),
-
       act: sut => sut.playerPos,
-
       assert: {
         'returns playerPos from level': result => {
           expect(result).to.deep.equal({ row: 1, col: 2 })
@@ -72,52 +46,57 @@ a3(GameState, {
   },
 
   [nameof(GameState.prototype.movePlayer)]: {
-    ...each(<[keyof typeof levels, Direction, number, number][]>[
-      ['obstacle', LEFT, 4, 2],
-      ['obstacle', UP, 2, 4],
-      ['obstacle', RIGHT, 4, 6],
-      ['obstacle', DOWN, 6, 4],
-      ['border', LEFT, 4, 0],
-      ['border', UP, 0, 4],
-      ['border', RIGHT, 4, 8],
-      ['border', DOWN, 8, 4],
-    ], ([object, direction, row, col]) => ({
-      [`when ${object} is found in the way`]: {
-        [`going ${direction}`]: {
+    'for one move': {
+      arrange: () => {
+        const
+          initialPos = { initial: 'pos' } as unknown as Position,
+          level = { playerPos: initialPos } as Level,
+          moverResult = { final: 'pos' } as unknown as Position,
+          mover = myStub(Mover, 'move', [level, initialPos, RIGHT], moverResult)
 
-          arrange: () => newSut(levels[object]),
-
-          act: gameState => ({
-            original: gameState,
-            modified: gameState.movePlayer(direction),
-          }),
-
-          assert: {
-            [`returns another ${nameof(GameState)}`]: ({ modified }) => {
-              expect(modified).to.be.instanceof(GameState)
-            },
-
-            'references the same level': ({ original, modified }) => {
-              expect(modified.level).to.equal(original.level)
-            },
-
-            [`stops player just before the ${object}`]: ({ modified }) => {
-              expect(modified.playerPos).to.deep.equal({ row, col })
-            },
-
-          },
-        },
+        return { initialState: newSut(level, mover), moverResult }
       },
-    })),
 
-    'after many moves heading to (0, 0)': {
-      arrange: () => newSut(levels.obstacle),
-
-      act: sut => [DOWN, RIGHT, UP, LEFT].reduce(
-        (gameState, direction) => gameState.movePlayer(direction), sut),
+      act: ({ initialState, moverResult }) => ({
+        initialState,
+        finalState: initialState.movePlayer(RIGHT),
+        moverResult,
+      }),
 
       assert: {
-        'ends up on (0, 0)': sut => {
+        [`produces another ${nameof(GameState)}`]: ({ finalState }) => {
+          expect(finalState).to.be.instanceof(GameState)
+        },
+
+        'reuses the level': ({ initialState, finalState }) => {
+          expect(finalState.level).to.equal(initialState.level)
+        },
+
+        [`delegates to ${nameof(Mover)}`]: ({ finalState, moverResult }) => {
+          expect(finalState.playerPos).to.equal(moverResult)
+        },
+      },
+    },
+
+    'for a sequence of moves': {
+      arrange: () => newSut(newLevel(`
+- - - - - - - - -
+- - - - o - - - -
+- - - - - - - - -
+- - - - - - - - -
+- o - - p - - o -
+- - - - - - - - -
+- - - - - - - - -
+- - - - o - - g -
+- - - - - - - - -
+`
+      )),
+
+      act: sut => [DOWN, RIGHT, UP, LEFT].reduce(
+        (ret, direction) => ret.movePlayer(direction), sut),
+
+      assert: {
+        'ends up on final destination': sut => {
           expect(sut.playerPos).to.deep.equal({ row: 0, col: 0 })
         },
       },
