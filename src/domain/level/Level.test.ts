@@ -10,16 +10,25 @@ const newSut = (matrix: TileId[][]) => new Level(matrix)
 const level3x3 = newSut([
   [EMPTY, EMPTY, EMPTY],
   [EMPTY, EMPTY, EMPTY],
-  [EMPTY, EMPTY, EMPTY],
+  [EMPTY, PLAYER, GOAL],
 ])
 
 a3(Level, {
+  'for invalid level': {
+    act: () => () => newSut([[]]),
+    assert: {
+      [`throws ${NO_PLAYER}`]: fn => {
+        expect(fn).to.throw(NO_PLAYER)
+      },
+    },
+  },
+
   'for valid level': {
     'deep equality': {
       'for equal objects': {
         arrange: () => ({
-          instance1: newSut([[OBSTACLE, EMPTY]]),
-          instance2: newSut([[OBSTACLE, EMPTY]]),
+          instance1: newSut([[PLAYER, GOAL]]),
+          instance2: newSut([[PLAYER, GOAL]]),
         }),
         assert: {
           'is true': ({ instance1, instance2 }) => {
@@ -30,8 +39,8 @@ a3(Level, {
 
       'for different objects': {
         arrange: () => ({
-          instance1: newSut([[EMPTY, EMPTY]]),
-          instance2: newSut([[OBSTACLE, OBSTACLE]]),
+          instance1: newSut([[GOAL, PLAYER]]),
+          instance2: newSut([[PLAYER, GOAL]]),
         }),
         assert: {
           'is false': ({ instance1, instance2 }) => {
@@ -82,16 +91,6 @@ a3(Level, {
       })),
     },
 
-  },
-
-  'for invalid level': {
-    arrange: () => newSut([[]]),
-    act: sut => () => sut.playerPos,
-    assert: {
-      [`throws ${NO_PLAYER}`]: fn => {
-        expect(fn).to.throw(NO_PLAYER)
-      },
-    },
   },
 
 })
