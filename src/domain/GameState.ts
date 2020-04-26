@@ -14,8 +14,14 @@ const walk = (curPos: Position, background: TileId[][], dir: Position): Position
 }
 
 export default class GameState {
-  static newPos(level: Level, direction: Direction): Position {
-    const { playerPos, background } = level
+  private _level: Level
+
+  constructor(level: Level) {
+    this._level = level
+  }
+
+  movePlayer(direction: Direction): Position {
+    const { playerPos, background } = this._level
 
     return walk(playerPos, background, direction)
   }

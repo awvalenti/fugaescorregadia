@@ -1,7 +1,9 @@
 import { expect } from 'chai'
 import { a3, each } from '../my-libs/a3'
+import nameof from '../my-libs/nameof'
 import Direction, { DOWN, LEFT, RIGHT, UP } from './Direction'
 import GameState from './GameState'
+import Level from './level/Level'
 import LevelFactory from './level/private/LevelFactory'
 import LevelParser from './level/private/LevelParser'
 import LevelValidator from './level/private/LevelValidator'
@@ -18,8 +20,8 @@ const levels = {
 - o - - p - - o -
 - - - - - - - - -
 - - - - - - - - -
-- - - - o - - - g
-- - - - - - - - -
+- - - - o - - - -
+- - - - - - - - g
 `
   ),
 
@@ -37,8 +39,10 @@ const levels = {
   ),
 }
 
+const newSut = (level: Level) => new GameState(level)
+
 a3(GameState, {
-  [GameState.newPos.name]: {
+  [nameof(GameState.prototype.movePlayer)]: {
     ...each(<[keyof typeof levels, Direction, number, number][]>[
       ['obstacle', LEFT, 4, 2],
       ['obstacle', UP, 2, 4],
@@ -50,9 +54,9 @@ a3(GameState, {
       ['border', DOWN, 8, 4],
     ], ([object, direction, row, col]) => ({
       [`when ${object} is found in the way`]: {
-        [`moving ${direction}`]: {
-          arrange: () => levels[object],
-          act: level => GameState.newPos(level, direction),
+        [`going ${direction}`]: {
+          arrange: () => newSut(levels[object]),
+          act: gameState => gameState.movePlayer(direction),
           assert: {
             'stops player just before it': result => {
               expect(result).to.deep.equal({ row, col })
