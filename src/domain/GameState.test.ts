@@ -44,9 +44,7 @@ const newSut = (level: Level) => new GameState(level)
 a3(GameState, {
   playerPos: {
     initially: {
-      arrange: () => newSut(<Level>{
-        playerPos: { row: 1, col: 2 },
-      }),
+      arrange: () => newSut({ playerPos: { row: 1, col: 2 } } as Level),
 
       act: sut => sut.playerPos,
 
@@ -54,6 +52,21 @@ a3(GameState, {
         'returns playerPos from level': result => {
           expect(result).to.deep.equal({ row: 1, col: 2 })
         },
+      },
+    },
+  },
+
+  level: {
+    arrange: () => {
+      const expected = {} as Level
+      return { sut: newSut(expected), expected }
+    },
+
+    act: ({ sut, expected }) => ({ actual: sut.level, expected }),
+
+    assert: {
+      'returns level passed to constructor': ({ actual, expected }) => {
+        expect(actual).to.equal(expected)
       },
     },
   },
@@ -71,15 +84,43 @@ a3(GameState, {
     ], ([object, direction, row, col]) => ({
       [`when ${object} is found in the way`]: {
         [`going ${direction}`]: {
+
           arrange: () => newSut(levels[object]),
-          act: gameState => gameState.movePlayer(direction),
+
+          act: gameState => ({
+            original: gameState,
+            modified: gameState.movePlayer(direction),
+          }),
+
           assert: {
-            'stops player just before it': result => {
-              expect(result).to.deep.equal({ row, col })
+            [`returns another ${nameof(GameState)}`]: ({ modified }) => {
+              expect(modified).to.be.instanceof(GameState)
             },
+
+            'references the same level': ({ original, modified }) => {
+              expect(modified.level).to.equal(original.level)
+            },
+
+            [`stops player just before the ${object}`]: ({ modified }) => {
+              expect(modified.playerPos).to.deep.equal({ row, col })
+            },
+
           },
         },
       },
     })),
+
+    'after many moves heading to (0, 0)': {
+      arrange: () => newSut(levels.obstacle),
+
+      act: sut => [DOWN, RIGHT, UP, LEFT].reduce(
+        (gameState, direction) => gameState.movePlayer(direction), sut),
+
+      assert: {
+        'ends up on (0, 0)': sut => {
+          expect(sut.playerPos).to.deep.equal({ row: 0, col: 0 })
+        },
+      },
+    },
   },
 })
