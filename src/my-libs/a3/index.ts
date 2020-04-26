@@ -14,13 +14,12 @@ type Leaf<Arranged, Acted> = {
   after?: (arg0: Arranged) => void
 }
 
-type TestSpecAny = TestSpec<any, any>
+const isLeaf = <Arranged, Acted>(n: TestSpec<Arranged, Acted>):
+  n is Leaf<Arranged, Acted> => 'assert' in n
 
-const isLeaf = (n: TestSpecAny): n is Leaf<any, any> => 'assert' in n
-
-function _a3(
+function _a3<Arranged, Acted>(
   sut: string,
-  nodeOrArray: TestSpecAny | TestSpecAny[],
+  nodeOrArray: TestSpec<Arranged, Acted> | TestSpec<Arranged, Acted>[],
 ) {
   // eslint-disable-next-line complexity
   describe(sut, () => {
@@ -55,15 +54,15 @@ function _a3(
 
 export function a3<Sut extends Function>(
   sut: Sut,
-  testSpec: TestSpecAny
+  testSpec: TestSpec<any, any>
 ): void {
   _a3(nameof(sut), testSpec)
 }
 
 export const each = <TestCaseData>(
   testCases: TestCaseData[],
-  testSpecFactory: (testCase: TestCaseData) => TestSpecAny,
-): TestSpecAny => testCases.reduce((ret, testCase) => {
+  testSpecFactory: (testCase: TestCaseData) => TestSpec<any, any>,
+): TestSpec<any, any> => testCases.reduce((ret, testCase) => {
     const testSpec: any = testSpecFactory(testCase)
     Object.keys(testSpec).forEach(key => {
       if (!(key in ret)) ret[key] = []
