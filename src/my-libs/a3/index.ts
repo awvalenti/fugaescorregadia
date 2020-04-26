@@ -61,7 +61,7 @@ export function a3<Sut extends Function>(
 
 export const each = <TestCaseData>(
   testCases: TestCaseData[],
-  testSpecFactory: (testCase: TestCaseData) => TestSpec<any, any>,
+  testSpecFactory: (testCase: TestCaseData) => Internal<any, any>,
 ): TestSpec<any, any> => testCases.reduce((ret, testCase) => {
     const testSpec: any = testSpecFactory(testCase)
     Object.keys(testSpec).forEach(key => {
