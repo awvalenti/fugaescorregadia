@@ -26,4 +26,9 @@ export default class Level {
     )
   }
 
+  inbounds({ row, col }: Position) {
+    return row >= 0 && row < this._matrix.length &&
+      col >= 0 && col < this._matrix[row].length
+  }
+
 }
