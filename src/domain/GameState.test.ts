@@ -42,6 +42,22 @@ const levels = {
 const newSut = (level: Level) => new GameState(level)
 
 a3(GameState, {
+  playerPos: {
+    initially: {
+      arrange: () => newSut(<Level>{
+        playerPos: { row: 1, col: 2 },
+      }),
+
+      act: sut => sut.playerPos,
+
+      assert: {
+        'returns playerPos from level': result => {
+          expect(result).to.deep.equal({ row: 1, col: 2 })
+        },
+      },
+    },
+  },
+
   [nameof(GameState.prototype.movePlayer)]: {
     ...each(<[keyof typeof levels, Direction, number, number][]>[
       ['obstacle', LEFT, 4, 2],

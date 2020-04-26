@@ -6,9 +6,15 @@ import { OBSTACLE } from './TileId'
 export default class GameState {
 
   private _level: Level
+  private _playerPos: Position
 
   constructor(level: Level) {
     this._level = level
+    this._playerPos = level.playerPos
+  }
+
+  get playerPos(): Position {
+    return this._playerPos
   }
 
   movePlayer(direction: Direction): Position {
