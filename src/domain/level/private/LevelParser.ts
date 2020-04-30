@@ -3,7 +3,7 @@ import TileId, { EMPTY, GOAL, OBSTACLE, PLAYER } from '../../TileId'
 export default class LevelParser {
   parse(levelAsString: string): TileId[][] {
     return levelAsString
-      .replace(/^\s+|\s+$/g, '')
+      .trim()
       .split('\n')
       .map(rowString => rowString
         .split(' ')
