@@ -50,7 +50,7 @@ a3(Level, {
       },
     },
 
-    '#playerPos': {
+    'playerPos': {
       arrange: () => newSut([[EMPTY, PLAYER]]),
       act: sut => sut.playerPos,
       assert: {
@@ -60,7 +60,7 @@ a3(Level, {
       },
     },
 
-    '#background': {
+    'background': {
       arrange: () => newSut([[EMPTY, PLAYER], [OBSTACLE, GOAL]]),
       act: sut => sut.background,
       assert: {
