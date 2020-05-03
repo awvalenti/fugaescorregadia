@@ -1,26 +1,46 @@
-import { cleanup, render } from '@testing-library/react'
-import { expect } from 'chai'
 import * as React from 'react'
-import { renderToStaticMarkup } from 'react-dom/server'
-import { OBSTACLE } from '../domain/TileId'
-import { a3 } from '../my-libs/a3'
+import { OBSTACLE, PLAYER } from '../domain/TileId'
+import { a3, cleanup, expect, render } from '../my-libs/my-testing-library'
+import nameof from '../my-libs/nameof'
 import Tile from './Tile'
 
 a3(Tile, {
-  arrange: () => render(<Tile tileId={OBSTACLE} />),
+  'without style': {
+    arrange: () => render(<Tile tileId={OBSTACLE} />),
 
-  act: component => component.container.innerHTML,
+    act: ({ container: { innerHTML } }) => innerHTML,
 
-  assert: {
-    'renders a <div> with classes TILE and {tileId}': innerHTML => {
-      expect(innerHTML).to.equal(renderToStaticMarkup(
-        <div className="TILE OBSTACLE" />
-      ))
+    assert: {
+      [`renders a <div> with classes ${nameof(Tile)}, {tileId}`]: innerHTML => {
+        expect(innerHTML).to.equal(
+          '<div class="Tile OBSTACLE"></div>'
+        )
+      },
     },
+
+    after: () => {
+      cleanup()
+    },
+
   },
 
-  after: () => {
-    cleanup()
+  'with style': {
+    arrange: () => render(<Tile tileId={PLAYER} style={{ color: 'blue' }} />),
+
+    act: ({ container: { innerHTML } }) => innerHTML,
+
+    assert: {
+      'includes the specified style': innerHTML => {
+        expect(innerHTML).to.equal(
+          '<div class="Tile PLAYER" style="color: blue;"></div>'
+        )
+      },
+    },
+
+    after: () => {
+      cleanup()
+    },
+
   },
 
 })
