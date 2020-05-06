@@ -29,13 +29,13 @@ a3(BackgroundLayer, {
   assert: {
     [`renders rows and columns of <${nameof(Tile)}>s`]: innerHTML => {
       expect(innerHTML).to.equal(renderToStaticMarkup(
-        <div>
-          <div>
+        <div className="BackgroundLayer">
+          <div className="row">
             <p>OBSTACLE</p>
             <p>EMPTY</p>
             <p>EMPTY</p>
           </div>
-          <div>
+          <div className="row">
             <p>EMPTY</p>
             <p>EMPTY</p>
             <p>EMPTY</p>

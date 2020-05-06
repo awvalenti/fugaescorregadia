@@ -1,6 +1,8 @@
 import { cleanup, render } from '@testing-library/react'
 import { expect } from 'chai'
 import * as React from 'react'
+import { renderToStaticMarkup } from 'react-dom/server'
+import Level from '../domain/level/Level'
 import { a3 } from '../my-libs/a3'
 import Mooca from '../my-libs/mooca'
 import nameof from '../my-libs/nameof'
@@ -11,20 +13,23 @@ a3(App, {
   arrange: () => {
     const mooca = new Mooca()
 
-    const { name } = Board.default
-    mooca.stub(Board, () => <>{name}</>)
+    const name = nameof(Board)
+
+    mooca.stub(Board, ({ level }) => <>{name}:{level.toString()}</>)
 
     return {
       mooca,
-      component: render(<App />),
+      component: render(<App level={{ toString: () => 'myLevel' } as Level}/>),
     }
   },
 
   act: ({ component }) => component.container.innerHTML,
 
   assert: {
-    [`renders <${nameof(Board)}>`]: innerHTML => {
-      expect(innerHTML).to.equal('Board')
+    [`renders <main> with <${nameof(Board)}> using level`]: innerHTML => {
+      expect(innerHTML).to.equal(renderToStaticMarkup(
+        <main className="App">Board:myLevel</main>
+      ))
     },
   },
 

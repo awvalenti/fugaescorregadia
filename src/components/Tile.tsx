@@ -1,6 +1,7 @@
 import * as React from 'react'
 import TileId from '../domain/TileId'
 import nameof from '../my-libs/nameof'
+import './Tile.sass'
 
 const Tile: React.FC<{
 
