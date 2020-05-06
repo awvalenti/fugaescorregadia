@@ -39,7 +39,7 @@ a3(Board, {
     [`renders <${nameof(BackgroundLayer)}> and <${nameof(SpriteLayer)}>
     using ${nameof(Level)}`]: innerHTML => {
       expect(innerHTML).to.equal(renderToStaticMarkup(
-        <div>
+        <div className="Board">
           <p>[[EMPTY,OBSTACLE],[EMPTY,EMPTY]]</p>
           <p>PLAYER@(1,0)</p>
         </div>
