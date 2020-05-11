@@ -37,9 +37,8 @@ a3(SpriteLayer, {
         'textContent', 'PLAYER')
     },
 
-    'sets dimensions correctly': ({ firstElementChild }) => {
-      expect(firstElementChild).to.have.property('style')
-        .includes({ width: '2.5%', height: '1%' })
+    'sets dimensions correctly': ({ firstElementChild: { style } }) => {
+      expect([style.width, style.height]).to.deep.equal(['2.5%', '1%'])
     },
 
     [`sets ${PLAYER} translation correctly`]: ({ firstElementChild }) => {
