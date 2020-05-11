@@ -2,6 +2,7 @@ import { expect } from 'chai'
 import { a3, each } from '../my-libs/a3'
 import nameof from '../my-libs/nameof'
 import Direction, { DOWN, LEFT, RIGHT, UP } from './Direction'
+import BoundsChecker from './level/BoundsChecker'
 import LevelFactory from './level/private/LevelFactory'
 import LevelParser from './level/private/LevelParser'
 import LevelValidator from './level/private/LevelValidator'
@@ -38,7 +39,7 @@ const levels = {
   ),
 }
 
-const newSut = () => new Mover()
+const newSut = () => new Mover(new BoundsChecker())
 
 a3(Mover, {
   [nameof(Mover.prototype.move)]: {
