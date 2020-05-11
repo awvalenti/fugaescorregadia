@@ -12,7 +12,11 @@ const Board: React.FC<{
 }> = ({ level }) =>
   <div className={nameof(Board)}>
     <BackgroundLayer matrix={level.background} />
-    <SpriteLayer playerPos={level.playerPos} />
+    <SpriteLayer
+      rowCount={level.rowCount}
+      colCount={level.colCount}
+      playerPos={level.playerPos}
+    />
   </div>
 
 export default Board

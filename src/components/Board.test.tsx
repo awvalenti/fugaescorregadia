@@ -3,7 +3,7 @@ import { expect } from 'chai'
 import * as React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import Level from '../domain/level/Level'
-import { EMPTY, OBSTACLE } from '../domain/TileId'
+import { EMPTY, GOAL, OBSTACLE, PLAYER } from '../domain/TileId'
 import { a3 } from '../my-libs/a3'
 import Mooca from '../my-libs/mooca'
 import nameof from '../my-libs/nameof'
@@ -18,16 +18,18 @@ a3(Board, {
     mooca.stub(BackgroundLayer, ({ matrix }) =>
       <p>[{matrix.map(rowData => `[${rowData.join(',')}]`).join(',')}]</p>)
 
-    mooca.stub(SpriteLayer, ({ playerPos: { row, col } }) =>
-      <p>PLAYER@({row},{col})</p>)
+    mooca.stub(SpriteLayer, ({ rowCount, colCount, playerPos: { row, col } }) =>
+      <p>Dimensions:{rowCount}x{colCount} playerPos:{row},{col}</p>)
 
     return {
       mooca,
       component: render(<Board level={{
+        rowCount: 2,
+        colCount: 3,
         playerPos: { row: 1, col: 0 },
         background: [
-          [EMPTY, OBSTACLE],
-          [EMPTY, EMPTY],
+          [EMPTY, EMPTY, OBSTACLE],
+          [PLAYER, EMPTY, GOAL],
         ],
       } as Level} />),
     }
@@ -40,8 +42,8 @@ a3(Board, {
     using ${nameof(Level)}`]: innerHTML => {
       expect(innerHTML).to.equal(renderToStaticMarkup(
         <div className="Board">
-          <p>[[EMPTY,OBSTACLE],[EMPTY,EMPTY]]</p>
-          <p>PLAYER@(1,0)</p>
+          <p>[[EMPTY,EMPTY,OBSTACLE],[PLAYER,EMPTY,GOAL]]</p>
+          <p>Dimensions:2x3 playerPos:1,0</p>
         </div>
       ))
     },

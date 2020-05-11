@@ -13,7 +13,11 @@ a3(SpriteLayer, {
 
     return {
       mooca,
-      component: render(<SpriteLayer playerPos={{ row: 1, col: 2 }} />),
+      component: render(<SpriteLayer
+        rowCount={100}
+        colCount={40}
+        playerPos={{ row: 1, col: 2 }}
+      />),
     }
   },
 
@@ -31,6 +35,11 @@ a3(SpriteLayer, {
     [`renders a <${nameof(Tile)}> for ${PLAYER}`]: ({ firstElementChild }) => {
       expect(firstElementChild.querySelector('p')).to.have.property(
         'textContent', 'PLAYER')
+    },
+
+    'sets dimensions correctly': ({ firstElementChild }) => {
+      expect(firstElementChild).to.have.property('style')
+        .includes({ width: '2.5%', height: '1%' })
     },
 
     [`sets ${PLAYER} translation correctly`]: ({ firstElementChild }) => {

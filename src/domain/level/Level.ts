@@ -11,9 +11,16 @@ export default class Level {
   constructor(matrix: TileId[][]) {
     this._matrix = matrix
     this._background = matrix.map(rowData =>
-      rowData.map(tile => tile === PLAYER ? EMPTY : tile)
-    )
+      rowData.map(tile => tile === PLAYER ? EMPTY : tile))
     this._playerPos = this._findPlayerPos()
+  }
+
+  get rowCount(): number {
+    return this._matrix.length
+  }
+
+  get colCount(): number {
+    return this._matrix[0].length
   }
 
   get background(): TileId[][] {

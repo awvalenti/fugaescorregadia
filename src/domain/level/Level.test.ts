@@ -50,6 +50,26 @@ a3(Level, {
       },
     },
 
+    'rowCount': {
+      arrange: () => newSut([[EMPTY, PLAYER], [EMPTY, EMPTY], [EMPTY, EMPTY]]),
+      act: sut => sut.rowCount,
+      assert: {
+        'returns amount of rows': result => {
+          expect(result).to.equal(3)
+        },
+      },
+    },
+
+    'colCount': {
+      arrange: () => newSut([[EMPTY, PLAYER], [EMPTY, EMPTY], [EMPTY, EMPTY]]),
+      act: sut => sut.colCount,
+      assert: {
+        'returns amount of cols': result => {
+          expect(result).to.equal(2)
+        },
+      },
+    },
+
     'playerPos': {
       arrange: () => newSut([[EMPTY, PLAYER]]),
       act: sut => sut.playerPos,
