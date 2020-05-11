@@ -7,10 +7,19 @@ import Tile from './Tile'
 
 const SpriteLayer: React.FC<{
 
+  rowCount: number
+  colCount: number
   playerPos: Position
 
-}> = ({ playerPos: { row, col } }) =>
-  <div className={nameof(SpriteLayer)}>
+}> = ({
+  rowCount,
+  colCount,
+  playerPos: { row, col },
+}) =>
+  <div className={nameof(SpriteLayer)} style={{
+    width: `${100 / colCount}%`,
+    height: `${100 / rowCount}%`,
+  }}>
     <Tile
       tileId={PLAYER}
       style={{ transform: `translate(${col * 100}%, ${row * 100}%)` }}
