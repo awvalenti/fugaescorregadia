@@ -5,36 +5,27 @@ import LevelLoader from './LevelLoader'
 const newSut = () => new LevelLoader()
 
 a3(LevelLoader, {
+
   'for valid id': {
     arrange: newSut,
     act: sut => sut.read('00'),
     assert: {
       'loads level as string': result => {
-        expect(result).to.equal(`
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - p - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - g
-`)
+        expect(result).to.include('p')
+        expect(result).to.include('g')
+
+        const
+          firstLineBreak = 1,
+          rowCount = 20,
+          colCount = 20,
+          charsPerTile = 2
+
+        expect(result).to.have.length(
+          firstLineBreak + charsPerTile * colCount * rowCount)
       },
     },
   },
+
   'for invalid id': {
     arrange: newSut,
     act: sut => () => sut.read('9999'),
@@ -44,4 +35,5 @@ a3(LevelLoader, {
       },
     },
   },
+
 })
