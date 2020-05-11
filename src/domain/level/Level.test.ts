@@ -1,17 +1,10 @@
 import { expect } from 'chai'
-import { a3, each } from '../../my-libs/a3'
-import nameof from '../../my-libs/nameof'
+import { a3 } from '../../my-libs/a3'
 import TileId, { EMPTY, GOAL, OBSTACLE, PLAYER } from '../TileId'
 import Level from './Level'
 import { NO_PLAYER } from './private/Error'
 
 const newSut = (matrix: TileId[][]) => new Level(matrix)
-
-const level3x3 = newSut([
-  [EMPTY, EMPTY, EMPTY],
-  [EMPTY, EMPTY, EMPTY],
-  [EMPTY, PLAYER, GOAL],
-])
 
 a3(Level, {
   'for invalid level': {
@@ -88,27 +81,6 @@ a3(Level, {
           expect(result).to.deep.equal([[EMPTY, EMPTY], [OBSTACLE, GOAL]])
         },
       },
-    },
-
-    [nameof(Level.prototype.inbounds)]: {
-      ...each(<[string, number, number, boolean][]>[
-        ['inside', 0, 0, true],
-        ['inside', 2, 2, true],
-        ['outside', -1, 0, false],
-        ['outside', 0, -1, false],
-        ['outside', 3, 2, false],
-        ['outside', 2, 3, false],
-      ], ([insideOrOutside, row, col, expectedResult]) => ({
-        [`for position ${insideOrOutside} level`]: {
-          arrange: () => level3x3,
-          act: level => level.inbounds({ row, col }),
-          assert: {
-            [`should be ${expectedResult}`]: actualResult => {
-              expect(actualResult).to.equal(expectedResult)
-            },
-          },
-        },
-      })),
     },
 
   },

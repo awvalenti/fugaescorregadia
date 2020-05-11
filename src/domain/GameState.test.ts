@@ -4,6 +4,7 @@ import { myStub } from '../my-libs/my-stub'
 import nameof from '../my-libs/nameof'
 import { DOWN, LEFT, RIGHT, UP } from './Direction'
 import GameState from './GameState'
+import BoundsChecker from './level/BoundsChecker'
 import Level from './level/Level'
 import LevelFactory from './level/private/LevelFactory'
 import LevelParser from './level/private/LevelParser'
@@ -14,7 +15,7 @@ import Position from './Position'
 const newLevel = (levelAsString: string) => new LevelFactory(
   new LevelParser(), new LevelValidator()).create(levelAsString)
 
-const newSut = (level: Level, mover: Mover = new Mover()) =>
+const newSut = (level: Level, mover: Mover = new Mover(new BoundsChecker())) =>
   new GameState(level, mover)
 
 a3(GameState, {

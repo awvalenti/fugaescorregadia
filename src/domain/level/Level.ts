@@ -31,11 +31,6 @@ export default class Level {
     return this._playerPos
   }
 
-  inbounds({ row, col }: Position) {
-    return row >= 0 && row < this._matrix.length &&
-      col >= 0 && col < this._matrix[row].length
-  }
-
   private _findPlayerPos(): Position {
     for (let row = 0; row < this._matrix.length; ++row) {
       for (let col = 0; col < this._matrix[row].length; ++col) {
