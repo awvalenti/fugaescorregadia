@@ -1,9 +1,12 @@
 set -e
 
-if [ -z $1 ]; then
+if [ -z $* ]; then
   >&2 echo 'Please specify file name'
   exit 1
 fi
 
-path=src/$1
-touch $path.ts $path.test.ts
+for file in $*; do
+  path=src/$file
+  [[ $path =~ ((.+\/)*)(.+) ]] && mkdir -p ${BASH_REMATCH[2]}
+  touch $path.ts $path.test.ts
+done
