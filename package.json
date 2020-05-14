@@ -4,6 +4,7 @@
   "description": "Jogo de labirinto / Labyrinth game",
   "scripts": {
     "start": "parcel src/start.html",
+    "validate": "tsc --watch --noEmit",
     "new": "bash scripts/new.sh",
     "rename": "bash scripts/rename.sh"
   },
