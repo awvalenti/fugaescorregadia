@@ -4,6 +4,6 @@ import App from '../components/App'
 import di from '../di/prod'
 
 ReactDOM.render(
-  <App level={di.levelRepo.get(0)} />,
+  <App gameState={di.gameStateFactory.new()} />,
   document.getElementById('react-root')
 )
