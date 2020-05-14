@@ -23,10 +23,9 @@ a3(Board, {
 
     return {
       mooca,
-      component: render(<Board level={{
+      component: render(<Board playerPos={{ row: 1, col: 0 }} level={{
         rowCount: 2,
         colCount: 3,
-        playerPos: { row: 1, col: 0 },
         background: [
           [EMPTY, EMPTY, OBSTACLE],
           [PLAYER, EMPTY, GOAL],
