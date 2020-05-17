@@ -23,7 +23,7 @@ a3(BoundsChecker, {
         arrange: () => new BoundsChecker(),
         act: sut => sut.inbounds(level2x3, row, col),
         assert: {
-          [`should return ${expectedResult}`]: actualResult => {
+          [`returns ${expectedResult}`]: actualResult => {
             expect(actualResult).to.equal(expectedResult)
           },
         },
