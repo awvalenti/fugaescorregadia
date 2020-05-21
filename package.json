@@ -30,6 +30,8 @@
     "@types/mocha": "^5.2.7",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
+    "@types/sinon": "^9.0.4",
+    "@types/sinon-chai": "^3.2.4",
     "@typescript-eslint/eslint-plugin": "^2.31.0",
     "@typescript-eslint/parser": "^2.31.0",
     "chai": "^4.2.0",
@@ -41,6 +43,8 @@
     "parcel": "^1.12.4",
     "prettier": "1.19.1",
     "sass": "^1.26.5",
+    "sinon": "^9.0.2",
+    "sinon-chai": "^3.5.0",
     "ts-mockito": "^2.5.0",
     "tslint": "^5.20.1",
     "typescript": "^3.8.3"
