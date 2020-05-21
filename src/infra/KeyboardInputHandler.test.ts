@@ -70,7 +70,9 @@ a3(KeyboardInputHandler, {
       },
 
       assert: {
-        'calls dispatchMove': ({ MockController }) => {
+        [`calls ${Controller.prototype.dispatchMove}`]: ({
+          MockController,
+        }) => {
           verify(MockController.dispatchMove(LEFT)).once()
         },
       },
@@ -85,7 +87,9 @@ a3(KeyboardInputHandler, {
       },
 
       assert: {
-        'does NOT call dispatchMove': ({ MockController }) => {
+        [`does NOT call ${Controller.prototype.dispatchMove}`]: ({
+          MockController,
+        }) => {
           verify(MockController.dispatchMove(anything())).never()
         },
       },
