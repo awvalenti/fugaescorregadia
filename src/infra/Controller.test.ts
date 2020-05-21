@@ -3,7 +3,7 @@ import GameState from '../domain/GameState'
 import { myStub } from '../my-libs/my-stub'
 import { a3, expect } from '../my-libs/my-testing-library'
 import nameof from '../my-libs/nameof'
-import Controller, { NextGameState } from './Controller'
+import Controller, { NextGameStateFn } from './Controller'
 
 a3(Controller, {
 
@@ -18,7 +18,7 @@ a3(Controller, {
         updatedGameStateRef: {current?: GameState} = {}
 
       return {
-        sut: new Controller((next: NextGameState) => {
+        sut: new Controller((next: NextGameStateFn) => {
           updatedGameStateRef.current = next(initialGameState)
         }),
         updatedGameStateRef,
@@ -32,7 +32,8 @@ a3(Controller, {
     },
 
     assert: {
-      [`updates ${nameof(GameState)} using ${nameof(GameState.prototype.movePlayer)}`]: ({
+      [`updates ${nameof(GameState)} using ${nameof(
+        GameState.prototype.movePlayer)}`]: ({
         actual,
         expected,
       }) => {
