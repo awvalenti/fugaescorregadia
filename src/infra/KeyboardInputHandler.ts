@@ -15,6 +15,8 @@ export default class KeyboardInputHandler {
     this._document = document
     this._keyMapper = keyMapper
     this._controller = controller
+
+    this.onKeyDown = this.onKeyDown.bind(this)
   }
 
   enable(): void {
@@ -25,7 +27,7 @@ export default class KeyboardInputHandler {
     this._document.removeEventListener('keydown', this.onKeyDown)
   }
 
-  onKeyDown({ code }: KeyboardEvent): void{
+  onKeyDown({ code }: KeyboardEvent): void {
     const dir = this._keyMapper.directionFor(code)
     if (dir) this._controller.dispatchMove(dir)
   }

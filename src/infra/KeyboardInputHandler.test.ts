@@ -1,14 +1,15 @@
 import { anything, instance, mock, verify } from 'ts-mockito'
 import { LEFT } from '../domain/Direction'
-import { a3 } from '../my-libs/my-testing-library'
+import { a3, expect } from '../my-libs/my-testing-library'
 import nameof from '../my-libs/nameof'
 import Controller from './Controller'
 import KeyboardInputHandler from './KeyboardInputHandler'
 import KeyMapper from './KeyMapper'
 
 const arrange = () => {
-  const MockDocument = mock(Document)
-  const MockController = mock<Controller>()
+  const
+    MockDocument = mock(Document),
+    MockController = mock(Controller)
 
   return {
     MockDocument,
@@ -23,6 +24,39 @@ const arrange = () => {
 
 a3(KeyboardInputHandler, {
 
+  constructor: {
+    arrange: () => {
+      const originalBind = KeyboardInputHandler.prototype.onKeyDown.bind
+
+      KeyboardInputHandler.prototype.onKeyDown.bind = function(thisArg: {}) {
+        return { bound: 'method', thisArg } as any
+      }
+
+      return { originalBind }
+    },
+
+    act: ({ originalBind }: any) => ({
+      sut: new KeyboardInputHandler(
+          {} as Document,
+          {} as KeyMapper,
+          {} as Controller,
+      ),
+      originalBind,
+    }),
+
+    assert: {
+      [`binds ${nameof(KeyboardInputHandler.prototype.onKeyDown)}
+      to this`]: ({ sut }: any) => {
+        expect(sut.onKeyDown).to.deep.equal({ bound: 'method', thisArg: sut })
+      },
+    },
+
+    after: ({ originalBind }: any) => {
+      KeyboardInputHandler.prototype.onKeyDown.bind = originalBind
+    },
+
+  },
+
   [nameof(KeyboardInputHandler.prototype.enable)]: {
     arrange,
 
@@ -32,11 +66,9 @@ a3(KeyboardInputHandler, {
     },
 
     assert: {
-      'adds keydown listener to document': ({
-        MockDocument,
-        sut,
-      }) => {
-        verify(MockDocument.addEventListener('keydown', sut.onKeyDown)).once()
+      'adds keydown listener to document': ({ MockDocument, sut }) => {
+        verify(MockDocument.addEventListener(anything(), anything())).once()
+        verify(MockDocument.addEventListener('keydown', sut.onKeyDown)).called()
       },
     },
   },
@@ -50,12 +82,11 @@ a3(KeyboardInputHandler, {
     },
 
     assert: {
-      'removes keydown listener from document': ({
-        MockDocument,
-        sut,
-      }) => {
-        verify(MockDocument.removeEventListener('keydown', sut.onKeyDown))
+      'removes keydown listener from document': ({ MockDocument, sut }) => {
+        verify(MockDocument.removeEventListener(anything(), anything()))
           .once()
+        verify(MockDocument.removeEventListener('keydown', sut.onKeyDown))
+          .called()
       },
     },
   },
@@ -70,10 +101,11 @@ a3(KeyboardInputHandler, {
       },
 
       assert: {
-        [`calls ${Controller.prototype.dispatchMove}`]: ({
+        [`calls ${nameof(Controller.prototype.dispatchMove)}`]: ({
           MockController,
         }) => {
-          verify(MockController.dispatchMove(LEFT)).once()
+          verify(MockController.dispatchMove(anything())).once()
+          verify(MockController.dispatchMove(LEFT)).called()
         },
       },
     },
@@ -87,7 +119,7 @@ a3(KeyboardInputHandler, {
       },
 
       assert: {
-        [`does NOT call ${Controller.prototype.dispatchMove}`]: ({
+        [`does NOT call ${nameof(Controller.prototype.dispatchMove)}`]: ({
           MockController,
         }) => {
           verify(MockController.dispatchMove(anything())).never()
