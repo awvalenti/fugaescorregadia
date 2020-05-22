@@ -8,36 +8,42 @@ import Controller, { NextGameStateFn } from './Controller'
 a3(Controller, {
 
   [nameof(Controller.prototype.dispatchMove)]: {
-    arrange: () => {
-      const
-        finalGameState = {} as GameState,
-
-        initialGameState = myStub(GameState, 'movePlayer', [RIGHT],
-          finalGameState),
-
-        updatedGameStateRef: {current?: GameState} = {}
-
-      return {
-        sut: new Controller((next: NextGameStateFn) => {
-          updatedGameStateRef.current = next(initialGameState)
-        }),
-        updatedGameStateRef,
-        finalGameState,
-      }
+    'when updateGameStateFn is NOT set': {
+      arrange: () => new Controller(),
+      act: sut => () => sut.dispatchMove(RIGHT),
+      assert: {
+        'does NOT throw error': fn => {
+          expect(fn).not.to.throw()
+        },
+      },
     },
 
-    act: ({ sut, updatedGameStateRef, finalGameState }) => {
-      sut.dispatchMove(RIGHT)
-      return { actual: updatedGameStateRef.current, expected: finalGameState }
-    },
+    'when updateGameStateFn is set': {
+      arrange: () => {
+        const
+          final = {} as GameState,
+          initial = myStub(GameState, 'movePlayer', [RIGHT], final),
+          ref: {current?: GameState} = {}
 
-    assert: {
-      [`updates ${nameof(GameState)} using ${nameof(
-        GameState.prototype.movePlayer)}`]: ({
-        actual,
-        expected,
-      }) => {
-        expect(actual).to.equal(expected)
+        const sut = new Controller()
+
+        sut.setUpdateGameStateFn((next: NextGameStateFn) => {
+          ref.current = next(initial)
+        })
+
+        return { sut, ref, final }
+      },
+
+      act: ({ sut, ref, final }) => {
+        sut.dispatchMove(RIGHT)
+        return { actual: ref.current, expected: final }
+      },
+
+      assert: {
+        [`updates ${nameof(GameState)} using ${nameof(GameState.prototype
+          .movePlayer)}`]: ({ actual, expected }) => {
+          expect(actual).to.equal(expected)
+        },
       },
     },
   },
