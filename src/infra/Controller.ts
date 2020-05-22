@@ -7,9 +7,9 @@ export type UpdateGameStateFn = (next: NextGameStateFn) => void
 
 export default class Controller {
 
-  private readonly _updateGameStateFn: UpdateGameStateFn
+  private _updateGameStateFn: UpdateGameStateFn = () => {}
 
-  constructor(updateGameStateFn: UpdateGameStateFn) {
+  setUpdateGameStateFn(updateGameStateFn: UpdateGameStateFn): void{
     this._updateGameStateFn = updateGameStateFn
   }
 
