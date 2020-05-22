@@ -6,19 +6,35 @@ import LevelLoader from '../../domain/level/private/LevelLoader'
 import LevelParser from '../../domain/level/private/LevelParser'
 import LevelValidator from '../../domain/level/private/LevelValidator'
 import Mover from '../../domain/Mover'
+import Controller from '../../infra/Controller'
+import KeyboardInputHandler from '../../infra/KeyboardInputHandler'
+import KeyMapper from '../../infra/KeyMapper'
 
-const di = {
+const
 
-  gameStateFactory: {
-    new: () => new GameState(di.levelRepo.get(0), new Mover(
-      new BoundsChecker())),
-  },
-
-  levelRepo: new LevelRepo(
+  levelRepo = new LevelRepo(
     new LevelLoader(),
-    new LevelFactory(new LevelParser(), new LevelValidator())
+    new LevelFactory(
+      new LevelParser(),
+      new LevelValidator()
+    )
   ),
 
-}
+  gameStateFactory = {
+    new: () => new GameState(
+      levelRepo.get(0),
+      new Mover(
+        new BoundsChecker()
+      )
+    ),
+  },
 
-export default di
+  controller = new Controller(),
+
+  keyboardInputHandler = new KeyboardInputHandler(
+    document,
+    new KeyMapper(),
+    controller,
+  )
+
+export default { levelRepo, gameStateFactory, controller, keyboardInputHandler }
