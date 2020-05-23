@@ -1,3 +1,4 @@
+import useControllerHook from '../../components/App/useController'
 import GameState from '../../domain/GameState'
 import BoundsChecker from '../../domain/level/BoundsChecker'
 import LevelRepo from '../../domain/level/LevelRepo'
@@ -6,7 +7,7 @@ import LevelLoader from '../../domain/level/private/LevelLoader'
 import LevelParser from '../../domain/level/private/LevelParser'
 import LevelValidator from '../../domain/level/private/LevelValidator'
 import Mover from '../../domain/Mover'
-import Controller from '../../infra/Controller'
+import Controller, { UpdateGameStateFn } from '../../infra/Controller'
 import KeyboardHandler from '../../infra/KeyboardHandler'
 import KeyMapper from '../../infra/KeyMapper'
 
@@ -35,6 +36,15 @@ const
     document,
     new KeyMapper(),
     controller,
-  )
+  ),
 
-export default { levelRepo, gameStateFactory, controller, keyboardHandler }
+  useController = (setGameState: UpdateGameStateFn) => useControllerHook(
+    controller, keyboardHandler, setGameState)
+
+export default {
+  levelRepo,
+  gameStateFactory,
+  controller,
+  keyboardHandler,
+  useController,
+}
