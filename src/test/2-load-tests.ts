@@ -1,4 +1,5 @@
-import '../components/App.test'
+import '../components/App/App.test'
+import '../components/App/useController.test'
 import '../components/BackgroundLayer.test'
 import '../components/Board.test'
 import '../components/SpriteLayer.test'
