@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
-import { anyFunction, anything, instance, mock, verify } from 'ts-mockito'
+import { anyFunction, anything, instance, mock, resetCalls, verify, when } from 'ts-mockito'
 import GameState from '../domain/GameState'
 import Level from '../domain/level/Level'
 import Position from '../domain/Position'
-import Controller from '../infra/Controller'
+import Controller, { UpdateGameStateFn } from '../infra/Controller'
 import KeyboardInputHandler from '../infra/KeyboardInputHandler'
 import Mooca from '../my-libs/mooca'
 import { a3, cleanup, expect, render } from '../my-libs/my-testing-library'
@@ -22,14 +22,21 @@ const arrange = () => {
     MockKeyboardInputHandler = mock(KeyboardInputHandler),
 
     gameState = {
-      level: 'my-level' as unknown as Level,
-      playerPos: 'my-pos' as unknown as Position,
+      level: 'level-1' as unknown as Level,
+      playerPos: 'pos-1' as unknown as Position,
     } as GameState,
     controller = instance(MockController),
-    keyboardInputHandler = instance(MockKeyboardInputHandler)
+    keyboardInputHandler = instance(MockKeyboardInputHandler),
+
+    ref: { updateGameState?: UpdateGameStateFn } = {}
+
+  when(MockController.setUpdateGameStateFn(anyFunction())).thenCall(fn => {
+    ref.updateGameState = fn
+  })
 
   return {
     mooca,
+    ref,
 
     MockController,
     MockKeyboardInputHandler,
@@ -46,7 +53,7 @@ const mount = ({
   keyboardInputHandler,
   ...rest
 }: any) => ({
-  component: render(<App
+  sut: render(<App
     gameState={gameState}
     controller={controller}
     keyboardInputHandler={keyboardInputHandler}
@@ -66,26 +73,68 @@ a3(App, {
     act: mount,
 
     assert: {
-      [`renders <main> with <${nameof(Board)}> using level and playerPos`]: ({
-        component,
-      }) => {
-        expect(component.container.innerHTML).to.equal(renderToStaticMarkup(
-          <main className="App">my-level,my-pos</main>
+
+      [`renders <main> with <${nameof(Board)}> using initial state`]:
+      ({ sut }) => {
+        expect(sut.container.innerHTML).to.equal(renderToStaticMarkup(
+          <main className="App">level-1,pos-1</main>
         ))
       },
 
-      [`calls ${nameof(Controller.prototype.setUpdateGameStateFn)}`]: ({
-        MockController,
-      }) => {
+      [`calls ${nameof(Controller.prototype.setUpdateGameStateFn)}`]:
+      ({ MockController }) => {
         verify(MockController.setUpdateGameStateFn(anything())).once()
         verify(MockController.setUpdateGameStateFn(anyFunction())).called()
       },
 
-      [`calls ${nameof(KeyboardInputHandler.prototype.enable)}`]: ({
-        MockKeyboardInputHandler,
-      }) => {
+      [`calls ${nameof(KeyboardInputHandler.prototype.enable)}`]:
+      ({ MockKeyboardInputHandler }) => {
         verify(MockKeyboardInputHandler.enable()).once()
       },
+
+    },
+
+    after,
+  },
+
+  'on rerender': {
+    arrange,
+
+    act: arranged => {
+      const
+        mounted = mount(arranged),
+        {
+          MockController,
+          MockKeyboardInputHandler,
+          ref: { updateGameState },
+        } = mounted
+
+      resetCalls(MockController)
+      resetCalls(MockKeyboardInputHandler)
+
+      updateGameState({ level: 'level-2', playerPos: 'pos-2' })
+
+      return mounted
+    },
+
+    assert: {
+      [`renders <main> with <${nameof(Board)}> using updated state`]:
+      ({ sut }) => {
+        expect(sut.container.innerHTML).to.equal(renderToStaticMarkup(
+          <main className="App">level-2,pos-2</main>
+        ))
+      },
+
+      [`does NOT call again ${nameof(Controller.prototype
+        .setUpdateGameStateFn)}`]: ({ MockController }) => {
+        verify(MockController.setUpdateGameStateFn(anything())).never()
+      },
+
+      [`does NOT call again ${nameof(KeyboardInputHandler.prototype
+        .enable)}`]: ({ MockKeyboardInputHandler }) => {
+        verify(MockKeyboardInputHandler.enable()).never()
+      },
+
     },
 
     after,
@@ -95,15 +144,20 @@ a3(App, {
     arrange,
 
     act: arranged => {
-      const acted = mount(arranged)
-      acted.component.unmount()
-      return acted
+      const
+        mounted = mount(arranged),
+        { MockKeyboardInputHandler, sut } = mounted
+
+      resetCalls(MockKeyboardInputHandler)
+
+      sut.unmount()
+
+      return MockKeyboardInputHandler
     },
 
     assert: {
-      [`calls ${nameof(KeyboardInputHandler.prototype.disable)}`]: ({
-        MockKeyboardInputHandler,
-      }) => {
+      [`calls ${nameof(KeyboardInputHandler.prototype.disable)}`]:
+      MockKeyboardInputHandler => {
         verify(MockKeyboardInputHandler.disable()).once()
       },
     },
