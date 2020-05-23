@@ -7,7 +7,7 @@ import LevelParser from '../../domain/level/private/LevelParser'
 import LevelValidator from '../../domain/level/private/LevelValidator'
 import Mover from '../../domain/Mover'
 import Controller from '../../infra/Controller'
-import KeyboardInputHandler from '../../infra/KeyboardInputHandler'
+import KeyboardHandler from '../../infra/KeyboardHandler'
 import KeyMapper from '../../infra/KeyMapper'
 
 const
@@ -31,10 +31,10 @@ const
 
   controller = new Controller(),
 
-  keyboardInputHandler = new KeyboardInputHandler(
+  keyboardHandler = new KeyboardHandler(
     document,
     new KeyMapper(),
     controller,
   )
 
-export default { levelRepo, gameStateFactory, controller, keyboardInputHandler }
+export default { levelRepo, gameStateFactory, controller, keyboardHandler }

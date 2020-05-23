@@ -1,7 +1,7 @@
 import * as React from 'react'
 import GameState from '../domain/GameState'
 import Controller from '../infra/Controller'
-import KeyboardInputHandler from '../infra/KeyboardInputHandler'
+import KeyboardHandler from '../infra/KeyboardHandler'
 import nameof from '../my-libs/nameof'
 import './App.sass'
 import Board from './Board'
@@ -9,13 +9,13 @@ import Board from './Board'
 const App: React.FC<{
 
   gameState: GameState
-  keyboardInputHandler: KeyboardInputHandler
+  keyboardHandler: KeyboardHandler
   controller: Controller
 
 }> = ({
   gameState,
   controller,
-  keyboardInputHandler,
+  keyboardHandler,
 }) => {
   const [{ level, playerPos }, setGameState] = React.useState(gameState)
 
@@ -24,9 +24,9 @@ const App: React.FC<{
   }, [controller])
 
   React.useEffect(() => {
-    keyboardInputHandler.enable()
-    return () => keyboardInputHandler.disable()
-  }, [keyboardInputHandler])
+    keyboardHandler.enable()
+    return () => keyboardHandler.disable()
+  }, [keyboardHandler])
 
   return <main className={nameof(App)}>
     <Board level={level} playerPos={playerPos} />

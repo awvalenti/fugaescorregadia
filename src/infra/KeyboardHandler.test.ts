@@ -3,7 +3,7 @@ import { LEFT } from '../domain/Direction'
 import { a3, expect } from '../my-libs/my-testing-library'
 import nameof from '../my-libs/nameof'
 import Controller from './Controller'
-import KeyboardInputHandler from './KeyboardInputHandler'
+import KeyboardHandler from './KeyboardHandler'
 import KeyMapper from './KeyMapper'
 
 const arrange = () => {
@@ -14,7 +14,7 @@ const arrange = () => {
   return {
     MockDocument,
     MockController,
-    sut: new KeyboardInputHandler(
+    sut: new KeyboardHandler(
       instance(MockDocument),
       new KeyMapper(),
       instance(MockController),
@@ -22,13 +22,13 @@ const arrange = () => {
   }
 }
 
-a3(KeyboardInputHandler, {
+a3(KeyboardHandler, {
 
   constructor: {
     arrange: () => {
-      const originalBind = KeyboardInputHandler.prototype.onKeyDown.bind
+      const originalBind = KeyboardHandler.prototype.onKeyDown.bind
 
-      KeyboardInputHandler.prototype.onKeyDown.bind = function(thisArg: {}) {
+      KeyboardHandler.prototype.onKeyDown.bind = function(thisArg: {}) {
         return { bound: 'method', thisArg } as any
       }
 
@@ -36,7 +36,7 @@ a3(KeyboardInputHandler, {
     },
 
     act: ({ originalBind }: any) => ({
-      sut: new KeyboardInputHandler(
+      sut: new KeyboardHandler(
           {} as Document,
           {} as KeyMapper,
           {} as Controller,
@@ -45,19 +45,19 @@ a3(KeyboardInputHandler, {
     }),
 
     assert: {
-      [`binds ${nameof(KeyboardInputHandler.prototype.onKeyDown)}
+      [`binds ${nameof(KeyboardHandler.prototype.onKeyDown)}
       to this`]: ({ sut }: any) => {
         expect(sut.onKeyDown).to.deep.equal({ bound: 'method', thisArg: sut })
       },
     },
 
     after: ({ originalBind }: any) => {
-      KeyboardInputHandler.prototype.onKeyDown.bind = originalBind
+      KeyboardHandler.prototype.onKeyDown.bind = originalBind
     },
 
   },
 
-  [nameof(KeyboardInputHandler.prototype.enable)]: {
+  [nameof(KeyboardHandler.prototype.enable)]: {
     arrange,
 
     act: arranged => {
@@ -73,7 +73,7 @@ a3(KeyboardInputHandler, {
     },
   },
 
-  [nameof(KeyboardInputHandler.prototype.disable)]: {
+  [nameof(KeyboardHandler.prototype.disable)]: {
     arrange,
 
     act: arranged => {
@@ -91,7 +91,7 @@ a3(KeyboardInputHandler, {
     },
   },
 
-  [nameof(KeyboardInputHandler.prototype.onKeyDown)]: {
+  [nameof(KeyboardHandler.prototype.onKeyDown)]: {
     'when key is mapped': {
       arrange,
 
