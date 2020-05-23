@@ -1,7 +1,7 @@
 import Controller from './Controller'
 import KeyMapper from './KeyMapper'
 
-export default class KeyboardInputHandler {
+export default class KeyboardHandler {
 
   private readonly _document: Document
   private readonly _keyMapper: KeyMapper

@@ -7,7 +7,7 @@ ReactDOM.render(
   <App
     gameState={di.gameStateFactory.new()}
     controller={di.controller}
-    keyboardInputHandler={di.keyboardInputHandler}
+    keyboardHandler={di.keyboardHandler}
   />,
   document.getElementById('react-root')
 )
