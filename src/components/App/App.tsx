@@ -1,11 +1,9 @@
 import * as React from 'react'
 import GameState from '../../domain/GameState'
-import { UpdateGameStateFn } from '../../infra/Controller'
 import nameof from '../../my-libs/nameof'
 import Board from '../Board'
 import './App.sass'
-
-export type UseController = (arg0: UpdateGameStateFn) => void
+import UseController from './UseController'
 
 const App: React.FC<{
 
@@ -18,7 +16,7 @@ const App: React.FC<{
 }) => {
   const [{ level, playerPos }, setGameState] = React.useState(gameState)
 
-  useController(setGameState)
+  useController.run(setGameState)
 
   return <main className={nameof(App)}>
     <Board level={level} playerPos={playerPos} />

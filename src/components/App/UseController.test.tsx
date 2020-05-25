@@ -4,7 +4,7 @@ import Controller, { UpdateGameStateFn } from '../../infra/Controller'
 import KeyboardHandler from '../../infra/KeyboardHandler'
 import { a3 } from '../../my-libs/my-testing-library'
 import nameof from '../../my-libs/nameof'
-import useController from './useController'
+import UseController from './UseController'
 
 const arrange = () => {
   const
@@ -30,8 +30,8 @@ const mount = ({
   setGameState,
   ...rest
 }: any) => ({
-  sut: renderHook(() => useController(
-    controller, keyboardHandler, setGameState)),
+  sut: renderHook(() => new UseController(
+    controller, keyboardHandler).run(setGameState)),
   setGameState,
   ...rest,
 })
@@ -40,7 +40,7 @@ const after = () => {
   cleanup()
 }
 
-a3(useController, {
+a3(UseController, {
   'on mount': {
     arrange,
     act: mount,
