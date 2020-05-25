@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
-import sinon from 'sinon'
+import { anyFunction, anything, instance, mock, resetCalls, verify, when } from 'ts-mockito'
 import GameState from '../../domain/GameState'
 import Level from '../../domain/level/Level'
 import Position from '../../domain/Position'
@@ -9,32 +9,39 @@ import Mooca from '../../my-libs/mooca'
 import { a3, cleanup, expect, render } from '../../my-libs/my-testing-library'
 import nameof from '../../my-libs/nameof'
 import * as Board from '../Board'
-import App, { UseController } from './App'
+import App from './App'
+import UseController from './UseController'
 
 const arrange = () => {
   const mooca = new Mooca()
   mooca.stub(Board, ({ level, playerPos }) => <>{level},{playerPos}</>)
 
-  const
-    gameState = {
+  const ref: { updateGameState?: UpdateGameStateFn } = {}
+
+  const UseControllerMock = mock(UseController)
+  when(UseControllerMock.run(anyFunction())).thenCall(fn => {
+    ref.updateGameState = fn
+  })
+
+  return {
+    gameState: {
       level: 'level-1' as unknown as Level,
       playerPos: 'pos-1' as unknown as Position,
     } as GameState,
-
-    ref: { updateGameState?: UpdateGameStateFn } = {},
-
-    useController = sinon.spy<UseController>(fn => {
-      ref.updateGameState = fn
-    })
-
-  return { gameState, useController, mooca, ref }
+    useController: instance(UseControllerMock),
+    UseControllerMock,
+    mooca,
+    ref,
+  }
 }
 
-const mount = ({ gameState, useController, mooca, ref }: any) => ({
-  sut: render(<App gameState={gameState} useController={useController} />),
+const mount = ({ gameState, useController, ...rest }: any) => ({
+  sut: render(<App
+    gameState={gameState}
+    useController={useController}
+  />),
   useController,
-  mooca,
-  ref,
+  ...rest,
 })
 
 const after = ({ mooca }: { mooca: Mooca }) => {
@@ -54,8 +61,9 @@ a3(App, {
         ))
       },
 
-      'calls useController': ({ useController }) => {
-        expect(useController).calledOnceWithExactly(sinon.match.func)
+      [`runs ${nameof(UseController)}`]: ({ UseControllerMock }) => {
+        verify(UseControllerMock.run(anything())).once()
+        verify(UseControllerMock.run(anyFunction())).called()
       },
     },
     after,
@@ -67,9 +75,9 @@ a3(App, {
     act: arranged => {
       const
         mounted = mount(arranged),
-        { useController, ref: { updateGameState } } = mounted
+        { UseControllerMock, ref: { updateGameState } } = mounted
 
-      useController.resetHistory()
+      resetCalls(UseControllerMock)
 
       updateGameState({ level: 'level-2', playerPos: 'pos-2' })
 
@@ -84,8 +92,9 @@ a3(App, {
         ))
       },
 
-      'calls useController': ({ useController }) => {
-        expect(useController).calledOnceWithExactly(sinon.match.func)
+      [`runs ${nameof(UseController)}`]: ({ UseControllerMock }) => {
+        verify(UseControllerMock.run(anything())).once()
+        verify(UseControllerMock.run(anyFunction())).called()
       },
     },
 
