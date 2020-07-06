@@ -6,12 +6,10 @@ if [ -z $1 ]; then
 fi
 
 for file in $*; do
-  path=src/$file
-
   containing_folder=${BASH_REMATCH[2]}
-  [[ $path =~ ((.+\/)*)(.+) ]] && mkdir -p containing_folder
+  [[ $file =~ ((.+\/)*)(.+) ]] && mkdir -p containing_folder
 
   module_name=${BASH_REMATCH[3]}
-  printf "export default class $module_name {\n\n  HERE\n\n}\n" > $path.ts
-  printf "import { a3, cleanup, expect, Mooca, render } from './my-libs/my-testing-library'\nimport $module_name from './$module_name'\n\na3($module_name, {\n\n  HERE\n\n})\n" > $path.test.ts
+  printf "export default class $module_name {\n\n  HERE\n\n}\n" > $file.ts
+  printf "import { a3, cleanup, expect, Mooca, render } from './my-libs/my-testing-library'\nimport $module_name from './$module_name'\n\na3($module_name, {\n\n  HERE\n\n})\n" > $file.test.ts
 done
