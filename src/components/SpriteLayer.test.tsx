@@ -1,22 +1,21 @@
 import * as React from 'react'
-import { PLAYER } from '../domain/TileId'
 import { a3, cleanup, expect, Mooca, render } from '../my-libs/my-testing-library'
 import nameof from '../my-libs/nameof'
+import * as PlayerTile from './PlayerTile'
 import SpriteLayer from './SpriteLayer'
-import * as Tile from './Tile'
 
 a3(SpriteLayer, {
   arrange: () => {
     const mooca = new Mooca()
 
-    mooca.stub(Tile, ({ tileId, style }) => <p style={style}>{tileId}</p>)
+    mooca.stub(PlayerTile, ({ playerPos: { row, col } }) => <p>{row},{col}</p>)
 
     return {
       mooca,
       component: render(<SpriteLayer
         rowCount={100}
         colCount={40}
-        playerPos={{ row: 1, col: 2 }}
+        playerPos={{ row: 10, col: 20 }}
       />),
     }
   },
@@ -24,26 +23,21 @@ a3(SpriteLayer, {
   act: ({ component: { container: ret } }) => ret,
 
   assert: {
-    'renders a single root element': ({ children }) => {
-      expect(children).to.have.length(1)
-    },
-
     'renders a <div>': ({ firstElementChild }) => {
       expect(firstElementChild).to.be.instanceof(HTMLDivElement)
     },
 
-    [`renders a <${nameof(Tile)}> for ${PLAYER}`]: ({ firstElementChild }) => {
-      expect(firstElementChild.querySelector('p')).to.have.property(
-        'textContent', 'PLAYER')
+    'sets className': ({ firstElementChild }) => {
+      expect(firstElementChild).to.have.property('className', 'SpriteLayer')
     },
 
-    'sets dimensions correctly': ({ firstElementChild: { style } }) => {
+    'sets dimensions using row/col count': ({ firstElementChild: { style } }) => {
       expect([style.width, style.height]).to.deep.equal(['2.5%', '1%'])
     },
 
-    [`sets ${PLAYER} translation correctly`]: ({ firstElementChild }) => {
-      expect(firstElementChild.querySelector('p')).to.have.nested.property(
-        'style.transform', 'translate(200%, 100%)')
+    [`renders a <${nameof(PlayerTile)}>`]: ({ firstElementChild }) => {
+      expect(firstElementChild.querySelector('p')).to.have.property(
+        'textContent', '10,20')
     },
 
   },

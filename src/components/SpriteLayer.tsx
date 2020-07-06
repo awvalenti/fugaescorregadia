@@ -1,9 +1,8 @@
 import * as React from 'react'
 import Position from '../domain/Position'
-import { PLAYER } from '../domain/TileId'
 import nameof from '../my-libs/nameof'
+import PlayerTile from './PlayerTile'
 import './SpriteLayer.sass'
-import Tile from './Tile'
 
 const SpriteLayer: React.FC<{
 
@@ -14,16 +13,13 @@ const SpriteLayer: React.FC<{
 }> = ({
   rowCount,
   colCount,
-  playerPos: { row, col },
+  playerPos,
 }) =>
   <div className={nameof(SpriteLayer)} style={{
     width: `${100 / colCount}%`,
     height: `${100 / rowCount}%`,
   }}>
-    <Tile
-      tileId={PLAYER}
-      style={{ transform: `translate(${col * 100}%, ${row * 100}%)` }}
-    />
+    <PlayerTile playerPos={playerPos} />
   </div>
 
 export default SpriteLayer
