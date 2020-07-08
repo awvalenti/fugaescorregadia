@@ -19,7 +19,7 @@ const SpriteLayer: React.FC<{
     width: `${100 / colCount}%`,
     height: `${100 / rowCount}%`,
   }}>
-    <PlayerTile playerPos={playerPos} />
+    <PlayerTile currentPos={playerPos} />
   </div>
 
 export default SpriteLayer
