@@ -8,7 +8,7 @@ a3(SpriteLayer, {
   arrange: () => {
     const mooca = new Mooca()
 
-    mooca.stub(PlayerTile, ({ playerPos: { row, col } }) => <p>{row},{col}</p>)
+    mooca.stub(PlayerTile, ({ currentPos: { row, col } }) => <p>{row},{col}</p>)
 
     return {
       mooca,

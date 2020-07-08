@@ -4,6 +4,10 @@ import { a3, cleanup, expect, render } from '../my-libs/my-testing-library'
 import nameof from '../my-libs/nameof'
 import Tile from './Tile'
 
+const after = () => {
+  cleanup()
+}
+
 a3(Tile, {
   'without style': {
     arrange: () => render(<Tile tileId={OBSTACLE} />),
@@ -18,9 +22,7 @@ a3(Tile, {
       },
     },
 
-    after: () => {
-      cleanup()
-    },
+    after,
 
   },
 
@@ -37,9 +39,7 @@ a3(Tile, {
       },
     },
 
-    after: () => {
-      cleanup()
-    },
+    after,
 
   },
 
