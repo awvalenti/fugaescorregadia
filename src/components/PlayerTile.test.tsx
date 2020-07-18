@@ -1,77 +1,45 @@
 import * as React from 'react'
-import Position from '../domain/Position'
 import { PLAYER } from '../domain/TileId'
-import { a3, cleanup, each, expect, Mooca, render } from '../my-libs/my-testing-library'
+import { a3, cleanup, expect, Mooca, render } from '../my-libs/my-testing-library'
 import nameof from '../my-libs/nameof'
+import * as usePrevious from './hooks/usePrevious'
 import PlayerTile from './PlayerTile'
 import * as Tile from './Tile'
 
-const arrange = (currentPos: Position) => {
-  const mooca = new Mooca()
-
-  mooca.stub(Tile, ({ tileId, style }) => <p style={style}>{tileId}</p>)
-
-  return {
-    mooca,
-    component: render(<PlayerTile currentPos={currentPos} />),
-  }
-}
-
-const after = ({ mooca }: { mooca: Mooca }) => {
-  mooca.restore()
-  cleanup()
-}
-
 a3(PlayerTile, {
-  'on mount': {
-    arrange: () => arrange({ row: 1, col: 2 }),
+  arrange: () => {
+    const mooca = new Mooca()
+    mooca.stub(Tile, ({ tileId, style }) => <p style={style}>{tileId}</p>)
+    mooca.stub(usePrevious, () => ({ row: 2, col: 4 }))
 
-    act: ({ component: { container: ret } }) => ret,
+    return {
+      mooca,
+      component: render(<PlayerTile currentPos={({ row: 1, col: 2 })} />),
+    }
+  },
 
-    assert: {
-      [`renders a ${PLAYER} <${nameof(Tile)}>`]: ({ firstElementChild }) => {
-        expect(firstElementChild).to.have.property('textContent', 'PLAYER')
-      },
+  act: ({ component: { container: ret } }) => ret,
 
-      'sets translation to 100% * position (x for col, y for row)':
-      ({ firstElementChild }) => {
-        expect(firstElementChild).to.have.nested.property(
-          'style.transform', 'translate(200%, 100%)')
-      },
-
-      'sets animation duration to zero': ({ firstElementChild }) => {
-        expect(firstElementChild).to.have.nested.property(
-          'style.transitionDuration', '0ms')
-      },
+  assert: {
+    [`renders a ${PLAYER} <${nameof(Tile)}>`]: ({ firstElementChild }) => {
+      expect(firstElementChild).to.have.property('textContent', 'PLAYER')
     },
 
-    after,
+    'sets translation to (100% * col, 100% * row)': ({ firstElementChild }) => {
+      expect(firstElementChild).to.have.nested.property(
+        'style.transform', 'translate(200%, 100%)')
+    },
+
+    'sets animation duration to 40ms * (deltaRow + deltaCol)':
+    ({ firstElementChild }) => {
+      expect(firstElementChild).to.have.nested.property(
+        'style.transitionDuration', '120ms')
+    },
   },
 
-  'on rerender': {
-    ...each([
-      [1, 0, 40],
-      [0, 2, 80],
-    ], ([row, col, duration]) => ({
-      [`moving to { row: ${row}, col: ${col}}`]: {
-        arrange: () => arrange({ row: 0, col: 0 }),
-
-        act: ({ component: { rerender, container } }) => {
-          rerender(<PlayerTile currentPos={{ row, col }} />)
-          return container
-        },
-
-        assert: {
-          [`sets animation duration to ${duration}ms`]:
-          ({ firstElementChild }) => {
-            expect(firstElementChild).to.have.nested.property(
-              'style.transitionDuration', `${duration}ms`)
-          },
-        },
-
-        after,
-
-      },
-    })),
+  after: ({ mooca }: { mooca: Mooca }) => {
+    mooca.restore()
+    cleanup()
   },
+
 })

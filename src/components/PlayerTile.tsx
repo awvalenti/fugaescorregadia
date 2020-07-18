@@ -1,10 +1,8 @@
 import * as React from 'react'
-import { useRef } from 'react'
 import Position from '../domain/Position'
 import { PLAYER } from '../domain/TileId'
+import usePrevious from './hooks/usePrevious'
 import Tile from './Tile'
-
-const ANIMATION_STEP_DURATION = 40
 
 const PlayerTile: React.FC<{
 
@@ -13,17 +11,17 @@ const PlayerTile: React.FC<{
 }> = ({
   currentPos,
 }) => {
-  const previousPosRef = useRef(currentPos)
-  const previousPos = previousPosRef.current
-  previousPosRef.current = currentPos
-  const { row, col } = currentPos
+  const
+    prevPos = usePrevious(currentPos),
+    { row, col } = currentPos,
+    animationStepDuration = 40
 
   return <Tile
     tileId={PLAYER}
     style={{
       transform: `translate(${col * 100}%, ${row * 100}%)`,
-      transitionDuration: `${(Math.abs(previousPos.row - row) +
-        Math.abs(previousPos.col - col)) * ANIMATION_STEP_DURATION}ms`,
+      transitionDuration: `${(Math.abs(prevPos.row - row) +
+        Math.abs(prevPos.col - col)) * animationStepDuration}ms`,
     }}
   />
 }
