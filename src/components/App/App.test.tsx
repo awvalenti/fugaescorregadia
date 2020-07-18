@@ -50,7 +50,7 @@ const after = ({ mooca }: { mooca: Mooca }) => {
 }
 
 a3(App, {
-  'on mount': {
+  'on first render': {
     arrange,
     act: mount,
     assert: {
