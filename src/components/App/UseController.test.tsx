@@ -41,7 +41,7 @@ const after = () => {
 }
 
 a3(UseController, {
-  'on mount': {
+  'on first render': {
     arrange,
     act: mount,
     assert: {
