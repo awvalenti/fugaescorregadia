@@ -7,15 +7,20 @@ type Internal<Arranged, Acted> = {
   [key: string]: TestSpec<Arranged, Acted>
 }
 
+type Assert<Acted> = { [key: string]: (arg0: Acted) => void }
+
 type Leaf<Arranged, Acted> = {
   arrange?: () => Arranged
   act?: (arg0: Arranged) => Acted
-  assert: { [key: string]: (arg0: Acted) => void }
   after?: (arg0: Arranged) => void
-}
+} & (
+  { assert: Assert<Acted> }
+  |
+  { xassert: Assert<Acted> }
+)
 
 const isLeaf = <Arranged, Acted>(n: TestSpec<Arranged, Acted>):
-  n is Leaf<Arranged, Acted> => 'assert' in n
+  n is Leaf<Arranged, Acted> => 'assert' in n || 'xassert' in n
 
 function _a3<Arranged, Acted>(
   sut: string,
@@ -25,7 +30,7 @@ function _a3<Arranged, Acted>(
   describe(sut, () => {
     for (const node of Array.isArray(nodeOrArray) ? nodeOrArray : [nodeOrArray]) {
       if (isLeaf(node)) {
-        const { arrange, act, assert, after: afterBlock } = node
+        const { arrange, act, after: afterBlock } = node
 
         let arranged: any, acted: any
 
@@ -34,12 +39,19 @@ function _a3<Arranged, Acted>(
           acted = act ? act(arranged) : arranged
         })
 
-        Object.keys(assert).forEach(assertTitle => {
-          const assertFn = assert[assertTitle]
-          it(assertTitle, () => {
-            assertFn(acted)
+        if ('xassert' in node) {
+          Object.keys(node.xassert).forEach(title => {
+            xit(title)
           })
-        })
+        } else if ('assert' in node) {
+          const { assert } = node
+          Object.keys(assert).forEach(assertTitle => {
+            const assertFn = assert[assertTitle]
+            it(assertTitle, () => {
+              assertFn(acted)
+            })
+          })
+        }
 
         if (afterBlock) after(() => afterBlock(arranged))
 
