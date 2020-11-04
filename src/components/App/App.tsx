@@ -17,7 +17,7 @@ const App: React.FC<{
 }) => {
   const [{ level, playerPos }, setGameState] = useState(gameState)
 
-  useController.run(setGameState)
+  useController.run$(setGameState)
 
   return <main className={nameof(App)}>
     <Board level={level} playerPos={playerPos} />
