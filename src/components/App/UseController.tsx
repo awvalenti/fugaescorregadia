@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import Controller, { UpdateGameStateFn } from '../../infra/Controller'
+import Controller, { UpdateGameStateFn$ } from '../../infra/Controller'
 import KeyboardHandler from '../../infra/KeyboardHandler'
 
 export default class UseController {
@@ -12,14 +12,14 @@ export default class UseController {
     this._keyboardHandler = keyboardHandler
   }
 
-  run(updateGameStateFn: UpdateGameStateFn): void {
+  run$(updateGameStateFn: UpdateGameStateFn$): void {
     useEffect(() => {
-      this._controller.setUpdateGameStateFn(updateGameStateFn)
+      this._controller.setUpdateGameStateFn$(updateGameStateFn)
     }, [updateGameStateFn])
 
     useEffect(() => {
-      this._keyboardHandler.enable()
-      return () => this._keyboardHandler.disable()
+      this._keyboardHandler.enable$()
+      return () => this._keyboardHandler.disable$()
     }, [])
   }
 

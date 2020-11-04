@@ -7,10 +7,10 @@ import Controller, { NextGameStateFn } from './Controller'
 
 a3(Controller, {
 
-  [nameof(Controller.prototype.dispatchMove)]: {
+  [nameof(Controller.prototype.dispatchMove$)]: {
     'when updateGameStateFn is NOT set': {
       arrange: () => new Controller(),
-      act: sut => () => sut.dispatchMove(RIGHT),
+      act: sut => () => sut.dispatchMove$(RIGHT),
       assert: {
         'does NOT throw error': fn => {
           expect(fn).not.to.throw()
@@ -27,7 +27,7 @@ a3(Controller, {
 
         const sut = new Controller()
 
-        sut.setUpdateGameStateFn((next: NextGameStateFn) => {
+        sut.setUpdateGameStateFn$((next: NextGameStateFn) => {
           ref.current = next(initial)
         })
 
@@ -35,7 +35,7 @@ a3(Controller, {
       },
 
       act: ({ sut, ref, final }) => {
-        sut.dispatchMove(RIGHT)
+        sut.dispatchMove$(RIGHT)
         return { actual: ref.current, expected: final }
       },
 

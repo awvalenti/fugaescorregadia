@@ -16,20 +16,21 @@ export default class KeyboardHandler {
     this._keyMapper = keyMapper
     this._controller = controller
 
-    this.onKeyDown = this.onKeyDown.bind(this)
+    // TODO Refactor
+    this.onKeyDown$ = this.onKeyDown$.bind(this)
   }
 
-  enable(): void {
-    this._document.addEventListener('keydown', this.onKeyDown)
+  enable$(): void {
+    this._document.addEventListener('keydown', this.onKeyDown$)
   }
 
-  disable(): void {
-    this._document.removeEventListener('keydown', this.onKeyDown)
+  disable$(): void {
+    this._document.removeEventListener('keydown', this.onKeyDown$)
   }
 
-  onKeyDown({ code }: KeyboardEvent): void {
+  onKeyDown$({ code }: KeyboardEvent): void {
     const dir = this._keyMapper.directionFor(code)
-    if (dir) this._controller.dispatchMove(dir)
+    if (dir) this._controller.dispatchMove$(dir)
   }
 
 }

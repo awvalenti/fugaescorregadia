@@ -4,7 +4,7 @@ import { anyFunction, anything, instance, mock, resetCalls, verify, when } from 
 import GameState from '../../domain/GameState'
 import Level from '../../domain/level/Level'
 import Position from '../../domain/Position'
-import { UpdateGameStateFn } from '../../infra/Controller'
+import { UpdateGameStateFn$ } from '../../infra/Controller'
 import Mooca from '../../my-libs/mooca'
 import { a3, cleanup, expect, render } from '../../my-libs/my-testing-library'
 import nameof from '../../my-libs/nameof'
@@ -16,10 +16,10 @@ const arrange = () => {
   const mooca = new Mooca()
   mooca.stub(Board, ({ level, playerPos }) => <>{level},{playerPos}</>)
 
-  const ref: { updateGameState?: UpdateGameStateFn } = {}
+  const ref: { updateGameState?: UpdateGameStateFn$ } = {}
 
   const UseControllerMock = mock(UseController)
-  when(UseControllerMock.run(anyFunction())).thenCall(fn => {
+  when(UseControllerMock.run$(anyFunction())).thenCall(fn => {
     ref.updateGameState = fn
   })
 
@@ -62,8 +62,8 @@ a3(App, {
       },
 
       [`runs ${nameof(UseController)}`]: ({ UseControllerMock }) => {
-        verify(UseControllerMock.run(anything())).once()
-        verify(UseControllerMock.run(anyFunction())).called()
+        verify(UseControllerMock.run$(anything())).once()
+        verify(UseControllerMock.run$(anyFunction())).called()
       },
     },
     after,
@@ -93,8 +93,8 @@ a3(App, {
       },
 
       [`runs ${nameof(UseController)}`]: ({ UseControllerMock }) => {
-        verify(UseControllerMock.run(anything())).once()
-        verify(UseControllerMock.run(anyFunction())).called()
+        verify(UseControllerMock.run$(anything())).once()
+        verify(UseControllerMock.run$(anyFunction())).called()
       },
     },
 

@@ -1,6 +1,6 @@
 import { cleanup, renderHook } from '@testing-library/react-hooks'
 import { anything, instance, mock, resetCalls, verify } from 'ts-mockito'
-import Controller, { UpdateGameStateFn } from '../../infra/Controller'
+import Controller, { UpdateGameStateFn$ } from '../../infra/Controller'
 import KeyboardHandler from '../../infra/KeyboardHandler'
 import { a3 } from '../../my-libs/my-testing-library'
 import nameof from '../../my-libs/nameof'
@@ -12,7 +12,7 @@ const arrange = () => {
     MockKeyboardHandler = mock(KeyboardHandler),
     controller = instance(MockController),
     keyboardHandler = instance(MockKeyboardHandler),
-    setGameState = {} as UpdateGameStateFn
+    setGameState = {} as UpdateGameStateFn$
 
   return {
     MockController,
@@ -31,7 +31,7 @@ const mount = ({
   ...rest
 }: any) => ({
   sut: renderHook(() => new UseController(
-    controller, keyboardHandler).run(setGameState)),
+    controller, keyboardHandler).run$(setGameState)),
   setGameState,
   ...rest,
 })
@@ -45,15 +45,15 @@ a3(UseController, {
     arrange,
     act: mount,
     assert: {
-      [`calls ${nameof(Controller.prototype.setUpdateGameStateFn)}`]:
+      [`calls ${nameof(Controller.prototype.setUpdateGameStateFn$)}`]:
       ({ MockController, setGameState }) => {
-        verify(MockController.setUpdateGameStateFn(anything())).once()
-        verify(MockController.setUpdateGameStateFn(setGameState)).called()
+        verify(MockController.setUpdateGameStateFn$(anything())).once()
+        verify(MockController.setUpdateGameStateFn$(setGameState)).called()
       },
 
-      [`calls ${nameof(KeyboardHandler.prototype.enable)}`]:
+      [`calls ${nameof(KeyboardHandler.prototype.enable$)}`]:
       ({ MockKeyboardHandler }) => {
-        verify(MockKeyboardHandler.enable()).once()
+        verify(MockKeyboardHandler.enable$()).once()
       },
     },
     after,
@@ -77,13 +77,13 @@ a3(UseController, {
 
     assert: {
       [`does NOT call again ${nameof(Controller.prototype
-        .setUpdateGameStateFn)}`]: ({ MockController }) => {
-        verify(MockController.setUpdateGameStateFn(anything())).never()
+        .setUpdateGameStateFn$)}`]: ({ MockController }) => {
+        verify(MockController.setUpdateGameStateFn$(anything())).never()
       },
 
       [`does NOT call again ${nameof(KeyboardHandler.prototype
-        .enable)}`]: ({ MockKeyboardHandler }) => {
-        verify(MockKeyboardHandler.enable()).never()
+        .enable$)}`]: ({ MockKeyboardHandler }) => {
+        verify(MockKeyboardHandler.enable$()).never()
       },
     },
 
@@ -106,9 +106,9 @@ a3(UseController, {
     },
 
     assert: {
-      [`calls ${nameof(KeyboardHandler.prototype.disable)}`]:
+      [`calls ${nameof(KeyboardHandler.prototype.disable$)}`]:
       MockKeyboardHandler => {
-        verify(MockKeyboardHandler.disable()).once()
+        verify(MockKeyboardHandler.disable$()).once()
       },
     },
 
