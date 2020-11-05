@@ -12,10 +12,10 @@ export default class UseController {
     this._keyboardHandler = keyboardHandler
   }
 
-  run$(updateGameStateFn: UpdateGameStateFn$): void {
+  run$(updateGameStateFn$: UpdateGameStateFn$): void {
     useEffect(() => {
-      this._controller.setUpdateGameStateFn$(updateGameStateFn)
-    }, [updateGameStateFn])
+      this._controller.setUpdateGameStateFn$(updateGameStateFn$)
+    }, [updateGameStateFn$])
 
     useEffect(() => {
       this._keyboardHandler.enable$()

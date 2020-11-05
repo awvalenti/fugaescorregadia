@@ -7,6 +7,7 @@ ReactDOM.render(
   <App
     gameState={di.gameStateFactory.new()}
     useController={di.useController}
+    moveFinishedListener={di.moveFinishedListener}
   />,
   document.getElementById('react-root')
 )

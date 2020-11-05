@@ -23,14 +23,17 @@ a3(Board, {
 
     return {
       mooca,
-      component: render(<Board playerPos={{ row: 1, col: 0 }} level={{
-        rowCount: 2,
-        colCount: 3,
-        background: [
-          [EMPTY, EMPTY, OBSTACLE],
-          [PLAYER, EMPTY, GOAL],
-        ],
-      } as Level} />),
+      component: render(<Board
+        playerPos={{ row: 1, col: 0 }}
+        moveFinishedListener={{ moveFinished$: () => {} }}
+        level={{
+          rowCount: 2,
+          colCount: 3,
+          background: [
+            [EMPTY, EMPTY, OBSTACLE],
+            [PLAYER, EMPTY, GOAL],
+          ],
+        } as Level} />),
     }
   },
 
