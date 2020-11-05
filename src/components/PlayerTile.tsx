@@ -7,9 +7,10 @@ import Tile from './Tile'
 const PlayerTile: React.FC<{
 
   currentPos: Position
-
+ote: () => void
 }> = ({
   currentPos,
+  ote,
 }) => {
   const
     prevPos = usePrevious(currentPos),
@@ -23,6 +24,7 @@ const PlayerTile: React.FC<{
       transitionDuration: `${(Math.abs(prevPos.row - row) +
         Math.abs(prevPos.col - col)) * animationStepDuration}ms`,
     }}
+    onTransitionEnd={ote}
   />
 }
 

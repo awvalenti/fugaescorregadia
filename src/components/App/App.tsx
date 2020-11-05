@@ -6,6 +6,8 @@ import Board from '../Board'
 import UseController from '../hooks/UseController'
 import './App.sass'
 
+const pc = {}
+
 const App: React.FC<{
 
   gameState: GameState
@@ -17,11 +19,33 @@ const App: React.FC<{
 }) => {
   const [{ level, playerPos }, setGameState] = useState(gameState)
 
-  useController.run$(setGameState)
+  function ote() {
+    console.log('pc.resolve')
 
-  return <main className={nameof(App)}>
-    <Board level={level} playerPos={playerPos} />
+    pc.resolve()
+    // pc.resolve = null
+  }
+
+  // console.time('setgamestate1')
+  useController.run$(async gs => {
+    // if (pc.resolve) return
+    // console.time('setgamestate')
+
+    setGameState(gs)
+    await new Promise(resolve => {
+      pc.resolve = resolve
+      // setTimeout(resolve, 40 * 20)
+    })
+  })
+
+  const x = <main className={nameof(App)}>
+    <Board level={level} playerPos={playerPos} ote={ote}/>
   </main>
+
+  // console.timeEnd('setgamestate1')
+  // console.timeEnd('setgamestate')
+
+  return x
 }
 
 export default App

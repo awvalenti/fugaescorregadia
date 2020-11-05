@@ -5,6 +5,7 @@ import PlayerTile from './PlayerTile'
 import './SpriteLayer.sass'
 
 const SpriteLayer: React.FC<{
+  ote: () => void
 
   rowCount: number
   colCount: number
@@ -14,12 +15,13 @@ const SpriteLayer: React.FC<{
   rowCount,
   colCount,
   playerPos,
+  ote,
 }) =>
   <div className={nameof(SpriteLayer)} style={{
     width: `${100 / colCount}%`,
     height: `${100 / rowCount}%`,
   }}>
-    <PlayerTile currentPos={playerPos} />
+    <PlayerTile currentPos={playerPos} ote={ote}/>
   </div>
 
 export default SpriteLayer
