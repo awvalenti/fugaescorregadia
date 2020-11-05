@@ -1,4 +1,4 @@
-import UseController from '../../components/App/UseController'
+import UseController from '../../components/hooks/UseController'
 import GameState from '../../domain/GameState'
 import BoundsChecker from '../../domain/level/BoundsChecker'
 import LevelRepo from '../../domain/level/LevelRepo'

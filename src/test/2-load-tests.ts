@@ -1,7 +1,7 @@
 import '../components/App/App.test'
-import '../components/App/UseController.test'
 import '../components/BackgroundLayer.test'
 import '../components/Board.test'
+import '../components/hooks/UseController.test'
 import '../components/hooks/usePrevious.test'
 import '../components/PlayerTile.test'
 import '../components/SpriteLayer.test'
