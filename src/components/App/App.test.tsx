@@ -9,8 +9,8 @@ import Mooca from '../../my-libs/mooca'
 import { a3, cleanup, expect, render } from '../../my-libs/my-testing-library'
 import nameof from '../../my-libs/nameof'
 import * as Board from '../Board'
+import UseController from '../hooks/UseController'
 import App from './App'
-import UseController from './UseController'
 
 const arrange = () => {
   const mooca = new Mooca()

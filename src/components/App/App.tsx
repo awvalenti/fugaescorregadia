@@ -3,8 +3,8 @@ import { useState } from 'react'
 import GameState from '../../domain/GameState'
 import nameof from '../../my-libs/nameof'
 import Board from '../Board'
+import UseController from '../hooks/UseController'
 import './App.sass'
-import UseController from './UseController'
 
 const App: React.FC<{
 
