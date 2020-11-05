@@ -9,6 +9,7 @@ import LevelValidator from '../../domain/level/private/LevelValidator'
 import Mover from '../../domain/Mover'
 import Controller from '../../infra/Controller'
 import KeyboardHandler from '../../infra/KeyboardHandler'
+import KeyDownListener from '../../infra/KeyDownListener'
 import KeyMapper from '../../infra/KeyMapper'
 
 const
@@ -34,8 +35,7 @@ const
 
   keyboardHandler = new KeyboardHandler(
     document,
-    new KeyMapper(),
-    controller,
+    new KeyDownListener(new KeyMapper(), controller),
   ),
 
   useController = new UseController(controller, keyboardHandler)

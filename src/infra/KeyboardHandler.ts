@@ -1,36 +1,25 @@
-import Controller from './Controller'
-import KeyMapper from './KeyMapper'
+import KeyDownListener from './KeyDownListener'
 
 export default class KeyboardHandler {
 
   private readonly _document: Document
-  private readonly _keyMapper: KeyMapper
-  private readonly _controller: Controller
+  private readonly _keyDownListener: KeyDownListener
 
   constructor(
     document: Document,
-    keyMapper: KeyMapper,
-    controller: Controller,
+    keyDownListener: KeyDownListener,
   ) {
     this._document = document
-    this._keyMapper = keyMapper
-    this._controller = controller
-
-    // TODO Refactor
-    this.onKeyDown$ = this.onKeyDown$.bind(this)
+    this._keyDownListener = keyDownListener
   }
 
   enable$(): void {
-    this._document.addEventListener('keydown', this.onKeyDown$)
+    this._document.addEventListener('keydown', this._keyDownListener.onKeyDown$)
   }
 
   disable$(): void {
-    this._document.removeEventListener('keydown', this.onKeyDown$)
-  }
-
-  onKeyDown$({ code }: KeyboardEvent): void {
-    const dir = this._keyMapper.directionFor(code)
-    if (dir) this._controller.dispatchMove$(dir)
+    this._document.removeEventListener('keydown', this._keyDownListener.
+      onKeyDown$)
   }
 
 }
