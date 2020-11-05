@@ -39,6 +39,7 @@ const mount = ({ gameState, useController, ...rest }: any) => ({
   sut: render(<App
     gameState={gameState}
     useController={useController}
+    moveFinishedListener={{ moveFinished$: () => {} }}
   />),
   useController,
   ...rest,
