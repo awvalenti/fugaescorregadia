@@ -1,3 +1,4 @@
+import sinon from 'sinon'
 import { anything, instance, mock, verify } from 'ts-mockito'
 import { LEFT } from '../domain/Direction'
 import { a3, expect } from '../my-libs/my-testing-library'
@@ -22,33 +23,28 @@ const arrange = () => {
 a3(KeyDownListener, {
 
   constructor: {
-    arrange: () => {
-      const originalBind = KeyDownListener.prototype.onKeyDown$.bind
+    arrange: () => ({
+      // @ts-expect-error: @types/sinon does not include this overload
+      bindSpy: sinon.spy(KeyDownListener.prototype.onKeyDown$, 'bind'),
+    }),
 
-      KeyDownListener.prototype.onKeyDown$.bind = function(thisArg: {}) {
-        return { bound: 'method', thisArg } as any
-      }
-
-      return { originalBind }
-    },
-
-    act: ({ originalBind }: any) => ({
+    act: ({ bindSpy }: any) => ({
+      bindSpy,
       sut: new KeyDownListener(
-          {} as KeyMapper,
-          {} as Controller,
+        {} as KeyMapper,
+        {} as Controller,
       ),
-      originalBind,
     }),
 
     assert: {
-      [`binds ${nameof(KeyDownListener.prototype.onKeyDown$)}
-      to this`]: ({ sut }: any) => {
-        expect(sut.onKeyDown$).to.deep.equal({ bound: 'method', thisArg: sut })
+      [`binds ${nameof(KeyDownListener.prototype.onKeyDown$)}`]:
+      ({ bindSpy, sut }: any) => {
+        expect(bindSpy).to.have.been.calledOnceWithExactly(sut)
       },
     },
 
-    after: ({ originalBind }: any) => {
-      KeyDownListener.prototype.onKeyDown$.bind = originalBind
+    after: ({ bindSpy }: any) => {
+      bindSpy.restore()
     },
 
   },
@@ -63,9 +59,8 @@ a3(KeyDownListener, {
       },
 
       assert: {
-        [`calls ${nameof(Controller.prototype.dispatchMove$)}`]: ({
-          MockController,
-        }) => {
+        [`calls ${nameof(Controller.prototype.dispatchMove$)}`]:
+        ({ MockController }) => {
           verify(MockController.dispatchMove$(anything())).once()
           verify(MockController.dispatchMove$(LEFT)).called()
         },
@@ -81,9 +76,8 @@ a3(KeyDownListener, {
       },
 
       assert: {
-        [`does NOT call ${nameof(Controller.prototype.dispatchMove$)}`]: ({
-          MockController,
-        }) => {
+        [`does NOT call ${nameof(Controller.prototype.dispatchMove$)}`]:
+        ({ MockController }) => {
           verify(MockController.dispatchMove$(anything())).never()
         },
       },
