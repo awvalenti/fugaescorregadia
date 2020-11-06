@@ -37,9 +37,11 @@ a3(KeyDownListener, {
     }),
 
     assert: {
-      [`binds ${nameof(KeyDownListener.prototype.onKeyDown$)}`]:
+      [`binds ${nameof(KeyDownListener.prototype.onKeyDown$)} to the object,
+      replacing the method`]:
       ({ bindSpy, sut }: any) => {
         expect(bindSpy).to.have.been.calledOnceWithExactly(sut)
+        expect(sut.onKeyDown$).to.equal(bindSpy.returnValues[0])
       },
     },
 
