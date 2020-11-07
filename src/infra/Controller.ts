@@ -9,7 +9,7 @@ export default class Controller {
 
   private _updateGameStateFn$: UpdateGameStateFn$ = () => {}
 
-  setUpdateGameStateFn$(updateGameStateFn$: UpdateGameStateFn$): void{
+  setUpdateGameStateFn$(updateGameStateFn$: UpdateGameStateFn$): void {
     this._updateGameStateFn$ = updateGameStateFn$
   }
 
