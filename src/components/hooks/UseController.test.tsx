@@ -90,7 +90,7 @@ a3(UseController, {
     after,
   },
 
-  'on umount': {
+  'on unmount': {
     arrange,
 
     act: arranged => {
