@@ -32,9 +32,7 @@ const App: React.FC<{
     await new Promise(resolve => {
       pc.resolve = resolve
 
-      // Esta linha evita travamentos. Mas, se forem acumulados vários
-      // movimentos, só o útltimo será resolvido, então ainda trava um pouco.
-
+      // Esta linha evita travamentos. Mas ainda demora segundos para resolvê-los.
       // O que teria que fazer seria ou acumular resolves em um vetor de pc,
       // ou não gerar movimento quando tá na parede, ou forçar uma chamada a
       // ote nesses casos.
