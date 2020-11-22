@@ -27,14 +27,18 @@ const App: React.FC<{
   }
 
   // console.time('setgamestate1')
-  useController.run$(async gs => {
-    // if (pc.resolve) return
-    // console.time('setgamestate')
-
-    setGameState(gs)
+  useController.run$(async nextFn => {
+    setGameState(nextFn)
     await new Promise(resolve => {
       pc.resolve = resolve
-      // setTimeout(resolve, 40 * 20)
+
+      // Esta linha evita travamentos. Mas, se forem acumulados vários
+      // movimentos, só o útltimo será resolvido, então ainda trava um pouco.
+
+      // O que teria que fazer seria ou acumular resolves em um vetor de pc,
+      // ou não gerar movimento quando tá na parede, ou forçar uma chamada a
+      // ote nesses casos.
+      setTimeout(resolve, 40 * 20)
     })
   })
 
