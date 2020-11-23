@@ -16,6 +16,7 @@ a3(SpriteLayer, {
         rowCount={100}
         colCount={40}
         playerPos={{ row: 10, col: 20 }}
+        moveFinishedListener={{ moveFinished$: () => {} }}
       />),
     }
   },

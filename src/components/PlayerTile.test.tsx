@@ -14,7 +14,10 @@ a3(PlayerTile, {
 
     return {
       mooca,
-      component: render(<PlayerTile currentPos={({ row: 1, col: 2 })} />),
+      component: render(<PlayerTile
+        currentPos={({ row: 1, col: 2 })}
+        moveFinishedListener={{ moveFinished$: () => {} }}
+      />),
     }
   },
 

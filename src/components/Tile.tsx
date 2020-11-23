@@ -7,14 +7,17 @@ const Tile: React.FC<{
 
   tileId: TileId
   style?: React.CSSProperties
-  onTransitionEnd: () => void
+  onTransitionEnd?: () => void
 
-}> = ({ tileId, style, onTransitionEnd }) =>
-  <div className={`${nameof(Tile)} ${tileId}`} style={style} onTransitionEnd={() => {
-    if (onTransitionEnd) onTransitionEnd()
-    // else console.log(onTransitionEnd)
-
-    // console.log('ote')
-  }}/>
+}> = ({
+  tileId,
+  style,
+  onTransitionEnd,
+}) =>
+  <div
+    className={`${nameof(Tile)} ${tileId}`}
+    style={style}
+    onTransitionEnd={onTransitionEnd}
+  />
 
 export default Tile
