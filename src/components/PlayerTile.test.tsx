@@ -1,7 +1,9 @@
 import * as React from 'react'
 import { PLAYER } from '../domain/TileId'
+import { MoveFinishedListener } from '../infra/Controller'
 import { a3, cleanup, expect, Mooca, render } from '../my-libs/my-testing-library'
 import nameof from '../my-libs/nameof'
+import AppContext from './App/AppContext'
 import * as usePrevious from './hooks/usePrevious'
 import PlayerTile from './PlayerTile'
 import * as Tile from './Tile'
@@ -12,11 +14,19 @@ a3(PlayerTile, {
     mooca.stub(Tile, ({ tileId, style }) => <p style={style}>{tileId}</p>)
     mooca.stub(usePrevious, () => ({ row: 2, col: 4 }))
 
+    const moveFinishedListener: MoveFinishedListener = {
+      moveFinished$: () => { },
+    }
+
     return {
       mooca,
-      component: render(<PlayerTile
-        currentPos={({ row: 1, col: 2 })}
-      />),
+      component: render(
+        <AppContext.Provider value={{ moveFinishedListener } }>
+          <PlayerTile
+            currentPos={({ row: 1, col: 2 })}
+          />
+        </AppContext.Provider>
+      ),
     }
   },
 
