@@ -1,7 +1,8 @@
 import sinon from 'sinon'
 import { anything, instance, mock, verify } from 'ts-mockito'
 import { LEFT } from '../domain/Direction'
-import { a3, expect } from '../my-libs/my-testing-library'
+import * as myBind from '../my-libs/my-bind'
+import { a3, expect, Mooca } from '../my-libs/my-testing-library'
 import nameof from '../my-libs/nameof'
 import Controller from './Controller'
 import KeyDownListener from './KeyDownListener'
@@ -23,13 +24,15 @@ const arrange = () => {
 a3(KeyDownListener, {
 
   constructor: {
-    arrange: () => ({
-      // @ts-expect-error: @types/sinon does not include this overload
-      bindSpy: sinon.spy(KeyDownListener.prototype.onKeyDown$, 'bind'),
-    }),
+    arrange: () => {
+      const bindSpy = sinon.spy()
+      const mooca = new Mooca()
+      mooca.stub(myBind, bindSpy)
+      return { bindSpy, mooca }
+    },
 
-    act: ({ bindSpy }: any) => ({
-      bindSpy,
+    act: (arranged: {}) => ({
+      ...arranged,
       sut: new KeyDownListener(
         {} as KeyMapper,
         {} as Controller,
@@ -37,16 +40,14 @@ a3(KeyDownListener, {
     }),
 
     assert: {
-      [`binds ${nameof(KeyDownListener.prototype.onKeyDown$)} to the object,
-      replacing the method`]:
+      [`binds ${nameof(KeyDownListener.prototype.onKeyDown$)}`]:
       ({ bindSpy, sut }: any) => {
-        expect(bindSpy).to.have.been.calledOnceWithExactly(sut)
-        expect(sut.onKeyDown$).to.equal(bindSpy.returnValues[0])
+        expect(bindSpy).to.have.been.calledOnceWithExactly(sut, 'onKeyDown$')
       },
     },
 
-    after: ({ bindSpy }: any) => {
-      bindSpy.restore()
+    after: ({ mooca }: any) => {
+      mooca.restore()
     },
 
   },

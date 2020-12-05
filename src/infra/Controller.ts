@@ -1,6 +1,7 @@
 import 'regenerator-runtime/runtime'
 import Direction from '../domain/Direction'
 import GameState from '../domain/GameState'
+import myBind from '../my-libs/my-bind'
 
 export type NextGameStateFn = (gameState: GameState) => GameState
 
@@ -23,6 +24,10 @@ export default class Controller implements GameStateUpdater, MoveDispatcher,
 
   private _updateGameStateFn$: UpdateGameStateFn$ = () => {}
   private _queue$: Direction[] = []
+
+  constructor() {
+    myBind(this as MoveFinishedListener, 'moveFinished$')
+  }
 
   setUpdateGameStateFn$(updateGameStateFn$: UpdateGameStateFn$): void {
     this._updateGameStateFn$ = updateGameStateFn$

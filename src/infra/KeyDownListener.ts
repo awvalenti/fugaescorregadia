@@ -1,3 +1,4 @@
+import myBind from '../my-libs/my-bind'
 import Controller from './Controller'
 import KeyMapper from './KeyMapper'
 
@@ -12,7 +13,7 @@ export default class KeyDownListener {
   ) {
     this._keyMapper = keyMapper
     this._controller = controller
-    this.onKeyDown$ = this.onKeyDown$.bind(this)
+    myBind(this as KeyDownListener, 'onKeyDown$')
   }
 
   onKeyDown$({ code }: KeyboardEvent): void {
