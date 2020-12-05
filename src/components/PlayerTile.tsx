@@ -19,7 +19,7 @@ const PlayerTile: React.FC<{
     animationStepDuration = 40,
     { moveFinishedListener } = useContext(AppContext)
 
-  if (row === prevPos.row && col === prevPos.col && moveFinishedListener) {
+  if (row === prevPos.row && col === prevPos.col) {
     moveFinishedListener.moveFinished$()
   }
 
@@ -30,8 +30,7 @@ const PlayerTile: React.FC<{
       transitionDuration: `${(Math.abs(prevPos.row - row) +
         Math.abs(prevPos.col - col)) * animationStepDuration}ms`,
     }}
-    onTransitionEnd={moveFinishedListener.moveFinished$.bind(
-      moveFinishedListener)}
+    onTransitionEnd={moveFinishedListener.moveFinished$}
   />
 }
 

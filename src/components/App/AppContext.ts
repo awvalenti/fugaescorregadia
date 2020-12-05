@@ -1,9 +1,6 @@
 import { createContext } from 'react'
+import { MoveFinishedListener } from '../../infra/Controller'
 
-export default createContext({
-  moveFinishedListener: {
-    moveFinished$: (): void => {
-      throw Error('moveFinishedListener not defined')
-    },
-  },
+export default createContext(undefined as unknown as {
+  moveFinishedListener: MoveFinishedListener
 })
