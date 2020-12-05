@@ -25,7 +25,6 @@ a3(Board, {
       mooca,
       component: render(<Board
         playerPos={{ row: 1, col: 0 }}
-        moveFinishedListener={{ moveFinished$: () => {} }}
         level={{
           rowCount: 2,
           colCount: 3,
