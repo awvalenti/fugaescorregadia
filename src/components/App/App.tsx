@@ -6,6 +6,7 @@ import nameof from '../../my-libs/nameof'
 import Board from '../Board'
 import UseController from '../hooks/UseController'
 import './App.sass'
+import AppContext from './AppContext'
 
 const App: React.FC<{
 
@@ -22,13 +23,14 @@ const App: React.FC<{
 
   useController.run$(setGameState)
 
-  return <main className={nameof(App)}>
-    <Board
-      level={level}
-      playerPos={playerPos}
-      moveFinishedListener={moveFinishedListener}
-    />
-  </main>
+  return <AppContext.Provider value={{ moveFinishedListener }}>
+    <main className={nameof(App)}>
+      <Board
+        level={level}
+        playerPos={playerPos}
+      />
+    </main>
+  </AppContext.Provider>
 }
 
 export default App
