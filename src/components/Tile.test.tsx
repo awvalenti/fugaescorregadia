@@ -1,19 +1,19 @@
-import * as React from 'react'
+import ReactModule, * as React from 'react'
+import sinon from 'sinon'
 import { OBSTACLE, PLAYER } from '../domain/TileId'
 import { a3, cleanup, expect, render } from '../my-libs/my-testing-library'
 import nameof from '../my-libs/nameof'
 import Tile from './Tile'
 
-const after = () => {
+const after = ({ spy }: any) => {
+  if (spy) spy.restore()
   cleanup()
 }
 
 a3(Tile, {
-  'without style': {
+  'without optional props': {
     arrange: () => render(<Tile tileId={OBSTACLE} />),
-
     act: ({ container: { innerHTML } }) => innerHTML,
-
     assert: {
       [`renders a <div> with classes ${nameof(Tile)}, {tileId}`]: innerHTML => {
         expect(innerHTML).to.equal(
@@ -21,26 +21,44 @@ a3(Tile, {
         )
       },
     },
-
     after,
-
   },
 
-  'with style': {
-    arrange: () => render(<Tile tileId={PLAYER} style={{ color: 'blue' }} />),
+  'with optional props': {
+    arrange: () => {
+      const spy = sinon.spy(ReactModule, 'createElement')
+      const onTransitionEnd = () => {}
+      return {
+        spy,
+        onTransitionEnd,
+        sut: render(<Tile
+          tileId={PLAYER}
+          style={{ color: 'blue' }}
+          onTransitionEnd={onTransitionEnd}
+        />),
+      }
+    },
 
-    act: ({ container: { innerHTML } }) => innerHTML,
+    act: ({ spy, onTransitionEnd, sut: { container: { innerHTML } } }) =>
+      ({ spy, onTransitionEnd, innerHTML }),
 
     assert: {
-      'includes the specified style': innerHTML => {
+      'includes the specified style': ({ innerHTML }) => {
         expect(innerHTML).to.equal(
           '<div class="Tile PLAYER" style="color: blue;"></div>'
         )
       },
+
+      'passes on prop onTransitionEnd': ({ spy, onTransitionEnd }) => {
+        expect(spy).to.have.been.calledWithExactly('div', {
+          onTransitionEnd,
+          className: 'Tile PLAYER',
+          style: { color: 'blue' },
+        })
+      },
     },
 
     after,
-
   },
 
 })
