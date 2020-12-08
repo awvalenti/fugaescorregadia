@@ -1,105 +1,85 @@
-import * as React from 'react'
+import ReactModule, * as React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
-import { anyFunction, anything, instance, mock, resetCalls, verify, when } from 'ts-mockito'
+import { anything, instance, mock, verify } from 'ts-mockito'
 import GameState from '../../domain/GameState'
 import Level from '../../domain/level/Level'
 import Position from '../../domain/Position'
-import { UpdateGameStateFn$ } from '../../infra/Controller'
+import { MoveFinishedListener } from '../../infra/Controller'
 import Mooca from '../../my-libs/mooca'
 import { a3, cleanup, expect, render } from '../../my-libs/my-testing-library'
 import nameof from '../../my-libs/nameof'
 import * as Board from '../Board'
 import UseController from '../hooks/UseController'
 import App from './App'
-
-const arrange = () => {
-  const mooca = new Mooca()
-  mooca.stub(Board, ({ level, playerPos }) => <>{level},{playerPos}</>)
-
-  const ref: { updateGameState?: UpdateGameStateFn$ } = {}
-
-  const UseControllerMock = mock(UseController)
-  when(UseControllerMock.run$(anyFunction())).thenCall(fn => {
-    ref.updateGameState = fn
-  })
-
-  return {
-    gameState: {
-      level: 'level-1' as unknown as Level,
-      playerPos: 'pos-1' as unknown as Position,
-    } as GameState,
-    useController: instance(UseControllerMock),
-    UseControllerMock,
-    mooca,
-    ref,
-  }
-}
-
-const mount = ({ gameState, useController, ...rest }: any) => ({
-  sut: render(<App
-    gameState={gameState}
-    useController={useController}
-    moveFinishedListener={{ moveFinished$: () => {} }}
-  />),
-  useController,
-  ...rest,
-})
-
-const after = ({ mooca }: { mooca: Mooca }) => {
-  mooca.restore()
-  cleanup()
-}
+import AppContext from './AppContext'
 
 a3(App, {
-  'on first render': {
-    arrange,
-    act: mount,
-    assert: {
-      [`renders <main> with <${nameof(Board)}> using initial state`]:
-      ({ sut }) => {
-        expect(sut.container.innerHTML).to.equal(renderToStaticMarkup(
-          <main className="App">level-1,pos-1</main>
-        ))
-      },
+  arrange: () => {
+    const gameState = {
+      level: 'level-a' as unknown as Level,
+      playerPos: 'pos-b' as unknown as Position,
+    } as GameState
 
-      [`runs ${nameof(UseController)}`]: ({ UseControllerMock }) => {
-        verify(UseControllerMock.run$(anything())).once()
-        verify(UseControllerMock.run$(anyFunction())).called()
-      },
-    },
-    after,
+    const setGameState = (_: GameState) => {}
+
+    const mooca = new Mooca()
+
+    mooca.stub(ReactModule, 'useState', ((initial: GameState) =>
+      initial === gameState && [gameState, setGameState]) as any)
+
+    mooca.stub(AppContext, 'Provider', (({ children, value }) =>
+      <div id="AppContext">
+        {value.moveFinishedListener.toString()}
+        {children}
+      </div>
+    ) as typeof AppContext.Provider)
+
+    mooca.stub(Board, ({ level, playerPos }) => <>{level},{playerPos}</>)
+
+    const UseControllerMock = mock(UseController)
+
+    return {
+      gameState,
+      useController: instance(UseControllerMock),
+      UseControllerMock,
+      mooca,
+      setGameState,
+    }
   },
 
-  'on rerender': {
-    arrange,
+  act: ({ gameState, useController, ...rest }: any) => ({
+    sut: render(<App
+      gameState={gameState}
+      useController={useController}
+      moveFinishedListener={{ toString: () => 'myMoveFinishedListener' } as
+        MoveFinishedListener}
+    />),
+    useController,
+    ...rest,
+  }),
 
-    act: arranged => {
-      const
-        mounted = mount(arranged),
-        { UseControllerMock, ref: { updateGameState } } = mounted
-
-      resetCalls(UseControllerMock)
-
-      updateGameState({ level: 'level-2', playerPos: 'pos-2' })
-
-      return mounted
+  assert: {
+    [`runs ${nameof(UseController)} passing on setGameState`]:
+    ({ UseControllerMock, setGameState }) => {
+      verify(UseControllerMock.run$(anything())).once()
+      verify(UseControllerMock.run$(setGameState)).called()
     },
 
-    assert: {
-      [`renders <main> with <${nameof(Board)}> using updated state`]:
-      ({ sut }) => {
-        expect(sut.container.innerHTML).to.equal(renderToStaticMarkup(
-          <main className="App">level-2,pos-2</main>
-        ))
-      },
-
-      [`runs ${nameof(UseController)}`]: ({ UseControllerMock }) => {
-        verify(UseControllerMock.run$(anything())).once()
-        verify(UseControllerMock.run$(anyFunction())).called()
-      },
+    [`renders <main> with <${nameof(Board)}> using gameState`]:
+    ({ sut: { container: { innerHTML } } }) => {
+      expect(innerHTML).to.equal(renderToStaticMarkup(
+        <div id="AppContext">
+          myMoveFinishedListener
+          <main className="App">level-a,pos-b</main>
+        </div>
+      ))
     },
 
-    after,
+  },
+
+  after: ({ mooca }: { mooca: Mooca }) => {
+    mooca.restore()
+    cleanup()
   },
 
 })
