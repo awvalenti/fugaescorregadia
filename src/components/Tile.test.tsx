@@ -50,11 +50,7 @@ a3(Tile, {
       },
 
       'passes on prop onTransitionEnd': ({ spy, onTransitionEnd }) => {
-        expect(spy).to.have.been.calledWithExactly('div', {
-          onTransitionEnd,
-          className: 'Tile PLAYER',
-          style: { color: 'blue' },
-        })
+        expect(spy).to.have.been.calledWithMatch('div', { onTransitionEnd })
       },
     },
 
