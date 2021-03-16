@@ -1,10 +1,11 @@
 import * as React from 'react'
 import { useContext } from 'react'
-import Position from '../domain/Position'
-import { PLAYER } from '../domain/TileId'
-import AppContext from './App/AppContext'
-import usePrevious from './hooks/usePrevious'
-import Tile from './Tile'
+import Position from '../../domain/Position'
+import { PLAYER } from '../../domain/TileId'
+import AppContext from '.././App/AppContext'
+import usePrevious from '.././hooks/usePrevious'
+import Tile from '.././Tile'
+import anticipateMoveFinishedIfNecessary from './private/anticipateMoveFinishedIfNecessary'
 
 const PlayerTile: React.FC<{
 
@@ -19,9 +20,7 @@ const PlayerTile: React.FC<{
     animationStepDuration = 40,
     { moveFinishedListener } = useContext(AppContext)
 
-  if (row === prevPos.row && col === prevPos.col) {
-    moveFinishedListener.moveFinished$()
-  }
+  anticipateMoveFinishedIfNecessary(moveFinishedListener, prevPos, currentPos)
 
   return <Tile
     tileId={PLAYER}
