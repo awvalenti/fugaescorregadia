@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { a3, cleanup, expect, Mooca, render } from '../my-libs/my-testing-library'
 import nameof from '../my-libs/nameof'
-import * as PlayerTile from './PlayerTile'
+import * as PlayerTile from './PlayerTile/PlayerTile'
 import SpriteLayer from './SpriteLayer'
 
 a3(SpriteLayer, {

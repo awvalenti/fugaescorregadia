@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Position from '../domain/Position'
 import nameof from '../my-libs/nameof'
-import PlayerTile from './PlayerTile'
+import PlayerTile from './PlayerTile/PlayerTile'
 import './SpriteLayer.sass'
 
 const SpriteLayer: React.FC<{
