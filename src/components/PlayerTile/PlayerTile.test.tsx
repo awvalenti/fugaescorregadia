@@ -14,7 +14,8 @@ a3(PlayerTile, {
 
   arrange: () => {
     const mooca = new Mooca()
-    mooca.stub(Tile, ({ tileId, style }) => <p style={style}>{tileId}</p>)
+    mooca.stub(Tile, props => <pre>{JSON.stringify(props, (_, v) =>
+      typeof v === 'function' ? v.toString() : v)}</pre>)
     mooca.stub(usePrevious, () => ({ row: 1, col: 2 }))
     const anticipateSpy = sinon.spy()
     mooca.stub(anticipateMoveFinishedIfNecessary, anticipateSpy)
@@ -22,6 +23,7 @@ a3(PlayerTile, {
     const moveFinishedListener: MoveFinishedListener = {
       moveFinished$: sinon.spy(),
     }
+    moveFinishedListener.moveFinished$.toString = () => 'myMoveFinished$'
 
     return {
       mooca,
@@ -35,32 +37,40 @@ a3(PlayerTile, {
     }
   },
 
-  act: ({ component: { container }, moveFinishedListener, anticipateSpy }) =>
-    ({ container, moveFinishedListener, anticipateSpy }),
+  act: ({ component, moveFinishedListener, anticipateSpy }) => ({
+    moveFinishedListener,
+    anticipateSpy,
+    props: JSON.parse(component.container.textContent),
+  }),
 
   assert: {
-    [`renders a ${PLAYER} <${nameof(Tile)}>`]:
-    ({ container: { firstElementChild } }) => {
-      expect(firstElementChild).to.have.property('textContent', 'PLAYER')
+    [`calls ${nameof(anticipateMoveFinishedIfNecessary)}`]:
+    ({ moveFinishedListener, anticipateSpy }) => {
+      expect(anticipateSpy).to.have.been.calledOnceWithExactly(
+        moveFinishedListener, { row: 1, col: 2 }, { row: 3, col: 6 })
+    },
+
+    [`renders a <${nameof(Tile)}> containing ${PLAYER}`]:
+    ({ props }) => {
+      expect(props).to.have.property('tileId', 'PLAYER')
     },
 
     'sets translation to (100% * currentPos.col, 100% * currentPos.row)':
-    ({ container: { firstElementChild } }) => {
-      expect(firstElementChild).to.have.nested.property(
+    ({ props }) => {
+      expect(props).to.have.nested.property(
         'style.transform', 'translate(600%, 300%)')
     },
 
     'sets animation duration to 40ms * (deltaRow + deltaCol)':
-    ({ container: { firstElementChild } }) => {
-      expect(firstElementChild).to.have.nested.property(
-        'style.transitionDuration', '240ms')
+    ({ props }) => {
+      expect(props).to.have.nested.property('style.transitionDuration', '240ms')
     },
 
-    [`calls ${nameof(anticipateMoveFinishedIfNecessary)}`]:
-    ({ moveFinishedListener, anticipateSpy }) => {
-      expect(anticipateSpy).to.have.been.called.calledOnceWithExactly(
-        moveFinishedListener, { row: 1, col: 2 }, { row: 3, col: 6 })
+    'sets moveFinishedListener to be called after animation':
+    ({ props }) => {
+      expect(props).to.have.nested.property('onTransitionEnd', 'myMoveFinished$')
     },
+
   },
 
   after: ({ mooca }: { mooca: Mooca }) => {

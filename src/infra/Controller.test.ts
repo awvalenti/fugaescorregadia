@@ -67,6 +67,10 @@ a3(Controller, {
           .movePlayer)}`]: ({ actual, expected }) => {
           expect(actual).to.equal(expected)
         },
+
+        'TODO MUST TEST THE QUEUE': () => {
+          expect('feature').to.be('covered')
+        },
       },
     },
   },

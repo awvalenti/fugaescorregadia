@@ -19,4 +19,10 @@ const BackgroundLayer: React.FC<{
     )}
   </div>
 
-export default BackgroundLayer
+const memo = React.memo(BackgroundLayer)
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
+memo.name = nameof(BackgroundLayer)
+
+export default memo

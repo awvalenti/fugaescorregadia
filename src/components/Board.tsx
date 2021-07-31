@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { useMemo } from 'react'
 import Level from '../domain/level/Level'
 import Position from '../domain/Position'
 import nameof from '../my-libs/nameof'
@@ -17,7 +16,7 @@ const Board: React.FC<{
   playerPos,
 }) =>
   <div className={nameof(Board)}>
-    {useMemo(() => <BackgroundLayer matrix={level.background} />, [level])}
+    <BackgroundLayer matrix={level.background} />
     <SpriteLayer
       rowCount={level.rowCount}
       colCount={level.colCount}

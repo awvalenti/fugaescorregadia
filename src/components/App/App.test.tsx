@@ -20,7 +20,7 @@ a3(App, {
       playerPos: 'pos-b' as unknown as Position,
     } as GameState
 
-    const setGameState = (_: GameState) => {}
+    const setGameState = () => {}
 
     const mooca = new Mooca()
 
