@@ -4,19 +4,19 @@ import { LEFT } from '../domain/Direction'
 import * as myBind from '../my-libs/my-bind'
 import { a3, expect, Mooca } from '../my-libs/my-testing-library'
 import nameof from '../my-libs/nameof'
-import Controller from './Controller'
+import Controller, { MoveDispatcher } from './Controller'
 import KeyDownListener from './KeyDownListener'
 import KeyMapper from './KeyMapper'
 
 const arrange = () => {
   const
-    MockController = mock(Controller)
+    MockMoveDispatcher = mock<MoveDispatcher>(Controller)
 
   return {
-    MockController,
+    MockMoveDispatcher,
     sut: new KeyDownListener(
       new KeyMapper(),
-      instance(MockController)
+      instance(MockMoveDispatcher)
     ),
   }
 }
@@ -35,7 +35,7 @@ a3(KeyDownListener, {
       ...arranged,
       sut: new KeyDownListener(
         {} as KeyMapper,
-        {} as Controller,
+        {} as MoveDispatcher,
       ),
     }),
 
@@ -63,9 +63,9 @@ a3(KeyDownListener, {
 
       assert: {
         [`calls ${nameof(Controller.prototype.dispatchMove$)}`]:
-        ({ MockController }) => {
-          verify(MockController.dispatchMove$(anything())).once()
-          verify(MockController.dispatchMove$(LEFT)).called()
+        ({ MockMoveDispatcher }) => {
+          verify(MockMoveDispatcher.dispatchMove$(anything())).once()
+          verify(MockMoveDispatcher.dispatchMove$(LEFT)).called()
         },
       },
     },
@@ -80,8 +80,8 @@ a3(KeyDownListener, {
 
       assert: {
         [`does NOT call ${nameof(Controller.prototype.dispatchMove$)}`]:
-        ({ MockController }) => {
-          verify(MockController.dispatchMove$(anything())).never()
+        ({ MockMoveDispatcher }) => {
+          verify(MockMoveDispatcher.dispatchMove$(anything())).never()
         },
       },
     },
