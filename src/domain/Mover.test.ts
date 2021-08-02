@@ -42,7 +42,7 @@ const levels = {
 const newSut = () => new Mover(new BoundsChecker())
 
 a3(Mover, {
-  [nameof(Mover.prototype.move)]: {
+  [nameof<Mover>('move')]: {
     ...each(<[keyof typeof levels, Direction, number, number][]>[
       ['obstacle', LEFT, 4, 2],
       ['obstacle', UP, 2, 4],

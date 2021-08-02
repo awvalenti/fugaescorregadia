@@ -45,13 +45,13 @@ a3(UseController, {
     arrange,
     act: mount,
     assert: {
-      [`calls ${nameof(Controller.prototype.setUpdateGameStateFn$)}`]:
+      [`calls ${nameof<Controller>('setUpdateGameStateFn$')}`]:
       ({ MockController, setGameState }) => {
         verify(MockController.setUpdateGameStateFn$(anything())).once()
         verify(MockController.setUpdateGameStateFn$(setGameState)).called()
       },
 
-      [`calls ${nameof(KeyboardHandler.prototype.enable$)}`]:
+      [`calls ${nameof<KeyboardHandler>('enable$')}`]:
       ({ MockKeyboardHandler }) => {
         verify(MockKeyboardHandler.enable$()).once()
       },
@@ -106,7 +106,7 @@ a3(UseController, {
     },
 
     assert: {
-      [`calls ${nameof(KeyboardHandler.prototype.disable$)}`]:
+      [`calls ${nameof<KeyboardHandler>('disable$')}`]:
       MockKeyboardHandler => {
         verify(MockKeyboardHandler.disable$()).once()
       },

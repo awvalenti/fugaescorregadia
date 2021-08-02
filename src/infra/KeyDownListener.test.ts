@@ -40,7 +40,7 @@ a3(KeyDownListener, {
     }),
 
     assert: {
-      [`binds ${nameof(KeyDownListener.prototype.onKeyDown$)}`]:
+      [`binds ${nameof<KeyDownListener>('onKeyDown$')}`]:
       ({ bindSpy, sut }: any) => {
         expect(bindSpy).to.have.been.calledOnceWithExactly(sut, 'onKeyDown$')
       },
@@ -52,7 +52,7 @@ a3(KeyDownListener, {
 
   },
 
-  [nameof(KeyDownListener.prototype.onKeyDown$)]: {
+  [nameof<KeyDownListener>('onKeyDown$')]: {
     'when key is mapped': {
       arrange,
 
@@ -62,7 +62,7 @@ a3(KeyDownListener, {
       },
 
       assert: {
-        [`calls ${nameof(Controller.prototype.dispatchMove$)}`]:
+        [`calls ${nameof<MoveDispatcher>('dispatchMove$')}`]:
         ({ MockMoveDispatcher }) => {
           verify(MockMoveDispatcher.dispatchMove$(anything())).once()
           verify(MockMoveDispatcher.dispatchMove$(LEFT)).called()
@@ -79,7 +79,7 @@ a3(KeyDownListener, {
       },
 
       assert: {
-        [`does NOT call ${nameof(Controller.prototype.dispatchMove$)}`]:
+        [`does NOT call ${nameof<MoveDispatcher>('dispatchMove$')}`]:
         ({ MockMoveDispatcher }) => {
           verify(MockMoveDispatcher.dispatchMove$(anything())).never()
         },

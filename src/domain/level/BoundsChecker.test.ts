@@ -6,7 +6,7 @@ import Level from './Level'
 const level2x3 = { rowCount: 2, colCount: 3 } as Level
 
 a3(BoundsChecker, {
-  [nameof(BoundsChecker.prototype.inbounds)]: {
+  [nameof<BoundsChecker>('inbounds')]: {
     ...each(<[string, number, number, boolean][]>[
       ['outside', -1, 0, false],
       ['outside', 0, -1, false],

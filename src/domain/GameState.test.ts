@@ -46,7 +46,7 @@ a3(GameState, {
     },
   },
 
-  [nameof(GameState.prototype.movePlayer)]: {
+  [nameof<GameState>('movePlayer')]: {
     'for one move': {
       arrange: () => {
         const

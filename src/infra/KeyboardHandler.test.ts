@@ -25,7 +25,7 @@ const arrange = () => {
 
 a3(KeyboardHandler, {
 
-  [nameof(KeyboardHandler.prototype.enable$)]: {
+  [nameof<KeyboardHandler>('enable$')]: {
     arrange,
 
     act: arranged => {
@@ -43,7 +43,7 @@ a3(KeyboardHandler, {
     },
   },
 
-  [nameof(KeyboardHandler.prototype.disable$)]: {
+  [nameof<KeyboardHandler>('disable$')]: {
     arrange,
 
     act: arranged => {

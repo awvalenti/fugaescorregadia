@@ -5,7 +5,7 @@ import KeyMapper from './KeyMapper'
 
 a3(KeyMapper, {
 
-  [nameof(KeyMapper.prototype.directionFor)]: {
+  [nameof<KeyMapper>('directionFor')]: {
     'for mapped keys': {
       ...each(<[string, [string, string, string, string]][]>[
         ['Arrows', ['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown']],

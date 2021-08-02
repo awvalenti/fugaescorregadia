@@ -28,7 +28,7 @@ a3(anticipateMoveFinishedIfNecessary, {
       { row: 1, col: 2 }, { row: 1, col: 2 }),
 
     assert: {
-      [`calls ${nameof(Controller.prototype.moveFinished$)}`]:
+      [`calls ${nameof<Controller>('moveFinished$')}`]:
       ({ moveFinishedListener: { moveFinished$ } }) => {
         expect(moveFinished$).to.have.been.calledOnceWithExactly()
       },
@@ -47,7 +47,7 @@ a3(anticipateMoveFinishedIfNecessary, {
         previousPos, currentPos),
 
       assert: {
-        [`does NOT call ${nameof(Controller.prototype.moveFinished$)}`]:
+        [`does NOT call ${nameof<Controller>('moveFinished$')}`]:
         ({ moveFinishedListener: { moveFinished$ } }) => {
           // eslint-disable-next-line no-unused-expressions
           expect(moveFinished$).not.to.have.been.called
