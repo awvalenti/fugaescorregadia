@@ -31,7 +31,7 @@ a3(Controller, {
   },
 
   [nameof(Controller.prototype.dispatchMove$)]: {
-    'when updateGameStateFn is NOT set': {
+    'before updateGameStateFn is set': {
       arrange: () => new Controller(),
       act: sut => () => sut.dispatchMove$(RIGHT),
       assert: {
@@ -41,7 +41,7 @@ a3(Controller, {
       },
     },
 
-    'when updateGameStateFn is set': {
+    'after updateGameStateFn is set': {
       arrange: () => {
         const
           final = {} as GameState,
