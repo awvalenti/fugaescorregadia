@@ -11,9 +11,9 @@ function nameof<T, M = MethodsNames<T>>(
     return methodName
   } else {
     const fn = arg0
-    return (fn as Function)?.name || (fn as { default: Function })?.default?.name || (() => {
-      throw Error(`Unnamed or invalid function: ${fn}`)
-    })()
+    const ret = (fn as Function)?.name || (fn as { default: Function })?.default?.name
+    if (!ret) throw Error(`Unnamed or invalid function: ${fn}`)
+    return ret
   }
 }
 
