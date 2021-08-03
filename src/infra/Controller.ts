@@ -7,10 +7,6 @@ export type NextGameStateFn = (gameState: GameState) => GameState
 
 export type UpdateGameStateFn$ = (next: NextGameStateFn) => void
 
-export interface GameStateUpdater {
-  moveFinished$(): void
-}
-
 export interface MoveDispatcher {
   dispatchMove$(direction: Direction): void
 }
@@ -19,8 +15,7 @@ export interface MoveFinishedListener {
   moveFinished$(): void
 }
 
-export default class Controller implements GameStateUpdater, MoveDispatcher,
-  MoveFinishedListener {
+export default class Controller implements MoveDispatcher, MoveFinishedListener {
 
   private _updateGameStateFn$: UpdateGameStateFn$ = () => {}
   private _queue$: Direction[] = []
@@ -45,8 +40,8 @@ export default class Controller implements GameStateUpdater, MoveDispatcher,
   }
 
   private _moveOnce(): void{
-    let dir: Direction
-    if ((dir = this._queue$[0]) !== undefined) {
+    const dir = this._queue$[0]
+    if (dir) {
       this._updateGameStateFn$(gameState => gameState.movePlayer(dir))
     }
   }
