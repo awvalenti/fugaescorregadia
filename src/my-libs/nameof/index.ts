@@ -1,6 +1,6 @@
 import { MethodsNames } from '../my-types'
 
-function nameof<T, M = MethodsNames<T>>(methodName: M): M
+function nameof<T, M = MethodsNames<T>>(methodName: M): M & string
 function nameof(fn: Function | { default: Function }): string
 
 function nameof<T, M = MethodsNames<T>>(
