@@ -1,6 +1,7 @@
 import 'regenerator-runtime/runtime'
 import Direction from '../domain/Direction'
 import GameState from '../domain/GameState'
+import { noop } from '../my-libs/funcs'
 import myBind from '../my-libs/my-bind'
 
 export type NextGameStateFn = (gameState: GameState) => GameState
@@ -17,7 +18,7 @@ export interface MoveFinishedListener {
 
 export default class Controller implements MoveDispatcher, MoveFinishedListener {
 
-  private _updateGameStateFn$: UpdateGameStateFn$ = () => {}
+  private _updateGameStateFn$: UpdateGameStateFn$ = noop
   private _queue$: Direction[] = []
 
   constructor() {
