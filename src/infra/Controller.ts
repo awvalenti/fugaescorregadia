@@ -5,7 +5,7 @@ import myBind from '../my-libs/my-bind'
 
 export type NextGameStateFn = (gameState: GameState) => GameState
 
-export type UpdateGameStateFn$ = (next: NextGameStateFn) => void
+export type UpdateGameStateFn$ = (nextGameStateFn: NextGameStateFn) => void
 
 export interface MoveDispatcher {
   dispatchMove$(direction: Direction): void
