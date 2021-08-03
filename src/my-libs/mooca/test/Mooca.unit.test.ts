@@ -1,9 +1,10 @@
 import { expect } from 'chai'
+import nameof from '../../nameof'
 import Mooca from '../lib/Mooca'
 
 describe(Mooca.name, () => {
 
-  describe(Mooca.prototype.stub.name, () => {
+  describe(nameof<Mooca>('stub'), () => {
     context('when property name is specified', () => {
       it('replaces original value with stubbed value', () => {
         const mooca = new Mooca()
@@ -23,7 +24,7 @@ describe(Mooca.name, () => {
     })
   })
 
-  describe(Mooca.prototype.restore.name, () => {
+  describe(nameof<Mooca>('restore'), () => {
     it('restores stubbed properties to original values', () => {
       const mooca = new Mooca()
       const obj = { a: 10, default: 20 }

@@ -76,13 +76,13 @@ a3(UseController, {
     },
 
     assert: {
-      [`does NOT call again ${nameof(Controller.prototype
-        .setUpdateGameStateFn$)}`]: ({ MockController }) => {
+      [`does NOT call again ${nameof<Controller>('setUpdateGameStateFn$')}`]:
+      ({ MockController }) => {
         verify(MockController.setUpdateGameStateFn$(anything())).never()
       },
 
-      [`does NOT call again ${nameof(KeyboardHandler.prototype
-        .enable$)}`]: ({ MockKeyboardHandler }) => {
+      [`does NOT call again ${nameof<KeyboardHandler>('enable$')}`]:
+      ({ MockKeyboardHandler }) => {
         verify(MockKeyboardHandler.enable$()).never()
       },
     },

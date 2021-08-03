@@ -63,8 +63,8 @@ a3(Controller, {
       },
 
       assert: {
-        [`updates ${nameof(GameState)} using ${nameof(GameState.prototype
-          .movePlayer)}`]: ({ actual, expected }) => {
+        [`updates ${nameof(GameState)} using ${nameof<GameState>('movePlayer')}`]:
+        ({ actual, expected }) => {
           expect(actual).to.equal(expected)
         },
 
