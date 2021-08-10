@@ -31,12 +31,8 @@ export default class Controller implements MoveDispatcher, MoveFinishedListener 
 
   dispatchMove$(direction: Direction): void {
     if (this._queue$.length < 3) {
-
-      const shouldTrigger = this._queue$.length === 0
-
       this._queue$.push(direction)
-
-      if (shouldTrigger) this._moveOnce()
+      if (this._queue$.length === 1) this._moveOnce()
     }
   }
 

@@ -1,5 +1,5 @@
 import sinon from 'sinon'
-import { RIGHT } from '../domain/Direction'
+import { DOWN, LEFT, RIGHT, UP } from '../domain/Direction'
 import GameState from '../domain/GameState'
 import * as myBind from '../my-libs/my-bind'
 import { myStub } from '../my-libs/my-stub'
@@ -50,16 +50,17 @@ a3(Controller, {
 
         const sut = new Controller()
 
-        sut.setUpdateGameStateFn$((next: NextGameStateFn) => {
+        const updateGameStateFnSpy = sinon.spy((next: NextGameStateFn) => {
           ref.current = next(initial)
         })
+        sut.setUpdateGameStateFn$(updateGameStateFnSpy)
 
-        return { sut, ref, final }
+        return { sut, ref, final, updateGameStateFnSpy }
       },
 
-      act: ({ sut, ref, final }) => {
+      act: ({ sut, ref, final, updateGameStateFnSpy }) => {
         sut.dispatchMove$(RIGHT)
-        return { actual: ref.current, expected: final }
+        return { actual: ref.current, expected: final, sut, updateGameStateFnSpy }
       },
 
       assert: {
@@ -68,10 +69,48 @@ a3(Controller, {
           expect(actual).to.equal(expected)
         },
 
-        'TODO MUST TEST THE QUEUE': () => {
-          // expect('feature').to.be('covered')
+        'enqueues up to three moves': ({ sut, updateGameStateFnSpy }) => {
+          sut.moveFinished$()
+          updateGameStateFnSpy.resetHistory()
+
+          sut.dispatchMove$(LEFT)
+          sut.dispatchMove$(UP)
+          sut.dispatchMove$(RIGHT)
+          sut.dispatchMove$(DOWN)
+
+          sut.moveFinished$()
+          sut.moveFinished$()
+          sut.moveFinished$()
+          sut.moveFinished$()
+
+          expect(updateGameStateFnSpy).to.have.been.callCount(3)
         },
+
+        [`processes enqueued moves when ${nameof<Controller>('moveFinished$')} is called`]:
+        ({ sut, updateGameStateFnSpy }) => {
+          updateGameStateFnSpy.resetHistory()
+
+          sut.dispatchMove$(LEFT)
+          sut.dispatchMove$(RIGHT)
+
+          expect(updateGameStateFnSpy).to.have.been.callCount(1)
+
+          sut.moveFinished$()
+          expect(updateGameStateFnSpy).to.have.been.callCount(2)
+        },
+
+        [`ignores excessive ${nameof<Controller>('moveFinished$')} calls`]:
+        ({ sut, updateGameStateFnSpy }) => {
+          updateGameStateFnSpy.resetHistory()
+          sut.moveFinished$()
+          sut.dispatchMove$(LEFT)
+          sut.moveFinished$()
+          sut.moveFinished$()
+          expect(updateGameStateFnSpy).to.have.been.callCount(1)
+        },
+
       },
+
     },
   },
 
