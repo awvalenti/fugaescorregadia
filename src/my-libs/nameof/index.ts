@@ -1,20 +1,22 @@
+import { ComponentType, FC, MemoExoticComponent } from 'react'
 import { MethodsNames } from '../my-types'
 
-function nameof<T, M = MethodsNames<T>>(methodName: M): M & string
-function nameof(fn: Function | { default: Function }): string
-
-function nameof<T, M = MethodsNames<T>>(
-  arg0: M | Function | { default: Function },
-): string {
-  if (typeof arg0 === 'string') {
-    const methodName = arg0
-    return methodName
-  } else {
-    const fn = arg0
-    const ret = (fn as Function)?.name || (fn as { default: Function })?.default?.name
-    if (!ret) throw Error(`Unnamed or invalid function: ${fn}`)
-    return ret
-  }
+interface Nameof {
+  (fn: Function): string
+  <T extends ComponentType<any>>(Component: FC<T> | MemoExoticComponent<T>): string
+  <U, M = MethodsNames<U> & string>(methodName: M): M
+  (moduleWithFunction: { default: Function }): string
 }
+function abort(arg: any) {
+  throw Error(`nameof called with invalid arg: ${arg} | ${JSON.stringify(arg)}`)
+}
+
+// eslint-disable-next-line complexity
+const nameof: Nameof = (arg: any) =>
+  typeof arg === 'string' && arg ||
+  arg.default && nameof(arg.default) ||
+  arg.name ||
+  arg.displayName ||
+  abort(arg)
 
 export default nameof
