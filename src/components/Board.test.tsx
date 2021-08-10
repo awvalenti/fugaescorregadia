@@ -7,6 +7,7 @@ import { EMPTY, GOAL, OBSTACLE, PLAYER } from '../domain/TileId'
 import { a3 } from '../my-libs/a3'
 import Mooca from '../my-libs/mooca'
 import nameof from '../my-libs/nameof'
+import pureComponent from '../my-libs/pure-component'
 import * as BackgroundLayer from './BackgroundLayer'
 import Board from './Board'
 import * as SpriteLayer from './SpriteLayer'
@@ -15,8 +16,8 @@ a3(Board, {
   arrange: () => {
     const mooca = new Mooca()
 
-    mooca.stub(BackgroundLayer, ({ matrix }) =>
-      <p>[{matrix.map(rowData => `[${rowData.join(',')}]`).join(',')}]</p>)
+    mooca.stub(BackgroundLayer, pureComponent(({ matrix }) =>
+      <p>[{matrix.map(rowData => `[${rowData.join(',')}]`).join(',')}]</p>))
 
     mooca.stub(SpriteLayer, ({ rowCount, colCount, playerPos: { row, col } }) =>
       <p>Dimensions:{rowCount}x{colCount} playerPos:{row},{col}</p>)

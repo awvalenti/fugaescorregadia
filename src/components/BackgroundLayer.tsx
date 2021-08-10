@@ -1,6 +1,7 @@
 import * as React from 'react'
 import TileId from '../domain/TileId'
 import nameof from '../my-libs/nameof'
+import pureComponent from '../my-libs/pure-component'
 import './BackgroundLayer.sass'
 import Tile from './Tile'
 
@@ -19,10 +20,4 @@ const BackgroundLayer: React.FC<{
     )}
   </div>
 
-const memo = React.memo(BackgroundLayer)
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
-memo.name = nameof(BackgroundLayer)
-
-export default memo
+export default pureComponent(BackgroundLayer)
