@@ -35,8 +35,20 @@ function _a3<Arranged, Acted>(
         let arranged: any, acted: any
 
         if (arrange || act) before(() => {
-          arranged = arrange && arrange()
-          acted = act ? act(arranged) : arranged
+          // TODO Handle promises correctly
+          arranged = arrange?.()
+          if (!act) {
+            acted = arranged
+            return arranged
+          } else if (typeof arranged?.then === 'function') {
+            return arranged.then((result: any) => {
+              acted = act(result)
+              return acted
+            })
+          } else {
+            acted = act(arranged)
+            return acted
+          }
         })
 
         if ('xassert' in node) {
@@ -47,9 +59,7 @@ function _a3<Arranged, Acted>(
           const { assert } = node
           Object.keys(assert).forEach(assertTitle => {
             const assertFn = assert[assertTitle]
-            it(assertTitle, () => {
-              assertFn(acted)
-            })
+            it(assertTitle, () => assertFn(acted))
           })
         }
 
