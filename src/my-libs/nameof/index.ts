@@ -1,10 +1,9 @@
 import { ComponentType, FC, MemoExoticComponent } from 'react'
-import { MethodsNames } from '../my-types'
 
 interface Nameof {
   (fn: Function): string
   <T extends ComponentType<any>>(Component: FC<T> | MemoExoticComponent<T>): string
-  <U, M = MethodsNames<U> & string>(methodName: M): M
+  <U, M = keyof U & string>(methodName: M): M
   (moduleWithFunction: { default: Function }): string
 }
 function abort(arg: any) {

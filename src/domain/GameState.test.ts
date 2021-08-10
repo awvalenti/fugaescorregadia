@@ -19,7 +19,7 @@ const newSut = (level: Level, mover: Mover = new Mover(new BoundsChecker())) =>
   new GameState(level, mover)
 
 a3(GameState, {
-  playerPos: {
+  [`${nameof<GameState>('playerPos')}`]: {
     'when not specified via constructor': {
       arrange: () => newSut({ playerPos: { row: 1, col: 2 } } as Level),
       act: sut => sut.playerPos,
@@ -31,7 +31,7 @@ a3(GameState, {
     },
   },
 
-  level: {
+  [`${nameof<GameState>('level')}`]: {
     arrange: () => {
       const expected = {} as Level
       return { sut: newSut(expected), expected }
