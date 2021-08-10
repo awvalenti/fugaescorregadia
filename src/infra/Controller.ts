@@ -8,6 +8,10 @@ export type NextGameStateFn = (gameState: GameState) => GameState
 
 export type UpdateGameStateFn$ = (nextGameStateFn: NextGameStateFn) => void
 
+export interface StorageForUpdateGameStateFn {
+  setUpdateGameStateFn$(updateGameStateFn$: UpdateGameStateFn$): void
+}
+
 export interface MoveDispatcher {
   dispatchMove$(direction: Direction): void
 }
@@ -16,7 +20,8 @@ export interface UpdateFinishedListener {
   updateFinished$(): void
 }
 
-export default class Controller implements MoveDispatcher, UpdateFinishedListener {
+export default class Controller implements
+  StorageForUpdateGameStateFn, MoveDispatcher, UpdateFinishedListener {
 
   private _updateGameStateFn$: UpdateGameStateFn$ = noop
   private _queue$: Direction[] = []

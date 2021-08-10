@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import sinon from 'sinon'
 import Position from '../../../domain/Position'
-import Controller, { UpdateFinishedListener } from '../../../infra/Controller'
+import { UpdateFinishedListener } from '../../../infra/Controller'
 import { a3, each } from '../../../my-libs/my-testing-library'
 import nameof from '../../../my-libs/nameof'
 import anticipateUpdateFinishedIfNecessary from './anticipateUpdateFinishedIfNecessary'
@@ -28,7 +28,7 @@ a3(anticipateUpdateFinishedIfNecessary, {
       { row: 1, col: 2 }, { row: 1, col: 2 }),
 
     assert: {
-      [`calls ${nameof<Controller>('updateFinished$')}`]:
+      [`calls ${nameof<UpdateFinishedListener>('updateFinished$')}`]:
       ({ updateFinishedListener: { updateFinished$ } }) => {
         expect(updateFinished$).to.have.been.calledOnceWithExactly()
       },
@@ -47,7 +47,7 @@ a3(anticipateUpdateFinishedIfNecessary, {
         previousPos, currentPos),
 
       assert: {
-        [`does NOT call ${nameof<Controller>('updateFinished$')}`]:
+        [`does NOT call ${nameof<UpdateFinishedListener>('updateFinished$')}`]:
         ({ updateFinishedListener: { updateFinished$ } }) => {
           // eslint-disable-next-line no-unused-expressions
           expect(updateFinished$).not.to.have.been.called

@@ -1,6 +1,6 @@
 import { cleanup, renderHook } from '@testing-library/react-hooks'
 import { anything, instance, mock, resetCalls, verify } from 'ts-mockito'
-import Controller, { UpdateGameStateFn$ } from '../../infra/Controller'
+import Controller, { StorageForUpdateGameStateFn, UpdateGameStateFn$ } from '../../infra/Controller'
 import KeyboardHandler from '../../infra/KeyboardHandler'
 import { a3 } from '../../my-libs/my-testing-library'
 import nameof from '../../my-libs/nameof'
@@ -8,14 +8,14 @@ import UseController from './UseController'
 
 const arrange = () => {
   const
-    MockController = mock(Controller),
+    StorageForUpdateGameStateFn = mock<StorageForUpdateGameStateFn>(Controller),
     MockKeyboardHandler = mock(KeyboardHandler),
-    controller = instance(MockController),
+    controller = instance(StorageForUpdateGameStateFn),
     keyboardHandler = instance(MockKeyboardHandler),
     setGameState = {} as UpdateGameStateFn$
 
   return {
-    MockController,
+    StorageForUpdateGameStateFn,
     MockKeyboardHandler,
 
     controller,
@@ -45,10 +45,10 @@ a3(UseController, {
     arrange,
     act: mount,
     assert: {
-      [`calls ${nameof<Controller>('setUpdateGameStateFn$')}`]:
-      ({ MockController, setGameState }) => {
-        verify(MockController.setUpdateGameStateFn$(anything())).once()
-        verify(MockController.setUpdateGameStateFn$(setGameState)).called()
+      [`calls ${nameof<StorageForUpdateGameStateFn>('setUpdateGameStateFn$')}`]:
+      ({ StorageForUpdateGameStateFn, setGameState }) => {
+        verify(StorageForUpdateGameStateFn.setUpdateGameStateFn$(anything())).once()
+        verify(StorageForUpdateGameStateFn.setUpdateGameStateFn$(setGameState)).called()
       },
 
       [`calls ${nameof<KeyboardHandler>('enable$')}`]:
@@ -65,9 +65,9 @@ a3(UseController, {
     act: arranged => {
       const
         mounted = mount(arranged),
-        { MockController, MockKeyboardHandler, sut } = mounted
+        { StorageForUpdateGameStateFn, MockKeyboardHandler, sut } = mounted
 
-      resetCalls(MockController)
+      resetCalls(StorageForUpdateGameStateFn)
       resetCalls(MockKeyboardHandler)
 
       sut.rerender()
@@ -76,9 +76,9 @@ a3(UseController, {
     },
 
     assert: {
-      [`does NOT call again ${nameof<Controller>('setUpdateGameStateFn$')}`]:
-      ({ MockController }) => {
-        verify(MockController.setUpdateGameStateFn$(anything())).never()
+      [`does NOT call again ${nameof<StorageForUpdateGameStateFn>('setUpdateGameStateFn$')}`]:
+      ({ StorageForUpdateGameStateFn }) => {
+        verify(StorageForUpdateGameStateFn.setUpdateGameStateFn$(anything())).never()
       },
 
       [`does NOT call again ${nameof<KeyboardHandler>('enable$')}`]:
