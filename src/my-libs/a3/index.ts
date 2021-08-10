@@ -75,10 +75,10 @@ export const each = <TestCaseData>(
   testCases: TestCaseData[],
   testSpecFactory: (testCase: TestCaseData) => Internal<any, any>,
 ): TestSpec<any, any> => testCases.reduce((ret, testCase) => {
-    const testSpec: any = testSpecFactory(testCase)
-    Object.keys(testSpec).forEach(key => {
-      if (!(key in ret)) ret[key] = []
-      ret[key].push(testSpec[key])
-    })
-    return ret
-  }, {} as any)
+  const testSpec: any = testSpecFactory(testCase)
+  Object.keys(testSpec).forEach(key => {
+    if (!(key in ret)) ret[key] = []
+    ret[key].push(testSpec[key])
+  })
+  return ret
+}, {} as any)
