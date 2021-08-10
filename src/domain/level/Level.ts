@@ -1,15 +1,15 @@
 import Position from '../Position'
-import TileId, { EMPTY, PLAYER } from '../TileId'
+import { EMPTY, PLAYER, TileMatrix } from '../TileId'
 import { NO_PLAYER } from './private/Error'
 
 export default class Level {
 
-  readonly background: TileId[][]
+  readonly background: TileMatrix
   readonly playerPos: Position
 
-  private _matrix: TileId[][]
+  private _matrix: TileMatrix
 
-  constructor(matrix: TileId[][]) {
+  constructor(matrix: TileMatrix) {
     this._matrix = matrix
     this.background = matrix.map(rowData =>
       rowData.map(tile => tile === PLAYER ? EMPTY : tile))

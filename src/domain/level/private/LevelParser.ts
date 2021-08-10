@@ -1,7 +1,7 @@
-import TileId, { EMPTY, GOAL, OBSTACLE, PLAYER } from '../../TileId'
+import { EMPTY, GOAL, OBSTACLE, PLAYER, TileMatrix } from '../../TileId'
 
 export default class LevelParser {
-  parse(levelAsString: string): TileId[][] {
+  parse(levelAsString: string): TileMatrix {
     return levelAsString
       .trim()
       .split('\n')

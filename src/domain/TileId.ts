@@ -13,3 +13,5 @@ export const {
 } = TileId
 
 export default TileId
+
+export type TileMatrix = readonly TileId[][]

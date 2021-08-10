@@ -1,11 +1,11 @@
-import TileId, { GOAL, PLAYER } from '../../TileId'
+import { GOAL, PLAYER, TileMatrix } from '../../TileId'
 
 export default class LevelValidator {
-  private _consistentColsCount(m: TileId[][]) {
+  private _consistentColsCount(m: TileMatrix) {
     return m.length <= 1 || m.every(row => row.length === m[0].length)
   }
 
-  private _correctAmounts(matrix: TileId[][]) {
+  private _correctAmounts(matrix: TileMatrix) {
     let playerCount = 0, goalCount = 0
 
     matrix.forEach(rowData => {
@@ -18,7 +18,7 @@ export default class LevelValidator {
     return playerCount === 1 && goalCount === 1
   }
 
-  run(matrix: TileId[][]): boolean {
+  run(matrix: TileMatrix): boolean {
     return this._consistentColsCount(matrix) && this._correctAmounts(matrix)
   }
 }

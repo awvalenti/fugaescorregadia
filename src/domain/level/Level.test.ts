@@ -1,10 +1,10 @@
 import { expect } from 'chai'
 import { a3 } from '../../my-libs/a3'
-import TileId, { EMPTY, GOAL, OBSTACLE, PLAYER } from '../TileId'
+import { EMPTY, GOAL, OBSTACLE, PLAYER, TileMatrix } from '../TileId'
 import Level from './Level'
 import { NO_PLAYER } from './private/Error'
 
-const newSut = (matrix: TileId[][]) => new Level(matrix)
+const newSut = (matrix: TileMatrix) => new Level(matrix)
 
 a3(Level, {
   'for invalid level': {

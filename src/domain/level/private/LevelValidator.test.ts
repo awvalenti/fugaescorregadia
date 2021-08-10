@@ -1,9 +1,9 @@
 import { expect } from 'chai'
 import { a3, each } from '../../../my-libs/a3'
-import TileId, { EMPTY, GOAL, OBSTACLE, PLAYER } from '../../TileId'
+import { EMPTY, GOAL, OBSTACLE, PLAYER, TileMatrix } from '../../TileId'
 import LevelValidator from './LevelValidator'
 
-const testCases: [string, string, TileId[][]][] = [
+const testCases: [string, string, TileMatrix][] = [
   ['accepts', `one ${PLAYER} and one ${GOAL}`, [[PLAYER, GOAL], [OBSTACLE, EMPTY]]],
   ['rejects', 'no rows', []],
   ['rejects', 'no cols', [[]]],

@@ -3,7 +3,7 @@ import { expect } from 'chai'
 import * as React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import Level from '../domain/level/Level'
-import { EMPTY, GOAL, OBSTACLE, PLAYER } from '../domain/TileId'
+import { EMPTY, GOAL, OBSTACLE, PLAYER, TileMatrix } from '../domain/TileId'
 import { a3 } from '../my-libs/a3'
 import Mooca from '../my-libs/mooca'
 import nameof from '../my-libs/nameof'
@@ -32,7 +32,7 @@ a3(Board, {
           background: [
             [EMPTY, EMPTY, OBSTACLE],
             [PLAYER, EMPTY, GOAL],
-          ],
+          ] as TileMatrix,
         } as Level} />),
     }
   },

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import TileId from '../domain/TileId'
+import { TileMatrix } from '../domain/TileId'
 import nameof from '../my-libs/nameof'
 import pureComponent from '../my-libs/pure-component'
 import './BackgroundLayer.sass'
@@ -7,7 +7,7 @@ import Tile from './Tile'
 
 const BackgroundLayer: React.FC<{
 
-  matrix: TileId[][]
+  matrix: TileMatrix
 
 }> = ({ matrix }) =>
   <div className={nameof(BackgroundLayer)}>
