@@ -1,6 +1,6 @@
 import { createContext } from 'react'
-import { MoveFinishedListener } from '../../infra/Controller'
+import { UpdateFinishedListener } from '../../infra/Controller'
 
 export default createContext(undefined! as {
-  moveFinishedListener: MoveFinishedListener
+  updateFinishedListener: UpdateFinishedListener
 })

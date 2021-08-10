@@ -30,9 +30,9 @@ a3(Controller, {
     }),
 
     assert: {
-      [`binds ${nameof<Controller>('moveFinished$')}`]:
+      [`binds ${nameof<Controller>('updateFinished$')}`]:
       ({ sut, bindSpy }: any) => {
-        expect(bindSpy).to.have.been.calledOnceWithExactly(sut, 'moveFinished$')
+        expect(bindSpy).to.have.been.calledOnceWithExactly(sut, 'updateFinished$')
       },
     },
   },
@@ -87,10 +87,10 @@ a3(Controller, {
           sut.dispatchMove$(RIGHT)
           sut.dispatchMove$(DOWN)
 
-          sut.moveFinished$()
-          sut.moveFinished$()
-          sut.moveFinished$()
-          sut.moveFinished$()
+          sut.updateFinished$()
+          sut.updateFinished$()
+          sut.updateFinished$()
+          sut.updateFinished$()
 
           return { updateSpy }
         },
@@ -101,7 +101,7 @@ a3(Controller, {
         },
       },
 
-      [`when ${nameof<Controller>('moveFinished$')} is`]: {
+      [`when ${nameof<Controller>('updateFinished$')} is`]: {
         'never called': {
           arrange,
           act: ({ sut, updateSpy }) => {
@@ -122,8 +122,8 @@ a3(Controller, {
           act: ({ sut, updateSpy }) => {
             sut.dispatchMove$(LEFT)
             sut.dispatchMove$(RIGHT)
-            sut.moveFinished$()
-            sut.moveFinished$()
+            sut.updateFinished$()
+            sut.updateFinished$()
             return { updateSpy }
           },
           assert: {
@@ -137,10 +137,10 @@ a3(Controller, {
         'called excessive times': {
           arrange,
           act: ({ sut, updateSpy }) => {
-            sut.moveFinished$()
+            sut.updateFinished$()
             sut.dispatchMove$(LEFT)
-            sut.moveFinished$()
-            sut.moveFinished$()
+            sut.updateFinished$()
+            sut.updateFinished$()
             return { updateSpy }
           },
           assert: {

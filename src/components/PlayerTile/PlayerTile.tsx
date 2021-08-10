@@ -5,7 +5,7 @@ import { PLAYER } from '../../domain/TileId'
 import AppContext from '.././App/AppContext'
 import usePrevious from '.././hooks/usePrevious'
 import Tile from '.././Tile'
-import anticipateMoveFinishedIfNecessary from './private/anticipateMoveFinishedIfNecessary'
+import anticipateUpdateFinishedIfNecessary from './private/anticipateUpdateFinishedIfNecessary'
 
 const PlayerTile: React.FC<{
 
@@ -18,9 +18,9 @@ const PlayerTile: React.FC<{
     prevPos = usePrevious(currentPos),
     { row, col } = currentPos,
     animationStepDuration = 40,
-    { moveFinishedListener } = useContext(AppContext)
+    { updateFinishedListener } = useContext(AppContext)
 
-  anticipateMoveFinishedIfNecessary(moveFinishedListener, prevPos, currentPos)
+  anticipateUpdateFinishedIfNecessary(updateFinishedListener, prevPos, currentPos)
 
   return <Tile
     tileId={PLAYER}
@@ -29,7 +29,7 @@ const PlayerTile: React.FC<{
       transitionDuration: `${(Math.abs(prevPos.row - row) +
         Math.abs(prevPos.col - col)) * animationStepDuration}ms`,
     }}
-    onTransitionEnd={moveFinishedListener.moveFinished$}
+    onTransitionEnd={updateFinishedListener.updateFinished$}
   />
 }
 

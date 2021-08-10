@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useState } from 'react'
 import GameState from '../../domain/GameState'
-import { MoveFinishedListener } from '../../infra/Controller'
+import { UpdateFinishedListener } from '../../infra/Controller'
 import nameof from '../../my-libs/nameof'
 import Board from '../Board'
 import UseController from '../hooks/UseController'
@@ -12,18 +12,18 @@ const App: React.FC<{
 
   gameState: GameState
   useController: UseController
-  moveFinishedListener: MoveFinishedListener
+  updateFinishedListener: UpdateFinishedListener
 
 }> = ({
   gameState,
   useController,
-  moveFinishedListener,
+  updateFinishedListener,
 }) => {
   const [{ level, playerPos }, setGameState] = useState(gameState)
 
   useController.run$(setGameState)
 
-  return <AppContext.Provider value={{ moveFinishedListener }}>
+  return <AppContext.Provider value={{ updateFinishedListener }}>
     <main className={nameof(App)}>
       <Board
         level={level}

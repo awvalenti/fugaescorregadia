@@ -12,17 +12,17 @@ export interface MoveDispatcher {
   dispatchMove$(direction: Direction): void
 }
 
-export interface MoveFinishedListener {
-  moveFinished$(): void
+export interface UpdateFinishedListener {
+  updateFinished$(): void
 }
 
-export default class Controller implements MoveDispatcher, MoveFinishedListener {
+export default class Controller implements MoveDispatcher, UpdateFinishedListener {
 
   private _updateGameStateFn$: UpdateGameStateFn$ = noop
   private _queue$: Direction[] = []
 
   constructor() {
-    myBind(this as MoveFinishedListener, 'moveFinished$')
+    myBind(this as UpdateFinishedListener, 'updateFinished$')
   }
 
   setUpdateGameStateFn$(updateGameStateFn$: UpdateGameStateFn$): void {
@@ -43,7 +43,7 @@ export default class Controller implements MoveDispatcher, MoveFinishedListener 
     }
   }
 
-  moveFinished$(): void {
+  updateFinished$(): void {
     this._queue$.shift()
     this._moveOnce()
   }

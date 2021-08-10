@@ -1,14 +1,14 @@
 import * as React from 'react'
 import sinon from 'sinon'
 import { PLAYER } from '../../domain/TileId'
-import { MoveFinishedListener } from '../../infra/Controller'
+import { UpdateFinishedListener } from '../../infra/Controller'
 import { a3, cleanup, expect, Mooca, render } from '../../my-libs/my-testing-library'
 import nameof from '../../my-libs/nameof'
 import AppContext from '../App/AppContext'
 import * as usePrevious from '../hooks/usePrevious'
 import * as Tile from '../Tile'
 import PlayerTile from './PlayerTile'
-import * as anticipateMoveFinishedIfNecessary from './private/anticipateMoveFinishedIfNecessary'
+import * as anticipateUpdateFinishedIfNecessary from './private/anticipateUpdateFinishedIfNecessary'
 
 a3(PlayerTile, {
 
@@ -18,36 +18,36 @@ a3(PlayerTile, {
       typeof v === 'function' ? v.toString() : v)}</pre>)
     mooca.stub(usePrevious, () => ({ row: 1, col: 2 }))
     const anticipateSpy = sinon.spy()
-    mooca.stub(anticipateMoveFinishedIfNecessary, anticipateSpy)
+    mooca.stub(anticipateUpdateFinishedIfNecessary, anticipateSpy)
 
-    const moveFinishedListener: MoveFinishedListener = {
-      moveFinished$: sinon.spy(),
+    const updateFinishedListener: UpdateFinishedListener = {
+      updateFinished$: sinon.spy(),
     }
-    moveFinishedListener.moveFinished$.toString = () => 'myMoveFinished$'
+    updateFinishedListener.updateFinished$.toString = () => 'my-updateFinished$'
 
     return {
       mooca,
       component: render(
-        <AppContext.Provider value={{ moveFinishedListener } }>
+        <AppContext.Provider value={{ updateFinishedListener } }>
           <PlayerTile currentPos={{ row: 3, col: 6 }} />
         </AppContext.Provider>
       ),
-      moveFinishedListener,
+      updateFinishedListener,
       anticipateSpy,
     }
   },
 
-  act: ({ component, moveFinishedListener, anticipateSpy }) => ({
-    moveFinishedListener,
+  act: ({ component, updateFinishedListener, anticipateSpy }) => ({
+    updateFinishedListener,
     anticipateSpy,
     props: JSON.parse(component.container.textContent),
   }),
 
   assert: {
-    [`calls ${nameof(anticipateMoveFinishedIfNecessary)}`]:
-    ({ moveFinishedListener, anticipateSpy }) => {
+    [`calls ${nameof(anticipateUpdateFinishedIfNecessary)}`]:
+    ({ updateFinishedListener, anticipateSpy }) => {
       expect(anticipateSpy).to.have.been.calledOnceWithExactly(
-        moveFinishedListener, { row: 1, col: 2 }, { row: 3, col: 6 })
+        updateFinishedListener, { row: 1, col: 2 }, { row: 3, col: 6 })
     },
 
     [`renders a <${nameof(Tile)}> containing ${PLAYER}`]:
@@ -66,9 +66,9 @@ a3(PlayerTile, {
       expect(props).to.have.nested.property('style.transitionDuration', '240ms')
     },
 
-    'sets moveFinishedListener to be called after animation':
+    'sets updateFinishedListener to be called after animation':
     ({ props }) => {
-      expect(props).to.have.nested.property('onTransitionEnd', 'myMoveFinished$')
+      expect(props).to.have.nested.property('onTransitionEnd', 'my-updateFinished$')
     },
 
   },

@@ -7,7 +7,7 @@ import LevelLoader from '../../domain/level/private/LevelLoader'
 import LevelParser from '../../domain/level/private/LevelParser'
 import LevelValidator from '../../domain/level/private/LevelValidator'
 import Mover from '../../domain/Mover'
-import Controller, { MoveFinishedListener } from '../../infra/Controller'
+import Controller, { UpdateFinishedListener } from '../../infra/Controller'
 import KeyboardHandler from '../../infra/KeyboardHandler'
 import KeyDownListener from '../../infra/KeyDownListener'
 import KeyMapper from '../../infra/KeyMapper'
@@ -40,10 +40,10 @@ const
 
   useController = new UseController(controller, keyboardHandler),
 
-  moveFinishedListener: MoveFinishedListener = controller
+  updateFinishedListener: UpdateFinishedListener = controller
 
 export default {
   gameStateFactory,
   useController,
-  moveFinishedListener,
+  updateFinishedListener,
 }

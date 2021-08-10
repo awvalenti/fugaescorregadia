@@ -4,7 +4,7 @@ import { anything, instance, mock, verify } from 'ts-mockito'
 import GameState from '../../domain/GameState'
 import Level from '../../domain/level/Level'
 import Position from '../../domain/Position'
-import { MoveFinishedListener } from '../../infra/Controller'
+import { UpdateFinishedListener } from '../../infra/Controller'
 import Mooca from '../../my-libs/mooca'
 import { a3, cleanup, expect, render } from '../../my-libs/my-testing-library'
 import nameof from '../../my-libs/nameof'
@@ -29,7 +29,7 @@ a3(App, {
 
     mooca.stub(AppContext, 'Provider', (({ children, value }) =>
       <div id="AppContext">
-        {value.moveFinishedListener.toString()}
+        {value.updateFinishedListener.toString()}
         {children}
       </div>
     ) as typeof AppContext.Provider)
@@ -51,8 +51,8 @@ a3(App, {
     sut: render(<App
       gameState={gameState}
       useController={useController}
-      moveFinishedListener={{ toString: () => 'myMoveFinishedListener' } as
-        MoveFinishedListener}
+      updateFinishedListener={{ toString: () => 'myUpdateFinishedListener' } as
+        UpdateFinishedListener}
     />),
     useController,
     ...rest,
@@ -69,7 +69,7 @@ a3(App, {
     ({ sut: { container: { innerHTML } } }) => {
       expect(innerHTML).to.equal(renderToStaticMarkup(
         <div id="AppContext">
-          myMoveFinishedListener
+          myUpdateFinishedListener
           <main className="App">level-a,pos-b</main>
         </div>
       ))
