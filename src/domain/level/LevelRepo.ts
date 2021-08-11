@@ -3,8 +3,9 @@ import LevelFactory from './private/LevelFactory'
 import LevelLoader from './private/LevelLoader'
 
 export default class LevelRepo {
-  private _levelLoader: LevelLoader
-  private _levelFactory: LevelFactory
+
+  private readonly _levelLoader: LevelLoader
+  private readonly _levelFactory: LevelFactory
 
   constructor(levelLoader: LevelLoader, levelFactory: LevelFactory) {
     this._levelLoader = levelLoader

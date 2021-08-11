@@ -8,7 +8,7 @@ export default class GameState {
   readonly level: Level
   readonly playerPos: Position
 
-  private _mover: Mover
+  private readonly _mover: Mover
 
   constructor(level: Level, mover: Mover,
     playerPos: Position = level.playerPos) {

@@ -1,6 +1,6 @@
 export default class Mooca {
 
-  private _moduleToExport: Map<any, Map<string, any>> = new Map()
+  private readonly _moduleToExport: Map<any, Map<string, any>> = new Map()
 
   stub<T extends { default: any }>(
     module: T, stubbedValue: T['default']): void

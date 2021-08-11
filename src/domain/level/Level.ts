@@ -7,7 +7,7 @@ export default class Level {
   readonly background: TileMatrix
   readonly playerPos: Position
 
-  private _matrix: TileMatrix
+  private readonly _matrix: TileMatrix
 
   constructor(matrix: TileMatrix) {
     this._matrix = matrix

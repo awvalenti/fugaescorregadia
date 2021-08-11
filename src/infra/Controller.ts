@@ -24,7 +24,7 @@ export default class Controller implements
   StorageForUpdateGameStateFn, MoveDispatcher, UpdateFinishedListener {
 
   private _updateGameStateFn$: UpdateGameStateFn$ = noop
-  private _queue$: Direction[] = []
+  private readonly _queue$: Direction[] = []
 
   constructor() {
     myBind(this as UpdateFinishedListener, 'updateFinished$')

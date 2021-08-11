@@ -4,8 +4,9 @@ import LevelParser from './LevelParser'
 import LevelValidator from './LevelValidator'
 
 export default class LevelFactory {
-  private _parser: LevelParser
-  private _validator: LevelValidator
+
+  private readonly _parser: LevelParser
+  private readonly _validator: LevelValidator
 
   constructor(parser: LevelParser, validator: LevelValidator) {
     this._parser = parser
@@ -17,4 +18,5 @@ export default class LevelFactory {
     if (!this._validator.run(parsed)) throw INVALID_LEVEL
     return new Level(parsed)
   }
+
 }

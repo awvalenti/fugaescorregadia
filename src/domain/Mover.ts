@@ -5,7 +5,8 @@ import Position from './Position'
 import { OBSTACLE } from './TileId'
 
 export default class Mover {
-  private _boundsChecker: BoundsChecker
+
+  private readonly _boundsChecker: BoundsChecker
 
   constructor(boundsChecker: BoundsChecker) {
     this._boundsChecker = boundsChecker
