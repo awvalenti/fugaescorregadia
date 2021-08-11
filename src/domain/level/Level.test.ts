@@ -1,5 +1,6 @@
 import { expect } from 'chai'
 import { a3 } from '../../my-libs/a3'
+import nameof from '../../my-libs/nameof'
 import { EMPTY, GOAL, OBSTACLE, PLAYER, TileMatrix } from '../TileId'
 import Level from './Level'
 import { NO_PLAYER } from './private/Error'
@@ -43,7 +44,7 @@ a3(Level, {
       },
     },
 
-    'rowCount': {
+    [`${nameof<Level>('rowCount')}`]: {
       arrange: () => newSut([[EMPTY, PLAYER], [EMPTY, EMPTY], [EMPTY, EMPTY]]),
       act: sut => sut.rowCount,
       assert: {
@@ -53,7 +54,7 @@ a3(Level, {
       },
     },
 
-    'colCount': {
+    [`${nameof<Level>('colCount')}`]: {
       arrange: () => newSut([[EMPTY, PLAYER], [EMPTY, EMPTY], [EMPTY, EMPTY]]),
       act: sut => sut.colCount,
       assert: {
@@ -63,7 +64,7 @@ a3(Level, {
       },
     },
 
-    'playerPos': {
+    [`${nameof<Level>('playerPos')}`]: {
       arrange: () => newSut([[EMPTY, PLAYER]]),
       act: sut => sut.playerPos,
       assert: {
@@ -73,7 +74,7 @@ a3(Level, {
       },
     },
 
-    'background': {
+    [`${nameof<Level>('background')}`]: {
       arrange: () => newSut([[EMPTY, PLAYER], [OBSTACLE, GOAL]]),
       act: sut => sut.background,
       assert: {
