@@ -2,12 +2,12 @@ import { expect } from 'chai'
 import { a3 } from '../../../my-libs/a3'
 import LevelLoader from './LevelLoader'
 
-const newSut = () => new LevelLoader()
+const arrange = () => new LevelLoader()
 
 a3(LevelLoader, {
 
   'for valid id': {
-    arrange: newSut,
+    arrange,
     act: sut => sut.read('00'),
     assert: {
       'loads level as string': result => {
@@ -27,10 +27,10 @@ a3(LevelLoader, {
   },
 
   'for invalid id': {
-    arrange: newSut,
+    arrange,
     act: sut => () => sut.read('9999'),
     assert: {
-      'throws error informing invalid character': fn => {
+      'throws error informing invalid id': fn => {
         expect(fn).to.throw(Error, 'Invalid id: 9999')
       },
     },
