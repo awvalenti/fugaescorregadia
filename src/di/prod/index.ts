@@ -1,6 +1,5 @@
 import UseController from '../../components/hooks/UseController'
 import GameState from '../../domain/GameState'
-import BoundsChecker from '../../domain/level/BoundsChecker'
 import LevelRepo from '../../domain/level/LevelRepo'
 import LevelFactory from '../../domain/level/private/LevelFactory'
 import LevelLoader from '../../domain/level/private/LevelLoader'
@@ -25,9 +24,7 @@ const
   gameStateFactory = {
     new: () => new GameState(
       levelRepo.get(0),
-      new Mover(
-        new BoundsChecker()
-      )
+      new Mover()
     ),
   },
 

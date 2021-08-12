@@ -1,4 +1,5 @@
 import * as React from 'react'
+import Position from '../domain/Position'
 import { a3, cleanup, expect, Mooca, render } from '../my-libs/my-testing-library'
 import nameof from '../my-libs/nameof'
 import * as PlayerTile from './PlayerTile/PlayerTile'
@@ -15,7 +16,7 @@ a3(SpriteLayer, {
       component: render(<SpriteLayer
         rowCount={100}
         colCount={40}
-        playerPos={{ row: 10, col: 20 }}
+        playerPos={new Position(10, 20)}
       />),
     }
   },

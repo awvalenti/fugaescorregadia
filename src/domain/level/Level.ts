@@ -27,7 +27,7 @@ export default class Level {
   private _findPlayerPos(): Position {
     for (let row = 0; row < this._matrix.length; ++row) {
       for (let col = 0; col < this._matrix[row].length; ++col) {
-        if (this._matrix[row][col] === PLAYER) return { row, col }
+        if (this._matrix[row][col] === PLAYER) return new Position(row, col)
       }
     }
 

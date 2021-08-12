@@ -3,10 +3,10 @@ import { UpdateFinishedListener } from '../../../infra/Controller'
 
 export default function anticipateUpdateFinishedIfNecessary(
   updateFinishedListener: UpdateFinishedListener,
-  prevPos: Position,
+  previousPos: Position,
   currentPos: Position,
 ) {
-  if (currentPos.row === prevPos.row && currentPos.col === prevPos.col) {
+  if (currentPos.equals(previousPos)) {
     updateFinishedListener.updateFinished$()
   }
 }

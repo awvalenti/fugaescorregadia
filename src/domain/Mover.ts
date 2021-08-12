@@ -1,30 +1,22 @@
 import Direction from './Direction'
-import BoundsChecker from './level/BoundsChecker'
 import Level from './level/Level'
 import Position from './Position'
 import { OBSTACLE } from './TileId'
 
 export default class Mover {
 
-  private readonly _boundsChecker: BoundsChecker
-
-  constructor(boundsChecker: BoundsChecker) {
-    this._boundsChecker = boundsChecker
-  }
-
   move(level: Level, playerPos: Position, direction: Direction): Position {
-    return this._move(level, playerPos.row, playerPos.col, direction)
+    return this._move(level, playerPos, direction)
   }
 
-  private _move(level: Level, oldRow: number, oldCol: number,
-    direction: Direction): Position {
-    const { rowInc, colInc } = direction
-    const newRow = oldRow + rowInc, newCol = oldCol + colInc
+  private _move(level: Level, oldPos: Position, direction: Direction): Position {
+    const newPos = oldPos.add(direction)
+    const newRow = newPos.row, newCol = newPos.col
 
-    return !this._boundsChecker.inbounds(level, newRow, newCol) ||
+    return !newPos.isInside(level) ||
       level.background[newRow][newCol] === OBSTACLE
-      ? { row: oldRow, col: oldCol }
-      : this._move(level, newRow, newCol, direction)
+      ? oldPos
+      : this._move(level, newPos, direction)
   }
 
 }

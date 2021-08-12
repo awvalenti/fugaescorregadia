@@ -3,6 +3,7 @@ import { expect } from 'chai'
 import * as React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import Level from '../domain/level/Level'
+import Position from '../domain/Position'
 import { EMPTY, GOAL, OBSTACLE, PLAYER, TileMatrix } from '../domain/TileId'
 import { a3 } from '../my-libs/a3'
 import Mooca from '../my-libs/mooca'
@@ -25,7 +26,7 @@ a3(Board, {
     return {
       mooca,
       component: render(<Board
-        playerPos={{ row: 1, col: 0 }}
+        playerPos={new Position(1, 0)}
         level={{
           rowCount: 2,
           colCount: 3,

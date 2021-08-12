@@ -1,5 +1,6 @@
 import * as React from 'react'
 import sinon from 'sinon'
+import Position from '../../domain/Position'
 import { PLAYER } from '../../domain/TileId'
 import { UpdateFinishedListener } from '../../infra/Controller'
 import { a3, cleanup, expect, Mooca, render } from '../../my-libs/my-testing-library'
@@ -16,7 +17,7 @@ a3(PlayerTile, {
     const mooca = new Mooca()
     mooca.stub(Tile, props => <pre>{JSON.stringify(props, (_, v) =>
       typeof v === 'function' ? v.toString() : v)}</pre>)
-    mooca.stub(usePrevious, () => ({ row: 1, col: 2 }))
+    mooca.stub(usePrevious, () => new Position(1, 2))
     const anticipateSpy = sinon.spy()
     mooca.stub(anticipateUpdateFinishedIfNecessary, anticipateSpy)
 
@@ -29,7 +30,7 @@ a3(PlayerTile, {
       mooca,
       component: render(
         <AppContext.Provider value={{ updateFinishedListener } }>
-          <PlayerTile currentPos={{ row: 3, col: 6 }} />
+          <PlayerTile currentPos={new Position(3, 6)} />
         </AppContext.Provider>
       ),
       updateFinishedListener,
@@ -47,7 +48,7 @@ a3(PlayerTile, {
     [`calls ${nameof(anticipateUpdateFinishedIfNecessary)}`]:
     ({ updateFinishedListener, anticipateSpy }) => {
       expect(anticipateSpy).to.have.been.calledOnceWithExactly(
-        updateFinishedListener, { row: 1, col: 2 }, { row: 3, col: 6 })
+        updateFinishedListener, new Position(1, 2), new Position(3, 6))
     },
 
     [`renders a <${nameof(Tile)}> containing ${PLAYER}`]:
