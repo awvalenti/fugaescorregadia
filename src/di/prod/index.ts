@@ -5,7 +5,6 @@ import LevelFactory from '../../domain/level/private/LevelFactory'
 import LevelLoader from '../../domain/level/private/LevelLoader'
 import LevelParser from '../../domain/level/private/LevelParser'
 import LevelValidator from '../../domain/level/private/LevelValidator'
-import Mover from '../../domain/Mover'
 import Controller, { UpdateFinishedListener } from '../../infra/Controller'
 import KeyboardHandler from '../../infra/KeyboardHandler'
 import KeyDownListener from '../../infra/KeyDownListener'
@@ -22,10 +21,7 @@ const
   ),
 
   gameStateFactory = {
-    new: () => new GameState(
-      levelRepo.get(0),
-      new Mover()
-    ),
+    new: () => new GameState(levelRepo.get(0)),
   },
 
   controller = new Controller(),
