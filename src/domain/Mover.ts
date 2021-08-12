@@ -11,10 +11,8 @@ export default class Mover {
 
   private _move(level: Level, oldPos: Position, direction: Direction): Position {
     const newPos = oldPos.add(direction)
-    const newRow = newPos.row, newCol = newPos.col
-
     return !newPos.isInside(level) ||
-      level.background[newRow][newCol] === OBSTACLE
+      level.background[newPos.row][newPos.col] === OBSTACLE
       ? oldPos
       : this._move(level, newPos, direction)
   }
