@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { a3 } from '../../../my-libs/a3'
+import { a3, each } from '../../../my-libs/a3'
 import LevelFileReader from './LevelFileReader'
 
 const arrange = () => new LevelFileReader()
@@ -8,7 +8,7 @@ a3(LevelFileReader, {
 
   'for valid id': {
     arrange,
-    act: sut => sut.read('00'),
+    act: sut => sut.read(1),
     assert: {
       'loads level as string': result => {
         expect(result).to.include('p')
@@ -26,14 +26,16 @@ a3(LevelFileReader, {
     },
   },
 
-  'for invalid id': {
-    arrange,
-    act: sut => () => sut.read('9999'),
-    assert: {
-      'throws error informing invalid id': fn => {
-        expect(fn).to.throw(Error, 'Invalid id: 9999')
+  ...each([-1, 0, 2, 9999], id => ({
+    'for invalid id': {
+      arrange,
+      act: sut => () => sut.read(id),
+      assert: {
+        'throws error informing invalid id': fn => {
+          expect(fn).to.throw(Error, `Invalid id: ${id}`)
+        },
       },
     },
-  },
+  })),
 
 })

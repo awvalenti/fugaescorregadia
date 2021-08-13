@@ -21,7 +21,7 @@ const
   ),
 
   gameStateFactory = {
-    new: () => new GameState(levelRepo.get(0)),
+    new: () => new GameState(levelRepo.get(1)),
   },
 
   controller = new Controller(),
