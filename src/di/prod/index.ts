@@ -2,7 +2,7 @@ import UseController from '../../components/hooks/UseController'
 import GameState from '../../domain/GameState'
 import LevelRepo from '../../domain/level/LevelRepo'
 import LevelFactory from '../../domain/level/private/LevelFactory'
-import LevelLoader from '../../domain/level/private/LevelLoader'
+import LevelFileReader from '../../domain/level/private/LevelFileReader'
 import LevelParser from '../../domain/level/private/LevelParser'
 import LevelValidator from '../../domain/level/private/LevelValidator'
 import Controller, { UpdateFinishedListener } from '../../infra/Controller'
@@ -13,7 +13,7 @@ import KeyMapper from '../../infra/KeyMapper'
 const
 
   levelRepo = new LevelRepo(
-    new LevelLoader(),
+    new LevelFileReader(),
     new LevelFactory(
       new LevelParser(),
       new LevelValidator()

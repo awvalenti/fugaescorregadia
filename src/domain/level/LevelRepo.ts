@@ -1,19 +1,19 @@
 import Level from './Level'
 import LevelFactory from './private/LevelFactory'
-import LevelLoader from './private/LevelLoader'
+import LevelFileReader from './private/LevelFileReader'
 
 export default class LevelRepo {
 
-  private readonly _levelLoader: LevelLoader
+  private readonly _levelFileReader: LevelFileReader
   private readonly _levelFactory: LevelFactory
 
-  constructor(levelLoader: LevelLoader, levelFactory: LevelFactory) {
-    this._levelLoader = levelLoader
+  constructor(levelFileReader: LevelFileReader, levelFactory: LevelFactory) {
+    this._levelFileReader = levelFileReader
     this._levelFactory = levelFactory
   }
 
   get(levelId: number): Level {
-    return this._levelFactory.create(this._levelLoader.read(String(levelId)))
+    return this._levelFactory.create(this._levelFileReader.read(String(levelId)))
   }
 
 }
