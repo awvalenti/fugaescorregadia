@@ -20,9 +20,7 @@ const
     )
   ),
 
-  gameStateFactory = {
-    new: () => new GameState(levelRepo.get(1)),
-  },
+  gameState = new GameState(levelRepo.get(1)),
 
   controller = new Controller(),
 
@@ -36,7 +34,7 @@ const
   updateFinishedListener: UpdateFinishedListener = controller
 
 export default {
-  gameStateFactory,
+  gameState,
   useController,
   updateFinishedListener,
 }

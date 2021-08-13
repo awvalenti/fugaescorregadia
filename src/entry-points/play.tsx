@@ -5,7 +5,7 @@ import di from '../di/prod'
 
 ReactDOM.render(
   <App
-    gameState={di.gameStateFactory.new()}
+    gameState={di.gameState}
     useController={di.useController}
     updateFinishedListener={di.updateFinishedListener}
   />,
