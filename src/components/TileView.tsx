@@ -1,9 +1,9 @@
 import * as React from 'react'
 import TileId from '../domain/TileId'
 import nameof from '../my-libs/nameof'
-import './Tile.sass'
+import './TileView.sass'
 
-const Tile: React.FC<{
+const TileView: React.FC<{
 
   tileId: TileId
   style?: React.CSSProperties
@@ -15,9 +15,9 @@ const Tile: React.FC<{
   onTransitionEnd,
 }) =>
   <div
-    className={`${nameof(Tile)} ${tileId}`}
+    className={`${nameof(TileView)} ${tileId}`}
     style={style}
     onTransitionEnd={onTransitionEnd}
   />
 
-export default Tile
+export default TileView

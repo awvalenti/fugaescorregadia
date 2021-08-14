@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Position from '../domain/Position'
 import nameof from '../my-libs/nameof'
-import PlayerTile from './PlayerTile/PlayerTile'
+import PlayerTileView from './PlayerTileView/PlayerTileView'
 import './SpriteLayer.sass'
 
 const SpriteLayer: React.FC<{
@@ -19,7 +19,7 @@ const SpriteLayer: React.FC<{
     width: `${100 / colCount}%`,
     height: `${100 / rowCount}%`,
   }}>
-    <PlayerTile currentPos={playerPos} />
+    <PlayerTileView currentPos={playerPos} />
   </div>
 
 export default SpriteLayer

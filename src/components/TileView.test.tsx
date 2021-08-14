@@ -3,21 +3,21 @@ import sinon from 'sinon'
 import { OBSTACLE, PLAYER } from '../domain/TileId'
 import { a3, cleanup, expect, render } from '../my-libs/my-testing-library'
 import nameof from '../my-libs/nameof'
-import Tile from './Tile'
+import TileView from './TileView'
 
 const after = ({ spy }: any) => {
   if (spy) spy.restore()
   cleanup()
 }
 
-a3(Tile, {
+a3(TileView, {
   'without optional props': {
-    arrange: () => render(<Tile tileId={OBSTACLE} />),
+    arrange: () => render(<TileView tileId={OBSTACLE} />),
     act: ({ container: { innerHTML } }) => innerHTML,
     assert: {
-      [`renders a <div> with classes ${nameof(Tile)}, {tileId}`]: innerHTML => {
+      [`renders a <div> with classes ${nameof(TileView)}, {tileId}`]: innerHTML => {
         expect(innerHTML).to.equal(
-          '<div class="Tile OBSTACLE"></div>'
+          '<div class="TileView OBSTACLE"></div>'
         )
       },
     },
@@ -31,7 +31,7 @@ a3(Tile, {
       return {
         spy,
         onTransitionEnd,
-        sut: render(<Tile
+        sut: render(<TileView
           tileId={PLAYER}
           style={{ color: 'blue' }}
           onTransitionEnd={onTransitionEnd}
@@ -45,7 +45,7 @@ a3(Tile, {
     assert: {
       'includes the specified style': ({ innerHTML }) => {
         expect(innerHTML).to.equal(
-          '<div class="Tile PLAYER" style="color: blue;"></div>'
+          '<div class="TileView PLAYER" style="color: blue;"></div>'
         )
       },
 

@@ -7,15 +7,15 @@ import { a3, cleanup, expect, Mooca, render } from '../../my-libs/my-testing-lib
 import nameof from '../../my-libs/nameof'
 import AppContext from '../App/AppContext'
 import * as usePrevious from '../hooks/usePrevious'
-import * as Tile from '../Tile'
-import PlayerTile from './PlayerTile'
+import * as TileView from '../TileView'
+import PlayerTileView from './PlayerTileView'
 import * as anticipateUpdateFinishedIfNecessary from './private/anticipateUpdateFinishedIfNecessary'
 
-a3(PlayerTile, {
+a3(PlayerTileView, {
 
   arrange: () => {
     const mooca = new Mooca()
-    mooca.stub(Tile, props => <pre>{JSON.stringify(props, (_, v) =>
+    mooca.stub(TileView, props => <pre>{JSON.stringify(props, (_, v) =>
       typeof v === 'function' ? v.toString() : v)}</pre>)
     mooca.stub(usePrevious, () => new Position(1, 2))
     const anticipateSpy = sinon.spy()
@@ -30,7 +30,7 @@ a3(PlayerTile, {
       mooca,
       component: render(
         <AppContext.Provider value={{ updateFinishedListener } }>
-          <PlayerTile currentPos={new Position(3, 6)} />
+          <PlayerTileView currentPos={new Position(3, 6)} />
         </AppContext.Provider>
       ),
       updateFinishedListener,
@@ -51,7 +51,7 @@ a3(PlayerTile, {
         updateFinishedListener, new Position(1, 2), new Position(3, 6))
     },
 
-    [`renders a <${nameof(Tile)}> containing ${PLAYER}`]:
+    [`renders a <${nameof(TileView)}> containing ${PLAYER}`]:
     ({ props }) => {
       expect(props).to.have.property('tileId', 'PLAYER')
     },

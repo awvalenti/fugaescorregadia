@@ -2,12 +2,12 @@ import * as React from 'react'
 import { useContext } from 'react'
 import Position from '../../domain/Position'
 import { PLAYER } from '../../domain/TileId'
-import AppContext from '.././App/AppContext'
-import usePrevious from '.././hooks/usePrevious'
-import Tile from '.././Tile'
+import AppContext from '../App/AppContext'
+import usePrevious from '../hooks/usePrevious'
+import TileView from '../TileView'
 import anticipateUpdateFinishedIfNecessary from './private/anticipateUpdateFinishedIfNecessary'
 
-const PlayerTile: React.FC<{
+const PlayerTileView: React.FC<{
 
   currentPos: Position
 
@@ -22,7 +22,7 @@ const PlayerTile: React.FC<{
 
   anticipateUpdateFinishedIfNecessary(updateFinishedListener, prevPos, currentPos)
 
-  return <Tile
+  return <TileView
     tileId={PLAYER}
     style={{
       transform: `translate(${col * 100}%, ${row * 100}%)`,
@@ -33,4 +33,4 @@ const PlayerTile: React.FC<{
   />
 }
 
-export default PlayerTile
+export default PlayerTileView

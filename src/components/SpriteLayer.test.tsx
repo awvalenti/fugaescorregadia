@@ -2,14 +2,14 @@ import * as React from 'react'
 import Position from '../domain/Position'
 import { a3, cleanup, expect, Mooca, render } from '../my-libs/my-testing-library'
 import nameof from '../my-libs/nameof'
-import * as PlayerTile from './PlayerTile/PlayerTile'
+import * as PlayerTileView from './PlayerTileView/PlayerTileView'
 import SpriteLayer from './SpriteLayer'
 
 a3(SpriteLayer, {
   arrange: () => {
     const mooca = new Mooca()
 
-    mooca.stub(PlayerTile, ({ currentPos: { row, col } }) => <p>{row},{col}</p>)
+    mooca.stub(PlayerTileView, ({ currentPos: { row, col } }) => <p>{row},{col}</p>)
 
     return {
       mooca,
@@ -36,7 +36,7 @@ a3(SpriteLayer, {
       expect([style.width, style.height]).to.deep.equal(['2.5%', '1%'])
     },
 
-    [`renders a <${nameof(PlayerTile)}>`]: ({ firstElementChild }) => {
+    [`renders a <${nameof(PlayerTileView)}>`]: ({ firstElementChild }) => {
       expect(firstElementChild.querySelector('p')).to.have.property(
         'textContent', '10,20')
     },

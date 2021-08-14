@@ -7,12 +7,12 @@ import { a3 } from '../my-libs/a3'
 import Mooca from '../my-libs/mooca'
 import nameof from '../my-libs/nameof'
 import BackgroundLayer from './BackgroundLayer'
-import * as Tile from './Tile'
+import * as TileView from './TileView'
 
 a3(BackgroundLayer, {
   arrange: () => {
     const mooca = new Mooca()
-    mooca.stub(Tile, ({ tileId }) => <p>{tileId}</p>)
+    mooca.stub(TileView, ({ tileId }) => <p>{tileId}</p>)
 
     return {
       mooca,
@@ -27,7 +27,7 @@ a3(BackgroundLayer, {
   act: ({ component }) => component.container.innerHTML,
 
   assert: {
-    [`renders rows and columns of <${nameof(Tile)}>s`]: innerHTML => {
+    [`renders rows and columns of <${nameof(TileView)}>s`]: innerHTML => {
       expect(innerHTML).to.equal(renderToStaticMarkup(
         <div className="BackgroundLayer">
           <div className="row">

@@ -3,7 +3,7 @@ import { TileMatrix } from '../domain/TileId'
 import nameof from '../my-libs/nameof'
 import pureComponent from '../my-libs/pure-component'
 import './BackgroundLayer.sass'
-import Tile from './Tile'
+import TileView from './TileView'
 
 const BackgroundLayer: React.FC<{
 
@@ -14,7 +14,7 @@ const BackgroundLayer: React.FC<{
     {matrix.map((rowData, rowIndex) =>
       <div key={rowIndex} className='row'>
         {rowData.map((tileId, colIndex) =>
-          <Tile key={colIndex} tileId={tileId} />
+          <TileView key={colIndex} tileId={tileId} />
         )}
       </div>
     )}
