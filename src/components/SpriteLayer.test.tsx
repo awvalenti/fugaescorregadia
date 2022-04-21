@@ -1,11 +1,11 @@
 import * as React from 'react'
 import Position from '../domain/Position'
-import { a3, cleanup, expect, Mooca, render } from '../my-libs/my-testing-library'
+import { a4, cleanup, expect, Mooca, render } from '../my-libs/my-testing-library'
 import nameof from '../my-libs/nameof'
 import * as PlayerTileView from './PlayerTileView/PlayerTileView'
 import SpriteLayer from './SpriteLayer'
 
-a3(SpriteLayer, {
+a4(SpriteLayer, {
   arrange: () => {
     const mooca = new Mooca()
 

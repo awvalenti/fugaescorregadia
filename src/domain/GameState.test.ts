@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { a3, each } from '../my-libs/a3'
+import { a4, each } from '../my-libs/a4'
 import nameof from '../my-libs/nameof'
 import { DOWN, LEFT, RIGHT, UP } from './Direction'
 import GameState from './GameState'
@@ -42,7 +42,7 @@ const levels = {
 const newSut = (level: Level) =>
   new GameState(level)
 
-a3(GameState, {
+a4(GameState, {
   [`${nameof<GameState>('playerPos')}`]: {
     'when not specified via constructor': {
       arrange: () => newSut({ playerPos: { row: 1, col: 2 } } as Level),

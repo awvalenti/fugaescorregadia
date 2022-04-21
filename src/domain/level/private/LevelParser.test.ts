@@ -1,11 +1,11 @@
 import { expect } from 'chai'
-import { a3 } from '../../../my-libs/a3'
+import { a4 } from '../../../my-libs/a4'
 import { EMPTY, GOAL, OBSTACLE, PLAYER } from '../../TileId'
 import LevelParser from './LevelParser'
 
 const newSut = () => new LevelParser()
 
-a3(LevelParser, {
+a4(LevelParser, {
   'for valid input': {
     arrange: newSut,
     act: sut => sut.parse('\n   \n\n  - o g p\n- - - -   \n\n \n  '),

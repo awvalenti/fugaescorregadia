@@ -1,5 +1,5 @@
 import { anything, instance, mock, verify, when } from 'ts-mockito'
-import { a3 } from '../my-libs/my-testing-library'
+import { a4 } from '../my-libs/my-testing-library'
 import nameof from '../my-libs/nameof'
 import KeyboardHandler from './KeyboardHandler'
 import KeyDownListener from './KeyDownListener'
@@ -9,7 +9,7 @@ const arrange = () => {
     MockDocument = mock(Document),
     MockKeyDownListener = mock(KeyDownListener),
 
-    stubbedOnKeyDown$ = () => {}
+    stubbedOnKeyDown$ = () => { }
 
   when(MockKeyDownListener.onKeyDown$).thenReturn(stubbedOnKeyDown$)
 
@@ -23,7 +23,7 @@ const arrange = () => {
   }
 }
 
-a3(KeyboardHandler, {
+a4(KeyboardHandler, {
 
   [nameof<KeyboardHandler>('enable$')]: {
     arrange,
@@ -35,11 +35,11 @@ a3(KeyboardHandler, {
 
     assert: {
       'adds keydown listener to document':
-      ({ MockDocument, stubbedOnKeyDown$ }) => {
-        verify(MockDocument.addEventListener(anything(), anything())).once()
-        verify(MockDocument.addEventListener('keydown', stubbedOnKeyDown$))
-          .called()
-      },
+        ({ MockDocument, stubbedOnKeyDown$ }) => {
+          verify(MockDocument.addEventListener(anything(), anything())).once()
+          verify(MockDocument.addEventListener('keydown', stubbedOnKeyDown$))
+            .called()
+        },
     },
   },
 
@@ -53,12 +53,12 @@ a3(KeyboardHandler, {
 
     assert: {
       'removes keydown listener from document':
-      ({ MockDocument, stubbedOnKeyDown$ }) => {
-        verify(MockDocument.removeEventListener(anything(), anything()))
-          .once()
-        verify(MockDocument.removeEventListener('keydown', stubbedOnKeyDown$))
-          .called()
-      },
+        ({ MockDocument, stubbedOnKeyDown$ }) => {
+          verify(MockDocument.removeEventListener(anything(), anything()))
+            .once()
+          verify(MockDocument.removeEventListener('keydown', stubbedOnKeyDown$))
+            .called()
+        },
     },
   },
 

@@ -1,10 +1,10 @@
 import { expect } from 'chai'
-import { a3, each } from '../../../my-libs/a3'
+import { a4, each } from '../../../my-libs/a4'
 import LevelFileReader from './LevelFileReader'
 
 const arrange = () => new LevelFileReader()
 
-a3(LevelFileReader, {
+a4(LevelFileReader, {
 
   'for valid id': {
     arrange,

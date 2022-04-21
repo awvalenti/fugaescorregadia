@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { a3 } from '../../my-libs/a3'
+import { a4 } from '../../my-libs/a4'
 import { myStub } from '../../my-libs/my-stub'
 import nameof from '../../my-libs/nameof'
 import Level from './Level'
@@ -9,7 +9,7 @@ import LevelFileReader from './private/LevelFileReader'
 
 const level1234 = {} as Level
 
-a3(LevelRepo, {
+a4(LevelRepo, {
 
   arrange: () =>
     new LevelRepo(
@@ -22,8 +22,8 @@ a3(LevelRepo, {
   assert: {
     [`delegates loading to ${nameof(LevelFileReader)} and creating to \
     ${nameof(LevelFactory)}`]: result => {
-      expect(result).to.equal(level1234)
-    },
+        expect(result).to.equal(level1234)
+      },
   },
 
 })

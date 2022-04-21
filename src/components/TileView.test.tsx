@@ -4,7 +4,7 @@ import * as React from 'react'
 import ReactModule from 'react/jsx-dev-runtime'
 import sinon from 'sinon'
 import { OBSTACLE, PLAYER } from '../domain/TileId'
-import { a3, cleanup, expect, render } from '../my-libs/my-testing-library'
+import { a4, cleanup, expect, render } from '../my-libs/my-testing-library'
 import nameof from '../my-libs/nameof'
 import TileView from './TileView'
 
@@ -13,7 +13,7 @@ const after = ({ spy }: any) => {
   cleanup()
 }
 
-a3(TileView, {
+a4(TileView, {
   'only with required props': {
     arrange: () => render(<TileView tileId={OBSTACLE} />),
     act: ({ container: { innerHTML } }) => innerHTML,

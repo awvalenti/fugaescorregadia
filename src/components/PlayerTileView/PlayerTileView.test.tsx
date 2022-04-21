@@ -3,7 +3,7 @@ import sinon from 'sinon'
 import Position from '../../domain/Position'
 import { PLAYER } from '../../domain/TileId'
 import { UpdateFinishedListener } from '../../infra/Controller'
-import { a3, cleanup, expect, Mooca, render } from '../../my-libs/my-testing-library'
+import { a4, cleanup, expect, Mooca, render } from '../../my-libs/my-testing-library'
 import nameof from '../../my-libs/nameof'
 import AppContext from '../App/AppContext'
 import * as usePrevious from '../hooks/usePrevious'
@@ -11,7 +11,7 @@ import * as TileView from '../TileView'
 import PlayerTileView from './PlayerTileView'
 import * as anticipateUpdateFinishedIfNecessary from './private/anticipateUpdateFinishedIfNecessary'
 
-a3(PlayerTileView, {
+a4(PlayerTileView, {
 
   arrange: () => {
     const mooca = new Mooca()
@@ -29,7 +29,7 @@ a3(PlayerTileView, {
     return {
       mooca,
       component: render(
-        <AppContext.Provider value={{ updateFinishedListener } }>
+        <AppContext.Provider value={{ updateFinishedListener }}>
           <PlayerTileView currentPos={new Position(3, 6)} />
         </AppContext.Provider>
       ),
@@ -46,31 +46,31 @@ a3(PlayerTileView, {
 
   assert: {
     [`calls ${nameof(anticipateUpdateFinishedIfNecessary)}`]:
-    ({ updateFinishedListener, anticipateSpy }) => {
-      expect(anticipateSpy).to.have.been.calledOnceWithExactly(
-        updateFinishedListener, new Position(1, 2), new Position(3, 6))
-    },
+      ({ updateFinishedListener, anticipateSpy }) => {
+        expect(anticipateSpy).to.have.been.calledOnceWithExactly(
+          updateFinishedListener, new Position(1, 2), new Position(3, 6))
+      },
 
     [`renders a <${nameof(TileView)}> containing ${PLAYER}`]:
-    ({ props }) => {
-      expect(props).to.have.property('tileId', 'PLAYER')
-    },
+      ({ props }) => {
+        expect(props).to.have.property('tileId', 'PLAYER')
+      },
 
     'sets translation to (100% * currentPos.col, 100% * currentPos.row)':
-    ({ props }) => {
-      expect(props).to.have.nested.property(
-        'style.transform', 'translate(600%, 300%)')
-    },
+      ({ props }) => {
+        expect(props).to.have.nested.property(
+          'style.transform', 'translate(600%, 300%)')
+      },
 
     'sets animation duration to 40ms * (deltaRow + deltaCol)':
-    ({ props }) => {
-      expect(props).to.have.nested.property('style.transitionDuration', '240ms')
-    },
+      ({ props }) => {
+        expect(props).to.have.nested.property('style.transitionDuration', '240ms')
+      },
 
     'sets updateFinishedListener to be called after animation':
-    ({ props }) => {
-      expect(props).to.have.nested.property('onTransitionEnd', 'my-updateFinished$')
-    },
+      ({ props }) => {
+        expect(props).to.have.nested.property('onTransitionEnd', 'my-updateFinished$')
+      },
 
   },
 

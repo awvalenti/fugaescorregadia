@@ -3,7 +3,7 @@ import { DOWN, LEFT, RIGHT, UP } from '../domain/Direction'
 import GameState from '../domain/GameState'
 import * as myBind from '../my-libs/my-bind'
 import { myStub } from '../my-libs/my-stub'
-import { a3, expect, Mooca } from '../my-libs/my-testing-library'
+import { a4, expect, Mooca } from '../my-libs/my-testing-library'
 import nameof from '../my-libs/nameof'
 import Controller, { NextGameStateFn } from './Controller'
 
@@ -14,7 +14,7 @@ const arrange = () => {
   return { sut, updateSpy }
 }
 
-a3(Controller, {
+a4(Controller, {
 
   constructor: {
     arrange: () => {
@@ -31,9 +31,9 @@ a3(Controller, {
 
     assert: {
       [`binds ${nameof<Controller>('updateFinished$')}`]:
-      ({ sut, bindSpy }: any) => {
-        expect(bindSpy).to.have.been.calledOnceWithExactly(sut, 'updateFinished$')
-      },
+        ({ sut, bindSpy }: any) => {
+          expect(bindSpy).to.have.been.calledOnceWithExactly(sut, 'updateFinished$')
+        },
     },
   },
 
@@ -54,7 +54,7 @@ a3(Controller, {
           const
             final = {} as GameState,
             initial = myStub(GameState, 'movePlayer', [RIGHT], final),
-            ref: {current$?: GameState} = {}
+            ref: { current$?: GameState } = {}
 
           const sut = new Controller()
 
@@ -73,9 +73,9 @@ a3(Controller, {
 
         assert: {
           [`happens by calling ${nameof<GameState>('movePlayer')}`]:
-          ({ actual, expected }) => {
-            expect(actual).to.equal(expected)
-          },
+            ({ actual, expected }) => {
+              expect(actual).to.equal(expected)
+            },
         },
       },
 
@@ -111,9 +111,9 @@ a3(Controller, {
           },
           assert: {
             'processes only the first move':
-            ({ updateSpy }) => {
-              expect(updateSpy).to.have.callCount(1)
-            },
+              ({ updateSpy }) => {
+                expect(updateSpy).to.have.callCount(1)
+              },
           },
         },
 
@@ -128,9 +128,9 @@ a3(Controller, {
           },
           assert: {
             [`updates ${nameof(GameState)} once for each move`]:
-            ({ updateSpy }) => {
-              expect(updateSpy).to.have.callCount(2)
-            },
+              ({ updateSpy }) => {
+                expect(updateSpy).to.have.callCount(2)
+              },
           },
         },
 

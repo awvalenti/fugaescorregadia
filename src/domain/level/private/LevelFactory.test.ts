@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { a3 } from '../../../my-libs/a3'
+import { a4 } from '../../../my-libs/a4'
 import { myStub } from '../../../my-libs/my-stub'
 import { PLAYER } from '../../TileId'
 import Level from '../Level'
@@ -13,7 +13,7 @@ const matrix = [[PLAYER]]
 const newSut = (validator: LevelValidator) =>
   new LevelFactory(myStub(LevelParser, 'parse', ['my-level'], matrix), validator)
 
-a3(LevelFactory, {
+a4(LevelFactory, {
   'for valid level': {
     arrange: () => newSut(myStub(LevelValidator, 'run', [matrix], true)),
     act: sut => sut.create('my-level'),

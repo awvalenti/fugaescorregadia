@@ -11,5 +11,5 @@ for file in $*; do
 
   module_name=${BASH_REMATCH[3]}
   printf "export default class $module_name {\n\n  HERE\n\n}\n" > $file.ts
-  printf "import { a3, cleanup, expect, Mooca, render } from './my-libs/my-testing-library'\nimport $module_name from './$module_name'\n\na3($module_name, {\n\n  HERE\n\n})\n" > $file.test.ts
+  printf "import { a4, cleanup, expect, Mooca, render } from './my-libs/my-testing-library'\nimport $module_name from './$module_name'\n\na4($module_name, {\n\n  HERE\n\n})\n" > $file.test.ts
 done

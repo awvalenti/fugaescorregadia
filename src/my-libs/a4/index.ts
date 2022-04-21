@@ -22,7 +22,7 @@ type Leaf<Arranged, Acted> = {
 const isLeaf = <Arranged, Acted>(n: TestSpec<Arranged, Acted>):
   n is Leaf<Arranged, Acted> => 'assert' in n || 'xassert' in n
 
-function _a3<Arranged, Acted>(
+function _a4<Arranged, Acted>(
   sut: string,
   nodeOrArray: TestSpec<Arranged, Acted> | TestSpec<Arranged, Acted>[],
 ) {
@@ -67,18 +67,18 @@ function _a3<Arranged, Acted>(
 
       } else {
         Object.keys(node).forEach(name => {
-          _a3(name, node[name])
+          _a4(name, node[name])
         })
       }
     }
   })
 }
 
-export function a3<Sut extends Function>(
+export function a4<Sut extends Function>(
   sut: Sut,
   testSpec: TestSpec<any, any>
 ): void {
-  _a3(nameof(sut), testSpec)
+  _a4(nameof(sut), testSpec)
 }
 
 export const each = <TestCaseData>(

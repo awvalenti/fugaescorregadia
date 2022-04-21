@@ -1,7 +1,7 @@
-import { a3, expect } from '../../my-testing-library'
+import { a4, expect } from '../../my-testing-library'
 import myBind from '../lib/myBind'
 
-a3(myBind, {
+a4(myBind, {
 
   arrange: () => ({
     field: 'inside-the-object',

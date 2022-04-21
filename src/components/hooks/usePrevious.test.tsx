@@ -1,12 +1,12 @@
 import { renderHook } from '@testing-library/react-hooks'
 import Position from '../../domain/Position'
-import { a3, expect } from '../../my-libs/my-testing-library'
+import { a4, expect } from '../../my-libs/my-testing-library'
 import usePrevious from './usePrevious'
 
 const arrange = () => renderHook(({ pos }) => usePrevious(pos),
   { initialProps: { pos: new Position(1, 1) } })
 
-a3(usePrevious, {
+a4(usePrevious, {
   'on first render': {
     arrange,
     assert: {

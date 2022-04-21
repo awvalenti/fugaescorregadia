@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { a3 } from '../../my-libs/a3'
+import { a4 } from '../../my-libs/a4'
 import nameof from '../../my-libs/nameof'
 import { EMPTY, GOAL, OBSTACLE, PLAYER, TileMatrix } from '../TileId'
 import Level from './Level'
@@ -7,7 +7,7 @@ import { NO_PLAYER } from './private/Error'
 
 const newSut = (matrix: TileMatrix) => new Level(matrix)
 
-a3(Level, {
+a4(Level, {
   'for invalid level': {
     act: () => () => newSut([[]]),
     assert: {

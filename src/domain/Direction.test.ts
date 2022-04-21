@@ -1,7 +1,7 @@
-import { a3, each, expect } from '../my-libs/my-testing-library'
+import { a4, each, expect } from '../my-libs/my-testing-library'
 import Direction, { DOWN, LEFT, RIGHT, UP } from './Direction'
 
-a3(Direction, {
+a4(Direction, {
 
   ...each([
     [LEFT, 'LEFT', 0, -1],

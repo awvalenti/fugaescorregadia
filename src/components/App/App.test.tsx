@@ -6,21 +6,21 @@ import Level from '../../domain/level/Level'
 import Position from '../../domain/Position'
 import { UpdateFinishedListener } from '../../infra/Controller'
 import Mooca from '../../my-libs/mooca'
-import { a3, cleanup, expect, render } from '../../my-libs/my-testing-library'
+import { a4, cleanup, expect, render } from '../../my-libs/my-testing-library'
 import nameof from '../../my-libs/nameof'
 import * as Board from '../Board'
 import UseController from '../hooks/UseController'
 import App from './App'
 import AppContext from './AppContext'
 
-a3(App, {
+a4(App, {
   arrange: () => {
     const gameState = {
       level: 'level-a' as unknown as Level,
       playerPos: 'pos-b' as unknown as Position,
     } as GameState
 
-    const setGameState = () => {}
+    const setGameState = () => { }
 
     const mooca = new Mooca()
 
@@ -60,20 +60,20 @@ a3(App, {
 
   assert: {
     [`runs ${nameof(UseController)} passing on setGameState`]:
-    ({ UseControllerMock, setGameState }) => {
-      verify(UseControllerMock.run$(anything())).once()
-      verify(UseControllerMock.run$(setGameState)).called()
-    },
+      ({ UseControllerMock, setGameState }) => {
+        verify(UseControllerMock.run$(anything())).once()
+        verify(UseControllerMock.run$(setGameState)).called()
+      },
 
     [`renders <main> with <${nameof(Board)}> using gameState`]:
-    ({ sut: { container: { innerHTML } } }) => {
-      expect(innerHTML).to.equal(renderToStaticMarkup(
-        <div id="AppContext">
-          myUpdateFinishedListener
-          <main className="App">level-a,pos-b</main>
-        </div>
-      ))
-    },
+      ({ sut: { container: { innerHTML } } }) => {
+        expect(innerHTML).to.equal(renderToStaticMarkup(
+          <div id="AppContext">
+            myUpdateFinishedListener
+            <main className="App">level-a,pos-b</main>
+          </div>
+        ))
+      },
 
   },
 

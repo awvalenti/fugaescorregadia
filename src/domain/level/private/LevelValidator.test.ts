@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { a3, each } from '../../../my-libs/a3'
+import { a4, each } from '../../../my-libs/a4'
 import { EMPTY, GOAL, OBSTACLE, PLAYER, TileMatrix } from '../../TileId'
 import LevelValidator from './LevelValidator'
 
@@ -14,7 +14,7 @@ const testCases: [string, string, TileMatrix][] = [
   ['rejects', `more than one ${GOAL}`, [[GOAL, GOAL], [PLAYER, OBSTACLE]]],
 ]
 
-a3(LevelValidator, {
+a4(LevelValidator, {
   ...each(testCases, ([acceptsOrRejects, scenario, matrix]) => ({
     [`for ${scenario}`]: {
       arrange: () => new LevelValidator(),

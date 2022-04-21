@@ -1,11 +1,11 @@
 import { expect } from 'chai'
-import { a3, each } from '../my-libs/a3'
+import { a4, each } from '../my-libs/a4'
 import nameof from '../my-libs/nameof'
 import Direction from './Direction'
 import Level from './level/Level'
 import Position from './Position'
 
-a3(Position, {
+a4(Position, {
 
   constructor: {
     act: () => new Position(1, 2),

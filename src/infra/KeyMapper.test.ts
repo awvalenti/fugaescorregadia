@@ -1,9 +1,9 @@
 import { DOWN, LEFT, RIGHT, UP } from '../domain/Direction'
-import { a3, each, expect } from '../my-libs/my-testing-library'
+import { a4, each, expect } from '../my-libs/my-testing-library'
 import nameof from '../my-libs/nameof'
 import KeyMapper from './KeyMapper'
 
-a3(KeyMapper, {
+a4(KeyMapper, {
 
   [nameof<KeyMapper>('directionFor')]: {
     'for mapped keys': {

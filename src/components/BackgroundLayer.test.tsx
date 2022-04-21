@@ -3,13 +3,13 @@ import { expect } from 'chai'
 import * as React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { EMPTY, OBSTACLE } from '../domain/TileId'
-import { a3 } from '../my-libs/a3'
+import { a4 } from '../my-libs/a4'
 import Mooca from '../my-libs/mooca'
 import nameof from '../my-libs/nameof'
 import BackgroundLayer from './BackgroundLayer'
 import * as TileView from './TileView'
 
-a3(BackgroundLayer, {
+a4(BackgroundLayer, {
   arrange: () => {
     const mooca = new Mooca()
     mooca.stub(TileView, ({ tileId }) => <p>{tileId}</p>)

@@ -5,7 +5,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import Level from '../domain/level/Level'
 import Position from '../domain/Position'
 import { EMPTY, GOAL, OBSTACLE, PLAYER, TileMatrix } from '../domain/TileId'
-import { a3 } from '../my-libs/a3'
+import { a4 } from '../my-libs/a4'
 import Mooca from '../my-libs/mooca'
 import nameof from '../my-libs/nameof'
 import pureComponent from '../my-libs/pure-component'
@@ -13,7 +13,7 @@ import * as BackgroundLayer from './BackgroundLayer'
 import Board from './Board'
 import * as SpriteLayer from './SpriteLayer'
 
-a3(Board, {
+a4(Board, {
   arrange: () => {
     const mooca = new Mooca()
 
@@ -43,13 +43,13 @@ a3(Board, {
   assert: {
     [`renders <${nameof(BackgroundLayer)}> and <${nameof(SpriteLayer)}>
     using ${nameof(Level)}`]: innerHTML => {
-      expect(innerHTML).to.equal(renderToStaticMarkup(
-        <div className="Board">
-          <p>[[EMPTY,EMPTY,OBSTACLE],[PLAYER,EMPTY,GOAL]]</p>
-          <p>Dimensions:2x3 playerPos:1,0</p>
-        </div>
-      ))
-    },
+        expect(innerHTML).to.equal(renderToStaticMarkup(
+          <div className="Board">
+            <p>[[EMPTY,EMPTY,OBSTACLE],[PLAYER,EMPTY,GOAL]]</p>
+            <p>Dimensions:2x3 playerPos:1,0</p>
+          </div>
+        ))
+      },
   },
 
   after: ({ mooca }) => {

@@ -2,7 +2,7 @@ import sinon from 'sinon'
 import { anything, instance, mock, verify } from 'ts-mockito'
 import { LEFT } from '../domain/Direction'
 import * as myBind from '../my-libs/my-bind'
-import { a3, expect, Mooca } from '../my-libs/my-testing-library'
+import { a4, expect, Mooca } from '../my-libs/my-testing-library'
 import nameof from '../my-libs/nameof'
 import Controller, { MoveDispatcher } from './Controller'
 import KeyDownListener from './KeyDownListener'
@@ -21,7 +21,7 @@ const arrange = () => {
   }
 }
 
-a3(KeyDownListener, {
+a4(KeyDownListener, {
 
   constructor: {
     arrange: () => {
@@ -41,9 +41,9 @@ a3(KeyDownListener, {
 
     assert: {
       [`binds ${nameof<KeyDownListener>('onKeyDown$')}`]:
-      ({ bindSpy, sut }: any) => {
-        expect(bindSpy).to.have.been.calledOnceWithExactly(sut, 'onKeyDown$')
-      },
+        ({ bindSpy, sut }: any) => {
+          expect(bindSpy).to.have.been.calledOnceWithExactly(sut, 'onKeyDown$')
+        },
     },
 
     after: ({ mooca }: any) => {
@@ -63,10 +63,10 @@ a3(KeyDownListener, {
 
       assert: {
         [`calls ${nameof<MoveDispatcher>('dispatchMove$')}`]:
-        ({ MockMoveDispatcher }) => {
-          verify(MockMoveDispatcher.dispatchMove$(anything())).once()
-          verify(MockMoveDispatcher.dispatchMove$(LEFT)).called()
-        },
+          ({ MockMoveDispatcher }) => {
+            verify(MockMoveDispatcher.dispatchMove$(anything())).once()
+            verify(MockMoveDispatcher.dispatchMove$(LEFT)).called()
+          },
       },
     },
 
@@ -80,9 +80,9 @@ a3(KeyDownListener, {
 
       assert: {
         [`does NOT call ${nameof<MoveDispatcher>('dispatchMove$')}`]:
-        ({ MockMoveDispatcher }) => {
-          verify(MockMoveDispatcher.dispatchMove$(anything())).never()
-        },
+          ({ MockMoveDispatcher }) => {
+            verify(MockMoveDispatcher.dispatchMove$(anything())).never()
+          },
       },
     },
   },
