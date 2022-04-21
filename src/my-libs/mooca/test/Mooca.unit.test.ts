@@ -14,7 +14,7 @@ describe(Mooca.name, () => {
       })
     })
 
-    context('when property name is not specified', () => {
+    context('when property name is omitted', () => {
       it('replaces original value of "default" with stubbed value', () => {
         const mooca = new Mooca()
         const obj = { default: 1 }

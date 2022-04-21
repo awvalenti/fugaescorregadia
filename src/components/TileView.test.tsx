@@ -1,4 +1,7 @@
-import ReactModule, * as React from 'react'
+import * as React from 'react'
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
+import ReactModule from 'react/jsx-dev-runtime'
 import sinon from 'sinon'
 import { OBSTACLE, PLAYER } from '../domain/TileId'
 import { a3, cleanup, expect, render } from '../my-libs/my-testing-library'
@@ -11,7 +14,7 @@ const after = ({ spy }: any) => {
 }
 
 a3(TileView, {
-  'without optional props': {
+  'only with required props': {
     arrange: () => render(<TileView tileId={OBSTACLE} />),
     act: ({ container: { innerHTML } }) => innerHTML,
     assert: {
@@ -24,10 +27,10 @@ a3(TileView, {
     after,
   },
 
-  'with optional props': {
+  'with props style and onTransitionEnd': {
     arrange: () => {
-      const spy = sinon.spy(ReactModule, 'createElement')
-      const onTransitionEnd = () => {}
+      const spy = sinon.spy(ReactModule, 'jsxDEV')
+      const onTransitionEnd = () => { }
       return {
         spy,
         onTransitionEnd,
@@ -43,13 +46,13 @@ a3(TileView, {
       ({ spy, onTransitionEnd, innerHTML }),
 
     assert: {
-      'includes the specified style': ({ innerHTML }) => {
+      'sets style': ({ innerHTML }) => {
         expect(innerHTML).to.equal(
           '<div class="TileView PLAYER" style="color: blue;"></div>'
         )
       },
 
-      'passes on prop onTransitionEnd': ({ spy, onTransitionEnd }) => {
+      'sets onTransitionEnd': ({ spy, onTransitionEnd }) => {
         expect(spy).to.have.been.calledWithMatch('div', { onTransitionEnd })
       },
     },
