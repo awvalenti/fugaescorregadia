@@ -7,12 +7,12 @@ a3(KeyMapper, {
 
   [nameof<KeyMapper>('directionFor')]: {
     'for mapped keys': {
-      ...each(<[string, [string, string, string, string]][]>[
+      ...each([
         ['Arrows', ['ArrowLeft', 'ArrowUp', 'ArrowRight', 'ArrowDown']],
         ['WASD', ['KeyA', 'KeyW', 'KeyD', 'KeyS']],
         ['HJKL', ['KeyH', 'KeyK', 'KeyL', 'KeyJ']],
         ['Numpad', ['Numpad4', 'Numpad8', 'Numpad6', 'Numpad2']],
-      ], ([keysGroup, codes]) => ({
+      ] as const, ([keysGroup, codes]) => ({
         [keysGroup]: {
           arrange: () => new KeyMapper(),
           act: sut => codes.map(code => sut.directionFor(code)),

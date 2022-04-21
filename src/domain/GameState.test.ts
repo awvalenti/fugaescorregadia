@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { a3, each } from '../my-libs/a3'
 import nameof from '../my-libs/nameof'
-import Direction, { DOWN, LEFT, RIGHT, UP } from './Direction'
+import { DOWN, LEFT, RIGHT, UP } from './Direction'
 import GameState from './GameState'
 import Level from './level/Level'
 import LevelFactory from './level/private/LevelFactory'
@@ -72,7 +72,7 @@ a3(GameState, {
 
   [nameof<GameState>('movePlayer')]: {
     'for one move': {
-      ...each(<[keyof typeof levels, Direction, number, number][]>[
+      ...each([
         ['obstacle', LEFT, 4, 2],
         ['obstacle', UP, 2, 4],
         ['obstacle', RIGHT, 4, 6],
@@ -81,7 +81,7 @@ a3(GameState, {
         ['border', UP, 0, 4],
         ['border', RIGHT, 4, 8],
         ['border', DOWN, 8, 4],
-      ], ([object, direction, row, col]) => ({
+      ] as const, ([object, direction, row, col]) => ({
         [`when ${object} is found going ${direction}`]: {
           arrange: () => newSut(levels[object]),
           act: sut => ({ initialState: sut, finalState: sut.movePlayer(direction) }),

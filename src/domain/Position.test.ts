@@ -11,10 +11,10 @@ a3(Position, {
     act: () => new Position(1, 2),
     assert: {
       [`sets ${nameof<Position>('row')} and ${nameof<Position>('col')}`]:
-      (p: Position) => {
-        expect(p.row).to.equal(1)
-        expect(p.col).to.equal(2)
-      },
+        (p: Position) => {
+          expect(p.row).to.equal(1)
+          expect(p.col).to.equal(2)
+        },
     },
   },
 
@@ -23,21 +23,21 @@ a3(Position, {
     act: ({ initial, d }) => initial.add(d),
     assert: {
       [`adds ${nameof<Position>('row')} and ${nameof<Position>('col')}`]:
-      (final: Position) => {
-        expect(final.row).to.equal(3)
-        expect(final.col).to.equal(4)
-      },
+        (final: Position) => {
+          expect(final.row).to.equal(3)
+          expect(final.col).to.equal(4)
+        },
     },
   },
 
   equality: {
-    ...each(<['equal' | 'not equal', boolean, Position, Position][]>[
+    ...each([
       ['equal', true, new Position(1, 2), new Position(1, 2)],
       ['equal', true, new Position(3, 4), new Position(3, 4)],
       ['not equal', false, new Position(1, 2), new Position(1, 3)],
       ['not equal', false, new Position(1, 2), new Position(4, 2)],
       ['not equal', false, new Position(1, 2), new Position(3, 4)],
-    ], ([equalOrNot, expectedResult, p1, p2]) => ({
+    ] as const, ([equalOrNot, expectedResult, p1, p2]) => ({
       [`for ${equalOrNot} objects`]: {
         assert: {
           [`deep equality considers them ${equalOrNot}`]: () => {
@@ -53,7 +53,7 @@ a3(Position, {
   },
 
   [nameof<Position>('isInside')]: {
-    ...each(<['inside' | 'outside', number, number, boolean][]>[
+    ...each([
       ['inside', 0, 0, true],
       ['inside', 0, 1, true],
       ['inside', 0, 2, true],
@@ -64,7 +64,7 @@ a3(Position, {
       ['outside', 0, -1, false],
       ['outside', 1, 3, false],
       ['outside', 2, 0, false],
-    ], ([insideOrOutside, row, col, expectedResult]) => ({
+    ] as const, ([insideOrOutside, row, col, expectedResult]) => ({
       [`when ${insideOrOutside} level`]: {
         arrange: () => ({ level2x3: { rowCount: 2, colCount: 3 } as Level }),
         act: ({ level2x3 }) => new Position(row, col).isInside(level2x3),

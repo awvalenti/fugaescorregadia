@@ -82,7 +82,7 @@ export function a3<Sut extends Function>(
 }
 
 export const each = <TestCaseData>(
-  testCases: TestCaseData[],
+  testCases: Readonly<TestCaseData[]>,
   testSpecFactory: (testCase: TestCaseData) => Internal<any, any>,
 ): TestSpec<any, any> => testCases.reduce((ret, testCase) => {
   const testSpec: any = testSpecFactory(testCase)
