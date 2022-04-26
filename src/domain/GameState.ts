@@ -20,38 +20,35 @@ export abstract class GameState {
     this.playerPos = playerPos
   }
 
-  protected defaultMovePlayer(direction: Direction): GameState {
+  protected _move(direction: Direction): Position {
     for (let oldPos = this.playerPos, newPos; ;) {
       newPos = oldPos.add(direction)
-      if (!newPos.isInside(this.level)) return new MovingGameState(
-        this.level, oldPos)
+
+      if (!newPos.isInside(this.level)) return oldPos
 
       switch (this.level.background[newPos.row][newPos.col]) {
-        case OBSTACLE: return new MovingGameState(this.level, oldPos)
-
-        case GOAL: return new MovingGameState(this.level, newPos)
-
-        default:
-          // eslint-disable-next-line no-param-reassign
-          oldPos = newPos
+        case OBSTACLE: return oldPos
+        case GOAL: return newPos
+        default: oldPos = newPos
       }
     }
   }
 
   abstract movePlayer(direction: Direction): GameState
 
-  abstract lambda(): GameState
+  abstract next(): GameState
 
 }
 
 export class StillGameState extends GameState {
 
-  override lambda(): GameState {
+  override next(): GameState {
     return this
   }
 
   override movePlayer(direction: Direction): GameState {
-    return this.defaultMovePlayer(direction)
+    const newPos = this._move(direction)
+    return newPos.equals(this.playerPos) ? this : new MovingGameState(this.level, newPos)
   }
 
 }
@@ -67,7 +64,7 @@ export class ChangingLevelGameState extends GameState {
     return this
   }
 
-  override lambda(): GameState {
+  override next(): GameState {
     // debugger
     return new StillGameState(lr.get(this.level.id + 1))
   }
@@ -77,12 +74,13 @@ export class ChangingLevelGameState extends GameState {
 export class MovingGameState extends GameState {
 
   override movePlayer(direction: Direction): GameState {
-    return this.defaultMovePlayer(direction)
+    const newPos = this._move(direction)
+    return newPos.equals(this.playerPos) ? new StillGameState(this.level, this.playerPos) : new MovingGameState(this.level, newPos)
   }
 
-  override lambda(): GameState {
+  override next(): GameState {
     return this.level.background[this.playerPos.row][this.playerPos.col] ===
-      GOAL ? new ChangingLevelGameState(this.level, this.playerPos) : this
+      GOAL ? new ChangingLevelGameState(this.level, this.playerPos) : new StillGameState(this.level, this.playerPos)
   }
 
 }

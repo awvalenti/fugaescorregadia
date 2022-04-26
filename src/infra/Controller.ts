@@ -1,6 +1,6 @@
 import 'regenerator-runtime/runtime'
 import Direction from '../domain/Direction'
-import GameState from '../domain/GameState'
+import GameState, { ChangingLevelGameState } from '../domain/GameState'
 import { noop } from '../my-libs/funcs'
 import myBind from '../my-libs/my-bind'
 
@@ -26,7 +26,17 @@ export default class Controller implements
   private _updateGameStateFn$: UpdateGameStateFn$ = noop
   private readonly _queue$: Direction[] = []
   private _resolve: (_?: unknown) => void = noop
-  private _gs: GameState
+  private __gs: GameState
+
+  private set _gs(gs: GameState) {
+    console.log({ gs })
+
+    this.__gs = gs
+  }
+
+  private get _gs() {
+    return this.__gs
+  }
 
   constructor() {
     myBind(this as UpdateFinishedListener, 'updateFinished$')
@@ -43,59 +53,64 @@ export default class Controller implements
     }
   }
 
+  // eslint-disable-next-line complexity
   private async _move$(): Promise<void> {
     for (let i = 0; i < this._queue$.length; ++i) {
-      // console.log({ i })
-
-      // debugger
       const dir = this._queue$[i]
 
-      let gs = this._gs
-      console.log(54)
-      this._updateGameStateFn$(gameState => this._gs = gameState.movePlayer(dir))
-      if (gs === this._gs) {
-        // console.log(1)
+      const gs1 = this._gs
+      this._updateGameStateFn$(gameState => {
+        this._gs = gameState.movePlayer(dir)
+        return this._gs
+      })
+      if (gs1 === this._gs) {
         continue
       }
       await Promise.race([
         new Promise(resolve => {
-          // eslint-disable-next-line no-console
-          // console.log('1resolve')
           this._resolve = resolve
         }),
         new Promise(resolve => {
-          // setTimeout(resolve, 1000)
+          setTimeout(resolve, 1000)
         }),
       ])
 
+      let brake = false
       for (; ;) {
-        gs = this._gs
-        // console.log(73)
+        const gs2 = this._gs
         const bla = new Promise(resolve => {
-          // eslint-disable-next-line no-console
-          console.log('2resolve')
           this._resolve = resolve
         })
 
-        this._updateGameStateFn$(gameState => this._gs = gameState.lambda())
-        if (gs === this._gs) {
-          // console.log(2)
+        this._updateGameStateFn$(gameState => {
+          this._gs = gameState.next()
+          return this._gs
+        })
+        if (gs2 === this._gs) {
           break
+        } else if (gs2 instanceof ChangingLevelGameState) {
+          brake = true
         }
         await Promise.race([
           bla,
           new Promise(resolve => {
-            // setTimeout(resolve, 1000)
+            setTimeout(resolve, 1000)
           }),
         ])
       }
+      // console.log(82)
+      if (brake) {
+        console.log(84)
+        break
+      }
 
     }
+    // console.log(86)
     this._queue$.length = 0
   }
 
   updateFinished$(): void {
-    console.log(96)
+    // console.log(96)
     this._resolve()
   }
 

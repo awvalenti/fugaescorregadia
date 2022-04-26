@@ -1,5 +1,5 @@
 import UseController from '../../components/hooks/UseController'
-import { MovingGameState } from '../../domain/GameState'
+import { StillGameState } from '../../domain/GameState'
 import LevelRepo from '../../domain/level/LevelRepo'
 import LevelFactory from '../../domain/level/private/LevelFactory'
 import LevelFileReader from '../../domain/level/private/LevelFileReader'
@@ -20,7 +20,7 @@ const
     )
   ),
 
-  gameState = new MovingGameState(levelRepo.get(1)),
+  gameState = new StillGameState(levelRepo.get(1)),
 
   controller = new Controller(),
 

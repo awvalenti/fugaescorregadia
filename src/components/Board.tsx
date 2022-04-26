@@ -10,10 +10,12 @@ const Board: React.FC<{
 
   level: Level
   playerPos: Position
+  // still: boolean
 
 }> = ({
   level,
   playerPos,
+  // still,
 }) =>
   <div className={nameof(Board)}>
     <BackgroundLayer matrix={level.background} />
@@ -21,6 +23,7 @@ const Board: React.FC<{
       rowCount={level.rowCount}
       colCount={level.colCount}
       playerPos={playerPos}
+      // // still={still}
     />
   </div>
 

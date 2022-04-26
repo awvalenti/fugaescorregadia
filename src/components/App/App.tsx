@@ -19,7 +19,8 @@ const App: React.FC<{
   useController,
   updateFinishedListener,
 }) => {
-  const [{ level, playerPos }, setGameState] = useState(gameState)
+  const [gs, setGameState] = useState(gameState)
+  const { level, playerPos } = gs
 
   useController.run$(setGameState)
 
@@ -28,6 +29,7 @@ const App: React.FC<{
       <Board
         level={level}
         playerPos={playerPos}
+        // still={gs instanceof StillGameState}
       />
     </main>
   </AppContext.Provider>

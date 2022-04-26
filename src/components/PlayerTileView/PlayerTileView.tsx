@@ -11,9 +11,11 @@ import anticipateUpdateFinishedIfNecessary from './private/anticipateUpdateFinis
 const PlayerTileView: React.FC<{
 
   currentPos: Position
+  // still: boolean
 
 }> = ({
   currentPos,
+  // still,
 }) => {
     const
       prevPos = usePrevious(currentPos),
@@ -30,6 +32,7 @@ const PlayerTileView: React.FC<{
       tileId={PLAYER}
       style={{
         transform: `translate(${col * 100}%, ${row * 100}%)`,
+        // still ? '1ms' :
         transitionDuration: `${(Math.abs(prevPos.row - row) +
           Math.abs(prevPos.col - col)) * animationStepDuration}ms`,
       }}
