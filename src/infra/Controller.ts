@@ -58,54 +58,58 @@ export default class Controller implements
     for (let i = 0; i < this._queue$.length; ++i) {
       const dir = this._queue$[i]
 
-      const gs1 = this._gs
+      const bla = await this._bla(dir)
+
+      if (bla === 'break') break
+    }
+    // console.log(86)
+    this._queue$.length = 0
+  }
+
+  // eslint-disable-next-line complexity
+  private async _bla(dir: Direction): Promise<'' | 'break'> {
+    this._updateGameStateFn$(gameState => {
+      this._gs = gameState.movePlayer(dir)
+      return this._gs
+    })
+    if (this._gs instanceof StillGameState) {
+      return ''
+    }
+    await Promise.race([
+      new Promise(resolve => {
+        this._resolve = resolve
+      }),
+      new Promise(resolve => {
+        setTimeout(resolve, 1000)
+      }),
+    ])
+
+    let brake = false
+    for (; ;) {
+      if (this._gs instanceof StillGameState) {
+        break
+      } else if (this._gs instanceof ChangingLevelGameState) {
+        brake = true
+      }
+
+      const prom = new Promise(resolve => {
+        this._resolve = resolve
+      })
+
       this._updateGameStateFn$(gameState => {
-        this._gs = gameState.movePlayer(dir)
+        this._gs = gameState.next()
         return this._gs
       })
-      if (gs1 === this._gs) {
-        continue
-      }
+
       await Promise.race([
-        new Promise(resolve => {
-          this._resolve = resolve
-        }),
+        prom,
         new Promise(resolve => {
           setTimeout(resolve, 1000)
         }),
       ])
-
-      let brake = false
-      for (; ;) {
-        const gs2 = this._gs
-        const bla = new Promise(resolve => {
-          this._resolve = resolve
-        })
-
-        if (gs2 instanceof StillGameState) {
-          break
-        } else if (gs2 instanceof ChangingLevelGameState) {
-          brake = true
-        }
-        this._updateGameStateFn$(gameState => {
-          this._gs = gameState.next()
-          return this._gs
-        })
-        await Promise.race([
-          bla,
-          new Promise(resolve => {
-            setTimeout(resolve, 1000)
-          }),
-        ])
-      }
-
-      if (brake) {
-        break
-      }
-
     }
-    // console.log(86)
-    this._queue$.length = 0
+
+    return brake ? 'break' : ''
   }
 
   updateFinished$(): void {

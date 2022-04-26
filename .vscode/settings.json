@@ -7,7 +7,7 @@
   "editor.tabSize": 2,
   // "editor.formatOnSave": true,
   // "typescript.format.enable": false,
-  "typescript.format.enable": false,
+  // "typescript.format.enable": false,
   // "prettier.semi": false,
   // "prettier.trailingComma": "es5",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
