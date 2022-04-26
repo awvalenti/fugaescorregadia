@@ -1,6 +1,6 @@
 import sinon from 'sinon'
 import { DOWN, LEFT, RIGHT, UP } from '../domain/Direction'
-import GameState from '../domain/GameState'
+import { MovingGameState } from '../domain/GameState'
 import * as myBind from '../my-libs/my-bind'
 import { myStub } from '../my-libs/my-stub'
 import { a4, expect, Mooca } from '../my-libs/my-testing-library'
@@ -49,12 +49,12 @@ a4(Controller, {
     },
 
     [`when called after ${nameof<Controller>('setUpdateGameStateFn$')}`]: {
-      [`the update of ${nameof(GameState)}`]: {
+      [`the update of ${nameof(MovingGameState)}`]: {
         arrange: () => {
           const
-            final = {} as GameState,
-            initial = myStub(GameState, 'movePlayer', [RIGHT], final),
-            ref: { current$?: GameState } = {}
+            final = {} as MovingGameState,
+            initial = myStub(MovingGameState, 'movePlayer', [RIGHT], final),
+            ref: { current$?: MovingGameState } = {}
 
           const sut = new Controller()
 
@@ -72,7 +72,7 @@ a4(Controller, {
         },
 
         assert: {
-          [`happens by calling ${nameof<GameState>('movePlayer')}`]:
+          [`happens by calling ${nameof<MovingGameState>('movePlayer')}`]:
             ({ actual, expected }) => {
               expect(actual).to.equal(expected)
             },
@@ -127,7 +127,7 @@ a4(Controller, {
             return { updateSpy }
           },
           assert: {
-            [`updates ${nameof(GameState)} once for each move`]:
+            [`updates ${nameof(MovingGameState)} once for each move`]:
               ({ updateSpy }) => {
                 expect(updateSpy).to.have.callCount(2)
               },

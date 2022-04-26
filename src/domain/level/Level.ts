@@ -6,10 +6,12 @@ export default class Level {
 
   readonly background: TileMatrix
   readonly playerPos: Position
+  readonly id: number
 
   private readonly _matrix: TileMatrix
 
-  constructor(matrix: TileMatrix) {
+  constructor(matrix: TileMatrix, id: number) {
+    this.id = id
     this._matrix = matrix
     this.background = matrix.map(rowData =>
       rowData.map(tile => tile === PLAYER ? EMPTY : tile))

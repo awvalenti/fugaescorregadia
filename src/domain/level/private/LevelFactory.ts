@@ -13,10 +13,10 @@ export default class LevelFactory {
     this._validator = validator
   }
 
-  create(levelAsString: string): Level {
+  create(levelAsString: string, id = 0): Level {
     const parsed = this._parser.parse(levelAsString)
     if (!this._validator.run(parsed)) throw INVALID_LEVEL
-    return new Level(parsed)
+    return new Level(parsed, id)
   }
 
 }

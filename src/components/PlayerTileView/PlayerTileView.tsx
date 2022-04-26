@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/indent */
 import * as React from 'react'
 import { useContext } from 'react'
 import Position from '../../domain/Position'
@@ -14,23 +15,26 @@ const PlayerTileView: React.FC<{
 }> = ({
   currentPos,
 }) => {
-  const
-    prevPos = usePrevious(currentPos),
-    { row, col } = currentPos,
-    animationStepDuration = 40,
-    { updateFinishedListener } = useContext(AppContext)
+    const
+      prevPos = usePrevious(currentPos),
+      { row, col } = currentPos,
+      animationStepDuration = 40,
+      { updateFinishedListener } = useContext(AppContext)
 
-  anticipateUpdateFinishedIfNecessary(updateFinishedListener, prevPos, currentPos)
+    // console.log('oi')
+    // console.log('current\n', currentPos, '\n\nprev\n', prevPos, '\n\n', currentPos.equals(prevPos))
 
-  return <TileView
-    tileId={PLAYER}
-    style={{
-      transform: `translate(${col * 100}%, ${row * 100}%)`,
-      transitionDuration: `${(Math.abs(prevPos.row - row) +
-        Math.abs(prevPos.col - col)) * animationStepDuration}ms`,
-    }}
-    onTransitionEnd={updateFinishedListener.updateFinished$}
-  />
-}
+    anticipateUpdateFinishedIfNecessary(updateFinishedListener, prevPos, currentPos)
+
+    return <TileView
+      tileId={PLAYER}
+      style={{
+        transform: `translate(${col * 100}%, ${row * 100}%)`,
+        transitionDuration: `${(Math.abs(prevPos.row - row) +
+          Math.abs(prevPos.col - col)) * animationStepDuration}ms`,
+      }}
+      onTransitionEnd={updateFinishedListener.updateFinished$}
+    />
+  }
 
 export default PlayerTileView

@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import { a4, each } from '../my-libs/a4'
 import nameof from '../my-libs/nameof'
 import { DOWN, LEFT, RIGHT, UP } from './Direction'
-import GameState from './GameState'
+import { MovingGameState } from './GameState'
 import Level from './level/Level'
 import LevelFactory from './level/private/LevelFactory'
 import LevelParser from './level/private/LevelParser'
@@ -40,22 +40,22 @@ const levels = {
 }
 
 const newSut = (level: Level) =>
-  new GameState(level)
+  new MovingGameState(level)
 
-a4(GameState, {
-  [`${nameof<GameState>('playerPos')}`]: {
+a4(MovingGameState, {
+  [`${nameof<MovingGameState>('playerPos')}`]: {
     'when not specified via constructor': {
       arrange: () => newSut({ playerPos: { row: 1, col: 2 } } as Level),
       act: sut => sut.playerPos,
       assert: {
-        [`is taken from ${nameof<GameState>('level')}`]: result => {
+        [`is taken from ${nameof<MovingGameState>('level')}`]: result => {
           expect(result).to.deep.equal({ row: 1, col: 2 })
         },
       },
     },
   },
 
-  [`${nameof<GameState>('level')}`]: {
+  [`${nameof<MovingGameState>('level')}`]: {
     arrange: () => {
       const expected = {} as Level
       return { sut: newSut(expected), expected }
@@ -70,7 +70,7 @@ a4(GameState, {
     },
   },
 
-  [nameof<GameState>('movePlayer')]: {
+  [nameof<MovingGameState>('movePlayer')]: {
     'for one move': {
       ...each([
         ['obstacle', LEFT, 4, 2],
@@ -86,8 +86,8 @@ a4(GameState, {
           arrange: () => newSut(levels[object]),
           act: sut => ({ initialState: sut, finalState: sut.movePlayer(direction) }),
           assert: {
-            [`produces another ${nameof(GameState)}`]: ({ finalState }) => {
-              expect(finalState).to.be.instanceof(GameState)
+            [`produces another ${nameof(MovingGameState)}`]: ({ finalState }) => {
+              expect(finalState).to.be.instanceof(MovingGameState)
             },
 
             'reuses the level': ({ initialState, finalState }) => {
