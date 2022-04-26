@@ -1,6 +1,6 @@
 import 'regenerator-runtime/runtime'
 import Direction from '../domain/Direction'
-import GameState, { ChangingLevelGameState } from '../domain/GameState'
+import { ChangingLevelGameState, GameState, StillGameState } from '../domain/GameState'
 import { noop } from '../my-libs/funcs'
 import myBind from '../my-libs/my-bind'
 
@@ -82,15 +82,15 @@ export default class Controller implements
           this._resolve = resolve
         })
 
-        this._updateGameStateFn$(gameState => {
-          this._gs = gameState.next()
-          return this._gs
-        })
-        if (gs2 === this._gs) {
+        if (gs2 instanceof StillGameState) {
           break
         } else if (gs2 instanceof ChangingLevelGameState) {
           brake = true
         }
+        this._updateGameStateFn$(gameState => {
+          this._gs = gameState.next()
+          return this._gs
+        })
         await Promise.race([
           bla,
           new Promise(resolve => {
@@ -98,9 +98,8 @@ export default class Controller implements
           }),
         ])
       }
-      // console.log(82)
+
       if (brake) {
-        console.log(84)
         break
       }
 
