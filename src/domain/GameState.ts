@@ -42,13 +42,13 @@ export abstract class GameState {
 
 export class StillGameState extends GameState {
 
-  override next(): GameState {
-    return this
-  }
-
   override movePlayer(direction: Direction): GameState {
     const newPos = this._move(direction)
     return newPos.equals(this.playerPos) ? this : new MovingGameState(this.level, newPos)
+  }
+
+  override next(): GameState {
+    return this
   }
 
 }
@@ -59,13 +59,10 @@ const lr = new LevelRepo(new LevelFileReader(), lf)
 export class ChangingLevelGameState extends GameState {
 
   override movePlayer(): GameState {
-    // console.log('bla')
-
     return this
   }
 
   override next(): GameState {
-    // debugger
     return new StillGameState(lr.get(this.level.id + 1))
   }
 
