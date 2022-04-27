@@ -79,39 +79,32 @@ export default class Controller implements
   }
 
   private async _processFirstStep(dir: Direction): Promise<'done' | 'not-done'> {
-    const gs = this._gs3
-
-    const gsPrime = gs.movePlayer(dir)
-    if (gsPrime instanceof StillGameState) {
+    const gsPrime = this._gs3.movePlayer(dir)
+    if (gsPrime === this._gs3) {
       return 'done'
     }
-    this._updateGameStateFn$(() => gsPrime)
+    await this._update(gsPrime)
 
-    await this._waitForAnimation()
-
-    this._gs3 = gsPrime
     return 'not-done'
+  }
+
+  private async _update(gsPrime: GameState) {
+    this._updateGameStateFn$(() => gsPrime)
+    await this._waitForAnimation()
+    this._gs3 = gsPrime
   }
 
   private async _processSubsequentSteps(gs: GameState): Promise<QueueResult> {
     let result: QueueResult = 'keep-queue'
 
+    let gsPrime = gs
     do {
-      // eslint-disable-next-line no-param-reassign
-      gs = gs.next()
-
-      if (gs instanceof ChangingLevelGameState) {
+      gsPrime = gsPrime.next()
+      if (gsPrime instanceof ChangingLevelGameState) {
         result = 'discard-queue'
       }
-
-      const gs2 = gs
-
-      this._updateGameStateFn$(() => gs2)
-      this._gs3 = gs
-
-      await this._waitForAnimation()
-
-    } while (!(gs instanceof StillGameState))
+      await this._update(gsPrime)
+    } while (!(gsPrime instanceof StillGameState))
 
     return result
   }
