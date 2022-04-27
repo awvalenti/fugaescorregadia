@@ -28,18 +28,7 @@ export default class Controller implements
   private _updateGameStateFn$: UpdateGameStateFn$ = noop
   private readonly _queue$: Direction[] = []
   private _resolve: (_?: unknown) => void = noop
-  // private gs3: GameState
   private __gs3: GameState
-
-  // private set _gs(gs: GameState) {
-  //   console.log({ gs })
-
-  //   this.gs3 = gs
-  // }
-
-  // private get _gs() {
-  //   return this.gs3
-  // }
 
   constructor(initialGameState: GameState) {
     myBind(this as UpdateFinishedListener, 'updateFinished$')
@@ -57,56 +46,47 @@ export default class Controller implements
     }
   }
 
-  // eslint-disable-next-line complexity
   private async _startQueueProcessing(): Promise<void> {
-    for (const dir of this._queue$) {
-      const result = await this._processOneMove(dir)
-      if (result === 'discard-queue') break
+    let dir: Direction | undefined
+    while ((dir = this._queue$[0]) !== undefined) {
+      const result = await this._processMove(dir)
+      this._queue$.shift()
+      if (result === 'discard-queue') this._queue$.length = 0
     }
-    // console.log(86)
-    this._queue$.length = 0
   }
 
-  // eslint-disable-next-line complexity
-  private async _processOneMove(dir: Direction): Promise<QueueResult> {
-    const firstResult = await this._processFirstStep(dir)
+  private async _processMove(dir: Direction): Promise<QueueResult> {
+    const firstStepResult = this._runFirstStep(dir)
 
-    if (firstResult === 'done') return 'keep-queue'
+    if (firstStepResult === 'nothing-changed') return 'keep-queue'
 
-    const secondResult = await this._processSubsequentSteps(this._gs3)
+    const gss = this._runFurtherSteps(firstStepResult)
 
-    return secondResult
+    for (const gs of gss) {
+      await this._update$(gs)
+    }
+
+    return gss.some(gs => gs instanceof ChangingLevelGameState)
+      ? 'discard-queue' : 'keep-queue'
   }
 
-  private async _processFirstStep(dir: Direction): Promise<'done' | 'not-done'> {
+  private _runFirstStep(dir: Direction) {
     const gsPrime = this._gs3.movePlayer(dir)
-    if (gsPrime === this._gs3) {
-      return 'done'
-    }
-    await this._update(gsPrime)
-
-    return 'not-done'
+    if (gsPrime === this._gs3) return 'nothing-changed'
+    else return gsPrime
   }
 
-  private async _update(gsPrime: GameState) {
+  private async _update$(gsPrime: GameState) {
     this._updateGameStateFn$(() => gsPrime)
     await this._waitForAnimation()
     this._gs3 = gsPrime
   }
 
-  private async _processSubsequentSteps(gs: GameState): Promise<QueueResult> {
-    let result: QueueResult = 'keep-queue'
+  private _runFurtherSteps(gs: GameState): GameState[] {
+    const loop = (ret: GameState[], gs: GameState): GameState[] =>
+      ret[ret.length - 1] instanceof StillGameState ? ret : loop([...ret, gs], gs.next())
 
-    let gsPrime = gs
-    do {
-      gsPrime = gsPrime.next()
-      if (gsPrime instanceof ChangingLevelGameState) {
-        result = 'discard-queue'
-      }
-      await this._update(gsPrime)
-    } while (!(gsPrime instanceof StillGameState))
-
-    return result
+    return loop([], gs)
   }
 
   private async _waitForAnimation() {
@@ -124,7 +104,6 @@ export default class Controller implements
     // eslint-disable-next-line no-console
     console.log({ g })
     this.__gs3 = g
-
   }
 
   get _gs3(): GameState {
