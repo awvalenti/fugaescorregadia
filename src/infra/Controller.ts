@@ -20,26 +20,30 @@ export interface UpdateFinishedListener {
   updateFinished$(): void
 }
 
+type QueueResult = 'keep-queue' | 'discard-queue'
+
 export default class Controller implements
   StorageForUpdateGameStateFn, MoveDispatcher, UpdateFinishedListener {
 
   private _updateGameStateFn$: UpdateGameStateFn$ = noop
   private readonly _queue$: Direction[] = []
   private _resolve: (_?: unknown) => void = noop
-  private __gs: GameState
+  // private gs3: GameState
+  private __gs3: GameState
 
-  private set _gs(gs: GameState) {
-    console.log({ gs })
+  // private set _gs(gs: GameState) {
+  //   console.log({ gs })
 
-    this.__gs = gs
-  }
+  //   this.gs3 = gs
+  // }
 
-  private get _gs() {
-    return this.__gs
-  }
+  // private get _gs() {
+  //   return this.gs3
+  // }
 
-  constructor() {
+  constructor(initialGameState: GameState) {
     myBind(this as UpdateFinishedListener, 'updateFinished$')
+    this.__gs3 = initialGameState
   }
 
   setUpdateGameStateFn$(updateGameStateFn$: UpdateGameStateFn$): void {
@@ -49,32 +53,70 @@ export default class Controller implements
   dispatchMove$(direction: Direction): void {
     if (this._queue$.length < 3) {
       this._queue$.push(direction)
-      if (this._queue$.length === 1) this._move$()
+      if (this._queue$.length === 1) this._startQueueProcessing()
     }
   }
 
   // eslint-disable-next-line complexity
-  private async _move$(): Promise<void> {
-    for (let i = 0; i < this._queue$.length; ++i) {
-      const dir = this._queue$[i]
-
-      const bla = await this._bla(dir)
-
-      if (bla === 'break') break
+  private async _startQueueProcessing(): Promise<void> {
+    for (const dir of this._queue$) {
+      const result = await this._processOneMove(dir)
+      if (result === 'discard-queue') break
     }
     // console.log(86)
     this._queue$.length = 0
   }
 
   // eslint-disable-next-line complexity
-  private async _bla(dir: Direction): Promise<'' | 'break'> {
-    this._updateGameStateFn$(gameState => {
-      this._gs = gameState.movePlayer(dir)
-      return this._gs
-    })
-    if (this._gs instanceof StillGameState) {
-      return ''
+  private async _processOneMove(dir: Direction): Promise<QueueResult> {
+    const firstResult = await this._processFirstStep(dir)
+
+    if (firstResult === 'done') return 'keep-queue'
+
+    const secondResult = await this._processSubsequentSteps(this._gs3)
+
+    return secondResult
+  }
+
+  private async _processFirstStep(dir: Direction): Promise<'done' | 'not-done'> {
+    const gs = this._gs3
+
+    const gsPrime = gs.movePlayer(dir)
+    if (gsPrime instanceof StillGameState) {
+      return 'done'
     }
+    this._updateGameStateFn$(() => gsPrime)
+
+    await this._waitForAnimation()
+
+    this._gs3 = gsPrime
+    return 'not-done'
+  }
+
+  private async _processSubsequentSteps(gs: GameState): Promise<QueueResult> {
+    let result: QueueResult = 'keep-queue'
+
+    do {
+      // eslint-disable-next-line no-param-reassign
+      gs = gs.next()
+
+      if (gs instanceof ChangingLevelGameState) {
+        result = 'discard-queue'
+      }
+
+      const gs2 = gs
+
+      this._updateGameStateFn$(() => gs2)
+      this._gs3 = gs
+
+      await this._waitForAnimation()
+
+    } while (!(gs instanceof StillGameState))
+
+    return result
+  }
+
+  private async _waitForAnimation() {
     await Promise.race([
       new Promise(resolve => {
         this._resolve = resolve
@@ -83,37 +125,20 @@ export default class Controller implements
         setTimeout(resolve, 1000)
       }),
     ])
+  }
 
-    let brake = false
-    for (; ;) {
-      if (this._gs instanceof StillGameState) {
-        break
-      } else if (this._gs instanceof ChangingLevelGameState) {
-        brake = true
-      }
+  set _gs3(g: GameState) {
+    // eslint-disable-next-line no-console
+    console.log({ g })
+    this.__gs3 = g
 
-      const prom = new Promise(resolve => {
-        this._resolve = resolve
-      })
+  }
 
-      this._updateGameStateFn$(gameState => {
-        this._gs = gameState.next()
-        return this._gs
-      })
-
-      await Promise.race([
-        prom,
-        new Promise(resolve => {
-          setTimeout(resolve, 1000)
-        }),
-      ])
-    }
-
-    return brake ? 'break' : ''
+  get _gs3(): GameState {
+    return this.__gs3
   }
 
   updateFinished$(): void {
-    // console.log(96)
     this._resolve()
   }
 

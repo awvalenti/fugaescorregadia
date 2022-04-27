@@ -22,7 +22,7 @@ const
 
   gameState = new StillGameState(levelRepo.get(1)),
 
-  controller = new Controller(),
+  controller = new Controller(gameState),
 
   keyboardHandler = new KeyboardHandler(
     document,
