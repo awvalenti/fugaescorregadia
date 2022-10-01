@@ -9,7 +9,7 @@ export type NextGameStateFn = (gameState: GameState) => GameState
 export type UpdateGameStateFn$ = (nextGameStateFn: NextGameStateFn) => void
 
 export interface StorageForUpdateGameStateFn {
-  setUpdateGameStateFn$(updateGameStateFn$: UpdateGameStateFn$): void
+  setUpdateGameStateFn$(updateGameStateFn$: (d: Direction) => void): void
 }
 
 export interface MoveDispatcher {
@@ -25,7 +25,7 @@ type QueueResult = 'keep-queue' | 'discard-queue'
 export default class Controller implements
   StorageForUpdateGameStateFn, MoveDispatcher, UpdateFinishedListener {
 
-  private _updateGameStateFn$: UpdateGameStateFn$ = noop
+  private _updateGameStateFn$: (d: Direction) => void = noop
   private readonly _queue$: Direction[] = []
   private _resolve: (_?: unknown) => void = noop
   private __gs3: GameState
@@ -35,15 +35,12 @@ export default class Controller implements
     this.__gs3 = initialGameState
   }
 
-  setUpdateGameStateFn$(updateGameStateFn$: UpdateGameStateFn$): void {
+  setUpdateGameStateFn$(updateGameStateFn$: (d: Direction) => void): void {
     this._updateGameStateFn$ = updateGameStateFn$
   }
 
   dispatchMove$(direction: Direction): void {
-    if (this._queue$.length < 3) {
-      this._queue$.push(direction)
-      if (this._queue$.length === 1) this._startQueueProcessing()
-    }
+    this._updateGameStateFn$(direction)
   }
 
   private async _startQueueProcessing(): Promise<void> {
