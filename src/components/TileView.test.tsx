@@ -1,7 +1,6 @@
 import * as React from 'react'
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
-import ReactModule from 'react/jsx-dev-runtime'
+// FIXME Find another way to test without using ReactModule
+// import ReactModule from 'react/jsx-dev-runtime'
 import sinon from 'sinon'
 import { OBSTACLE, PLAYER } from '../domain/TileId'
 import { a4, cleanup, expect, render } from '../my-libs/my-testing-library'

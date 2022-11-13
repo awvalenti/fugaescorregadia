@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks'
+import { renderHook } from '@testing-library/react'
 import Position from '../../domain/Position'
 import { a4, expect } from '../../my-libs/my-testing-library'
 import usePrevious from './usePrevious'

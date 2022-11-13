@@ -1,4 +1,4 @@
-import { cleanup, renderHook } from '@testing-library/react-hooks'
+import { cleanup, renderHook } from '@testing-library/react'
 import { anything, instance, mock, resetCalls, verify } from 'ts-mockito'
 import Controller, { StorageForUpdateGameStateFn, UpdateGameStateFn$ } from '../../infra/Controller'
 import KeyboardHandler from '../../infra/KeyboardHandler'
