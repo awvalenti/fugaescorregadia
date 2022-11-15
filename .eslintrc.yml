@@ -21,6 +21,9 @@ plugins:
   - react
   - react-hooks
 rules:
+  '@typescript-eslint/ban-ts-comment':
+    - error
+    - ts-ignore: false
   '@typescript-eslint/consistent-type-assertions': 'off'
   '@typescript-eslint/explicit-function-return-type': 'off'
   '@typescript-eslint/member-delimiter-style':

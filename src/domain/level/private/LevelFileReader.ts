@@ -1,4 +1,4 @@
-import level01 from '../../../game-design/levels/01.level'
+import level01 from '../../../levels/01.level'
 
 const MIN_LEVEL = 1, MAX_LEVEL = 1
 

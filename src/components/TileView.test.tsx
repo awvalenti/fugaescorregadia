@@ -1,6 +1,4 @@
 import * as React from 'react'
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
 import ReactModule from 'react/jsx-dev-runtime'
 import sinon from 'sinon'
 import { OBSTACLE, PLAYER } from '../domain/TileId'
