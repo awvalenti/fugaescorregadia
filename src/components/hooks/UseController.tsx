@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
-import Direction from '../../domain/Direction'
-import { StorageForUpdateGameStateFn } from '../../infra/Controller'
+import { StorageForUpdateGameStateFn, UpdateGameStateFn$ } from '../../infra/Controller'
 import KeyboardHandler from '../../infra/KeyboardHandler'
 
 export default class UseController {
@@ -13,10 +12,10 @@ export default class UseController {
     this._keyboardHandler = keyboardHandler
   }
 
-  run$(fn: (d: Direction) => void): void {
+  run$(updateGameStateFn$: UpdateGameStateFn$): void {
     useEffect(() => {
-      this._storage.setUpdateGameStateFn$(fn)
-    }, [fn])
+      this._storage.setUpdateGameStateFn$(updateGameStateFn$)
+    }, [updateGameStateFn$])
 
     useEffect(() => {
       this._keyboardHandler.enable$()
