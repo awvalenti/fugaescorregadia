@@ -29,7 +29,7 @@
   "devDependencies": {
     "babel-polyfill": "^6.26.0",
     "coffeescript": "^2.4.1",
-    "mocha": "^6.2.2",
+    "mocha": "^6.2.3",
     "parcel-bundler": "^1.12.4",
     "posthtml-modules": "^0.4.2",
     "semver": "^6.0.0",
