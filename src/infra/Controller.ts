@@ -41,7 +41,7 @@ export default class Controller implements
     }
   }
 
-  private _moveOnce(): void{
+  private _moveOnce(): void {
     const dir = this._queue$[0]
     if (dir) {
       this._updateGameStateFn$(gameState => gameState.movePlayer(dir))
