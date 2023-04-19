@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
-import { StorageForUpdateGameStateFn, UpdateGameState$ } from '../../infra/Controller'
+import { StorageForUpdateGameStateFn } from '../../domain/AppState'
+import { UpdateGameState$ } from '../../infra/Controller'
 import KeyboardHandler from '../../infra/KeyboardHandler'
 
 export default class UseController {
