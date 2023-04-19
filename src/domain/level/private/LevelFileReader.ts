@@ -1,10 +1,11 @@
-import level01 from '../../../levels/01.level'
+import l01 from '../../../levels/01.level'
+import l02 from '../../../levels/02.level'
 
-const MIN_LEVEL = 1, MAX_LEVEL = 1
+const levels = [l01, l02]
 
 export default class LevelFileReader {
   read(id: number): string {
-    if (id < MIN_LEVEL || id > MAX_LEVEL) throw Error(`Invalid id: ${id}`)
-    return level01
+    if (id < 1 || id > levels.length) throw Error(`Invalid id: ${id}`)
+    return levels[id - 1]
   }
 }

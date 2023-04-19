@@ -9,6 +9,7 @@ import Controller, { UpdateFinishedListener } from '../../infra/Controller'
 import KeyboardHandler from '../../infra/KeyboardHandler'
 import KeyDownListener from '../../infra/KeyDownListener'
 import KeyMapper from '../../infra/KeyMapper'
+import { Mover } from '../../infra/Mover'
 
 const
 
@@ -22,7 +23,7 @@ const
 
   gameState = new GameState(levelRepo.get(1)),
 
-  controller = new Controller(),
+  controller = new Controller(gameState, new Mover(levelRepo)),
 
   keyboardHandler = new KeyboardHandler(
     document,

@@ -13,7 +13,7 @@ export default class LevelRepo {
   }
 
   get(levelId: number): Level {
-    return this._levelFactory.create(this._levelFileReader.read(levelId))
+    return this._levelFactory.create(levelId, this._levelFileReader.read(levelId))
   }
 
 }

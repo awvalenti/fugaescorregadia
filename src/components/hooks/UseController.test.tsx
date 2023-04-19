@@ -1,6 +1,6 @@
 import { cleanup, renderHook } from '@testing-library/react'
 import { anything, instance, mock, resetCalls, verify } from 'ts-mockito'
-import Controller, { StorageForUpdateGameStateFn, UpdateGameStateFn$ } from '../../infra/Controller'
+import Controller, { StorageForUpdateGameStateFn, UpdateGameState$ } from '../../infra/Controller'
 import KeyboardHandler from '../../infra/KeyboardHandler'
 import { a4 } from '../../my-libs/my-testing-library'
 import nameof from '../../my-libs/nameof'
@@ -12,7 +12,7 @@ const arrange = () => {
     MockKeyboardHandler = mock(KeyboardHandler),
     controller = instance(StorageForUpdateGameStateFn),
     keyboardHandler = instance(MockKeyboardHandler),
-    setGameState = {} as UpdateGameStateFn$
+    setGameState = {} as UpdateGameState$
 
   return {
     StorageForUpdateGameStateFn,
