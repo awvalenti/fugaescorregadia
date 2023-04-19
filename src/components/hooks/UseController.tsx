@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
-import { StorageForUpdateGameStateFn } from '../../domain/AppState'
-import { UpdateGameState$ } from '../../infra/Controller'
+import { StorageForUpdateGameStateFn, UpdateGameState$ } from '../../infra/Controller'
 import KeyboardHandler from '../../infra/KeyboardHandler'
 
 export default class UseController {
@@ -14,10 +13,12 @@ export default class UseController {
   }
 
   run$(updateGameStateFn$: UpdateGameState$): void {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
       this._storage.setUpdateGameStateFn$(updateGameStateFn$)
     }, [updateGameStateFn$])
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
       this._keyboardHandler.enable$()
       return () => this._keyboardHandler.disable$()
