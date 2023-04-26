@@ -17,8 +17,8 @@ export default class Controller implements MoveDispatcher {
     this._appState$ = appState
   }
 
-  async dispatchMove$(direction: Direction): Promise<void> {
-    this._appState$ = await this._appState$.move$(direction)
+  dispatchMove$(direction: Direction): void {
+    this._appState$ = this._appState$.move$(direction)
   }
 
 }

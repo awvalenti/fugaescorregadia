@@ -4,6 +4,7 @@ import { noop } from '../my-libs/funcs'
 import myBind from '../my-libs/my-bind'
 import Direction from './Direction'
 import GameState from './GameState'
+import Queue from './Queue'
 
 export interface StorageForUpdateGameStateFn {
   setUpdateGameStateFn$(updateGameStateFn$: UpdateGameState$): void
@@ -13,44 +14,31 @@ export interface UpdateFinishedListener {
   updateFinished$(): void
 }
 
-export class AppState implements StorageForUpdateGameStateFn, UpdateFinishedListener {
+export class AppState implements UpdateFinishedListener {
 
   constructor(
     private _gameState$: GameState,
-    private readonly _queue: Direction[],
+    // private readonly _queue: Direction[],
+    private readonly _queue: Queue,
     private readonly _mover: Mover,
-    private _updateGameStateFn$: UpdateGameState$ = noop,
     private _resolve$: (_?: unknown) => void = noop,
   ) {
     myBind(this as UpdateFinishedListener, 'updateFinished$')
   }
 
-  setUpdateGameStateFn$(updateGameStateFn$: UpdateGameState$): void {
-    this._updateGameStateFn$ = updateGameStateFn$
-  }
+  move$(d: Direction) {
+    // if (this._queue.length > 0) return this
 
-  async move$(d: Direction): Promise<AppState> {
-    if (this._queue.length > 0) return this
+    // const gameStates = this._mover.update(this._gameState$, d)
 
-    const gameStates = this._mover.update(this._gameState$, d)
+    // if (gameStates.length === 1 && gameStates[0] === this._gameState$) return this
 
-    if (gameStates.length === 1 && gameStates[0] === this._gameState$) return this
-
-    for (const gs of gameStates) {
-      this._gameState$ = gs
-      this._updateGameStateFn$(gs)
-
-      // eslint-disable-next-line no-new
-      await new Promise(resolve => {
-        this._resolve$ = resolve
-      })
-    }
-
-    return new AppState(gameStates.at(-1)!, [], this._mover, this._updateGameStateFn$, this._resolve$)
+    return new AppState(gs, this._queue.handle$(d), this._mover, this._resolve$)
   }
 
   updateFinished$() {
-    this._resolve$()
+    // this._resolve$()
+    this._queue.updateFinished$()
   }
 
 }

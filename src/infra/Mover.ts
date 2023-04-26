@@ -7,14 +7,15 @@ export class Mover {
 
   constructor(private _levelRepo: LevelRepo) { }
 
-  update(gameState: GameState, direction: Direction): GameState[] {
-    const ret: GameState[] = []
-    const gs0 = gameState.movePlayer(direction)
-    ret.push(gs0)
-    if (gs0.level.get(gs0.playerPos) === GOAL) {
-      ret.push(new GameState(this._levelRepo.get(gs0.level.id + 1)))
-    }
-    return ret
+  update(gs0: GameState, d: Direction): GameState[] {
+    const gs1 = gs0.movePlayer(d)
+    return (
+      gs1 === gs0
+        ? []
+        : gs1.level.get(gs1.playerPos) === GOAL
+          ? [gs1, new GameState(this._levelRepo.get(gs1.level.id + 1))]
+          : [gs1]
+    )
   }
 
 }
