@@ -4,18 +4,54 @@ import Level from './level/Level'
 import Position from './Position'
 import { OBSTACLE } from './TileId'
 
-export default class GameState {
+export default abstract class GameState {
 
-  readonly level: Level
-  readonly playerPos: Position
+  // readonly level: Level
+  // readonly playerPos: Position
 
-  constructor(level: Level, playerPos: Position = level.playerPos) {
-    this.level = level
-    this.playerPos = playerPos
+  constructor(readonly level: Level, readonly playerPos: Position = level.playerPos) {
+    // this.level = level
+    // this.playerPos = playerPos
   }
 
-  movePlayer(direction: Direction): GameState {
-    return new GameState(this.level, this._move(this.playerPos, direction))
+  abstract onAddMove(d: Direction): GameState
+  abstract onTransitionEnd(): GameState
+
+}
+
+export class IdleState extends GameState {
+  // constructor(level: Level, playerPos: Position) {
+  //   super(level, playerPos)
+  // }
+
+  override onAddMove(d: Direction): GameState {
+    return new MovingState(this.level, this.playerPos, [d])
+  }
+
+  override onTransitionEnd(): GameState {
+    return this
+  }
+}
+
+export class MovingState extends GameState {
+  static readonly MAX = 3
+
+  constructor(level: Level, playerPos: Position, private readonly _queue: Direction[]) {
+    super(level, playerPos)
+  }
+
+  override onAddMove(d: Direction): GameState {
+    console.log(this._queue.length)
+
+    return this._queue.length < MovingState.MAX
+      ? new MovingState(this.level, this.playerPos, [...this._queue, d])
+      : this
+  }
+
+  override onTransitionEnd(): GameState {
+    return this._queue.length > 0
+      ? new MovingState(this.level, this._move(this.playerPos, this._queue[0]), this._queue.slice(1))
+      : new ArrivingState(this.level, this.playerPos)
   }
 
   private _move(oldPos: Position, direction: Direction): Position {
@@ -28,59 +64,22 @@ export default class GameState {
 
 }
 
-type Transition = State
-
-export abstract class State {
-  abstract onAddMove(d: Direction): Transition
-  abstract onTransitionEnd(): Transition
-}
-
-export class IdleState extends State {
-  override onAddMove(d: Direction): Transition {
-    return new MovingState([d])
-  }
-
-  override onTransitionEnd(): Transition {
-    return this
-  }
-}
-
-export class MovingState extends State {
-  static readonly MAX = 3
-
-  constructor(private readonly _queue: Direction[]) {
-    super()
-  }
-
-  override onAddMove(d: Direction): Transition {
-    return this._queue.length < MovingState.MAX
-      ? new MovingState([...this._queue, d])
-      : this
-  }
-
-  override onTransitionEnd(): Transition {
-    return this._queue.length >= 0
-      ? new MovingState(this._queue.slice(1))
-      : new ArrivingState()
-  }
-}
-
-export class IncreasingLevelState extends State {
-  override onAddMove(): Transition {
+export class IncreasingLevelState extends GameState {
+  override onAddMove(): GameState {
     return this
   }
 
-  override onTransitionEnd(): Transition {
-    return new IdleState()
+  override onTransitionEnd(): GameState {
+    return new IdleState(this.level, this.playerPos)
   }
 }
 
-export class ArrivingState extends State {
-  override onAddMove(): Transition {
+export class ArrivingState extends GameState {
+  override onAddMove(): GameState {
     return this
   }
 
-  override onTransitionEnd(): Transition {
-    return new IdleState()
+  override onTransitionEnd(): GameState {
+    return new IdleState(this.level, this.playerPos)
   }
 }
