@@ -1,12 +1,12 @@
 import 'regenerator-runtime/runtime'
 import Direction from '../domain/Direction'
-import GameState from '../domain/GameState'
+import GameState, { AppState } from '../domain/GameState'
 import { noop } from '../my-libs/funcs'
 import myBind from '../my-libs/my-bind'
 
 export type NextGameStateFn = (gameState: GameState) => GameState
 
-export type UpdateGameStateFn$ = (nextGameStateFn: NextGameStateFn) => void
+export type UpdateGameStateFn$ = (next: GameState) => void
 
 export interface StorageForUpdateGameStateFn {
   setUpdateGameStateFn$(updateGameStateFn$: UpdateGameStateFn$): void
@@ -24,9 +24,8 @@ export default class Controller implements
   StorageForUpdateGameStateFn, MoveDispatcher, UpdateFinishedListener {
 
   private _updateGameStateFn$: UpdateGameStateFn$ = noop
-  private readonly _queue$: Direction[] = []
 
-  constructor() {
+  constructor(private _appState$: AppState) {
     myBind(this as UpdateFinishedListener, 'updateFinished$')
   }
 
@@ -35,22 +34,15 @@ export default class Controller implements
   }
 
   dispatchMove$(direction: Direction): void {
-    if (this._queue$.length < 3) {
-      this._queue$.push(direction)
-      if (this._queue$.length === 1) this._moveOnce()
-    }
-  }
-
-  private _moveOnce(): void {
-    const dir = this._queue$[0]
-    if (dir) {
-      this._updateGameStateFn$(gameState => gameState.movePlayer(dir))
-    }
+    this._appState$ = this._appState$.onAddMove(direction)
+    this._updateGameStateFn$(this._appState$.gameState)
   }
 
   updateFinished$(): void {
-    this._queue$.shift()
-    this._moveOnce()
+    console.log('updateFinished$(): {', this._appState$.constructor.name)
+    this._appState$ = this._appState$.onTransitionEnd()
+    this._updateGameStateFn$(this._appState$.gameState)
+    console.log('updateFinished$(): }', this._appState$.constructor.name)
   }
 
 }

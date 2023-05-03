@@ -1,5 +1,5 @@
 import UseController from '../../components/hooks/UseController'
-import GameState from '../../domain/GameState'
+import GameState, { IdleState } from '../../domain/GameState'
 import LevelRepo from '../../domain/level/LevelRepo'
 import LevelFactory from '../../domain/level/private/LevelFactory'
 import LevelFileReader from '../../domain/level/private/LevelFileReader'
@@ -22,7 +22,9 @@ const
 
   gameState = new GameState(levelRepo.get(1)),
 
-  controller = new Controller(),
+  appState = new IdleState(gameState),
+
+  controller = new Controller(appState),
 
   keyboardHandler = new KeyboardHandler(
     document,
