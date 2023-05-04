@@ -59,7 +59,7 @@ export abstract class AppState {
 
 export class IdleState extends AppState {
   override onAddMove(d: Direction): Transition {
-    return new MovingState(this.gameState.movePlayer(d), [])
+    return new MovingState(this._mover, this.gameState.movePlayer(d), [])
   }
 
   override onTransitionEnd(): Transition {
