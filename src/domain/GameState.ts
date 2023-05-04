@@ -46,7 +46,7 @@ export abstract class AppState {
 
 export class IdleState extends AppState {
   override onAddMove(d: Direction): Transition {
-    return new MovingState(this.gameState, [d])
+    return new MovingState(this.gameState.movePlayer(d), [])
   }
 
   override onTransitionEnd(): Transition {
@@ -62,7 +62,7 @@ export class MovingState extends AppState {
   }
 
   override onAddMove(d: Direction): Transition {
-    return this._queue.length < MovingState.MAX
+    return this._queue.length < MovingState.MAX - 1
       ? new MovingState(this.gameState, [...this._queue, d])
       : this
   }
