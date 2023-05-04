@@ -1,6 +1,7 @@
 /* eslint-disable no-use-before-define */
 import Direction from './Direction'
 import Level from './level/Level'
+import { Mover } from './Mover'
 import Position from './Position'
 import { GOAL, OBSTACLE } from './TileId'
 
@@ -48,7 +49,8 @@ type Transition = AppState
 
 export abstract class AppState {
   constructor(
-    readonly gameState: GameState
+    readonly _mover: Mover,
+    readonly gameState: GameState,
   ) { }
 
   abstract onAddMove(d: Direction): Transition
@@ -68,20 +70,20 @@ export class IdleState extends AppState {
 export class MovingState extends AppState {
   static readonly MAX = 3
 
-  constructor(gameState: GameState, private readonly _queue: Direction[]) {
-    super(gameState)
+  constructor(mover: Mover, gameState: GameState, private readonly _queue: Direction[]) {
+    super(mover, gameState)
   }
 
   override onAddMove(d: Direction): Transition {
     return this._queue.length < MovingState.MAX - 1
-      ? new MovingState(this.gameState, [...this._queue, d])
+      ? new MovingState(this._mover, this.gameState, [...this._queue, d])
       : this
   }
 
   override onTransitionEnd(): Transition {
     return this._queue.length > 0
-      ? new MovingState(this.gameState.movePlayer(this._queue[0]), this._queue.slice(1))
-      : new IdleState(this.gameState)
+      ? new MovingState(this._mover, this.gameState.movePlayer(this._queue[0]), this._queue.slice(1))
+      : new IdleState(this._mover, this.gameState)
   }
 }
 
@@ -91,7 +93,7 @@ export class IncreasingLevelState extends AppState {
   }
 
   override onTransitionEnd(): Transition {
-    return new IdleState(this.gameState)
+    return new IdleState(this._mover, this.gameState)
   }
 }
 
