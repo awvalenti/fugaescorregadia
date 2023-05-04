@@ -17,6 +17,11 @@ export default class GameState {
   movePlayer(direction: Direction): GameState {
     const newPos = this._move(this.playerPos, direction)
     return new GameState(this.level, newPos)
+
+    // TODO: eliminate need for anticipateUpdateFinishedIfNecessary
+    // by checking if gameState is same as last one. If it is, call
+    // updateFinished$.
+    //
     // return newPos.equals(this.playerPos)
     //   ? this
     //   : new GameState(this.level, newPos)
