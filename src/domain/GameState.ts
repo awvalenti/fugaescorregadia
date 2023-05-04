@@ -22,6 +22,11 @@ export default class GameState {
     // by checking if gameState is same as last one. If it is, call
     // updateFinished$.
     //
+    // Hm, maybe can't do this. export class IncreasingLevelState extends AppState {
+    // override onAddMove(): Transition {
+    //   return this
+    // This would break.
+    //
     // return newPos.equals(this.playerPos)
     //   ? this
     //   : new GameState(this.level, newPos)
