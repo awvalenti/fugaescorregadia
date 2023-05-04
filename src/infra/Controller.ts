@@ -36,13 +36,13 @@ export default class Controller implements
   dispatchMove$(direction: Direction): void {
     this._appState$ = this._appState$.onAddMove(direction)
     this._updateGameStateFn$(this._appState$.gameState)
-    console.log('dispatchMove$', this._appState$.constructor.name)
+    // console.log('dispatchMove$', this._appState$._queue)
   }
 
   updateFinished$(): void {
     this._appState$ = this._appState$.onTransitionEnd()
     this._updateGameStateFn$(this._appState$.gameState)
-    console.log('updateFinished$', this._appState$.constructor.name)
+    // console.log('updateFinished$', this._appState$.constructor.name)
   }
 
 }

@@ -16,9 +16,10 @@ export default class GameState {
 
   movePlayer(direction: Direction): GameState {
     const newPos = this._move(this.playerPos, direction)
-    return newPos.equals(this.playerPos)
-      ? this
-      : new GameState(this.level, newPos)
+    return new GameState(this.level, newPos)
+    // return newPos.equals(this.playerPos)
+    //   ? this
+    //   : new GameState(this.level, newPos)
   }
 
   private _move(oldPos: Position, direction: Direction): Position {
