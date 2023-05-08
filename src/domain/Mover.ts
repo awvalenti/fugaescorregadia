@@ -1,6 +1,7 @@
 import Direction from './Direction'
 import GameState from './GameState'
-import { GOAL } from './TileId'
+import Position from './Position'
+import { GOAL, OBSTACLE } from './TileId'
 import LevelRepo from './level/LevelRepo'
 
 export class Mover {
@@ -8,10 +9,39 @@ export class Mover {
   constructor(private _levelRepo: LevelRepo) { }
 
   update(gameState: GameState, direction: Direction) {
-    const gs0 = gameState.movePlayer(direction)
-    return gs0.level.get(gs0.playerPos) === GOAL
-      ? new GameState(this._levelRepo.get(gs0.level.id + 1))
-      : gs0
+    // debugger
+    const gs1 = this.movePlayer(gameState, direction)
+    return gs1.level.get(gs1.playerPos) === GOAL
+      ? new GameState(this._levelRepo.get(gs1.level.id + 1))
+      : gs1
+  }
+
+  private movePlayer(gameState: GameState, direction: Direction): GameState {
+    const newPos = this._move(gameState, gameState.playerPos, direction)
+    return new GameState(gameState.level, newPos)
+
+    // TODO: eliminate need for anticipateUpdateFinishedIfNecessary
+    // by checking if gameState is same as last one. If it is, call
+    // updateFinished$.
+    //
+    // Hm, maybe can't do this. export class IncreasingLevelState extends AppState {
+    // override onAddMove(): Transition {
+    //   return this
+    // This would break.
+    //
+    // return newPos.equals(this.playerPos)
+    //   ? this
+    //   : new GameState(this.level, newPos)
+  }
+
+  private _move(gameState: GameState, oldPos: Position, direction: Direction): Position {
+    const newPos = oldPos.add(direction)
+    if (!newPos.isInside(gameState.level)) return oldPos
+    switch (gameState.level.background[newPos.row][newPos.col]) {
+      case OBSTACLE: return oldPos
+      case GOAL: return newPos
+      default: return this._move(gameState, newPos, direction)
+    }
   }
 
 }

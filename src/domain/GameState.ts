@@ -3,7 +3,7 @@ import Direction from './Direction'
 import Level from './level/Level'
 import { Mover } from './Mover'
 import Position from './Position'
-import { GOAL, OBSTACLE } from './TileId'
+import { GOAL } from './TileId'
 
 export default class GameState {
 
@@ -13,34 +13,6 @@ export default class GameState {
   constructor(level: Level, playerPos: Position = level.playerPos) {
     this.level = level
     this.playerPos = playerPos
-  }
-
-  movePlayer(direction: Direction): GameState {
-    const newPos = this._move(this.playerPos, direction)
-    return new GameState(this.level, newPos)
-
-    // TODO: eliminate need for anticipateUpdateFinishedIfNecessary
-    // by checking if gameState is same as last one. If it is, call
-    // updateFinished$.
-    //
-    // Hm, maybe can't do this. export class IncreasingLevelState extends AppState {
-    // override onAddMove(): Transition {
-    //   return this
-    // This would break.
-    //
-    // return newPos.equals(this.playerPos)
-    //   ? this
-    //   : new GameState(this.level, newPos)
-  }
-
-  private _move(oldPos: Position, direction: Direction): Position {
-    const newPos = oldPos.add(direction)
-    if (!newPos.isInside(this.level)) return oldPos
-    switch (this.level.background[newPos.row][newPos.col]) {
-      case OBSTACLE: return oldPos
-      case GOAL: return newPos
-      default: return this._move(newPos, direction)
-    }
   }
 
 }
@@ -59,7 +31,7 @@ export abstract class AppState {
 
 export class IdleState extends AppState {
   override onAddMove(d: Direction): Transition {
-    return new MovingState(this._mover, this.gameState.movePlayer(d), [])
+    return new MovingState(this._mover, this._mover.update(this.gameState, d), [])
   }
 
   override onTransitionEnd(): Transition {
@@ -82,8 +54,10 @@ export class MovingState extends AppState {
 
   override onTransitionEnd(): Transition {
     return this._queue.length > 0
-      ? new MovingState(this._mover, this.gameState.movePlayer(this._queue[0]), this._queue.slice(1))
-      : new IdleState(this._mover, this.gameState)
+      ? new MovingState(this._mover, this._mover.update(this.gameState, this._queue[0]), this._queue.slice(1))
+      : this.gameState.level.get(this.gameState.playerPos) === GOAL
+        ? new IncreasingLevelState(this._mover, this.gameState)
+        : new IdleState(this._mover, this.gameState)
   }
 }
 
