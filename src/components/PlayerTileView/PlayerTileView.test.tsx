@@ -1,7 +1,6 @@
-import * as React from 'react'
 import sinon from 'sinon'
 import Position from '../../domain/Position'
-import { PLAYER } from '../../domain/TileId'
+import { PLAYER } from '../../domain/Tile'
 import { UpdateFinishedListener } from '../../infra/Controller'
 import { a4, cleanup, expect, Mooca, render } from '../../my-libs/my-testing-library'
 import nameof from '../../my-libs/nameof'

@@ -1,4 +1,4 @@
-import { GOAL, PLAYER, TileMatrix } from '../../TileId'
+import { GOAL, PLAYER, TileMatrix } from '../../Tile'
 
 export default class LevelValidator {
   private _consistentColsCount(m: TileMatrix) {

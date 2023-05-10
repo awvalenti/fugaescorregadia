@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import { a4 } from '../../../my-libs/a4'
-import { EMPTY, GOAL, OBSTACLE, PLAYER } from '../../TileId'
+import { EMPTY, GOAL, OBSTACLE, PLAYER } from '../../Tile'
 import LevelParser from './LevelParser'
 
 const newSut = () => new LevelParser()

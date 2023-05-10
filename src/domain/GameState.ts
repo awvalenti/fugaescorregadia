@@ -3,7 +3,7 @@ import Direction from './Direction'
 import Level from './level/Level'
 import { Mover } from './Mover'
 import Position from './Position'
-import { GOAL } from './TileId'
+import { GOAL } from './Tile'
 
 export default class GameState {
 

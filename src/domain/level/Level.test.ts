@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { a4 } from '../../my-libs/a4'
 import nameof from '../../my-libs/nameof'
-import { EMPTY, GOAL, OBSTACLE, PLAYER, TileMatrix } from '../TileId'
+import { EMPTY, GOAL, OBSTACLE, PLAYER, TileMatrix } from '../Tile'
 import Level from './Level'
 import { NO_PLAYER } from './private/Error'
 

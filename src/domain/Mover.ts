@@ -1,7 +1,7 @@
 import Direction from './Direction'
 import GameState from './GameState'
 import Position from './Position'
-import { GOAL, OBSTACLE } from './TileId'
+import { GOAL, ILLEGAL_GAME_STATE } from './Tile'
 import LevelRepo from './level/LevelRepo'
 
 export class Mover {
@@ -36,11 +36,18 @@ export class Mover {
 
   private _move(gameState: GameState, oldPos: Position, direction: Direction): Position {
     const newPos = oldPos.add(direction)
-    if (!newPos.isInside(gameState.level)) return oldPos
-    switch (gameState.level.background[newPos.row][newPos.col]) {
-      case OBSTACLE: return oldPos
-      case GOAL: return newPos
-      default: return this._move(gameState, newPos, direction)
+    switch (gameState.level.get(newPos).before()) {
+      case 'STOP_BEFORE': return oldPos
+      case 'ADVANCE_LEVEL': throw ILLEGAL_GAME_STATE
+      case 'KEEP_MOVING':
+        switch (gameState.level.get(newPos).during()) {
+          case 'KEEP_MOVING':
+            return this._move(gameState, newPos, direction)
+
+          case 'STOP_BEFORE':
+          case 'ADVANCE_LEVEL':
+            return newPos
+        }
     }
   }
 

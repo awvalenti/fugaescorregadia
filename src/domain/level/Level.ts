@@ -1,5 +1,5 @@
 import Position from '../Position'
-import TileId, { EMPTY, PLAYER, TileMatrix } from '../TileId'
+import TileId, { EMPTY, OBSTACLE, PLAYER, TileMatrix } from '../Tile'
 import { NO_PLAYER } from './private/Error'
 
 export default class Level {
@@ -27,7 +27,7 @@ export default class Level {
   }
 
   get(p: Position): TileId {
-    return this.background[p.row][p.col]
+    return p.isInside(this) ? this.background[p.row][p.col] : OBSTACLE
   }
 
   private _findPlayerPos(): Position {

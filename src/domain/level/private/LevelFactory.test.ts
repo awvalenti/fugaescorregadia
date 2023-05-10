@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { a4 } from '../../../my-libs/a4'
 import { myStub } from '../../../my-libs/my-stub'
-import { PLAYER } from '../../TileId'
+import { PLAYER } from '../../Tile'
 import Level from '../Level'
 import { INVALID_LEVEL } from './Error'
 import LevelFactory from './LevelFactory'

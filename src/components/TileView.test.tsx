@@ -1,7 +1,6 @@
-import * as React from 'react'
 import ReactModule from 'react/jsx-dev-runtime'
 import sinon from 'sinon'
-import { OBSTACLE, PLAYER } from '../domain/TileId'
+import { OBSTACLE, PLAYER } from '../domain/Tile'
 import { a4, cleanup, expect, render } from '../my-libs/my-testing-library'
 import nameof from '../my-libs/nameof'
 import TileView from './TileView'

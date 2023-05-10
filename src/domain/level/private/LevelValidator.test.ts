@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import { a4, each } from '../../../my-libs/a4'
-import { EMPTY, GOAL, OBSTACLE, PLAYER, TileMatrix } from '../../TileId'
+import { EMPTY, GOAL, OBSTACLE, PLAYER, TileMatrix } from '../../Tile'
 import LevelValidator from './LevelValidator'
 
 const testCases: [string, string, TileMatrix][] = [
