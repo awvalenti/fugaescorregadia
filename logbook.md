@@ -1,6 +1,6 @@
 # Logbook
 
-## 2023-08-28
+## 2023-06-28
 
 ### Planned goals
 - Run first live coding broadcast
@@ -24,7 +24,7 @@
 - Demo game using terminal-kit generated successfully by ChatGPT
 - Project was uploaded to GitHub
 
-## 2023-08-29
+## 2023-06-29
 
 ### Planned goals
 - Use GVim for roadmapping
@@ -32,3 +32,30 @@
 - Decide on Node or Deno based on distribution of app package
 - Decide on which terminal graphics library based on Windows usage
 
+### Findings
+- Deno doesn't have a working terminal graphics library. So, Node for the win!
+- Both terminal-kit and blessed work well and have sample games
+- terminal-kit:
+  - Actively developed
+  - Simpler API
+  - More docs
+- blessed:
+  - Examples here: https://github.com/chjj/blessed/tree/master/example
+  - apparently not maintained anymore
+  - More complex API
+  - Fully working sample games:
+    - Pong: https://github.com/chjj/blessed/blob/master/example/ping
+    - Snake: https://github.com/taniarascia/snek
+
+### Achieved goals
+- Roadmapping
+- Showed CoffeeScript version
+- Decided to use Node
+
+## 2023-07-04
+
+### Planned goals
+- Show QBasic version
+- Test blessed and terminal-kit on Linux
+- Write sample games using terminal-kit and blessed
+- Decide for one of them
