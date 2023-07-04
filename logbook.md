@@ -59,3 +59,9 @@
 - Test blessed and terminal-kit on Linux
 - Write sample games using terminal-kit and blessed
 - Decide for one of them
+
+### Achieved goals
+- Show QBasic version
+- Write sample game using terminal-kit
+- Decided to use terminal-kit
+
