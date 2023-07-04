@@ -4,14 +4,21 @@ term.hideCursor();
 
 let deltaX = 0, deltaY = 0, posX = 0, posY = 0, oldPosX = 0, oldPosY = 0
 
-setInterval(() => {
+let i = 0
+const gameLoop = () => {
   term.moveTo(oldPosX, oldPosY, ' ') ;
-  posX += deltaX
-  posY += deltaY
+  if (++i % 5 === 0) {
+    posX += deltaX
+    posY += deltaY
+    oldPosX = posX
+    oldPosY = posY
+    i = 0
+  }
   term.moveTo.cyan(posX, posY, 'o') ;
-  oldPosX = posX
-  oldPosY = posY
-}, 16);
+  setTimeout(gameLoop, 4);
+}
+
+gameLoop()
 
 
 term.grabInput();

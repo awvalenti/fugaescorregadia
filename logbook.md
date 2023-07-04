@@ -60,8 +60,12 @@
 - Write sample games using terminal-kit and blessed
 - Decide for one of them
 
+### Findings
+- On Windows, terminal-kit works fine on all terminals: WT, PowerShell and CMD
+- Both terminal-kit and blessed libs ran slowly on Linux, due to CPU usage during broadcast
+
 ### Achieved goals
-- Show QBasic version
-- Write sample game using terminal-kit
-- Decided to use terminal-kit
+- QBasic version shown
+- Ran working demo using terminal-kit
+- Decided to adopt terminal-kit
 
