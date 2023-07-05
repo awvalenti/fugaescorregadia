@@ -69,3 +69,17 @@
 - Ran working demo using terminal-kit
 - Decided to adopt terminal-kit
 
+## 2023-07-05
+
+### Planned goals
+- Have a playable version of the game with one level and the following elements:
+  - Player
+  - Goal
+  - Obstacle
+  - Walls
+
+### Achieved goals
+- Playable game, containing: Player|Goal|Obstacle|Walls, colors and level finishing
+- Bug: player removes obstacles sometimes, especially moving down, but also up
+- Semi-bug: player can change direction during move
+
