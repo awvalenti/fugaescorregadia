@@ -83,3 +83,12 @@
 - Bug: player removes obstacles sometimes, especially moving down, but also up
 - Semi-bug: player can change direction during move
 
+## 2023-07-06
+
+### Planned goals
+- Fix bugs from yesterday:
+  - DONE Removing obstacle during move
+  - DONE Player can change direction during move
+  - DONE Player flickering while still
+- DONE Make spacing better
+

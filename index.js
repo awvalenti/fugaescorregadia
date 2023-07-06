@@ -4,92 +4,112 @@ term.clear();
 
 term.hideCursor();
 
+function printChar(color, row, col, char) {
+  term.color(color).moveTo(2 * (col + 1), row + 1, char) ;
+}
+
 const board = [
   ['o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'],
-  ['-', '-', '-', '-', '-', '-', 'o', '-'],
-  ['-', 'o', '-', '-', '-', '-', '-', '-'],
-  ['-', '-', '-', '-', 'o', '-', '-', '-'],
-  ['-', '-', '-', '-', '-', '-', '-', '-'],
-  ['-', '-', '-', '-', '-', '-', '-', '-'],
-  ['-', 's', '-', '-', 'o', 'g', '-', '-'],
+  [' ', ' ', ' ', ' ', ' ', ' ', 'o', ' '],
+  [' ', 'o', ' ', ' ', ' ', ' ', ' ', ' '],
+  [' ', ' ', ' ', ' ', 'o', ' ', ' ', ' '],
+  [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+  [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+  [' ', 'p', ' ', ' ', 'o', 'g', ' ', ' '],
 ]
 
-const minX = 0, minY = 0,
-  maxX = board[0].length - 1,
-  maxY = board.length - 1
+const minCol = 0, minRow = 0,
+  maxCol = board[0].length - 1,
+  maxRow = board.length - 1
 
 const
-  terminalMaxX = process.stdout.columns - 1,
-  terminalMaxY = process.stdout.rows - 1
+  terminalMaxCol = process.stdout.columns - 1,
+  terminalMaxRow = process.stdout.rows - 1
 
-if (terminalMaxX < maxX || terminalMaxY < maxY) {
+if (terminalMaxCol < maxCol || terminalMaxRow < maxRow) {
   throw 'Insufficient terminal space for board'
 }
 
 const findStartingPoint = (board) => {
-  for (let rowIndex in board) {
-    for (let colIndex in board[rowIndex]) {
-      if (board[rowIndex][colIndex] === 's') {
-        return [+colIndex, +rowIndex]
+  for (let row = 0; row < board.length; ++row) {
+    for (let col = 0; col < board[row].length; ++col) {
+      if (board[row][col] === 'p') {
+        return [row, col]
       }
     }
   }
   throw 'Starting point not found'
 }
 
-let [posX, posY] = findStartingPoint(board)
+let [playerRow, playerCol] = findStartingPoint(board)
+// console.log('starting point', playerRow, playerCol);
 
-let deltaX = 0, deltaY = 0, oldPosX = 0, oldPosY = 0
+let deltaCol = 0, deltaRow = 0, oldPlayerCol = playerCol, oldPlayerRow = playerRow
 
-for (let rowI = 0; rowI < board.length; ++rowI) {
-  for (let colI = 0; colI < board[rowI].length; ++colI) {
-    const tile = board[rowI][colI];
+for (let row = 0; row < board.length; ++row) {
+  for (let col = 0; col < board[row].length; ++col) {
+    const tile = board[row][col];
+    // console.log({ row, col, tile });
     switch (tile) {
-      case '-':
-        term.moveTo.gray(colI, rowI, tile) ;
+      case ' ':
+        printChar('gray', row, col, tile)
         break;
-      case 's':
-        term.moveTo.red(colI, rowI, tile) ;
+      case 'p':
+        printChar('red', row, col, tile)
         break;
       case 'g':
-        term.moveTo.yellow(colI, rowI, tile) ;
+        printChar('yellow', row, col, tile)
         break;
       case 'o':
-        term.moveTo.cyan(colI, rowI, tile) ;
+        printChar('cyan', row, col, tile)
         break;
 
     }
   }
 }
 
+// process.exit()
+
+let olderPlayerRow, olderPlayerCol
 const gameLoop = () => {
-  // erase old pos
-  term.moveTo.gray(oldPosX, oldPosY, '-') ;
+  olderPlayerRow = oldPlayerRow
+  olderPlayerCol = oldPlayerCol
 
   // set new and old pos
-  const newPosX = posX + deltaX, newPosY = posY + deltaY;
+  const
+    newPlayerCol = playerCol + deltaCol,
+    newPosRow = playerRow + deltaRow;
 
   // check if should update player pos
   if (true
-    && newPosX >= minX
-    && newPosX <= maxX
-    && newPosY >= minY
-    && newPosY <= maxY
-    && board[newPosY][newPosX] !== 'o'
+    && newPlayerCol >= minCol
+    && newPlayerCol <= maxCol
+    && newPosRow >= minRow
+    && newPosRow <= maxRow
+    && board[newPosRow][newPlayerCol] !== 'o'
     ) {
-    [posX, posY] = [newPosX, newPosY];
-    oldPosX = posX
-    oldPosY = posY
+    [playerCol, playerRow] = [newPlayerCol, newPosRow];
+    [oldPlayerCol, oldPlayerRow] = [playerCol, playerRow]
+  } else {
+    deltaRow = deltaCol = 0
   }
 
-  // update new pos
-  term.moveTo.red(posX, posY, 's') ;
+  // debug
+  // term.moveTo.blue(0, 10, JSON.stringify({ playerCol, playerRow }));
+  if (playerRow !== olderPlayerRow || playerCol !== olderPlayerCol) {
+    // erase old pos
+    printChar('gray', olderPlayerRow, olderPlayerCol, ' ')
 
-  if (board[posY][posX] === 'g') {
+    // update new pos
+    printChar('red', playerRow, playerCol, 'p')
+  }
+
+  if (board[playerRow][playerCol] === 'g') {
     console.log('FINISH!');
     term.processExit(0);
+  } else {
+    setTimeout(gameLoop, 30);
   }
-  setTimeout(gameLoop, 30);
 }
 
 gameLoop()
@@ -99,26 +119,35 @@ term.grabInput();
 
 term.on('key', function(name, matches, data) {
   switch (name) {
-    case  'ESCAPE':
+    case 'ESCAPE':
       term.clear(); // doesn't work?
       term.hideCursor();
       term.processExit(0);
       break;
     case 'LEFT':
-      deltaX = -1;
-      deltaY = 0
+    case 'RIGHT':
+    case 'DOWN':
+    case 'UP':
+      if (deltaRow !== 0 || deltaCol !== 0) {
+        return
+      }
+  }
+  switch (name) {
+    case 'LEFT':
+      deltaCol = -1;
+      deltaRow = 0
       break;
     case 'RIGHT':
-      deltaX = +1;
-      deltaY = 0
+      deltaCol = +1;
+      deltaRow = 0
       break;
     case 'DOWN':
-      deltaY = +1;
-      deltaX = 0
+      deltaRow = +1;
+      deltaCol = 0
       break;
     case 'UP':
-      deltaY = -1;
-      deltaX = 0
+      deltaRow = -1;
+      deltaCol = 0
       break;
   }
 });
