@@ -1,22 +1,28 @@
 var term = require( 'terminal-kit' ).terminal ;
 
+term.hideCursor();
+term.bgColor('black');
 term.clear();
 
-term.hideCursor();
+const board = [
+  ['█', '█', '█', '█', '█', '█', '█', '█'],
+  [' ', ' ', ' ', ' ', ' ', ' ', '█', ' '],
+  [' ', '█', ' ', ' ', ' ', ' ', ' ', ' '],
+  [' ', ' ', ' ', ' ', '█', ' ', ' ', ' '],
+  [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+  [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+  [' ', '☻', ' ', ' ', '█', '☯', ' ', ' '],
+];
+
+term.color('gray','████████████████████');
+for (let i = 0; i <= board.length; ++i) {
+  term.color('gray').moveTo(1, i + 2, '██                ██');
+}
+term.color('gray').moveTo(1, board.length + 2, '████████████████████');
 
 function printChar(color, row, col, char) {
-  term.color(color).moveTo(2 * (col + 1), row + 1, char) ;
+  term.color(color).moveTo(2 * col + 1 + 2, row + 1 + 1, char === '█' ? '██' : char);
 }
-
-const board = [
-  ['o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'],
-  [' ', ' ', ' ', ' ', ' ', ' ', 'o', ' '],
-  [' ', 'o', ' ', ' ', ' ', ' ', ' ', ' '],
-  [' ', ' ', ' ', ' ', 'o', ' ', ' ', ' '],
-  [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-  [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-  [' ', 'p', ' ', ' ', 'o', 'g', ' ', ' '],
-]
 
 const minCol = 0, minRow = 0,
   maxCol = board[0].length - 1,
@@ -33,7 +39,7 @@ if (terminalMaxCol < maxCol || terminalMaxRow < maxRow) {
 const findStartingPoint = (board) => {
   for (let row = 0; row < board.length; ++row) {
     for (let col = 0; col < board[row].length; ++col) {
-      if (board[row][col] === 'p') {
+      if (board[row][col] === '☻') {
         return [row, col]
       }
     }
@@ -52,15 +58,15 @@ for (let row = 0; row < board.length; ++row) {
     // console.log({ row, col, tile });
     switch (tile) {
       case ' ':
-        printChar('gray', row, col, tile)
+        printChar('black', row, col, tile)
         break;
-      case 'p':
-        printChar('red', row, col, tile)
+      case '☻':
+        printChar('brightGreen', row, col, tile)
         break;
-      case 'g':
+      case '☯':
         printChar('yellow', row, col, tile)
         break;
-      case 'o':
+      case '█':
         printChar('cyan', row, col, tile)
         break;
 
@@ -86,7 +92,7 @@ const gameLoop = () => {
     && newPlayerCol <= maxCol
     && newPosRow >= minRow
     && newPosRow <= maxRow
-    && board[newPosRow][newPlayerCol] !== 'o'
+    && board[newPosRow][newPlayerCol] !== '█'
     ) {
     [playerCol, playerRow] = [newPlayerCol, newPosRow];
     [oldPlayerCol, oldPlayerRow] = [playerCol, playerRow]
@@ -98,14 +104,14 @@ const gameLoop = () => {
   // term.moveTo.blue(0, 10, JSON.stringify({ playerCol, playerRow }));
   if (playerRow !== olderPlayerRow || playerCol !== olderPlayerCol) {
     // erase old pos
-    printChar('gray', olderPlayerRow, olderPlayerCol, ' ')
+    printChar('brightGreen', olderPlayerRow, olderPlayerCol, ' ')
 
     // update new pos
-    printChar('red', playerRow, playerCol, 'p')
+    printChar('brightGreen', playerRow, playerCol, '☻')
   }
 
-  if (board[playerRow][playerCol] === 'g') {
-    console.log('FINISH!');
+  if (board[playerRow][playerCol] === '☯') {
+    printChar('white', maxRow + 2, 0, 'FINISH!');
     term.processExit(0);
   } else {
     setTimeout(gameLoop, 30);

@@ -92,3 +92,25 @@
   - DONE Player flickering while still
 - DONE Make spacing better
 
+## 2023-07-11
+
+### Planned goals
+- Write compatibility table of operating systems and terminal emulators
+- Choose graphics characters (at least a preliminary version)
+- Output animated text
+
+### Findings
+- Unicode has double-width or fullwidth characters, which appear in the terminal using two slots
+- We can use single-width characters printed twice to simulate double-width characters
+
+### Achieved goals
+- Initial compatibility table made
+- Preliminary graphical characters chosen
+- Board borders made
+
+## 2023-07-12
+
+### Planned goals
+- Check compatibility of double-width characters in Windows
+- Output animated text
+
