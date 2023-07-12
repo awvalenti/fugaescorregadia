@@ -111,6 +111,10 @@
 ## 2023-07-12
 
 ### Planned goals
-- Check compatibility of double-width characters in Windows
+- Quickly replace double-width characters with single-width characters
 - Output animated text
+
+### Achieved goals
+- Characters replaced
+- Basic text animation done
 

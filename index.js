@@ -6,22 +6,37 @@ term.clear();
 
 const board = [
   ['█', '█', '█', '█', '█', '█', '█', '█'],
-  [' ', ' ', ' ', ' ', ' ', ' ', '█', ' '],
+  [' ', ' ', ' ', ' ', ' ', '█', '█', '¤'],
   [' ', '█', ' ', ' ', ' ', ' ', ' ', ' '],
+  [' ', ' ', ' ', ' ', ' ', ' ', '█', ' '],
   [' ', ' ', ' ', ' ', '█', ' ', ' ', ' '],
   [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-  [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-  [' ', '☻', ' ', ' ', '█', '☯', ' ', ' '],
+  [' ', '@', ' ', ' ', '█', ' ', ' ', '█'],
 ];
 
-term.color('gray','████████████████████');
+term.color('gray','░░░░░░░░░░░░░░░░░░░░');
 for (let i = 0; i <= board.length; ++i) {
-  term.color('gray').moveTo(1, i + 2, '██                ██');
+  term.color('gray').moveTo(1, i + 2, '░░                ░░');
 }
-term.color('gray').moveTo(1, board.length + 2, '████████████████████');
+term.color('gray').moveTo(1, board.length + 2, '░░░░░░░░░░░░░░░░░░░░');
 
 function printChar(color, row, col, char) {
-  term.color(color).moveTo(2 * col + 1 + 2, row + 1 + 1, char === '█' ? '██' : char);
+  term.color(color).moveTo(2 * col + 1 + 2, row + 1 + 1, char);
+}
+
+function animateText(color, row, col, phrase, onFinish) {
+  function loop(i) {
+    if (i < phrase.length) {
+      term.color(color).moveTo(2 * col + 1 + i, row + 1 + 1, phrase[i]);
+      // printChar(color, row, col + i, phrase[i])
+      setTimeout(() => {
+        loop(i + 1)
+      }, 120);
+    } else {
+      onFinish()
+    }
+  }
+  loop(0)
 }
 
 const minCol = 0, minRow = 0,
@@ -39,7 +54,7 @@ if (terminalMaxCol < maxCol || terminalMaxRow < maxRow) {
 const findStartingPoint = (board) => {
   for (let row = 0; row < board.length; ++row) {
     for (let col = 0; col < board[row].length; ++col) {
-      if (board[row][col] === '☻') {
+      if (board[row][col] === '@') {
         return [row, col]
       }
     }
@@ -60,10 +75,10 @@ for (let row = 0; row < board.length; ++row) {
       case ' ':
         printChar('black', row, col, tile)
         break;
-      case '☻':
+      case '@':
         printChar('brightGreen', row, col, tile)
         break;
-      case '☯':
+      case '¤':
         printChar('yellow', row, col, tile)
         break;
       case '█':
@@ -107,12 +122,13 @@ const gameLoop = () => {
     printChar('brightGreen', olderPlayerRow, olderPlayerCol, ' ')
 
     // update new pos
-    printChar('brightGreen', playerRow, playerCol, '☻')
+    printChar('brightGreen', playerRow, playerCol, '@')
   }
 
-  if (board[playerRow][playerCol] === '☯') {
-    printChar('white', maxRow + 2, 0, 'FINISH!');
-    term.processExit(0);
+  if (board[playerRow][playerCol] === '¤') {
+    animateText('white', maxRow + 2, 0, 'FINISH!', () => {
+      term.processExit(0);
+    });
   } else {
     setTimeout(gameLoop, 30);
   }
