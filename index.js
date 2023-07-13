@@ -1,4 +1,7 @@
-var term = require( 'terminal-kit' ).terminal ;
+const term = require( 'terminal-kit' ).terminal ;
+const { exec } = require('child_process');
+const { promisify } = require('util');
+const execPromise = promisify(exec);
 
 term.hideCursor();
 term.bgColor('black');
@@ -126,6 +129,7 @@ const gameLoop = () => {
   }
 
   if (board[playerRow][playerCol] === '¤') {
+    execPromise('aplay finish.wav -q')
     animateText('white', maxRow + 2, 0, 'FINISH!', () => {
       term.processExit(0);
     });
@@ -133,6 +137,8 @@ const gameLoop = () => {
     setTimeout(gameLoop, 30);
   }
 }
+
+execPromise('aplay start.wav -q')
 
 gameLoop()
 

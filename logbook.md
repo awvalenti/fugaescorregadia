@@ -118,3 +118,25 @@
 - Characters replaced
 - Basic text animation done
 
+## 2023-07-13
+
+### Planned goals
+- Find libraries to play sound
+  - Make POC using library that plays WAV, MP3, OGG etc.
+  - Make POC using library that generates sound using frequency
+
+### Findings
+- Hard (impossible?) not to depend on native libraries or programs
+- alsa-source probably needed to install NodeJS lib speaker
+- aplay command-line player is present on Linux by default, at least on Mint
+- Easy to call command-line programs on NodeJS using child_process.exec
+- On macOS, afplay seems to work
+- On Windows, there are PowerShell (https://superuser.com/a/528541) and VLC
+
+### Achieved goals
+- POC using native Linux program that plays WAV
+
+### Next steps
+- Verify that macOS and Windows options really work fine
+- On NodeJS program, convert Opus/Ogg/MP3 stream to WAV and output it to aplay
+
