@@ -1,7 +1,23 @@
 const term = require( 'terminal-kit' ).terminal ;
 const { exec } = require('child_process');
 const { promisify } = require('util');
+const player = require('play-sound')(opts = {});
 const execPromise = promisify(exec);
+
+function playSound(file) {
+  const isWin = process.platform === "win32";
+  if (isWin) {
+    // execPromise(`powershell -c (New-Object Media.SoundPlayer "${file}").PlaySync();`)
+    player.play(file, function (err) {
+      if (err) {
+        console.error(err)
+      }
+    })
+  } else {
+    // TODO avoid code injection
+    execPromise(`aplay '${file}' -q`)
+  }
+}
 
 term.hideCursor();
 term.bgColor('black');
@@ -129,7 +145,7 @@ const gameLoop = () => {
   }
 
   if (board[playerRow][playerCol] === '¤') {
-    execPromise('aplay finish.wav -q')
+    playSound('./finish.wav')
     animateText('white', maxRow + 2, 0, 'FINISH!', () => {
       term.processExit(0);
     });
@@ -138,7 +154,7 @@ const gameLoop = () => {
   }
 }
 
-execPromise('aplay start.wav -q')
+playSound('./start.wav')
 
 gameLoop()
 

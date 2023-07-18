@@ -140,3 +140,39 @@
 - Verify that macOS and Windows options really work fine
 - On NodeJS program, convert Opus/Ogg/MP3 stream to WAV and output it to aplay
 
+## 2023-07-18
+
+### Planned goals
+- Play a WAV sound using PowerShell on Windows
+- Play this same sound using CMD and Git Bash on Windows Terminal
+- Discover the most compatible sound formats for the web
+- Try other sound formats on Windows
+
+### Findings
+- On PowerShell, there's a small delay to play the sound
+- On other terminals, there's a medium delay to play the sound
+- On Windows with GitBash, sound gets cut if app finishes
+- MP3 is really the most compatible format (even more than WAV)
+  - That seems to be only actually important for very old browsers
+  - FLAC seems a possible option
+  - Opus is a good open-source option
+  - AAC in MP4/m4a seems to be the most cost-effective option
+- Windows PowerShell SoundPlayer can play only WAV files
+- play-sound worked marvelously on Windows:
+  - Has less than 50KB
+  - Plays WAV, MP3, M4A/AAC
+  - However, it seems to take some seconds to warm up
+- At least on Windows, terminal-kit is more than 8MB!
+- At least on Windows, blessed is only 1.8MB!
+
+### Achieved goals
+- Play a WAV sound using PowerShell on Windows
+- Play this same sound using CMD and Git Bash on Windows Terminal
+- Discover the most compatible sound formats for the web
+- Try other sound formats on Windows
+
+### Next goals
+- Read play-sound source code to understand how it uses PowerShell
+- Reconsider play-sound on Linux
+- Reconsider blessed, assessing its size on Linux and macOS
+

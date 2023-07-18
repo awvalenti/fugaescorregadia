@@ -13,6 +13,7 @@
   "author": "Andre Willik Valenti",
   "license": "UNLICENSED",
   "dependencies": {
+    "play-sound": "^1.1.5",
     "terminal-kit": "^3.0.0"
   }
 }
