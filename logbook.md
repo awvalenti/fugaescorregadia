@@ -176,3 +176,25 @@
 - Reconsider play-sound on Linux
 - Reconsider blessed, assessing its size on Linux and macOS
 
+## 2023-07-19
+
+### Planned goals
+- Read play-sound source code to understand how it uses PowerShell
+- Check again play-sound on Linux
+  - Size
+  - Dependency on native libraries
+- Check blessed size on Linux
+
+### Findings
+- play-sound simply relies on an installed sound player
+- It's possible to play AAC on Windows via PowerShell!
+
+### Achieved goals
+- play-sound source code read and understood
+- Found a way to play AAC or FLAC on Windows:
+  ```powershell
+  $MediaPlayer = [Windows.Media.Playback.MediaPlayer, Windows.Media, ContentType = WindowsRuntime]::New()
+  $MediaPlayer.Source = [Windows.Media.Core.MediaSource]::CreateFromUri("C:\Users\andre\p\fugaescorregadia\start.aac")
+  $MediaPlayer.Play()
+  ```
+
