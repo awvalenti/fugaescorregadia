@@ -201,7 +201,7 @@
 ## 2023-07-20
 
 ### Planned goals
-- ✅ Make it simple to play compressed sound on Windows
+- Make it simple to play compressed sound on Windows
 - Check again play-sound on Linux
   - Size
   - Dependency on native libraries
@@ -210,4 +210,18 @@
 ### Findings
 - powershell -c (New-Object Media.SoundPlayer "${file}").PlaySync();
   is the old way, plays only WAV
+- On Linux:
+  - aplay can read from stdin, just run "aplay -q" and send data to stdin
+  - blessed occupies 2.1MB and terminal-kit, 9.1MB
+  - node-aac depends on native library
+  - audio-decode has 9MB
+
+### Achieved goals
+- Make it simple to play compressed sound on Windows
+- Check again play-sound on Linux
+- Check blessed size on Linux
+- Verified aplay feature of reading from stdin
+
+### Next steps
+- Decode compressed audio on Linux
 
