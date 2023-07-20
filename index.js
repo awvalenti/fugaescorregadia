@@ -2,20 +2,30 @@ const term = require( 'terminal-kit' ).terminal ;
 const { exec } = require('child_process');
 const { promisify } = require('util');
 const player = require('play-sound')(opts = {});
-const execPromise = promisify(exec);
+// const execPromise = promisify(exec);
+const path = require('path');
+
+function windowsPlaySound(file) {
+  exec(`
+    $MediaPlayer = [Windows.Media.Playback.MediaPlayer, Windows.Media, ContentType = WindowsRuntime]::New();
+    $MediaPlayer.Source = [Windows.Media.Core.MediaSource]::CreateFromUri('${path.resolve(file)}');
+    $MediaPlayer.Play();
+    Start-Sleep -s ($MediaPlayer.NaturalDuration.Seconds + 1)
+    `, { shell: 'powershell' }
+  )
+}
+
+function linuxPlaySound(file) {
+  exec(`aplay '${file}' -q`)
+}
 
 function playSound(file) {
   const isWin = process.platform === "win32";
+  // TODO avoid code injection
   if (isWin) {
-    // execPromise(`powershell -c (New-Object Media.SoundPlayer "${file}").PlaySync();`)
-    player.play(file, function (err) {
-      if (err) {
-        console.error(err)
-      }
-    })
+    windowsPlaySound(file)
   } else {
-    // TODO avoid code injection
-    execPromise(`aplay '${file}' -q`)
+    linuxPlaySound(file)
   }
 }
 
@@ -145,7 +155,7 @@ const gameLoop = () => {
   }
 
   if (board[playerRow][playerCol] === '¤') {
-    playSound('./finish.wav')
+    playSound('finish.wav')
     animateText('white', maxRow + 2, 0, 'FINISH!', () => {
       term.processExit(0);
     });
@@ -154,7 +164,7 @@ const gameLoop = () => {
   }
 }
 
-playSound('./start.wav')
+playSound('start.wav')
 
 gameLoop()
 

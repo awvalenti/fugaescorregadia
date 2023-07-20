@@ -198,3 +198,12 @@
   $MediaPlayer.Play()
   ```
 
+## 2023-07-20
+
+### Planned goals
+- ✅ Make it simple to play compressed sound on Windows
+- Check again play-sound on Linux
+  - Size
+  - Dependency on native libraries
+- Check blessed size on Linux
+
