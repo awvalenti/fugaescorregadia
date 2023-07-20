@@ -207,3 +207,7 @@
   - Dependency on native libraries
 - Check blessed size on Linux
 
+### Findings
+- powershell -c (New-Object Media.SoundPlayer "${file}").PlaySync();
+  is the old way, plays only WAV
+
