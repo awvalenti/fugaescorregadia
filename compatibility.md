@@ -17,10 +17,13 @@
   - ✅ PowerShell
 
   ### Audio formats
-  - ✅ WAV
-  - ✅ MP3
-  - ✅ M4A/AAC
-  - ❓ AAC
+  - ❓ aac
+    - ❓ .aac
+    - ❓ .m4a
+    - ❓ .mp4
+  - ✅ mp3
+  - ❓ flac
+  - ✅ wav
 
 ## Linux
 
@@ -33,10 +36,13 @@
   - ❓ Zsh
 
   ### Audio formats
-  - ✅ WAV
-  - ❓ MP3
-  - ❓ M4A/AAC
-  - ❓ AAC
+  - ❓ aac
+    - ❓ .aac
+    - ❓ .m4a
+    - ❓ .mp4
+  - ❓ mp3
+  - ❓ flac
+  - ✅ wav
 
 ## macOS
 
@@ -49,8 +55,10 @@
   - ✅ Zsh
 
   ### Audio formats
-  - ❓ WAV
-  - ✅ MP3
-  - ✅ M4A/AAC
-  - ❓ AAC
-  - ✅ FLAC
+  - ✅ aac
+    - ✅ .aac
+    - ✅ .m4a
+    - ✅ .mp4
+  - ✅ mp3
+  - ✅ flac
+  - ✅ wav
