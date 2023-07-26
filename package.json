@@ -3,6 +3,7 @@
   "version": "0.1.0-snapshot.0",
   "description": "Labyrinth game",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,7 +14,7 @@
   "author": "Andre Willik Valenti",
   "license": "UNLICENSED",
   "dependencies": {
-    "play-sound": "^1.1.5",
+    "@wasm-audio-decoders/flac": "^0.1.12",
     "terminal-kit": "^3.0.0"
   }
 }

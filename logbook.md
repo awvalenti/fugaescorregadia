@@ -225,3 +225,22 @@
 ### Next steps
 - Decode compressed audio on Linux
 
+## 2023-07-25
+
+### Planned goals
+- Write compatibility info
+- Decode compressed audio on Linux and play it using shell command aplay
+
+### Findings
+- AAC may be a good choice combining efficiency and compatibility
+- MP3 is indeed the most compatible one
+- @wasm-audio-decoders produces Float32Array. We need Buffer or Uint8Array.
+
+### Achieved goals
+- Wrote compatibility info
+
+## 2023-07-26
+
+### Planned goals
+- Decode compressed audio on Linux and play it using shell command aplay
+

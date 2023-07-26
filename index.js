@@ -1,9 +1,15 @@
-const term = require( 'terminal-kit' ).terminal ;
-const { exec } = require('child_process');
-const { promisify } = require('util');
-const player = require('play-sound')(opts = {});
-// const execPromise = promisify(exec);
-const path = require('path');
+import terminalKit from 'terminal-kit' ;
+import { exec } from 'child_process';
+import path from 'path';
+import { readFileSync } from 'fs';
+
+const term = terminalKit.terminal
+
+import { FLACDecoder } from '@wasm-audio-decoders/flac';
+
+const decoder = new FLACDecoder();
+
+await decoder.ready;
 
 function windowsPlaySound(file) {
   exec(`
@@ -15,8 +21,15 @@ function windowsPlaySound(file) {
   )
 }
 
-function linuxPlaySound(file) {
-  exec(`aplay '${file}' -q`)
+async function linuxPlaySound(file) {
+  const flacBuffer = readFileSync(file)
+  const decoded = await decoder.decode(flacBuffer, { outputFormat: 's16', numberOfChannels: 2, sampleRate: 44100 })
+  // console.log();
+  // console.log({decoded, channelData: decoded.channelData});
+  const [wavBuffer] = decoded.channelData
+  const childProcess = exec(`aplay -q`)
+  childProcess.stdin.write((wavBuffer))
+  childProcess.stdin.end()
 }
 
 function playSound(file) {
@@ -155,7 +168,7 @@ const gameLoop = () => {
   }
 
   if (board[playerRow][playerCol] === '¤') {
-    playSound('finish.wav')
+    playSound('finish.flac')
     animateText('white', maxRow + 2, 0, 'FINISH!', () => {
       term.processExit(0);
     });
@@ -164,7 +177,7 @@ const gameLoop = () => {
   }
 }
 
-playSound('start.wav')
+playSound('start.flac')
 
 gameLoop()
 
