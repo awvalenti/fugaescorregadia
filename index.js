@@ -21,14 +21,17 @@ function windowsPlaySound(file) {
   )
 }
 
+const x = ArrayBuffer, y = Buffer, z = Float32Array
+
 async function linuxPlaySound(file) {
   const flacBuffer = readFileSync(file)
   const decoded = await decoder.decode(flacBuffer, { outputFormat: 's16', numberOfChannels: 2, sampleRate: 44100 })
   // console.log();
   // console.log({decoded, channelData: decoded.channelData});
-  const [wavBuffer] = decoded.channelData
-  const childProcess = exec(`aplay -q`)
-  childProcess.stdin.write((wavBuffer))
+  const [left, right] = decoded.channelData
+  // console.log(left.constructor.name)
+  const childProcess = exec(`aplay -q -f float_be`)
+  childProcess.stdin.write(left.toString())
   childProcess.stdin.end()
 }
 

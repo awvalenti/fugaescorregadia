@@ -243,4 +243,15 @@
 
 ### Planned goals
 - Decode compressed audio on Linux and play it using shell command aplay
+  - ffmpeg.js
+  - Convert Float32Array into Buffer
+
+### Findings
+- ffmpeg.js has a bug and can't be imported for now
+- aplay is able to play different formats, including float. But it didn't work.
+- package wav does not depend on optional native libraries
+- package speaker may be able to replace aplay command
+- Buffer.from(right.buffer) partially works when combined with package wav
+  (produces distorted output)
+
 
