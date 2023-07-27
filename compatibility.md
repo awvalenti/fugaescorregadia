@@ -36,13 +36,17 @@
   - ❓ Zsh
 
   ### Audio formats
-  - ❓ aac
-    - ❓ .aac
-    - ❓ .m4a
-    - ❓ .mp4
-  - ❓ mp3
-  - ❓ flac
+
+  #### Natively
   - ✅ wav
+
+  #### Using wasm-audio-decoders
+  - ❌ aac
+  - ✅ mp3
+  - ✅ flac
+  - ❌ ogg/vorbis
+  - ❌ ogg/opus
+  - ❌ opus/opus
 
 ## macOS
 
@@ -60,5 +64,8 @@
     - ✅ .m4a
     - ✅ .mp4
   - ✅ mp3
+  - ❌ ogg/vorbis
+  - ❌ ogg/opus
+  - ❌ opus/opus
   - ✅ flac
   - ✅ wav

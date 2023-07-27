@@ -254,4 +254,19 @@
 - Buffer.from(right.buffer) partially works when combined with package wav
   (produces distorted output)
 
+## 2023-07-27
+
+### Planned goals
+- Try ffmpeg.js v0.11.6
+- Try learning how to work with aplay
+
+### Findings
+- ffmpeg.js is very big (60+MB) and is still not working
+- Finally, we were able to play the decoded sound using aplay!!
+  - It only lacked passing sampling rate to aplay
+- FLAC and MP3 worked; AAC, OGG and Opus didn't.
+
+### Next steps
+- Find more info about MP3 licensing
+- Verify latency of MP3, WAV and FLAC playback on Windows
 

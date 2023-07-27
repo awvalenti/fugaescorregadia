@@ -14,10 +14,10 @@
   "author": "Andre Willik Valenti",
   "license": "UNLICENSED",
   "dependencies": {
-    "@ffmpeg/ffmpeg": "^0.12.1",
-    "@ffmpeg/util": "^0.12.0",
     "@wasm-audio-decoders/flac": "^0.1.12",
-    "terminal-kit": "^3.0.0",
-    "wav": "^1.0.2"
+    "@wasm-audio-decoders/ogg-vorbis": "^0.1.7",
+    "mpg123-decoder": "^0.4.8",
+    "opus-decoder": "^0.7.1",
+    "terminal-kit": "^3.0.0"
   }
 }
