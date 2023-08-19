@@ -270,3 +270,23 @@
 - Find more info about MP3 licensing
 - Verify latency of MP3, WAV and FLAC playback on Windows
 
+## 2023-08-19
+
+### Planned goals
+- Learn how to publish a package to NPM
+- Sketch a first version of the library which is able to play WAV sound on NodeJS
+- If possible, allow playing FLAC sounds as well, even if only one channel
+
+### Stretch goals
+- Publish an initial version of the audio playing library to NPM
+
+### Findings
+- NPM requires account to publish package; will do it later
+- shell-player name already exists; will try to come up with another one
+- Linux player wasn't working after the first sound was played
+- Audio start delay is significant
+
+### Achieved goals
+- Fixed Linux player problems
+- Came up with a possible solution for audio start delay
+

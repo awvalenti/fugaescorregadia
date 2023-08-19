@@ -1,4 +1,4 @@
-import terminalKit from 'terminal-kit' ;
+import terminalKit from 'terminal-kit';
 import { exec } from 'child_process';
 import path from 'path';
 import { readFileSync } from 'fs';
@@ -23,16 +23,34 @@ function windowsPlaySound(file) {
 
 const x = ArrayBuffer, y = Buffer, z = Float32Array
 
+const childProcess = exec(`aplay -q -f float_le -r 44100`)
+
 async function linuxPlaySound(file) {
-  const flacBuffer = readFileSync(file)
-  const decoded = await decoder.decode(flacBuffer, { outputFormat: 's16', numberOfChannels: 2, sampleRate: 44100 })
-  // console.log();
-  // console.log({decoded, channelData: decoded.channelData});
-  const [left, right] = decoded.channelData
-  // console.log(left.constructor.name)
-  const childProcess = exec(`aplay -q -f float_be`)
-  childProcess.stdin.write(left.toString())
-  childProcess.stdin.end()
+  if (file.endsWith('flac')) {
+    console.time('readfile')
+    const flacBuffer = readFileSync(file)
+    console.timeEnd('readfile')
+    console.time('decode')
+    const decoded = await decoder.decode(flacBuffer, {
+      outputFormat: 's16',
+      numberOfChannels: 2,
+      sampleRate: 44100
+    })
+    console.timeEnd('decode')
+    console.time('reset')
+    decoder.reset()
+    console.timeEnd('reset')
+    // console.time('exec/end')
+    childProcess.stdin.write(Buffer.from(decoded.channelData[1].buffer))
+    // childProcess.stdin.end(() => {
+    //   console.timeEnd('exec/end')
+    // })
+  } else {
+    console.time('wav')
+    exec(`aplay -q -- ${file}`, () => {
+      console.timeEnd('wav')
+    })
+  }
 }
 
 function playSound(file) {
@@ -59,7 +77,7 @@ const board = [
   [' ', '@', ' ', ' ', '█', ' ', ' ', '█'],
 ];
 
-term.color('gray','░░░░░░░░░░░░░░░░░░░░');
+term.color('gray', '░░░░░░░░░░░░░░░░░░░░');
 for (let i = 0; i <= board.length; ++i) {
   term.color('gray').moveTo(1, i + 2, '░░                ░░');
 }
@@ -153,7 +171,7 @@ const gameLoop = () => {
     && newPosRow >= minRow
     && newPosRow <= maxRow
     && board[newPosRow][newPlayerCol] !== '█'
-    ) {
+  ) {
     [playerCol, playerRow] = [newPlayerCol, newPosRow];
     [oldPlayerCol, oldPlayerRow] = [playerCol, playerRow]
   } else {
@@ -171,7 +189,7 @@ const gameLoop = () => {
   }
 
   if (board[playerRow][playerCol] === '¤') {
-    playSound('finish.flac')
+    playSound('finish.wav')
     animateText('white', maxRow + 2, 0, 'FINISH!', () => {
       term.processExit(0);
     });
@@ -180,14 +198,14 @@ const gameLoop = () => {
   }
 }
 
-playSound('start.flac')
+playSound('start.wav')
 
 gameLoop()
 
 
 term.grabInput();
 
-term.on('key', function(name, matches, data) {
+term.on('key', function (name, matches, data) {
   switch (name) {
     case 'ESCAPE':
       term.clear(); // doesn't work?
