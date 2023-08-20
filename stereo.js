@@ -1,5 +1,4 @@
 import { exec } from 'child_process';
-import path from 'path';
 import { readFileSync } from 'fs';
 
 // import { FLACDecoder } from '@wasm-audio-decoders/flac';
@@ -7,17 +6,17 @@ import { readFileSync } from 'fs';
 
 import { MPEGDecoder } from 'mpg123-decoder';
 
-// console.time('new')
+console.time('new')
 const decoder = new MPEGDecoder();
-// console.timeEnd('new')
-// console.time('ready')
+console.timeEnd('new')
+
+console.time('ready')
 await decoder.ready;
-// console.timeEnd('ready')
+console.timeEnd('ready')
 
 console.time('exec')
 const childProcess = exec(`aplay -q -c 2 -f float_le -r 44100`)
 console.timeEnd('exec')
-
 
 async function linuxPlaySound(file) {
   if (file.endsWith('wav')) {
@@ -26,38 +25,32 @@ async function linuxPlaySound(file) {
       console.timeEnd('wav')
     })
   } else {
-    // console.time('readfile')
+    console.time('readfile')
     const encodedBuffer = readFileSync(file)
-    // console.timeEnd('readfile')
-    // console.time('decode')
+    console.timeEnd('readfile')
+
+    console.time('decode')
     const decoded = await decoder.decode(encodedBuffer, {
       outputFormat: 's16',
       numberOfChannels: 2,
       sampleRate: 44100
     })
-    // console.timeEnd('decode')
-    // console.time('free')
+    console.timeEnd('decode')
+
     decoder.reset()
-    // console.timeEnd('free')
-    // const data = decoded.channelData[1]
 
     const [leftSamples, rightSamples] = decoded.channelData
 
-    const data = new Float32Array(leftSamples.length * 2)
-    for (let i = 0; i < leftSamples.length * 2; i += 2) {
-      // Combine left and right samples into interleaved stereo format
-      data[i] = leftSamples[i];
-      data[i + 1] = rightSamples[i];
+    console.time('interleave')
+    const interleavedSamples = new Float32Array(leftSamples.length + rightSamples.length)
+    for (let i = 0; i < leftSamples.length; ++i) {
+      interleavedSamples[i * 2] = leftSamples[i];
+      interleavedSamples[i * 2 + 1] = rightSamples[i];
     }
-
-    console.log(leftSamples[0], rightSamples[0], data[0], data[1]);
-    console.log(leftSamples[1], rightSamples[1], data[2], data[3]);
-
-    // Convert interleaved samples to a Buffer
-    const audioBuffer = Buffer.from(data);
+    console.timeEnd('interleave')
 
     childProcess.stdin.cork()
-    childProcess.stdin.write(audioBuffer)
+    childProcess.stdin.write(Buffer.from(interleavedSamples.buffer))
     process.nextTick(() => {
       childProcess.stdin.uncork()
     })
@@ -77,4 +70,4 @@ function playSound(file) {
 playSound('stereo.mp3')
 setTimeout(() => {
   process.exit(0)
-}, 900);
+}, 2000);

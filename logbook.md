@@ -290,7 +290,7 @@
 - Fixed Linux player problems
 - Came up with a possible solution for audio start delay
 
-## 2023-08-20
+## 2023-08-20 - session A
 
 ### Planned goals
 - Fix MP3 sound play
@@ -300,4 +300,17 @@
 - MP3 sound is playing correctly, the problem was something else
 - Stereo sound seems viable by interleaving samples
 - aplay process reused successfully
+
+## 2023-08-20 - session B
+
+### Planned goals
+- Make stereo sound play on Linux from MP3 file
+
+### Stretch goal
+- Come up with a name for our library to play sounds
+
+### Achieved goals
+- Make stereo sound play on Linux from MP3 file
+- Wrote down player features
+
 
