@@ -290,3 +290,14 @@
 - Fixed Linux player problems
 - Came up with a possible solution for audio start delay
 
+## 2023-08-20
+
+### Planned goals
+- Fix MP3 sound play
+- Check viability of combining left and right channels
+
+### Achieved goals
+- MP3 sound is playing correctly, the problem was something else
+- Stereo sound seems viable by interleaving samples
+- aplay process reused successfully
+

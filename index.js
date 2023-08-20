@@ -5,11 +5,10 @@ import { readFileSync } from 'fs';
 
 const term = terminalKit.terminal
 
-import { FLACDecoder } from '@wasm-audio-decoders/flac';
+// import { FLACDecoder } from '@wasm-audio-decoders/flac';
+// const decoder = new FLACDecoder();
 
-const decoder = new FLACDecoder();
-
-await decoder.ready;
+import { MPEGDecoder } from 'mpg123-decoder';
 
 function windowsPlaySound(file) {
   exec(`
@@ -21,34 +20,43 @@ function windowsPlaySound(file) {
   )
 }
 
-const x = ArrayBuffer, y = Buffer, z = Float32Array
+// console.time('new')
+const decoder = new MPEGDecoder();
+// console.timeEnd('new')
+// console.time('ready')
+await decoder.ready;
+// console.timeEnd('ready')
 
+console.time('exec')
 const childProcess = exec(`aplay -q -f float_le -r 44100`)
+console.timeEnd('exec')
+
 
 async function linuxPlaySound(file) {
-  if (file.endsWith('flac')) {
-    console.time('readfile')
-    const flacBuffer = readFileSync(file)
-    console.timeEnd('readfile')
-    console.time('decode')
-    const decoded = await decoder.decode(flacBuffer, {
+  if (file.endsWith('wav')) {
+    console.time('wav')
+    exec(`aplay -q -- ${file}`, () => {
+      console.timeEnd('wav')
+    })
+  } else {
+    // console.time('readfile')
+    const encodedBuffer = readFileSync(file)
+    // console.timeEnd('readfile')
+    // console.time('decode')
+    const decoded = await decoder.decode(encodedBuffer, {
       outputFormat: 's16',
       numberOfChannels: 2,
       sampleRate: 44100
     })
-    console.timeEnd('decode')
-    console.time('reset')
+    // console.timeEnd('decode')
+    // console.time('free')
     decoder.reset()
-    console.timeEnd('reset')
-    // console.time('exec/end')
-    childProcess.stdin.write(Buffer.from(decoded.channelData[1].buffer))
-    // childProcess.stdin.end(() => {
-    //   console.timeEnd('exec/end')
-    // })
-  } else {
-    console.time('wav')
-    exec(`aplay -q -- ${file}`, () => {
-      console.timeEnd('wav')
+    // console.timeEnd('free')
+    const data = decoded.channelData[0]
+    childProcess.stdin.cork()
+    childProcess.stdin.write(Buffer.from(data.buffer))
+    process.nextTick(() => {
+      childProcess.stdin.uncork()
     })
   }
 }
@@ -189,7 +197,7 @@ const gameLoop = () => {
   }
 
   if (board[playerRow][playerCol] === '¤') {
-    playSound('finish.wav')
+    playSound('finish.mp3')
     animateText('white', maxRow + 2, 0, 'FINISH!', () => {
       term.processExit(0);
     });
@@ -198,7 +206,7 @@ const gameLoop = () => {
   }
 }
 
-playSound('start.wav')
+playSound('start.mp3')
 
 gameLoop()
 

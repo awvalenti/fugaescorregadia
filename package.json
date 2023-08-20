@@ -15,9 +15,7 @@
   "license": "UNLICENSED",
   "dependencies": {
     "@wasm-audio-decoders/flac": "^0.1.12",
-    "@wasm-audio-decoders/ogg-vorbis": "^0.1.7",
     "mpg123-decoder": "^0.4.8",
-    "opus-decoder": "^0.7.1",
     "terminal-kit": "^3.0.0"
   }
 }
