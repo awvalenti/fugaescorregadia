@@ -313,4 +313,22 @@
 - Make stereo sound play on Linux from MP3 file
 - Wrote down player features
 
+## 2023-10-17
+
+### Planned goals
+- Review project goal
+- Review sound player code
+- Refactor sound player code to class/functions
+- Test result on Linux
+
+### Findings
+- Decision needed:
+  - accept only 44.1KHz sounds with better performance?
+  - accept any sound with worse performance?
+  - We'll go with the first option for now
+
+### Achieved goals
+- Reviews made
+- Started refactoring player code
+- Sounds played successfully on Linux
 
