@@ -322,10 +322,11 @@
 - Test result on Linux
 
 ### Findings
-- Decision needed:
-  - accept only 44.1KHz sounds with better performance?
-  - accept any sound with worse performance?
-  - We'll go with the first option for now
+- aplay accepts a -B option to reduce read buffer size
+
+### Decisions
+- Buffer size: 50ms
+- Accept only 44.1KHz sounds reusing process for better performance
 
 ### Achieved goals
 - Reviews made
