@@ -322,6 +322,7 @@
 - Test result on Linux
 
 ### Findings
+- aplay has its own buffer, that's why residual sounds happen
 - aplay accepts a -B option to reduce read buffer size
 
 ### Decisions
@@ -333,3 +334,26 @@
 - Started refactoring player code
 - Sounds played successfully on Linux
 
+## 2023-10-18
+
+### Planned goals
+- Test with BGM (minutes-sized sound files)
+- Replay cached audio file
+- Allow multi-instance LinuxSoundPlayer/multiple process of aplay
+
+### Findings
+- Time to start playing 4 minutes MP3 sound:
+  - First time: ~1.1s (measuring with a very suspicious method)
+    - More likely taking ~600ms
+  - Second time, after caching: ~400ms (measuring with a very suspicious method)
+    - More likely almost 0ms
+- Caching is very efficient
+- Spawning aplay processes is somewhat efficient
+  - Should measure that more precisely
+
+### Achieved goals
+- Test with BGM (minutes-sized sound files)
+- Replay cached audio file
+
+### Next steps
+- Allow multi-instance LinuxSoundPlayer/multiple process of aplay

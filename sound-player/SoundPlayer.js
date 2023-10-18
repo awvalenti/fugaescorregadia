@@ -4,6 +4,7 @@ import { MacSoundPlayer } from './MacSoundPlayer.js'
 import { WindowsSoundPlayer } from './WindowsSoundPlayer.js'
 
 export class SoundPlayer {
+
   static async create() {
     const ret = new SoundPlayer()
     const platform = detectPlatform()
@@ -26,4 +27,5 @@ export class SoundPlayer {
   play(soundFile) {
     this._innerPlayer.play(soundFile)
   }
+
 }

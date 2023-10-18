@@ -2,12 +2,11 @@ import { SoundPlayer } from "./SoundPlayer.js";
 
 const player = await SoundPlayer.create()
 
-player.play('../stereo.mp3')
+console.log('First time')
+player.play('bgm4m.mp3')
+
+// player.play('../stereo.mp3')
 setTimeout(() => {
-  player.play('../finish.mp3')
-
-  setTimeout(() => {
-    process.exit(0)
-  }, 3000);
-
+  console.log('Second time')
+  player.play('bgm4m.mp3')
 }, 2000);
