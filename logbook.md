@@ -357,3 +357,31 @@
 
 ### Next steps
 - Allow multi-instance LinuxSoundPlayer/multiple process of aplay
+
+## 2023-10-19
+
+### Planned goals
+- Play simultaneous sounds
+- Test with very large sound files
+- Allow user to stop playing sound
+
+### Achieved goals
+- Play simultaneous sounds
+- Test with very large sound files
+- Allow user to stop playing sound
+
+### Findings
+- We're consuming twice as memory as should be needed
+  - For instance, the expect memory consumption for a 1h audio
+    is 176KB/s * 3600s = 0.60GB. We're consuming about 1.3GB.
+  - During some seconds, memory consumption is actually once
+    again doubled (2.6GB). That's expected because we receive
+    separated channels data and interleave them. It takes a
+    while before the separated channels become unused and
+    garbage-collected.
+- We may want to improve the sound player by interleaving
+  samples while sending them to the aplay process, instead
+  of doing the whole process at once. However, this won't
+  make a lot of difference, since the interleaving process
+  takes approximately 14% of the time of the decoding process.
+

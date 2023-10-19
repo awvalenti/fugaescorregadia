@@ -24,8 +24,12 @@ export class SoundPlayer {
     return ret
   }
 
-  play(soundFile) {
-    this._innerPlayer.play(soundFile)
+  async play(soundFile) {
+    return await this._innerPlayer.play(soundFile)
+  }
+
+  free() {
+    this._innerPlayer.free()
   }
 
 }
