@@ -385,3 +385,21 @@
   make a lot of difference, since the interleaving process
   takes approximately 14% of the time of the decoding process.
 
+## 2023-10-24
+
+### Planned goals
+- Make sure play/pause works on Windows
+- Make sure caching sound file works on Windows
+
+### Findings
+- On interactive PowerShell, can run $MediaPlayer.Play() many times
+  - On NodeJS env, process ends, so by default we can't do that
+- $MediaPlayer has methods Pause() and Dispose()
+- $MediaPlayer.NaturalDuration.TotalSeconds is what we want
+  to know how many seconds to sleep
+- We have to wait for the file to be loaded before reading the duration
+- Following code simulates what occurs in the NodeJS child process:
+  ```powershell
+  $MediaPlayer = [Windows.Media.Playback.MediaPlayer, Windows.Media, ContentType = WindowsRuntime]::New(); $MediaPlayer.Source = [Windows.Media.Core.MediaSource]::CreateFromUri('C:\Users\andre\p\fugaescorregadia\sound-player\bgm4m.mp3'); $MediaPlayer.Play(); $MediaPlayer.NaturalDuration
+  ```
+
