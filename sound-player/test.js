@@ -2,8 +2,8 @@ import { SoundPlayer } from "./SoundPlayer.js";
 
 const player = await SoundPlayer.create()
 
-console.log('Starting BGM')
-player.play('bgm4m.mp3')
+// console.log('Starting BGM')
+player.play(process.argv[2])
 
 // setTimeout(() => {
 //   console.log('Starting sound effect')

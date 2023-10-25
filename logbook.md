@@ -403,3 +403,13 @@
   $MediaPlayer = [Windows.Media.Playback.MediaPlayer, Windows.Media, ContentType = WindowsRuntime]::New(); $MediaPlayer.Source = [Windows.Media.Core.MediaSource]::CreateFromUri('C:\Users\andre\p\fugaescorregadia\sound-player\bgm4m.mp3'); $MediaPlayer.Play(); $MediaPlayer.NaturalDuration
   ```
 
+## 2023-10-25
+
+### Planned goals
+- Fix reading sound duration from file on Windows
+- Make sure play/pause works on Windows
+- Make sure caching sound file works on Windows
+
+### Achieved goals
+- Fix reading sound duration from file on Windows
+
