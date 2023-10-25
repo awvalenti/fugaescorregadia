@@ -407,9 +407,20 @@
 
 ### Planned goals
 - Fix reading sound duration from file on Windows
-- Make sure play/pause works on Windows
-- Make sure caching sound file works on Windows
+- Make sure play/stop works on Windows
+
+### Findings
+- Windows doesn't support all the process signals that Linux does.
+  Apparently, it supports only:
+  - SIGTERM
+  - SIGINT
+  - SIGBREAK
+  - SIGUSR1 and SIGUSR2
+- We don't need to support pausing a sound for now
+  - If we decide to do that in the future, we can use either signals or
+    communication via sound player process's stdin
 
 ### Achieved goals
 - Fix reading sound duration from file on Windows
+- Make sure play/stop works on Windows
 
