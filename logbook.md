@@ -424,3 +424,11 @@
 - Fix reading sound duration from file on Windows
 - Make sure play/stop works on Windows
 
+## 2023-10-26
+
+### Planned goals
+- Check if can play simultaneous sounds on Windows
+
+### Achieved goals
+- Can play simultaneous sounds on Windows
+
