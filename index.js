@@ -28,7 +28,7 @@ for (let i = 0; i <= board.length; ++i) {
 term.color('gray').moveTo(1, board.length + 2, '░░░░░░░░░░░░░░░░░░░░');
 
 function printChar(color, row, col, char) {
-  term.color(color).moveTo(2 * col + 1 + 2, row + 1 + 1, char);
+  term.color(color).moveTo(2 * col + 1 + 2, row + 1 + 1, char + char);
 }
 
 function animateText(color, row, col, phrase, onFinish) {
@@ -139,7 +139,7 @@ const gameLoop = () => {
       term.processExit(0);
     });
   } else {
-    setTimeout(gameLoop, 30);
+    setTimeout(gameLoop, 50);
   }
 }
 

@@ -429,7 +429,13 @@
 ### Planned goals
 - Check if can play simultaneous sounds on Windows
 - Make a playable demo with one level, bgm and sound fx
+- Solve problem of different horizontal and vertical player speeds
 
 ### Achieved goals
 - Can play simultaneous sounds on Windows
 - Make a playable demo with one level, bgm and sound fx
+- Solve problem of different horizontal and vertical player speeds
+  - Came up with nice idea of duplicating characters, like @@ for player!
+    - ...just like Bret Victor suggested! https://vimeo.com/38272912
+- We have a fully-playable demo that actually looks like a real game!
+
