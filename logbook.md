@@ -428,7 +428,8 @@
 
 ### Planned goals
 - Check if can play simultaneous sounds on Windows
+- Make a playable demo with one level, bgm and sound fx
 
 ### Achieved goals
 - Can play simultaneous sounds on Windows
-
+- Make a playable demo with one level, bgm and sound fx

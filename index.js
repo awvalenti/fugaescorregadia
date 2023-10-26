@@ -1,79 +1,15 @@
 import terminalKit from 'terminal-kit';
-import { exec } from 'child_process';
-import path from 'path';
-import { readFileSync } from 'fs';
+import { SoundPlayer } from './sound-player/SoundPlayer.js';
+
+const soundPlayer = await SoundPlayer.create()
 
 const term = terminalKit.terminal
-
-// import { FLACDecoder } from '@wasm-audio-decoders/flac';
-// const decoder = new FLACDecoder();
-
-import { MPEGDecoder } from 'mpg123-decoder';
-
-function windowsPlaySound(file) {
-  exec(`
-    $MediaPlayer = [Windows.Media.Playback.MediaPlayer, Windows.Media, ContentType = WindowsRuntime]::New();
-    $MediaPlayer.Source = [Windows.Media.Core.MediaSource]::CreateFromUri('${path.resolve(file)}');
-    $MediaPlayer.Play();
-    Start-Sleep -s ($MediaPlayer.NaturalDuration.Seconds + 1)
-    `, { shell: 'powershell' }
-  )
-}
-
-// console.time('new')
-const decoder = new MPEGDecoder();
-// console.timeEnd('new')
-// console.time('ready')
-await decoder.ready;
-// console.timeEnd('ready')
-
-console.time('exec')
-const childProcess = exec(`aplay -q -f float_le -r 44100`)
-console.timeEnd('exec')
-
-
-async function linuxPlaySound(file) {
-  if (file.endsWith('wav')) {
-    console.time('wav')
-    exec(`aplay -q -- ${file}`, () => {
-      console.timeEnd('wav')
-    })
-  } else {
-    // console.time('readfile')
-    const encodedBuffer = readFileSync(file)
-    // console.timeEnd('readfile')
-    // console.time('decode')
-    const decoded = await decoder.decode(encodedBuffer, {
-      outputFormat: 's16',
-      numberOfChannels: 2,
-      sampleRate: 44100
-    })
-    // console.timeEnd('decode')
-    // console.time('free')
-    decoder.reset()
-    // console.timeEnd('free')
-    const data = decoded.channelData[0]
-    childProcess.stdin.cork()
-    childProcess.stdin.write(Buffer.from(data.buffer))
-    process.nextTick(() => {
-      childProcess.stdin.uncork()
-    })
-  }
-}
-
-function playSound(file) {
-  const isWin = process.platform === "win32";
-  // TODO avoid code injection
-  if (isWin) {
-    windowsPlaySound(file)
-  } else {
-    linuxPlaySound(file)
-  }
-}
 
 term.hideCursor();
 term.bgColor('black');
 term.clear();
+
+let bgm
 
 const board = [
   ['█', '█', '█', '█', '█', '█', '█', '█'],
@@ -197,7 +133,8 @@ const gameLoop = () => {
   }
 
   if (board[playerRow][playerCol] === '¤') {
-    playSound('finish.mp3')
+    bgm.stop()
+    soundPlayer.play('audio/sunflower-street-drumloop-85bpm-163900.mp3')
     animateText('white', maxRow + 2, 0, 'FINISH!', () => {
       term.processExit(0);
     });
@@ -206,7 +143,7 @@ const gameLoop = () => {
   }
 }
 
-playSound('start.mp3')
+bgm = await soundPlayer.play('audio/sb_adriftamonginfinitestars(chosic.com).mp3')
 
 gameLoop()
 
