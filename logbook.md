@@ -439,3 +439,31 @@
     - ...just like Bret Victor suggested! https://vimeo.com/38272912
 - We have a fully-playable demo that actually looks like a real game!
 
+## 2023-10-31
+
+### Planned goals
+- Check if demo is working properly on Linux
+- Make audio adjustments
+- Make .stop() method work on Linux
+- Prefetch sound, avoiding taking a long time to start
+- Avoid printing strange characters when moving
+- POC to end aplay process faster
+
+### Findings
+- On Linux, console outputs keys pressed unless term.grabInput() is called
+- Current sample BGM takes 2.5s to start playing (decoding time)
+  - It also has 2s of silence
+- mpg123-decoder works synchronously. This means that, even if we don't await
+  for it, it still blocks JavaScript runtime.
+  - For this reason, on Linux, we'll have to manage audio resources loading
+    carefully. We'll have to inform the loading start and finish to the user.
+- On Linux, stopping a sound (without loading another one) takes 700 to 800ms
+
+### Achieved goals
+- Check if demo is working properly on Linux
+- Avoid printing strange characters when moving
+
+### Next steps
+- Prefetch sound, avoiding taking a long time to start
+- End aplay process faster
+
