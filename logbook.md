@@ -467,3 +467,21 @@
 - Prefetch sound, avoiding taking a long time to start
 - End aplay process faster
 
+## 2023-11-01
+
+### Planned goals
+- End aplay process faster
+
+### Findings
+- When aplay plays a WAV sound directly, it can't be stopped
+  - Did not find why, but NodeJS seems to have little control
+    over child processes
+  - Maybe we should try the spawn function instead of exec?
+- Writing small buffers many times worked: reduces delay from ~800ms to ~400ms
+  - Buffer size =  32, setTimeout = 0: no music is heard; kill takes 134ms
+  - Buffer size =  64, setTimeout = 0: no music is heard; kill takes 262ms
+  - Buffer size = 128, setTimeout = 0: no music is heard; kill takes 507ms
+  - Buffer size = 256, setTimeout = 0:  music is chopped; kill takes 507ms
+  - Buffer size = 256,  no setTimeout:       music is ok; kill takes 677ms
+  - Buffer size =  32,  no setTimeout:       music is ok; kill takes 680ms
+    - But keyboard responsiveness is harmed

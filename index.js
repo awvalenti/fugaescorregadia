@@ -136,11 +136,11 @@ const gameLoop = () => {
     bgm.stop()
     // soundPlayer.play('audio/sunflower-street-drumloop-85bpm-163900.mp3')
     setTimeout(() => {
-      console.log('foooooooooooooooooi')
-      animateText('white', maxRow + 2, 0, 'FINISH!', () => {
+      // console.log('foooooooooooooooooi')
+      // animateText('white', maxRow + 2, 0, 'FINISH!', () => {
         term.processExit(0);
-      });
-    }, 800);
+      // });
+    }, 2000);
   } else {
     setTimeout(gameLoop, 50);
   }
@@ -150,7 +150,8 @@ term.grabInput();
 
 gameLoop()
 
-bgm = await soundPlayer.play('audio/sb_adriftamonginfinitestars(chosic.com).mp3')
+// bgm = await soundPlayer.play('audio/sb_adriftamonginfinitestars(chosic.com).mp3')
+bgm = await soundPlayer.play('/tmp/bgm.wav')
 
 
 term.on('key', function (name, matches, data) {
