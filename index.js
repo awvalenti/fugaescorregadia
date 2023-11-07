@@ -150,8 +150,9 @@ term.grabInput();
 
 gameLoop()
 
-// bgm = await soundPlayer.play('audio/sb_adriftamonginfinitestars(chosic.com).mp3')
-bgm = await soundPlayer.play('/tmp/bgm.wav')
+bgm = await soundPlayer.play('audio/adrift-bgm-cropped.mp3')
+// bgm = await soundPlayer.play('/tmp/bgm.wav')
+// bgm = await soundPlayer.play('audio/test.wav')
 
 
 term.on('key', function (name, matches, data) {

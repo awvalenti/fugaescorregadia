@@ -1,10 +1,10 @@
 import terminalKit from 'terminal-kit';
-import { exec } from 'child_process';
+import { exec, spawn } from 'child_process';
 import { readFileSync } from 'fs';
 import { MPEGDecoder } from 'mpg123-decoder';
-import fs from 'fs';
+// import fs from 'fs';
 
-let killed = false
+// let killed = false
 
 const term = terminalKit.terminal
 
@@ -31,27 +31,27 @@ export class LinuxSoundPlayer {
   }
 
   async play(soundFile) {
+    let aplayProcess
+
     if (soundFile.endsWith('wav')) {
       // console.time('wav')
-      const aplayProcess = exec(`aplay -q -- ${soundFile}`)
-      // const fileStream = fs.createReadStream(soundFile);
-      // fileStream.pipe(aplayProcess.stdin);
-      return {
-        stop() {
-          // console.error('stoooopping')
-          killed = true
-          aplayProcess.on('close', () => {
-            console.timeEnd('kill')
-          })
-          console.time('kill')
-          aplayProcess.kill(9)
-        }
-      }
+
+      // TODO Avoid code injection
+      aplayProcess = spawn('aplay', ['-q', '--', soundFile])
+
+      aplayProcess.on('exit', () => {
+        // killed = true
+        console.log('aplay process exited')
+        console.timeEnd('kill')
+      })
 
     } else {
-      // console.time('exec: creating aplay process')
-      const aplayProcess = exec('aplay -q -c 2 -f float_le -r 44100')
-      // console.timeEnd('exec: creating aplay process')
+      console.time('song start')
+
+      console.time('spawn: creating aplay process')
+      aplayProcess = spawn('aplay', ['-q', '-c', '2', '-f', 'float_le', '-r', '44100'])
+      // const aplayProcess = exec('aplay -q -c 2 -f float_le -r 44100')
+      console.timeEnd('spawn: creating aplay process')
 
       let bufferToPlay = this._cache.get(soundFile)
       if (!bufferToPlay) {
@@ -62,53 +62,54 @@ export class LinuxSoundPlayer {
       }
       // aplayProcess.stdin.cork()
 
-      // // console.time('stdin.write(buffer)')
-      const SIZE = 32
-      let i = 0
-      let subBuffer = Buffer.from(bufferToPlay.buffer, 0, SIZE)
-      // console.log(subBuffer.length)
-      const loop = () => {
-        aplayProcess.stdin.write(subBuffer, () => {
-          // setTimeout(() => {
-            if (!killed) {
-              ++i
-              // term.color('white').moveTo(4, 15, `     ${i}     `);
-              subBuffer = Buffer.from(bufferToPlay.buffer, i * SIZE, SIZE)
-              loop()
-            }
-          // }, 0);
-          // // console.time('stdin.destroy()')
-          // aplayProcess.stdin.destroy()
-          // // console.timeEnd('stdin.destroy()')
-        })
-        // // console.timeEnd('stdin.write(buffer)')
-      }
-      loop()
-
-      return {
-        stop() {
-          killed = true
-          // aplayProcess.stdin.destroy()
-          aplayProcess.on('close', () => {
-            console.timeEnd('kill')
-          })
-          console.time('kill')
-          // aplayProcess.stdin.destroy()
-          aplayProcess.kill()
-        }
-      }
-      // setTimeout(() => {
-      //   this._aplayProcess.kill()
-      // }, 800);
-      // this._aplayProcess.stdin.end()
+      // aplayProcess.stdin.cork()
+      aplayProcess.stdin.write(bufferToPlay)
       // process.nextTick(() => {
-      //   this._aplayProcess.stdin.uncork()
+      //   aplayProcess.stdin.uncork()
       // })
+
+      // // console.time('stdin.write(buffer)')
+      // const SIZE = 1024 * 1024
+      // let i = 0
+      // let subBuffer = Buffer.from(bufferToPlay.buffer, 0, SIZE)
+      // console.log(subBuffer.length)
+      // const loop = () => {
+      //   aplayProcess.stdin.write(subBuffer, () => {
+      //     setTimeout(() => {
+      //       if (!killed) {
+      //         ++i
+      //         // term.color('white').moveTo(4, 15, `     ${i}     `);
+      //         subBuffer = Buffer.from(bufferToPlay.buffer, i * SIZE, SIZE)
+      //         loop()
+      //       }
+      //     }, 2000);
+      //     // // console.time('stdin.destroy()')
+      //     // aplayProcess.stdin.destroy()
+      //     // // console.timeEnd('stdin.destroy()')
+      //   })
+      //   // // console.timeEnd('stdin.write(buffer)')
+      // }
+      // loop()
+      console.timeEnd('song start')
+      console.log('pid:', aplayProcess.pid)
+
+    }
+
+    return {
+      stop() {
+        // killed = true
+        // aplayProcess.stdin.destroy()
+        console.time('kill')
+        // aplayProcess.stdin.destroy()
+        // aplayProcess.kill()
+        spawn('kill', [aplayProcess.pid])
+      }
     }
   }
 
   async _decodeAndInterleave(soundFile) {
     // // console.time('readfile')
+    // TODO make async
     const encodedBuffer = readFileSync(soundFile)
     // // console.timeEnd('readfile')
 

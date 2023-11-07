@@ -485,3 +485,33 @@
   - Buffer size = 256,  no setTimeout:       music is ok; kill takes 677ms
   - Buffer size =  32,  no setTimeout:       music is ok; kill takes 680ms
     - But keyboard responsiveness is harmed
+
+## 2023-11-07
+
+### Planned goals
+- End aplay process faster by one of the following means:
+  - calling programs kill or killall directly
+  - spawn function
+- Review code
+
+### Findings
+- exec creates a shell; spawn doesn't
+- spawn allows quickly killing aplay process via:
+  - ~~spawn('kill', [aplayProcess.pid])~~ - doesn't work always
+  - aplayProcess.kill() results in error
+- Both exec and spawn take 2.1~2.3s to start playing song
+- Killing aplay directly allows stopping sound in 31~39ms
+  - ...and spawn gives direct access to aplay pid
+- Killing spawned process with spawn('kill') sometimes throws Error
+
+### Achieved goals
+- End aplay process faster by using spawn instead of exec and later
+  spawning Linux program 'kill'
+- Tested also for WAV and it worked. 15~20ms to stop it.
+
+### Next steps
+- Fix errors caused when killing aplay process
+- Test cork and uncork
+- Test writing sub-buffers or full buffer at once
+- Replace readFileSync with async version
+
