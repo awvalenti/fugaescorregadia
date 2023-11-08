@@ -1,7 +1,17 @@
 import terminalKit from 'terminal-kit';
 import { exec, spawn } from 'child_process';
-import { readFileSync } from 'fs';
+import { mkdir, readFile, writeFile } from 'fs/promises';
 import { MPEGDecoder } from 'mpg123-decoder';
+import { mkdtemp } from 'node:fs/promises';
+import { join } from 'node:path';
+import { tmpdir } from 'node:os';
+// import path from 'path';
+import { basename, dirname } from 'path';
+// import util from 'util';
+
+// const basename = util.promisify(path.basename)
+// const dirname = util.promisify(path.dirname)
+
 // import fs from 'fs';
 
 // let killed = false
@@ -17,11 +27,18 @@ export class LinuxSoundPlayer {
     ret._decoder = new MPEGDecoder();
     // console.timeEnd('new MPEGDecoder')
 
-    ret._cache = new Map()
+    ret._cache = new Map();
 
     // console.time('decoder.ready')
-    await ret._decoder.ready;
+    const bla = await Promise.all([
+      mkdtemp(join(tmpdir(), 'sound-player-')),
+      ret._decoder.ready,
+    ]);
     // console.timeEnd('decoder.ready')
+
+    [ret._tmpDir] = bla;
+
+    console.log({bla, tmpDir: ret._tmpDir});
 
     return ret
   }
@@ -48,22 +65,33 @@ export class LinuxSoundPlayer {
     } else {
       console.time('song start')
 
-      console.time('spawn: creating aplay process')
-      aplayProcess = spawn('aplay', ['-q', '-c', '2', '-f', 'float_le', '-r', '44100'])
-      // const aplayProcess = exec('aplay -q -c 2 -f float_le -r 44100')
-      console.timeEnd('spawn: creating aplay process')
+      const dirName = dirname(soundFile)
+      const tmpFileDirName = join(this._tmpDir, dirName)
+      await mkdir(tmpFileDirName, { recursive: true })
+      const baseName = basename(soundFile)
+      const tmpFilePath = join(tmpFileDirName, baseName)
 
-      let bufferToPlay = this._cache.get(soundFile)
-      if (!bufferToPlay) {
+      let bufferToWrite = this._cache.get(soundFile)
+      if (!bufferToWrite) {
         // console.time('_decodeAndInterleave ' + soundFile)
-        bufferToPlay = await this._decodeAndInterleave(soundFile)
-        this._cache.set(soundFile, bufferToPlay)
+        bufferToWrite = await this._decodeAndInterleave(soundFile)
+        // this._cache.set(soundFile, bufferToPlay)
+        // console.log('outro tmpDir:', this._tmpDir);
+        this._cache.set(soundFile, tmpFilePath)
+        console.time('writeFile')
+        await writeFile(tmpFilePath, bufferToWrite)
+        console.timeEnd('writeFile')
         // console.timeEnd('_decodeAndInterleave ' + soundFile)
       }
       // aplayProcess.stdin.cork()
 
+      console.time('spawn: creating aplay process')
+      aplayProcess = spawn('aplay', ['-q', '-c', '2', '-f', 'float_le', '-r', '44100', tmpFilePath])
+      // const aplayProcess = exec('aplay -q -c 2 -f float_le -r 44100')
+      console.timeEnd('spawn: creating aplay process')
+
       // aplayProcess.stdin.cork()
-      aplayProcess.stdin.write(bufferToPlay)
+      // aplayProcess.stdin.write(bufferToPlay)
       // process.nextTick(() => {
       //   aplayProcess.stdin.uncork()
       // })
@@ -109,8 +137,7 @@ export class LinuxSoundPlayer {
 
   async _decodeAndInterleave(soundFile) {
     // // console.time('readfile')
-    // TODO make async
-    const encodedBuffer = readFileSync(soundFile)
+    const encodedBuffer = await readFile(soundFile)
     // // console.timeEnd('readfile')
 
     // console.time('decode ' + soundFile)

@@ -516,3 +516,22 @@
 - Replace readFileSync with async version
 - Consider writing decoded file to temp file
 
+## 2023-11-08
+
+### Planned goals
+- Write down advantages of this method described above
+- Write decoded audio stream to temp file
+
+### Thoughts
+- Advantages of writing the decoded audio stream to temp file:
+  - Great reduction in memory consumption
+  - Simplification of our code (e.g., won't have aplay kill errors)
+  - Faster stopping of sounds (from 30~40ms to 15~20ms)
+
+### Achieved goals
+- Write down advantages of this method described above
+- POC for writing decoded audio stream to temp file
+
+### Next steps
+- Compare results of writing temp file to reading stream from memory
+
