@@ -514,4 +514,5 @@
 - Test cork and uncork
 - Test writing sub-buffers or full buffer at once
 - Replace readFileSync with async version
+- Consider writing decoded file to temp file
 
