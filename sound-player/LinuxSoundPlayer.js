@@ -5,6 +5,7 @@ import { MPEGDecoder } from 'mpg123-decoder';
 import { mkdtemp } from 'node:fs/promises';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
+
 // import path from 'path';
 import { basename, dirname } from 'path';
 // import util from 'util';
@@ -15,6 +16,17 @@ import { basename, dirname } from 'path';
 // import fs from 'fs';
 
 // let killed = false
+
+console.log(1);
+const killall = () => {
+  console.log('recursivo?');
+  spawn('killall', ['aplay'])
+  process.exit()
+}
+process.on('exit', killall)
+process.on("uncaughtException", killall);
+process.on("SIGINT", killall);
+process.on("SIGTERM", killall);
 
 const term = terminalKit.terminal
 
@@ -55,6 +67,7 @@ export class LinuxSoundPlayer {
 
       // TODO Avoid code injection
       aplayProcess = spawn('aplay', ['-q', '--', soundFile])
+      // aplayProcess = exec('aplay -q -- ${soundFile}')
 
       aplayProcess.on('exit', () => {
         // killed = true
@@ -87,6 +100,7 @@ export class LinuxSoundPlayer {
 
       console.time('spawn: creating aplay process')
       aplayProcess = spawn('aplay', ['-q', '-c', '2', '-f', 'float_le', '-r', '44100', tmpFilePath])
+      // aplayProcess = exec(`aplay -q -c 2 -f float_le -r 44100 -- ${tmpFilePath}`)
       // const aplayProcess = exec('aplay -q -c 2 -f float_le -r 44100')
       console.timeEnd('spawn: creating aplay process')
 
@@ -119,7 +133,7 @@ export class LinuxSoundPlayer {
       // }
       // loop()
       console.timeEnd('song start')
-      console.log('pid:', aplayProcess.pid)
+      // console.log('pid:', aplayProcess.pid)
 
     }
 

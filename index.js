@@ -161,6 +161,7 @@ term.on('key', function (name, matches, data) {
       term.clear(); // doesn't work?
       term.hideCursor();
       term.processExit(0);
+      // process.exit(0)
       break;
     case 'LEFT':
     case 'RIGHT':

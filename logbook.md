@@ -535,3 +535,27 @@
 ### Next steps
 - Compare results of writing temp file to reading stream from memory
 
+## 2023-11-09
+
+### Planned goals
+- Analyze and fix bug of song playing after main process is finished
+- Avoid code injection
+- Compare results of writing temp file to reading stream from memory
+- Organize existing code, removing unused parts
+
+### Findings
+- A disadvantage of writing decoded audio stream to temp file is that
+  we have to keep track of playing sounds in order to end all those
+  subprocesses when the main process ends.
+- { detached: true } allows ending subprocesses with -pid. Don't know exactly
+  how would this help.
+- Possible solution: https://stackoverflow.com/a/11892107/2141469
+- https://www.npmjs.com/package/tree-kill seemed like a solution, but I tested
+  it and it worked strangely. The callback function was being called many times.
+
+### Achieved goals
+- Analyze bug of song playing after main process is finished
+  - Possible solutions tried
+  - For now, maybe should stick with:
+    - process.on('exit', () => spawn('kilalll', ['aplay']))
+
