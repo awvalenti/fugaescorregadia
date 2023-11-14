@@ -559,3 +559,37 @@
   - For now, maybe should stick with:
     - process.on('exit', () => spawn('kilalll', ['aplay']))
 
+## 2023-11-14
+
+### Planned goals
+- Analyze and fix bug of song playing after main process is finished
+  - Test solution of piping decoded audio file to aplay process
+- Compare results of: 1) reading from memory only; 2) writing temp file and playing it directly; 3) pipe temp file contents to aplay process
+  - Observe memory consumption
+- Organize existing code, removing unused parts
+- Avoid code injection
+
+### Findings
+- Time taken to stop song on Linux: 5 ~ 11.5ms
+- Memory consumption:
+  - aplay process: constant (for temp file)
+  - node process:
+    - Looks constant for directly playing audio file
+    - Ever-increasing when piping
+      - Even if audio file finishes playing
+- Time taken to start song:
+  - Directly from memory: 2.2 ~ 2.4s
+  - From temp file piping: 2.4 ~ 2.6s
+  - From temp file directly: 2.4 ~ 2.5s
+
+### Achieved goals
+- Analyze and fix bug of song playing after main process is finished
+  - Test solution of piping decoded audio file to aplay process
+  - Compare results of: 1) reading from memory only; 2) writing temp file and playing it directly; 3) pipe temp file contents to aplay process
+
+### Next steps
+- Try spawn options: { stdio: ['pipe', 'inherit', 'inherit'] }
+- Try to fix memory leak to stick with pipe solution
+- If unsuccessful, go back to reading file directly and solve the problem of
+  song still playing after main process is finished
+

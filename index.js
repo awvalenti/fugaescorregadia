@@ -140,7 +140,7 @@ const gameLoop = () => {
       // animateText('white', maxRow + 2, 0, 'FINISH!', () => {
         term.processExit(0);
       // });
-    }, 2000);
+    }, 200);
   } else {
     setTimeout(gameLoop, 50);
   }
@@ -150,7 +150,11 @@ term.grabInput();
 
 gameLoop()
 
-bgm = await soundPlayer.play('audio/adrift-bgm-cropped.mp3')
+setTimeout(async () => {
+  bgm = await soundPlayer.play('audio/adrift-bgm-cropped.mp3')
+  // bgm = await soundPlayer.play('audio/sunflower-street-drumloop-85bpm-163900.mp3')
+
+}, 1000);
 // bgm = await soundPlayer.play('/tmp/bgm.wav')
 // bgm = await soundPlayer.play('audio/test.wav')
 

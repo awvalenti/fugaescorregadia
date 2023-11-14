@@ -8,6 +8,7 @@ import { tmpdir } from 'node:os';
 
 // import path from 'path';
 import { basename, dirname } from 'path';
+import { createReadStream } from 'fs';
 // import util from 'util';
 
 // const basename = util.promisify(path.basename)
@@ -17,16 +18,15 @@ import { basename, dirname } from 'path';
 
 // let killed = false
 
-console.log(1);
-const killall = () => {
-  console.log('recursivo?');
-  spawn('killall', ['aplay'])
-  process.exit()
-}
-process.on('exit', killall)
-process.on("uncaughtException", killall);
-process.on("SIGINT", killall);
-process.on("SIGTERM", killall);
+// console.log(1);
+// const killall = () => {
+//   spawn('killall', ['aplay'])
+//   process.exit()
+// }
+// process.on('exit', killall)
+// process.on("uncaughtException", killall);
+// process.on("SIGINT", killall);
+// process.on("SIGTERM", killall);
 
 const term = terminalKit.terminal
 
@@ -50,7 +50,7 @@ export class LinuxSoundPlayer {
 
     [ret._tmpDir] = bla;
 
-    console.log({bla, tmpDir: ret._tmpDir});
+    // console.log({bla, tmpDir: ret._tmpDir});
 
     return ret
   }
@@ -84,28 +84,42 @@ export class LinuxSoundPlayer {
       const baseName = basename(soundFile)
       const tmpFilePath = join(tmpFileDirName, baseName)
 
-      let bufferToWrite = this._cache.get(soundFile)
-      if (!bufferToWrite) {
+      let buffer = this._cache.get(soundFile)
+      if (!buffer) {
         // console.time('_decodeAndInterleave ' + soundFile)
-        bufferToWrite = await this._decodeAndInterleave(soundFile)
-        // this._cache.set(soundFile, bufferToPlay)
+        buffer = await this._decodeAndInterleave(soundFile)
         // console.log('outro tmpDir:', this._tmpDir);
-        this._cache.set(soundFile, tmpFilePath)
-        console.time('writeFile')
-        await writeFile(tmpFilePath, bufferToWrite)
-        console.timeEnd('writeFile')
+
+        this._cache.set(soundFile, buffer)
+
+        // this._cache.set(soundFile, tmpFilePath)
+
+        // console.time('writeFile')
+        await writeFile(tmpFilePath, buffer)
+        // console.timeEnd('writeFile')
         // console.timeEnd('_decodeAndInterleave ' + soundFile)
       }
       // aplayProcess.stdin.cork()
 
       console.time('spawn: creating aplay process')
       aplayProcess = spawn('aplay', ['-q', '-c', '2', '-f', 'float_le', '-r', '44100', tmpFilePath])
+
+      // aplayProcess = spawn('aplay', ['-q', '-c', '2', '-f', 'float_le', '-r', '44100'])
+
+      // const readStream = createReadStream(tmpFilePath)
+      // readStream.on('end', () => {
+      //   console.time('kill')
+      //   aplayProcess.stdin.end();
+      // })
+      // readStream.pipe(aplayProcess.stdin)
+      // aplayProcess.stdin.on('error', () => {})
+
       // aplayProcess = exec(`aplay -q -c 2 -f float_le -r 44100 -- ${tmpFilePath}`)
       // const aplayProcess = exec('aplay -q -c 2 -f float_le -r 44100')
-      console.timeEnd('spawn: creating aplay process')
+      // console.timeEnd('spawn: creating aplay process')
 
       // aplayProcess.stdin.cork()
-      // aplayProcess.stdin.write(bufferToPlay)
+      // aplayProcess.stdin.write(buffer)
       // process.nextTick(() => {
       //   aplayProcess.stdin.uncork()
       // })
@@ -135,6 +149,12 @@ export class LinuxSoundPlayer {
       console.timeEnd('song start')
       // console.log('pid:', aplayProcess.pid)
 
+      aplayProcess.on('exit', () => {
+        // killed = true
+        console.log('aplay process exited')
+        console.timeEnd('kill')
+      })
+
     }
 
     return {
@@ -143,8 +163,8 @@ export class LinuxSoundPlayer {
         // aplayProcess.stdin.destroy()
         console.time('kill')
         // aplayProcess.stdin.destroy()
-        // aplayProcess.kill()
-        spawn('kill', [aplayProcess.pid])
+        aplayProcess.kill()
+        // spawn('kill', [aplayProcess.pid])
       }
     }
   }
