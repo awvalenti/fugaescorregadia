@@ -24,6 +24,7 @@
   - ✅ mp3
   - ❓ flac
   - ✅ wav
+  - ✅ opus/opus
 
 ## Linux
 

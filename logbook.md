@@ -593,6 +593,7 @@
 - Replace MPEGDecoder with MPEGDecoderWebWorker
 - Try spawn options: { stdio: ['pipe', 'inherit', 'inherit'] }
 - Try to fix memory leak to stick with pipe solution
+- Try pipeline
 - If unsuccessful, go back to reading file directly and solve the problem of
   song still playing after main process is finished
 
