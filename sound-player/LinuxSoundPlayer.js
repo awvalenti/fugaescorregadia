@@ -1,7 +1,7 @@
 import terminalKit from 'terminal-kit';
 import { exec, spawn } from 'child_process';
 import { mkdir, readFile, writeFile } from 'fs/promises';
-import { MPEGDecoder } from 'mpg123-decoder';
+import { MPEGDecoderWebWorker } from 'mpg123-decoder';
 import { mkdtemp } from 'node:fs/promises';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
@@ -35,9 +35,9 @@ export class LinuxSoundPlayer {
   static async create() {
     const ret = new LinuxSoundPlayer()
 
-    // console.time('new MPEGDecoder')
-    ret._decoder = new MPEGDecoder();
-    // console.timeEnd('new MPEGDecoder')
+    // console.time('new MPEGDecoderWebWorker')
+    ret._decoder = new MPEGDecoderWebWorker();
+    // console.timeEnd('new MPEGDecoderWebWorker')
 
     ret._cache = new Map();
 
@@ -94,9 +94,9 @@ export class LinuxSoundPlayer {
 
         // this._cache.set(soundFile, tmpFilePath)
 
-        // console.time('writeFile')
+        console.time('writeFile')
         await writeFile(tmpFilePath, buffer)
-        // console.timeEnd('writeFile')
+        console.timeEnd('writeFile')
         // console.timeEnd('_decodeAndInterleave ' + soundFile)
       }
       // aplayProcess.stdin.cork()

@@ -597,3 +597,29 @@
 - If unsuccessful, go back to reading file directly and solve the problem of
   song still playing after main process is finished
 
+## 2023-11-15
+
+### Planned goals
+- Test memory consumption using simple program playing WAV file
+  - Using ReadStream.pipe
+  - Using ?.pipeline
+  - Try spawn options: { stdio: ['pipe', 'inherit', 'inherit'] }
+- Replace MPEGDecoder with MPEGDecoderWebWorker
+- Try to fix memory leak to stick with pipe solution
+- If unsuccessful, go back to reading file directly and solve the problem of
+  song still playing after main process is finished
+
+### Findings
+- Tested playing WAV file on bare-bones program. It leaks memory, even
+  if we manually close the ReadStream. Tested on NodeJS for Linux v18.17.0
+  and v20.9.0. Should open an issue for that.
+- If sound is fully played, memory is reclaimed
+- pipeline also leaks memory
+
+### Achieved goals
+- Test memory consumption using simple program playing WAV file
+  - Using ReadStream.pipe
+  - Using ?.pipeline
+  - Try spawn options: { stdio: ['pipe', 'inherit', 'inherit'] }
+- Replace MPEGDecoder with MPEGDecoderWebWorker
+
