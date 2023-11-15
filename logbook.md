@@ -590,6 +590,7 @@
 ### Next steps
 - Look for on-the-fly NodeJS MP3 decoder
 - Test memory consumption using simple program playing WAV file
+- Replace MPEGDecoder with MPEGDecoderWebWorker
 - Try spawn options: { stdio: ['pipe', 'inherit', 'inherit'] }
 - Try to fix memory leak to stick with pipe solution
 - If unsuccessful, go back to reading file directly and solve the problem of
