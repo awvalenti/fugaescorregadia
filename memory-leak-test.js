@@ -1,6 +1,7 @@
 import { spawn } from 'child_process';
 import { log } from 'console';
 import { createReadStream } from 'fs';
+import { pipeline } from 'node:stream/promises';
 
 const wavFilePath = 'audio/adrift-bgm-cropped.wav'
 // const wavFilePath = 'audio/sunflower-street-drumloop-85bpm-163900.wav'
@@ -31,9 +32,19 @@ readStream.on('end', () => {
   removeAllListeners()
 })
 
-readStream.pipe(stdin)
-
 let i = 0
 setInterval(() => {
   log('Still alive', i++)
 }, 3000);
+
+try {
+  await pipeline(
+    readStream,
+    stdin
+  )
+  log('success')
+} catch {
+  log('catch')
+} finally {
+  log('finally')
+}
