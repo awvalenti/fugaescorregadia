@@ -588,6 +588,8 @@
   - Compare results of: 1) reading from memory only; 2) writing temp file and playing it directly; 3) pipe temp file contents to aplay process
 
 ### Next steps
+- Look for on-the-fly NodeJS MP3 decoder
+- Test memory consumption using simple program playing WAV file
 - Try spawn options: { stdio: ['pipe', 'inherit', 'inherit'] }
 - Try to fix memory leak to stick with pipe solution
 - If unsuccessful, go back to reading file directly and solve the problem of
