@@ -1,50 +1,34 @@
-import { spawn } from 'child_process';
-import { log } from 'console';
-import { createReadStream } from 'fs';
+import { createReadStream, createWriteStream } from 'fs';
 
-const wavFilePath = 'audio/adrift-bgm-cropped.wav'
-// const wavFilePath = 'audio/sunflower-street-drumloop-85bpm-163900.wav'
+const srcPath = 'audio/adrift-bgm-cropped.wav'
+const dstPath = '/tmp/test-destination-stream'
 
-const aplayProcess = spawn('aplay', ['-q', '-c', '2', '-f', 'float_le', '-r', '44100'])
+const srcStream = createReadStream(srcPath)
+const dstStream = createWriteStream(dstPath)
 
-const { stdin } = aplayProcess
-const readStream = createReadStream(wavFilePath)
-
-function removeAllListeners() {
-  stdin.removeAllListeners()
-  readStream.removeAllListeners()
-}
-
-stdin.on('error', () => {
-  console.log('stdin.error')
-  removeAllListeners()
-  readStream.close()
+dstStream.on('drain', () => {
+  // Simulates a slow WriteStream
+  setTimeout(() => {
+    srcStream.resume()
+  }, 20)
 })
 
-stdin.on('end', () => {
-  console.log('stdin.end')
-})
-
-stdin.on('drain', () => {
-  readStream.resume()
-})
-
-readStream.on('end', () => {
-  console.log('readStream.end')
-  stdin.end();
-  removeAllListeners()
+srcStream.on('end', () => {
+  console.log("srcStream.on('end')");
+  dstStream.end()
 })
 
 let i = 0
-readStream.on('data', (chunk) => {
-  stdin.write(chunk, (error) => {})
-  readStream.pause()
-  log(i++)
+srcStream.on('data', (chunk) => {
+  dstStream.write(chunk, (error) => {
+    // No errors occur, even if destination file is removed
+    if (error) console.error(error);
+  })
+  srcStream.pause()
+  console.log('on(data)', i++)
 })
-
-readStream.on('error', () => {})
 
 let j = 0
 setInterval(() => {
-  log('Still alive', j++)
+  console.log('Keeping process alive', j++)
 }, 3000);
