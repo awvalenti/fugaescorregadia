@@ -631,5 +631,5 @@
 
 ### Achieved goals
 - Test memory consumption using manual pipe: leaks memory as well
-- Open an issue on NodeJS GitHub
+- Created issue on NodeJS GitHub: https://github.com/nodejs/node/issues/50762
 
