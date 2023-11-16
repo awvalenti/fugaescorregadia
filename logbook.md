@@ -623,3 +623,13 @@
   - Try spawn options: { stdio: ['pipe', 'inherit', 'inherit'] }
 - Replace MPEGDecoder with MPEGDecoderWebWorker
 
+## 2023-11-16
+
+### Planned goals
+- Test memory consumption using manual pipe
+- Check if memory leak is real. If so, open an issue on NodeJS GitHub.
+
+### Achieved goals
+- Test memory consumption using manual pipe: leaks memory as well
+- Open an issue on NodeJS GitHub
+
