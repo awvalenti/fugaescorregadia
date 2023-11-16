@@ -1,7 +1,6 @@
 import { spawn } from 'child_process';
 import { log } from 'console';
 import { createReadStream } from 'fs';
-import { pipeline } from 'node:stream/promises';
 
 const wavFilePath = 'audio/adrift-bgm-cropped.wav'
 // const wavFilePath = 'audio/sunflower-street-drumloop-85bpm-163900.wav'
@@ -12,8 +11,8 @@ const { stdin } = aplayProcess
 const readStream = createReadStream(wavFilePath)
 
 function removeAllListeners() {
-  stdin.removeAllListeners('error')
-  readStream.removeAllListeners('end')
+  stdin.removeAllListeners()
+  readStream.removeAllListeners()
 }
 
 stdin.on('error', () => {
@@ -26,6 +25,10 @@ stdin.on('end', () => {
   console.log('stdin.end')
 })
 
+stdin.on('drain', () => {
+  readStream.resume()
+})
+
 readStream.on('end', () => {
   console.log('readStream.end')
   stdin.end();
@@ -33,18 +36,15 @@ readStream.on('end', () => {
 })
 
 let i = 0
-setInterval(() => {
-  log('Still alive', i++)
-}, 3000);
+readStream.on('data', (chunk) => {
+  stdin.write(chunk, (error) => {})
+  readStream.pause()
+  log(i++)
+})
 
-try {
-  await pipeline(
-    readStream,
-    stdin
-  )
-  log('success')
-} catch {
-  log('catch')
-} finally {
-  log('finally')
-}
+readStream.on('error', () => {})
+
+let j = 0
+setInterval(() => {
+  log('Still alive', j++)
+}, 3000);
