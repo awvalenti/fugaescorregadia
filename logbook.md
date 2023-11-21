@@ -633,3 +633,21 @@
 - Test memory consumption using manual pipe: leaks memory as well
 - Created issue on NodeJS GitHub: https://github.com/nodejs/node/issues/50762
 
+## 2023-11-17
+
+### Planned goals
+- Add details about memory leak problem on GitHub
+- Organize code to play sound on Linux
+
+### Findings
+- ps may inform incorrect memory usage
+  - Linux Mint's System Monitor too, possibly
+- valgrind offers memory metrics collection, but is hard to use and visualize
+- heaptrack / heaptrack_gui are much easier to use
+  - https://github.com/KDE/heaptrack
+- process.memoryUsage measures memory usage, but seems to be incorrect, too
+
+### Achieved goals
+- Add details about memory leak problem on GitHub:
+  - https://github.com/nodejs/node/issues/50762#issuecomment-1821824590
+
