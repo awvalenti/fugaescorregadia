@@ -21,11 +21,11 @@ const board = [
   [' ', ' ', ' ', ' ', '█', ' ', ' ', '█'],
 ];
 
-term.color('gray', '░░░░░░░░░░░░░░░░░░░░');
+term.color('gray', '║║║║║║║║║║║║║║║║║║║║');
 for (let i = 0; i <= board.length; ++i) {
-  term.color('gray').moveTo(1, i + 2, '░░                ░░');
+  term.color('gray').moveTo(1, i + 2, '║║                ║║');
 }
-term.color('gray').moveTo(1, board.length + 2, '░░░░░░░░░░░░░░░░░░░░');
+term.color('gray').moveTo(1, board.length + 2, '║║║║║║║║║║║║║║║║║║║║');
 
 function printChar(color, row, col, char) {
   term.color(color).moveTo(2 * col + 1 + 2, row + 1 + 1, char + char);
@@ -86,7 +86,7 @@ for (let row = 0; row < board.length; ++row) {
         printChar('brightGreen', row, col, tile)
         break;
       case '¤':
-        printChar('yellow', row, col, tile)
+        printChar('brightYellow', row, col, tile)
         break;
       case '█':
         printChar('cyan', row, col, tile)

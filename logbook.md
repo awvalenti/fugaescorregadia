@@ -651,3 +651,45 @@
 - Add details about memory leak problem on GitHub:
   - https://github.com/nodejs/node/issues/50762#issuecomment-1821824590
 
+## 2023-11-18
+
+### Planned goals
+- Replace problematic wall character on Windows
+- Test sound play features (start, stop, bgm, sound fx)
+- Read thread on GitHub issue
+
+### Findings
+
+### Colors
+- PowerShell does not support color 'yellow'. It does support 'brightYellow'.
+
+#### Unicode characters
+- For outer walls, we were using ░ (light shade). It had two problems:
+  - On PowerShell, for some font sizes, they don't connect, leaving empty
+    horizontal space
+  - On Windows Terminal with Git Bash, for some font sizes, they're simply gone
+- █ (Full block, currently used for obstacles) works. The only problem is that,
+  depending on font size, a 1-pixel-lenght line may appear, either horizontally
+  or vertically.
+- Medium and dark shades (▒ and ▓) have the same problems
+- Blocks like ▟ would be good only if we didn't duplicate all characters
+  - Since we're duplicating characters, we should find "symmetrical" characters
+- Box drawings double:
+  - Vertical (║) seems a good choice, gives a metal impression
+  - Vertical and Horizontal (╬) is too heavy
+  - ╠╣ make a nice steel-looking design, but may be out of context
+
+#### Bug
+- If we finish our level too fast, before bgm starts playing, an error is
+  thrown, because stop method gets called on undefined
+
+### Next steps
+- Fix song stop bug
+- Prefetch sounds, both on Linux and Windows
+- Organize sound player code
+- Furthur analyze memory consumption on Linux
+
+### Achieved goals
+- Replace problematic wall character on Windows
+- Read thread on GitHub issue
+
