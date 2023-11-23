@@ -693,3 +693,39 @@
 - Replace problematic wall character on Windows
 - Read thread on GitHub issue
 
+## 2023-11-19
+
+### Planned goals
+- Fix song stop bug on Windows
+- Avoid code injection on Windows sound player
+- Prefetch sounds on Windows
+
+### Findings
+- Double-quotes and newline are forbidden characters for filenames on Windows
+  - …even though we can create such files using Git Bash
+- Single-quotes are allowed and work
+- Grave accent is a valid character for filenames, but not for URIs. So,
+  we can't use them anyway.
+- On Windows, time taken to load MP3 file is 50~100ms. How to measure:
+  ```powershell
+  $elapsedTime = Measure-Command {
+    $FilePath="T:\00.temp\a\b.mp3"
+    $MediaPlayer = [Windows.Media.Playback.MediaPlayer, Windows.Media, ContentType = WindowsRuntime]::New()
+    $MediaPlayer.Source = [Windows.Media.Core.MediaSource]::CreateFromUri($FilePath)
+    do
+    {
+      $Duration = $MediaPlayer.NaturalDuration.TotalSeconds
+    }
+    while ($Duration -eq 0)
+  }
+  ```
+
+### Achieved goals
+- Fix song stop bug on Windows
+- Avoid code injection on Windows sound player
+
+### Next steps
+- Validate sound file existence
+- Try to extract PowerShell script code to .ps1 file
+- Prefetch sounds on Windows
+

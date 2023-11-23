@@ -150,11 +150,8 @@ term.grabInput();
 
 gameLoop()
 
-setTimeout(async () => {
-  bgm = await soundPlayer.play('audio/adrift-bgm-cropped.mp3')
-  // bgm = await soundPlayer.play('audio/sunflower-street-drumloop-85bpm-163900.mp3')
-
-}, 1000);
+bgm = await soundPlayer.play('audio/adrift-bgm-cropped.mp3')
+// bgm = await soundPlayer.play('audio/sunflower-street-drumloop-85bpm-163900.mp3')
 // bgm = await soundPlayer.play('/tmp/bgm.wav')
 // bgm = await soundPlayer.play('audio/test.wav')
 
