@@ -701,6 +701,9 @@
 - Prefetch sounds on Windows
 
 ### Findings
+- Escape sequences on PowerShell scripts:
+  - Backtick for double-quoted strings: "`n" is newline
+  - Two single quotes for single-quoted strings: '''' is a single quote
 - Double-quotes and newline are forbidden characters for filenames on Windows
   - …even though we can create such files using Git Bash
 - Single-quotes are allowed and work
