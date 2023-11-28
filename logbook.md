@@ -732,3 +732,28 @@
 - Try to extract PowerShell script code to .ps1 file
 - Prefetch sounds on Windows
 
+## 2023-11-20
+
+### Planned goals
+- Review memory leak problem
+- Reproduce possible solution: call garbage collector
+- Decide and implement Linux sound player stream reading
+
+### Findings
+- Memory was not actually leaking, it can be reclaimed by calling global.gc()
+- Two options for implementing aplay stream management:
+  1. Let aplay read the decoded audio directly
+    - Pros:
+      - simpler implementation
+      - less memory usage
+      - same implementation for MP3 and WAV source files
+    - Cons:
+      - hard to stop playing sounds when Node process finishes
+  2. Read the decoded file stream and pipe it to aplay
+    - Pros:
+      - automatically stop playing sounds when Node process finishes
+    - Cons:
+      - complex implementation
+      - high memory usage
+      - risks of calling global.gc()
+      - different implementations for MP3 and WAV
