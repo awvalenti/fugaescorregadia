@@ -732,7 +732,7 @@
 - Try to extract PowerShell script code to .ps1 file
 - Prefetch sounds on Windows
 
-## 2023-11-20
+## 2023-11-28
 
 ### Planned goals
 - Review memory leak problem
@@ -757,3 +757,43 @@
       - high memory usage
       - risks of calling global.gc()
       - different implementations for MP3 and WAV
+
+## 2023-11-29
+
+### Planned goals
+- Study sound prefetch implementation on Windows
+
+### Next steps
+- Evaluate usage of pipeline to free memory after pipe finishes. Source:
+  https://github.com/nodejs/node/issues/50762#issuecomment-1830857896.
+
+### Findings
+- Read-Host pauses a PowerShell script, waiting for user input on stdin
+  - We can use this for inter-process communication
+
+### Ideas
+- Replace Start-Sleep with a second Read-Host, to keep the process alive
+
+### Achieved goals
+- Study sound prefetch implementation on Windows
+  - POC done successfully:
+    - Setting sound source will fetch audio
+    - Read-Host after that will pause subprocess, waiting for parent process
+      to signal that audio should start playing
+    - Another Read-Host after that will keep subprocess alive, avoiding
+      need to do Start-Sleep
+  - Code:
+    ```powershell
+    $FilePath = "${resolvedPath}"
+    $MediaPlayer = [Windows.Media.Playback.MediaPlayer, Windows.Media, ContentType = WindowsRuntime]::New()
+    $MediaPlayer.Source = [Windows.Media.Core.MediaSource]::CreateFromUri($FilePath)
+
+    Read-Host
+    $MediaPlayer.Play()
+    Read-Host
+    ```
+
+### Next steps
+- Change sound player API to split play() method into two phases:
+  prefetch and play
+
