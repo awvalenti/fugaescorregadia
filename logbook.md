@@ -826,3 +826,14 @@
   7. After it finishes or receives a SIGINT, if user wants to play the same
     sound again, must create a new aplay process
 
+### Achieved goals
+- Model workflow for sound player on Linux
+
+### Next steps
+- See if it's viable not to explicitly set outputFormat, numberOfChannels and
+  sampleRate, leaving for the decoder to auto-detec those data and use them
+  when starting aplay
+- Modify Linux sound player implementation to reduce memory usage
+  - To do this, we need to write partial buffers
+  - Fix promisify code
+
