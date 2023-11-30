@@ -837,3 +837,10 @@
   - To do this, we need to write partial buffers
   - Fix promisify code
 
+### Ideas
+- Windows: isolate .ps1 script and call it like:
+  - `spawn('powershell', ['play.ps1', soundfile])`
+- Linux:
+  - Check if exec subprocesses get closed when node process ends
+    - If so, try to open a shell using exec and use it to spawn aplay processes
+
