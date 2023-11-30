@@ -797,3 +797,32 @@
 - Change sound player API to split play() method into two phases:
   prefetch and play
 
+## 2023-11-30
+
+### Planned goals
+- Model workflow for sound player on Linux
+- Modify Linux sound player implementation to reduce memory usage
+
+### Findings
+- Apparently, this code snippet was unnecessary:
+  - `aplayProcess.on('exit', () => { })`
+- We can pause a sound by sending aplay either a SIGSTOP or SIGTSTP
+  and resume it by sending it a SIGCONT
+- We need to manually set buffer size of aplay in order to be able
+  to stop it quickly
+  - If buffer is too small, sound gets chopped
+  - If buffer is too large, it takes too long to stop
+  - -B 50000 (50ms) seems a good choice
+- Workflow description:
+  1. Create sound player
+  2. Prepare it:
+    - Load decoder
+    - Create temp folder
+  3. Decode a sound, writing a temp file
+  4. Create aplay process reading that file. It will start playing immediately.
+  5. If desired, send it a SIGSTOP to pause playback
+    - Later on, send it a SIGCONT to resume playback
+  6. If desired, send it a SIGINT to end it completetly
+  7. After it finishes or receives a SIGINT, if user wants to play the same
+    sound again, must create a new aplay process
+

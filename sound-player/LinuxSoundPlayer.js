@@ -6,6 +6,7 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { basename, dirname } from 'path';
 
+// TODO Find an actual solution
 // WIP finishing all aplay processes when ending Node process
 const killall = () => {
   spawn('killall', ['aplay'])
@@ -42,11 +43,16 @@ export class LinuxSoundPlayer {
   }
 
   async play(soundFile) {
+    const createAplayArgs = (filePath, firstArgs = []) => [
+      ...firstArgs,
+      ...['-B' ,'50000', '-q', '--'],
+      filePath
+    ]
+
     let aplayProcess
 
     if (soundFile.endsWith('wav')) {
-      aplayProcess = spawn('aplay', ['-q', '--', soundFile])
-      aplayProcess.on('exit', () => { })
+      aplayProcess = spawn('aplay', createAplayArgs(soundFile))
 
     } else {
       const dirName = dirname(soundFile)
@@ -62,8 +68,8 @@ export class LinuxSoundPlayer {
         this._decodedFilenamesCache.set(soundFile, tmpFilePath)
       }
 
-      aplayProcess = spawn('aplay',
-        ['-q', '-c', '2', '-f', 'float_le', '-r', '44100', '--', tmpFilePath])
+      aplayProcess = spawn('aplay', createAplayArgs(tmpFilePath,
+        ['-c', '2', '-f', 'float_le', '-r', '44100']))
     }
 
     return {
