@@ -844,3 +844,34 @@
   - Check if exec subprocesses get closed when node process ends
     - If so, try to open a shell using exec and use it to spawn aplay processes
 
+## 2023-12-06
+
+### Planned goals
+- Check if exec subprocesses get closed when node process ends
+- Modify Linux sound player implementation to reduce memory usage
+
+### Findings
+
+#### Subprocess handling
+- This code works for spawn, but not for exec:
+  - `process.on('SIGTERM', () => { aplayProcess.kill() })`
+- Signals:
+  - SIGINT:
+    - Sent by Ctrl-C
+    - Immediately finishes subprocesses
+    - Can be handled by Node
+    - If handled, by default, does not end Node process
+  - SIGTERM:
+    - Sent by kill by default
+    - Can be handled by Node
+    - If handled, by default, does not end Node process
+  - SIGKILL:
+    - Sent by kill -9
+    - Cannot be handled by Node or ignored
+- Uncaught exceptions:
+  - `process.on('uncaughtException', (e) => { cleanup(); throw e; }` can be used to end subprocesses without losing the stack trace completely (only changing it a bit)
+  - Together with handling SIGTERM, this may be the best choice so far
+
+#### createWriteStream
+- Seems not to work with promisify, must work with callbacks
+
