@@ -1,21 +1,23 @@
 import { spawn } from 'child_process';
-import { mkdir, readFile, writeFile } from 'fs/promises';
+import { log } from 'console';
+import { createWriteStream } from 'fs';
+import { mkdir, readFile } from 'fs/promises';
 import { MPEGDecoderWebWorker } from 'mpg123-decoder';
 import { mkdtemp } from 'node:fs/promises';
-import { join } from 'node:path';
 import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { basename, dirname } from 'path';
 
-// TODO Find an actual solution
-// WIP finishing all aplay processes when ending Node process
-const killall = () => {
-  spawn('killall', ['aplay'])
-  process.exit()
-}
-process.on('exit', killall)
-process.on('uncaughtException', killall);
-process.on('SIGINT', killall);
-process.on('SIGTERM', killall);
+// // TODO Find an actual solution
+// // WIP finishing all aplay processes when ending Node process
+// const killall = () => {
+//   spawn('killall', ['aplay'])
+//   process.exit()
+// }
+// process.on('exit', killall)
+// process.on('uncaughtException', killall);
+// process.on('SIGINT', killall);
+// process.on('SIGTERM', killall);
 
 export class LinuxSoundPlayer {
 
@@ -45,7 +47,7 @@ export class LinuxSoundPlayer {
   async play(soundFile) {
     const createAplayArgs = (filePath, firstArgs = []) => [
       ...firstArgs,
-      ...['-B' ,'50000', '-q', '--'],
+      ...['-B', '50000', '-q', '--'],
       filePath
     ]
 
@@ -61,10 +63,9 @@ export class LinuxSoundPlayer {
       const baseName = basename(soundFile)
       const tmpFilePath = join(tmpFileDirName, baseName)
 
-      let buffer = this._decodedFilenamesCache.get(soundFile)
-      if (!buffer) {
-        buffer = await this._decodeAndInterleave(soundFile)
-        await writeFile(tmpFilePath, buffer)
+      if (!this._decodedFilenamesCache.has(soundFile)) {
+        const writeStream = createWriteStream(tmpFilePath)
+        await this._decodeAndInterleave(soundFile, writeStream)
         this._decodedFilenamesCache.set(soundFile, tmpFilePath)
       }
 
@@ -79,7 +80,7 @@ export class LinuxSoundPlayer {
     }
   }
 
-  async _decodeAndInterleave(soundFile) {
+  async _decodeAndInterleave(soundFile, writeStream) {
     // // console.time('readfile')
     const encodedBuffer = await readFile(soundFile)
     // // console.timeEnd('readfile')
@@ -95,17 +96,59 @@ export class LinuxSoundPlayer {
     const resetPromise = this._decoder.reset()
 
     const [leftSamples, rightSamples] = decoded.channelData
-    // console.time('interleave ' + soundFile)
-    const interleavedSamples = new Float32Array(leftSamples.length + rightSamples.length)
-    for (let i = 0; i < leftSamples.length; ++i) {
-      interleavedSamples[i * 2] = leftSamples[i];
-      interleavedSamples[i * 2 + 1] = rightSamples[i];
-    }
-    // console.timeEnd('interleave ' + soundFile)
 
+    // const BUFFER_SIZE = 4096
+
+    console.time('interleave ' + soundFile)
+
+    const size = 2048
+    const interleavedSamples = new Float32Array(size * 2)
+
+    for (let i = 0; i < leftSamples.length / size; ++i) {
+      for (let j = 0; j < size; ++j) {
+        interleavedSamples[j * 2] = leftSamples[i * size + j]
+        interleavedSamples[j * 2 + 1] = rightSamples[i * size + j]
+      }
+      // TODO Replace with full callback-based solution
+      await new Promise((resolve, reject) => {
+        writeStream.write(Buffer.from(interleavedSamples.buffer), err => {
+          if (err) reject(err)
+          resolve()
+        })
+      })
+    }
+
+    // // TODO Remaining bytes
+    // for (let i = 0; i < leftSamples.length / size; ++i) {
+    //   for (let j = 0; j < size; ++j) {
+    //     interleavedSamples[j * 2] = leftSamples[i * size + j]
+    //     interleavedSamples[j * 2 + 1] = rightSamples[i * size + j]
+    //   }
+    //   writeStream.write(Buffer.from(interleavedSamples.buffer))
+    // }
+
+    // // const interleavedSamples = Buffer.alloc((leftSamples.length + rightSamples.length) * Float32Array.BYTES_PER_ELEMENT)
+    // const interleavedSamples = new Float32Array(leftSamples.length + rightSamples.length)
+    // for (let i = 0; i < leftSamples.length; ++i) {
+    //   // interleavedSamples.writeFloatLE(leftSamples[i], (i * 2) * Float32Array.BYTES_PER_ELEMENT)
+    //   // interleavedSamples.writeFloatLE(rightSamples[i], (i * 2 + 1) * Float32Array.BYTES_PER_ELEMENT)
+    //   interleavedSamples[i * 2] = leftSamples[i];
+    //   interleavedSamples[i * 2 + 1] = rightSamples[i];
+    // }
+
+    console.timeEnd('interleave ' + soundFile)
+
+    // log({interleavedSamples})
     await resetPromise
 
-    return Buffer.from(interleavedSamples.buffer)
+    return new Promise(resolve => {
+      // writeStream.write(interleavedSamples, () => {
+      // writeStream.write(Buffer.from(interleavedSamples.buffer), () => {
+        writeStream.close(() => {
+          resolve()
+        })
+      // })
+    })
   }
 
 }

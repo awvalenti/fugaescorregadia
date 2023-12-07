@@ -865,6 +865,9 @@
     - Sent by kill by default
     - Can be handled by Node
     - If handled, by default, does not end Node process
+    - By default, Node process ends with code 143
+      - When we handle this signal, we maybe should run
+        `process.exit(143)`
   - SIGKILL:
     - Sent by kill -9
     - Cannot be handled by Node or ignored
@@ -875,3 +878,14 @@
 #### createWriteStream
 - Seems not to work with promisify, must work with callbacks
 
+## 2023-12-07
+
+### Planned goals
+- Modify Linux sound player implementation to reduce memory usage
+
+### Findings
+- Buffer.alloc is an alternative to new Float32Array
+  - It seemed more efficient, but it actually took ~900ms instead of ~200ms to interleave samples
+
+### Next steps
+- Compare memory and time consumption for the 3 approaches
