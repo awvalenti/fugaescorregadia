@@ -101,22 +101,8 @@ export class LinuxSoundPlayer {
 
     console.time('interleave ' + soundFile)
 
-    const size = 2048
+    const size = 32768
     const interleavedSamples = new Float32Array(size * 2)
-
-    for (let i = 0; i < leftSamples.length / size; ++i) {
-      for (let j = 0; j < size; ++j) {
-        interleavedSamples[j * 2] = leftSamples[i * size + j]
-        interleavedSamples[j * 2 + 1] = rightSamples[i * size + j]
-      }
-      // TODO Replace with full callback-based solution
-      await new Promise((resolve, reject) => {
-        writeStream.write(Buffer.from(interleavedSamples.buffer), err => {
-          if (err) reject(err)
-          resolve()
-        })
-      })
-    }
 
     // // TODO Remaining bytes
     // for (let i = 0; i < leftSamples.length / size; ++i) {
@@ -136,18 +122,30 @@ export class LinuxSoundPlayer {
     //   interleavedSamples[i * 2 + 1] = rightSamples[i];
     // }
 
-    console.timeEnd('interleave ' + soundFile)
-
     // log({interleavedSamples})
     await resetPromise
 
     return new Promise(resolve => {
-      // writeStream.write(interleavedSamples, () => {
-      // writeStream.write(Buffer.from(interleavedSamples.buffer), () => {
-        writeStream.close(() => {
-          resolve()
-        })
-      // })
+      function processBlock(i) {
+        if (i >= leftSamples.length / size) {
+          writeStream.close(() => {
+            console.timeEnd('interleave ' + soundFile)
+            resolve()
+          })
+        } else {
+          // console.time('block ' + i)
+          for (let j = 0; j < size; ++j) {
+            interleavedSamples[j * 2] = leftSamples[i * size + j]
+            interleavedSamples[j * 2 + 1] = rightSamples[i * size + j]
+          }
+          writeStream.write(Buffer.from(interleavedSamples.buffer), err => {
+            if (err) throw (err)
+            // console.timeEnd('block ' + i)
+            processBlock(i + 1)
+          })
+        }
+      }
+      processBlock(0)
     })
   }
 

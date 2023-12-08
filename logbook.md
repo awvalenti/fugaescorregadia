@@ -765,7 +765,7 @@
 
 ### Next steps
 - Evaluate usage of pipeline to free memory after pipe finishes. Source:
-  https://github.com/nodejs/node/issues/50762#issuecomment-1830857896.
+  https://github.com/nodejs/node/issues/50762#issuecomment-1830857896
 
 ### Findings
 - Read-Host pauses a PowerShell script, waiting for user input on stdin
@@ -888,4 +888,47 @@
   - It seemed more efficient, but it actually took ~900ms instead of ~200ms to interleave samples
 
 ### Next steps
-- Compare memory and time consumption for the 3 approaches
+- Compare memory and time consumption for both approaches
+
+## 2023-12-08
+
+### Planned goals
+- Compare memory consumption for both approaches
+- Test pipeline memory consumption
+- Finish Linux implementation to reduce memory usage
+
+### Findings
+- There are two decisions to make:
+  1. Algorithm for writing decompressed audio data to file
+  2. Method for sending decompressed audio data to aplay
+- For the first part (writing data to file):
+  - First implementation (writing full buffer at once):
+    - Initially: ~500MB
+    - After a few seconds: ~170MB (maybe ~46MB sometimes?)
+  - Second implementation (writing partial Float32Array buffers):
+    - Buffer size 4096:
+      - Initially: ~360MB
+      - After a few seconds: ~170MB
+      - ~600ms
+    - Buffer size 32768:
+      - Initially: ~358MB
+      - After a few seconds: ~170MB
+      - ~250ms
+    - Buffer size 131072:
+      - Initially: ~358MB
+      - After a few seconds: ~170MB
+      - ~263ms
+- pipeline also leaks memory
+- Current BGM, when played in 2x frequency, gets played one octave above
+  and sounds pretty good!
+
+### Achieved goals
+- Compare memory consumption for both approaches
+- Test pipeline memory consumption
+- Finish Linux implementation to reduce memory usage
+  - Buffer size 32768 seems fine
+  - Reduced memory consumption in approximately 30%
+    (500MB to 360MB) and incresead processing time in 30%
+    (200ms to 260ms)
+  - This seems a good tradeoff
+

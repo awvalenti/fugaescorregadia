@@ -155,6 +155,9 @@ bgm = await soundPlayer.play('audio/adrift-bgm-cropped.mp3')
 // bgm = await soundPlayer.play('/tmp/bgm.wav')
 // bgm = await soundPlayer.play('audio/test.wav')
 
+// setTimeout(() => {
+//   soundPlayer.free()
+// }, 15000);
 
 term.on('key', function (name, matches, data) {
   switch (name) {
