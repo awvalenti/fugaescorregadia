@@ -95,58 +95,60 @@ export class LinuxSoundPlayer {
 
     const resetPromise = this._decoder.reset()
 
+    // TODO Accomodate possibility of more than two channels
     const [leftSamples, rightSamples] = decoded.channelData
-
-    // const BUFFER_SIZE = 4096
 
     console.time('interleave ' + soundFile)
 
-    const size = 32768
-    const interleavedSamples = new Float32Array(size * 2)
+    // FIXME using the exact size of sound, to test the residual chunk part
+    const FULL_CHUNK_SIZE = 362788
 
-    // // TODO Remaining bytes
-    // for (let i = 0; i < leftSamples.length / size; ++i) {
-    //   for (let j = 0; j < size; ++j) {
-    //     interleavedSamples[j * 2] = leftSamples[i * size + j]
-    //     interleavedSamples[j * 2 + 1] = rightSamples[i * size + j]
-    //   }
-    //   writeStream.write(Buffer.from(interleavedSamples.buffer))
-    // }
+    const outputFullChunk = new Float32Array(FULL_CHUNK_SIZE)
+    const fullChunksCount = Math.floor(leftSamples.length / FULL_CHUNK_SIZE)
+    const residualChunkSize = leftSamples.length % FULL_CHUNK_SIZE
 
-    // // const interleavedSamples = Buffer.alloc((leftSamples.length + rightSamples.length) * Float32Array.BYTES_PER_ELEMENT)
-    // const interleavedSamples = new Float32Array(leftSamples.length + rightSamples.length)
-    // for (let i = 0; i < leftSamples.length; ++i) {
-    //   // interleavedSamples.writeFloatLE(leftSamples[i], (i * 2) * Float32Array.BYTES_PER_ELEMENT)
-    //   // interleavedSamples.writeFloatLE(rightSamples[i], (i * 2 + 1) * Float32Array.BYTES_PER_ELEMENT)
-    //   interleavedSamples[i * 2] = leftSamples[i];
-    //   interleavedSamples[i * 2 + 1] = rightSamples[i];
-    // }
-
-    // log({interleavedSamples})
-    await resetPromise
-
-    return new Promise(resolve => {
-      function processBlock(i) {
-        if (i >= leftSamples.length / size) {
-          writeStream.close(() => {
-            console.timeEnd('interleave ' + soundFile)
-            resolve()
+    const processPromise = new Promise((resolve, reject) => {
+      function processChunk(outputChunkIndex) {
+        if (outputChunkIndex < fullChunksCount) {
+          // FIXME
+          // FULL_CHUNK_SIZE probably doesn't play well with i * 2. Should
+          // remove the * 2 part.
+          for (let i = 0; i < FULL_CHUNK_SIZE; ++i) {
+            const inputSampleIndex = outputChunkIndex * FULL_CHUNK_SIZE + i
+            outputFullChunk[i * 2] = leftSamples[inputSampleIndex]
+            outputFullChunk[i * 2 + 1] = rightSamples[inputSampleIndex]
+          }
+          writeStream.write(Buffer.from(outputFullChunk.buffer), err => {
+            if (err) {
+              writeStream.close()
+              reject(err)
+            } else {
+              processChunk(outputChunkIndex + 1)
+            }
           })
         } else {
-          // console.time('block ' + i)
-          for (let j = 0; j < size; ++j) {
-            interleavedSamples[j * 2] = leftSamples[i * size + j]
-            interleavedSamples[j * 2 + 1] = rightSamples[i * size + j]
+          const outputResidualChunk = new Float32Array(residualChunkSize)
+          console.log({ residualChunkSize });
+
+          for (let i = 0; i < residualChunkSize; ++i) {
+            const inputSampleIndex = outputChunkIndex * FULL_CHUNK_SIZE + i
+            outputResidualChunk[i * 2] = leftSamples[inputSampleIndex]
+            outputResidualChunk[i * 2 + 1] = rightSamples[inputSampleIndex]
           }
-          writeStream.write(Buffer.from(interleavedSamples.buffer), err => {
-            if (err) throw (err)
-            // console.timeEnd('block ' + i)
-            processBlock(i + 1)
+          writeStream.write(Buffer.from(outputResidualChunk.buffer), err => {
+            writeStream.close()
+            if (err) {
+              reject(err)
+            } else {
+              resolve()
+            }
           })
         }
       }
-      processBlock(0)
+      processChunk(0)
     })
+
+    return Promise.all([resetPromise, processPromise])
   }
 
 }

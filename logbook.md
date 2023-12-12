@@ -932,3 +932,19 @@
     (200ms to 260ms)
   - This seems a good tradeoff
 
+## 2023-12-12
+
+### Planned goals
+- Organize Linux implementation after POC is validated
+- Look for a way to implement temp file descriptor on Linux
+
+### Findings
+- Can't work with pipeline because we have many buffers
+  (e.g., left and right channel data)
+- There's really no way to promisify fs.createWriteStream.
+  Sticking with the callbacks implementation, to minimize
+  creation of Promises objects.
+
+### Achieved goals
+- Partial organization of Linux implementation
+
