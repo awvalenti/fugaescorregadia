@@ -957,3 +957,17 @@
 ### Problems
 - PC stopped working during the live coding session!
 
+## 2023-12-19
+
+### Planned goals
+- Finish Linux audio decode and interleave implementation
+- Fix problem of keep playing sound after Node process is stopped
+  - Look for a way to implement temp file descriptor on Linux
+  - Find the code that runs by default when SIGINT is received
+    and replicate it for the other signals
+
+### Achieved goals
+- Partial organization of Linux implementation
+  - Full chunks apparently working
+  - Residual chunk still needs work
+

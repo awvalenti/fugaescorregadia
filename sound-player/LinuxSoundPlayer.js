@@ -95,29 +95,38 @@ export class LinuxSoundPlayer {
 
     const resetPromise = this._decoder.reset()
 
-    // TODO Accomodate possibility of more than two channels
-    const [leftSamples, rightSamples] = decoded.channelData
+    const channelsSamples = decoded.channelData
 
     console.time('interleave ' + soundFile)
 
-    // FIXME using the exact size of sound, to test the residual chunk part
-    const FULL_CHUNK_SIZE = 362788
+    const FULL_CHUNK_SIZE_PER_CHANNEL = 32768 * 1000
 
-    const outputFullChunk = new Float32Array(FULL_CHUNK_SIZE)
-    const fullChunksCount = Math.floor(leftSamples.length / FULL_CHUNK_SIZE)
-    const residualChunkSize = leftSamples.length % FULL_CHUNK_SIZE
+    const channelsCount = channelsSamples.length
+
+    // FIXME using the exact size of sound, to test the residual chunk part
+    // log(leftSamples.length, rightSamples.length, leftSamples.length + rightSamples.length)
+    const outputFullChunkSize = FULL_CHUNK_SIZE_PER_CHANNEL * channelsCount
+    const samplesLength = Math.max(...channelsSamples.map(s => s.length))
+
+    const outputFullChunk = new Float32Array(outputFullChunkSize)
+    const fullChunksCount = Math.floor(samplesLength / FULL_CHUNK_SIZE_PER_CHANNEL)
+    const residualChunkSize = Math.floor(samplesLength % FULL_CHUNK_SIZE_PER_CHANNEL)
+    // log(leftSamples.length)
+    console.log({ channelsCount, samplesLength, outputFullChunkSize, fullChunksCount, residualChunkSize });
 
     const processPromise = new Promise((resolve, reject) => {
       function processChunk(outputChunkIndex) {
-        if (outputChunkIndex < fullChunksCount) {
-          // FIXME
-          // FULL_CHUNK_SIZE probably doesn't play well with i * 2. Should
-          // remove the * 2 part.
-          for (let i = 0; i < FULL_CHUNK_SIZE; ++i) {
-            const inputSampleIndex = outputChunkIndex * FULL_CHUNK_SIZE + i
-            outputFullChunk[i * 2] = leftSamples[inputSampleIndex]
-            outputFullChunk[i * 2 + 1] = rightSamples[inputSampleIndex]
+        function fill(chunk, bufferLength) {
+          for (let inputSampleIndex = 0; inputSampleIndex < bufferLength; ++inputSampleIndex) {
+            for (let channelIndex = 0; channelIndex < channelsCount; channelIndex++) {
+              const outputSampleIndex = inputSampleIndex * channelsCount + channelIndex
+              chunk[outputSampleIndex] = channelsSamples[channelIndex][outputChunkIndex * FULL_CHUNK_SIZE_PER_CHANNEL + inputSampleIndex]
+            }
           }
+        }
+
+        if (outputChunkIndex < fullChunksCount) {
+          fill(outputFullChunk, FULL_CHUNK_SIZE_PER_CHANNEL)
           writeStream.write(Buffer.from(outputFullChunk.buffer), err => {
             if (err) {
               writeStream.close()
@@ -128,13 +137,7 @@ export class LinuxSoundPlayer {
           })
         } else {
           const outputResidualChunk = new Float32Array(residualChunkSize)
-          console.log({ residualChunkSize });
-
-          for (let i = 0; i < residualChunkSize; ++i) {
-            const inputSampleIndex = outputChunkIndex * FULL_CHUNK_SIZE + i
-            outputResidualChunk[i * 2] = leftSamples[inputSampleIndex]
-            outputResidualChunk[i * 2 + 1] = rightSamples[inputSampleIndex]
-          }
+          fill(outputResidualChunk, residualChunkSize / channelsCount)
           writeStream.write(Buffer.from(outputResidualChunk.buffer), err => {
             writeStream.close()
             if (err) {
