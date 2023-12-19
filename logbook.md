@@ -948,3 +948,12 @@
 ### Achieved goals
 - Partial organization of Linux implementation
 
+## 2023-12-13
+
+### Planned goals
+- Finish Linux audio decode and interleave implementation
+- Look for a way to implement temp file descriptor on Linux
+
+### Problems
+- PC stopped working during the live coding session!
+
