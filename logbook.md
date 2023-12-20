@@ -980,6 +980,15 @@
   - Find the code that runs by default when SIGINT is received
     and replicate it for the other signals
 
+### Findings
+- NodeJS only kills subprocesses for Ctrl-C, not when kill -s SIGINT is sent
+  - process.on('beforeExit') or 'exit' are no good, too
+- Look for a way to implement temp file descriptor on Linux
+  - This might be possible only by calling C functions inside NodeJS
+
 ### Achieved goals
-- Linux audio decode and interleave implementation working; should now refactor
+- Linux audio decode and interleave implementation is working
+
+### Next steps
+- Consider real-time Opus decoding
 

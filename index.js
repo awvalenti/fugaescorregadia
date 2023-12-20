@@ -5,9 +5,9 @@ const soundPlayer = await SoundPlayer.create()
 
 const term = terminalKit.terminal
 
-term.hideCursor();
-term.bgColor('black');
-term.clear();
+// term.hideCursor();
+// term.bgColor('black');
+// term.clear();
 
 let bgm
 
@@ -146,7 +146,7 @@ const gameLoop = () => {
   }
 }
 
-term.grabInput();
+// term.grabInput();
 
 gameLoop()
 
@@ -159,38 +159,48 @@ bgm = await soundPlayer.play('audio/sunflower-street-drumloop-85bpm-163900.mp3')
 //   soundPlayer.free()
 // }, 15000);
 
-term.on('key', function (name, matches, data) {
-  switch (name) {
-    case 'ESCAPE':
-      term.clear(); // doesn't work?
-      term.hideCursor();
-      term.processExit(0);
-      // process.exit(0)
-      break;
-    case 'LEFT':
-    case 'RIGHT':
-    case 'DOWN':
-    case 'UP':
-      if (deltaRow !== 0 || deltaCol !== 0) {
-        return
-      }
-  }
-  switch (name) {
-    case 'LEFT':
-      deltaCol = -1;
-      deltaRow = 0
-      break;
-    case 'RIGHT':
-      deltaCol = +1;
-      deltaRow = 0
-      break;
-    case 'DOWN':
-      deltaRow = +1;
-      deltaCol = 0
-      break;
-    case 'UP':
-      deltaRow = -1;
-      deltaCol = 0
-      break;
-  }
-});
+// term.on('key', function (name, matches, data) {
+//   switch (name) {
+//     case 'ESCAPE':
+//       term.clear(); // doesn't work?
+//       term.hideCursor();
+//       term.processExit(0);
+//       // process.exit(0)
+//       break;
+//     case 'LEFT':
+//     case 'RIGHT':
+//     case 'DOWN':
+//     case 'UP':
+//       if (deltaRow !== 0 || deltaCol !== 0) {
+//         return
+//       }
+//   }
+//   switch (name) {
+//     case 'LEFT':
+//       deltaCol = -1;
+//       deltaRow = 0
+//       break;
+//     case 'RIGHT':
+//       deltaCol = +1;
+//       deltaRow = 0
+//       break;
+//     case 'DOWN':
+//       deltaRow = +1;
+//       deltaCol = 0
+//       break;
+//     case 'UP':
+//       deltaRow = -1;
+//       deltaCol = 0
+//       break;
+//   }
+// });
+
+// process.on('SIGINT', () => {
+//   console.log('ctrl-c');
+//   // process.exit(0)
+// })
+
+process.on('exit', () => {
+  console.log('exit');
+  // process.exit(0)
+})
