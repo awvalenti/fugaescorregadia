@@ -99,46 +99,46 @@ export class LinuxSoundPlayer {
 
     console.time('interleave ' + soundFile)
 
-    const FULL_CHUNK_SIZE_PER_CHANNEL = 32768 * 1000
+    const bufferSize = 32768
 
     const channelsCount = channelsSamples.length
 
-    // FIXME using the exact size of sound, to test the residual chunk part
-    // log(leftSamples.length, rightSamples.length, leftSamples.length + rightSamples.length)
-    const outputFullChunkSize = FULL_CHUNK_SIZE_PER_CHANNEL * channelsCount
     const samplesLength = Math.max(...channelsSamples.map(s => s.length))
 
-    const outputFullChunk = new Float32Array(outputFullChunkSize)
-    const fullChunksCount = Math.floor(samplesLength / FULL_CHUNK_SIZE_PER_CHANNEL)
-    const residualChunkSize = Math.floor(samplesLength % FULL_CHUNK_SIZE_PER_CHANNEL)
-    // log(leftSamples.length)
-    console.log({ channelsCount, samplesLength, outputFullChunkSize, fullChunksCount, residualChunkSize });
+    const fullChunksCount = Math.floor(samplesLength / bufferSize)
+
+    const fullChunkSize = bufferSize * channelsCount
+    const residualChunkSize = Math.floor(samplesLength % bufferSize) * channelsCount
+
+    const fullChunk = new Float32Array(fullChunkSize)
+
+    console.log({ channelsCount, samplesLength, outputFullChunkSize: fullChunkSize, fullChunksCount, residualChunkSize });
 
     const processPromise = new Promise((resolve, reject) => {
-      function processChunk(outputChunkIndex) {
-        function fill(chunk, bufferLength) {
-          for (let inputSampleIndex = 0; inputSampleIndex < bufferLength; ++inputSampleIndex) {
+      function processChunk(chunkIndex) {
+        function fill(chunk) {
+          for (let inputSampleIndex = 0; inputSampleIndex < chunk.length; ++inputSampleIndex) {
             for (let channelIndex = 0; channelIndex < channelsCount; channelIndex++) {
               const outputSampleIndex = inputSampleIndex * channelsCount + channelIndex
-              chunk[outputSampleIndex] = channelsSamples[channelIndex][outputChunkIndex * FULL_CHUNK_SIZE_PER_CHANNEL + inputSampleIndex]
+              chunk[outputSampleIndex] = channelsSamples[channelIndex][chunkIndex * bufferSize + inputSampleIndex]
             }
           }
         }
 
-        if (outputChunkIndex < fullChunksCount) {
-          fill(outputFullChunk, FULL_CHUNK_SIZE_PER_CHANNEL)
-          writeStream.write(Buffer.from(outputFullChunk.buffer), err => {
+        if (chunkIndex < fullChunksCount) {
+          fill(fullChunk)
+          writeStream.write(Buffer.from(fullChunk.buffer), err => {
             if (err) {
               writeStream.close()
               reject(err)
             } else {
-              processChunk(outputChunkIndex + 1)
+              processChunk(chunkIndex + 1)
             }
           })
         } else {
-          const outputResidualChunk = new Float32Array(residualChunkSize)
-          fill(outputResidualChunk, residualChunkSize / channelsCount)
-          writeStream.write(Buffer.from(outputResidualChunk.buffer), err => {
+          const residualChunk = new Float32Array(residualChunkSize)
+          fill(residualChunk)
+          writeStream.write(Buffer.from(residualChunk.buffer), err => {
             writeStream.close()
             if (err) {
               reject(err)

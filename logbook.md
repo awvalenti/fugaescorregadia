@@ -971,3 +971,15 @@
   - Full chunks apparently working
   - Residual chunk still needs work
 
+## 2023-12-20
+
+### Planned goals
+- Finish Linux audio decode and interleave implementation
+- Fix problem of keep playing sound after Node process is stopped
+  - Look for a way to implement temp file descriptor on Linux
+  - Find the code that runs by default when SIGINT is received
+    and replicate it for the other signals
+
+### Achieved goals
+- Linux audio decode and interleave implementation working; should now refactor
+
