@@ -28,7 +28,7 @@ export class LinuxSoundPlayer {
     ret._decoder = new MPEGDecoderWebWorker()
     // console.timeEnd('new MPEGDecoderWebWorker')
 
-    ret._decodedFilenamesCache = new Map()
+    ret._decodedFilenamesCache = new Map();
 
     // console.time('decoder.ready')
     [ret._tmpDir] = await Promise.all([
