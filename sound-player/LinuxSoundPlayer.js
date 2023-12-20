@@ -1,12 +1,12 @@
-import { spawn } from 'child_process';
-import { log } from 'console';
-import { createWriteStream } from 'fs';
-import { mkdir, readFile } from 'fs/promises';
-import { MPEGDecoderWebWorker } from 'mpg123-decoder';
-import { mkdtemp } from 'node:fs/promises';
-import { tmpdir } from 'node:os';
-import { join } from 'node:path';
-import { basename, dirname } from 'path';
+import { spawn } from 'child_process'
+import { log } from 'console'
+import { createWriteStream } from 'fs'
+import { mkdir, readFile } from 'fs/promises'
+import { MPEGDecoderWebWorker } from 'mpg123-decoder'
+import { mkdtemp } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
+import { basename, dirname } from 'path'
 
 // // TODO Find an actual solution
 // // WIP finishing all aplay processes when ending Node process
@@ -15,9 +15,9 @@ import { basename, dirname } from 'path';
 //   process.exit()
 // }
 // process.on('exit', killall)
-// process.on('uncaughtException', killall);
-// process.on('SIGINT', killall);
-// process.on('SIGTERM', killall);
+// process.on('uncaughtException', killall)
+// process.on('SIGINT', killall)
+// process.on('SIGTERM', killall)
 
 export class LinuxSoundPlayer {
 
@@ -25,16 +25,16 @@ export class LinuxSoundPlayer {
     const ret = new LinuxSoundPlayer()
 
     // console.time('new MPEGDecoderWebWorker')
-    ret._decoder = new MPEGDecoderWebWorker();
+    ret._decoder = new MPEGDecoderWebWorker()
     // console.timeEnd('new MPEGDecoderWebWorker')
 
-    ret._decodedFilenamesCache = new Map();
+    ret._decodedFilenamesCache = new Map()
 
     // console.time('decoder.ready')
     [ret._tmpDir] = await Promise.all([
       mkdtemp(join(tmpdir(), 'sound-player-')),
       ret._decoder.ready,
-    ]);
+    ])
     // console.timeEnd('decoder.ready')
 
     return ret
@@ -93,34 +93,31 @@ export class LinuxSoundPlayer {
     })
     // console.timeEnd('decode ' + soundFile)
 
-    const resetPromise = this._decoder.reset()
-
-    const channelsSamples = decoded.channelData
-
     console.time('interleave ' + soundFile)
 
-    const bufferSize = 32768
+    return Promise.all([this._decoder.reset(), new Promise((resolve, reject) => {
+      const
+        samplesPerChunkPerChannel = 32768,
 
-    const channelsCount = channelsSamples.length
+        samplesByChannel = decoded.channelData,
 
-    const samplesLength = Math.max(...channelsSamples.map(s => s.length))
+        channelsCount = samplesByChannel.length,
 
-    const fullChunksCount = Math.floor(samplesLength / bufferSize)
+        samplesCountPerChannel = Math.max(...samplesByChannel.map(s => s.length)),
 
-    const fullChunkSize = bufferSize * channelsCount
-    const residualChunkSize = Math.floor(samplesLength % bufferSize) * channelsCount
+        fullChunkSize = samplesPerChunkPerChannel * channelsCount,
+        fullChunksCount = Math.floor(samplesCountPerChannel / samplesPerChunkPerChannel),
+        residualChunkSize = channelsCount * samplesCountPerChannel - fullChunkSize * fullChunksCount,
 
-    const fullChunk = new Float32Array(fullChunkSize)
+        fullChunk = new Float32Array(fullChunkSize)
 
-    console.log({ channelsCount, samplesLength, outputFullChunkSize: fullChunkSize, fullChunksCount, residualChunkSize });
-
-    const processPromise = new Promise((resolve, reject) => {
       function processChunk(chunkIndex) {
         function fill(chunk) {
-          for (let inputSampleIndex = 0; inputSampleIndex < chunk.length; ++inputSampleIndex) {
-            for (let channelIndex = 0; channelIndex < channelsCount; channelIndex++) {
-              const outputSampleIndex = inputSampleIndex * channelsCount + channelIndex
-              chunk[outputSampleIndex] = channelsSamples[channelIndex][chunkIndex * bufferSize + inputSampleIndex]
+          for (let i = 0; i < chunk.length / channelsCount; ++i) {
+            for (let j = 0; j < channelsCount; j++) {
+              // TODO Improve readability by using two variables, one for
+              // output index, another one for input index
+              chunk[channelsCount * i + j] = samplesByChannel[j][chunkIndex * samplesPerChunkPerChannel + i]
             }
           }
         }
@@ -149,9 +146,7 @@ export class LinuxSoundPlayer {
         }
       }
       processChunk(0)
-    })
-
-    return Promise.all([resetPromise, processPromise])
+    })])
   }
 
 }
