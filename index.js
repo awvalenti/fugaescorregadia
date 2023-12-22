@@ -81,16 +81,16 @@ for (let row = 0; row < board.length; ++row) {
     switch (tile) {
       case ' ':
         printChar('black', row, col, tile)
-        break;
+        break
       case '@':
         printChar('brightGreen', row, col, tile)
-        break;
+        break
       case '¤':
         printChar('brightYellow', row, col, tile)
-        break;
+        break
       case '█':
         printChar('cyan', row, col, tile)
-        break;
+        break
 
     }
   }
@@ -134,7 +134,7 @@ const gameLoop = () => {
 
   if (board[playerRow][playerCol] === '¤') {
     bgm.stop()
-    // soundPlayer.play('audio/sunflower-street-drumloop-85bpm-163900.mp3')
+    // soundPlayer.start('audio/sunflower-street-drumloop-85bpm-163900.mp3')
     setTimeout(() => {
       // console.log('foooooooooooooooooi')
       // animateText('white', maxRow + 2, 0, 'FINISH!', () => {
@@ -150,10 +150,10 @@ term.grabInput();
 
 gameLoop()
 
-// bgm = await soundPlayer.play('audio/adrift-bgm-cropped.mp3')
-bgm = await soundPlayer.play('audio/sunflower-street-drumloop-85bpm-163900.mp3')
-// bgm = await soundPlayer.play('/tmp/bgm.wav')
-// bgm = await soundPlayer.play('audio/test.wav')
+// bgm = await soundPlayer.start('audio/adrift-bgm-cropped.mp3')
+bgm = await soundPlayer.start('audio/sunflower-street-drumloop-85bpm-163900.mp3')
+// bgm = await soundPlayer.start('/tmp/bgm.wav')
+// bgm = await soundPlayer.start('audio/test.wav')
 
 // setTimeout(() => {
 //   soundPlayer.free()
@@ -161,11 +161,17 @@ bgm = await soundPlayer.play('audio/sunflower-street-drumloop-85bpm-163900.mp3')
 
 term.on('key', function (name, matches, data) {
   switch (name) {
+    case ' ':
+      bgm.pause()
+      setTimeout(() => {
+        bgm.resume()
+      }, 1000);
+      break
     case 'ESCAPE':
       term.clear(); // doesn't work?
       term.hideCursor();
       term.processExit(0);
-      break;
+      break
     case 'LEFT':
     case 'RIGHT':
     case 'DOWN':
@@ -178,18 +184,18 @@ term.on('key', function (name, matches, data) {
     case 'LEFT':
       deltaCol = -1;
       deltaRow = 0
-      break;
+      break
     case 'RIGHT':
       deltaCol = +1;
       deltaRow = 0
-      break;
+      break
     case 'DOWN':
       deltaRow = +1;
       deltaCol = 0
-      break;
+      break
     case 'UP':
       deltaRow = -1;
       deltaCol = 0
-      break;
+      break
   }
 });

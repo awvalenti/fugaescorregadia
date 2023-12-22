@@ -5,7 +5,7 @@ const FORBIDDEN_CHARACTERS = /["`\n]/
 
 export class WindowsSoundPlayer {
 
-  play(soundFile) {
+  start(soundFile) {
     const resolvedPath = path.resolve(soundFile)
 
     if (FORBIDDEN_CHARACTERS.test(resolvedPath)) {

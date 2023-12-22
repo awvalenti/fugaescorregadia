@@ -997,9 +997,11 @@
 ### Planned goals
 - Quick study of possible solutions for finishing aplay process
 - Adopt quickest solution that solves present problems
+- Pause/resume on Linux
 
 ### Findings
 - process.on('beforeExit') or 'exit' don't run on Ctrl-C
+- ...but process.on('exit') runs on uncaught exception!!
 
 ### Decisions
 - Will keep simplest solution for finishing aplay processes for now:
@@ -1010,4 +1012,8 @@
 ### Achieved goals
 - Quick study of possible solutions for finishing aplay process
 - Adopt quickest solution that solves present problems
+
+### Next steps
+- Read above line 636 (mark m) to find out next steps
+- Pause/resume on Linux
 

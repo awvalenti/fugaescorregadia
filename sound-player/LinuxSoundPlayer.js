@@ -38,7 +38,7 @@ export class LinuxSoundPlayer {
     this._decoder.free()
   }
 
-  async play(soundFile) {
+  async start(soundFile) {
     const createAplayArgs = (filePath, firstArgs = []) => [
       ...firstArgs,
       ...['-B', '50000', '-q', '--'],
@@ -69,8 +69,17 @@ export class LinuxSoundPlayer {
 
     return {
       stop() {
-        aplayProcess.kill()
-      }
+        aplayProcess.kill('SIGTERM')
+      },
+
+      pause() {
+        aplayProcess.kill('SIGSTOP')
+      },
+
+      resume() {
+        aplayProcess.kill('SIGCONT')
+      },
+
     }
   }
 
