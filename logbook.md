@@ -992,3 +992,22 @@
 ### Next steps
 - Consider real-time Opus decoding
 
+## 2023-12-22
+
+### Planned goals
+- Quick study of possible solutions for finishing aplay process
+- Adopt quickest solution that solves present problems
+
+### Findings
+- process.on('beforeExit') or 'exit' don't run on Ctrl-C
+
+### Decisions
+- Will keep simplest solution for finishing aplay processes for now:
+  - `process.on('exit', () => { spawn('killall', ['aplay']) })`
+  - This suffices for stopping sounds during development, which is our
+    actual problem today
+
+### Achieved goals
+- Quick study of possible solutions for finishing aplay process
+- Adopt quickest solution that solves present problems
+

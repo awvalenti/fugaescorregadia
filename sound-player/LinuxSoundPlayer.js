@@ -8,16 +8,10 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { basename, dirname } from 'path'
 
-// // TODO Find an actual solution
-// // WIP finishing all aplay processes when ending Node process
-// const killall = () => {
-//   spawn('killall', ['aplay'])
-//   process.exit()
-// }
-// process.on('exit', killall)
-// process.on('uncaughtException', killall)
-// process.on('SIGINT', killall)
-// process.on('SIGTERM', killall)
+// TODO Improve this solution. It works for now in dev environment.
+process.on('exit', () => {
+  spawn('killall', ['aplay'])
+})
 
 export class LinuxSoundPlayer {
 
