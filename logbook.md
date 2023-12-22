@@ -998,6 +998,7 @@
 - Quick study of possible solutions for finishing aplay process
 - Adopt quickest solution that solves present problems
 - Pause/resume on Linux
+- Split play() into async prefetch() and start()
 
 ### Findings
 - process.on('beforeExit') or 'exit' don't run on Ctrl-C
@@ -1012,8 +1013,12 @@
 ### Achieved goals
 - Quick study of possible solutions for finishing aplay process
 - Adopt quickest solution that solves present problems
+- Pause/resume on Linux
+- Split play() into async prefetch() and start()
 
 ### Next steps
 - Read above line 636 (mark m) to find out next steps
 - Pause/resume on Linux
+- Celebrate Xmas 🎄🎄!
+- Celebrate New Year 🎄🎄!
 

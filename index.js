@@ -9,7 +9,7 @@ term.hideCursor();
 term.bgColor('black');
 term.clear();
 
-let bgm
+let bgm, fx
 
 const board = [
   ['█', '█', '█', '█', '█', '█', '█', '█'],
@@ -134,12 +134,11 @@ const gameLoop = () => {
 
   if (board[playerRow][playerCol] === '¤') {
     bgm.stop()
-    // soundPlayer.start('audio/sunflower-street-drumloop-85bpm-163900.mp3')
+    fx.start()
     setTimeout(() => {
-      // console.log('foooooooooooooooooi')
-      // animateText('white', maxRow + 2, 0, 'FINISH!', () => {
+      animateText('white', maxRow + 2, 0, 'FINISH!', () => {
         term.processExit(0);
-      // });
+      });
     }, 200);
   } else {
     setTimeout(gameLoop, 50);
@@ -148,12 +147,18 @@ const gameLoop = () => {
 
 term.grabInput();
 
-gameLoop()
+gameLoop();
 
-// bgm = await soundPlayer.start('audio/adrift-bgm-cropped.mp3')
-bgm = await soundPlayer.start('audio/sunflower-street-drumloop-85bpm-163900.mp3')
-// bgm = await soundPlayer.start('/tmp/bgm.wav')
-// bgm = await soundPlayer.start('audio/test.wav')
+[bgm, fx] = await Promise.all([
+  soundPlayer.prefetch('audio/adrift-bgm-cropped.mp3'),
+
+  // bgm = await soundPlayer.prefetch('audio/sunflower-street-drumloop-85bpm-163900.mp3')
+  // bgm = await soundPlayer.prefetch('/tmp/bgm.wav')
+  // bgm = await soundPlayer.prefetch('audio/test.wav')
+  soundPlayer.prefetch('audio/sunflower-street-drumloop-85bpm-163900.mp3'),
+])
+
+bgm.start()
 
 // setTimeout(() => {
 //   soundPlayer.free()

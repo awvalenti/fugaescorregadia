@@ -4,4 +4,10 @@
 
 ### Features
 - Pause/resume
-- Split play() method into two phases: prefetch and play
+  - ✅ Linux
+  - Windows
+  - Mac
+- Split play() method into two phases: async prefetch() and start()
+  - ✅ Linux
+  - Windows
+  - Mac

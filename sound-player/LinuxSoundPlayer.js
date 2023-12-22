@@ -38,24 +38,21 @@ export class LinuxSoundPlayer {
     this._decoder.free()
   }
 
-  async start(soundFile) {
+  async prefetch(soundFile) {
     const createAplayArgs = (filePath, firstArgs = []) => [
       ...firstArgs,
       ...['-B', '50000', '-q', '--'],
       filePath
     ]
 
-    let aplayProcess
+    let aplayProcess, tmpFilePath
 
-    if (soundFile.endsWith('wav')) {
-      aplayProcess = spawn('aplay', createAplayArgs(soundFile))
-
-    } else {
+    if (!soundFile.endsWith('wav')) {
       const dirName = dirname(soundFile)
       const tmpFileDirName = join(this._tmpDir, dirName)
       await mkdir(tmpFileDirName, { recursive: true })
       const baseName = basename(soundFile)
-      const tmpFilePath = join(tmpFileDirName, baseName)
+      tmpFilePath = join(tmpFileDirName, baseName)
 
       if (!this._decodedFilenamesCache.has(soundFile)) {
         const writeStream = createWriteStream(tmpFilePath)
@@ -63,11 +60,19 @@ export class LinuxSoundPlayer {
         this._decodedFilenamesCache.set(soundFile, tmpFilePath)
       }
 
-      aplayProcess = spawn('aplay', createAplayArgs(tmpFilePath,
-        ['-c', '2', '-f', 'float_le', '-r', '44100']))
     }
 
     return {
+      start() {
+        if (soundFile.endsWith('wav')) {
+          aplayProcess = spawn('aplay', createAplayArgs(soundFile))
+
+        } else {
+          aplayProcess = spawn('aplay', createAplayArgs(tmpFilePath,
+            ['-c', '2', '-f', 'float_le', '-r', '44100']))
+        }
+      },
+
       stop() {
         aplayProcess.kill('SIGTERM')
       },
