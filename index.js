@@ -151,10 +151,6 @@ gameLoop();
 
 [bgm, fx] = await Promise.all([
   soundPlayer.prefetch('audio/adrift-bgm-cropped.mp3'),
-
-  // bgm = await soundPlayer.prefetch('audio/sunflower-street-drumloop-85bpm-163900.mp3')
-  // bgm = await soundPlayer.prefetch('/tmp/bgm.wav')
-  // bgm = await soundPlayer.prefetch('audio/test.wav')
   soundPlayer.prefetch('audio/sunflower-street-drumloop-85bpm-163900.mp3'),
 ])
 

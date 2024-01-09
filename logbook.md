@@ -1022,3 +1022,50 @@
 - Celebrate Xmas 🎄🎄!
 - Celebrate New Year 🎄🎄!
 
+## 2023-01-09
+
+### Planned goals
+- On Windows:
+  - Change audio API to support prefetch/start/pause/resume/stop methods
+
+### Findings
+- Thought it was possible to write simply:
+  ```powershell
+  `n
+  ```
+  - …to produce a newline, but it's not. Must write one of these:
+  ```powershell
+  "`n"
+  Write-Host `n
+  ```
+- Read-Host reads from stdin. But it also echoes it to stdout.
+  - Tried > dummy-file, | Out-Null, but these seem to only work sometimes
+- Tried paused and flowing mode from ReadStream. Both seemed the same.
+- Using mediaPlayerProcess.stdout.on('data', (chunk) => {}):
+  - chunk is randomly set to 'a\r\n', 'a' then '\r\n'
+  - We need more control over it. The solution may be to use 'readline' module:
+    ```javascript
+    const readline = require('readline');
+
+    const readableStream = getReadableStream();
+    const rl = readline.createInterface({
+      input: readableStream,
+      crlfDelay: Infinity // Handle different line endings
+    });
+
+    rl.on('line', (line) => {
+      processLine(line);
+    });
+    ```
+
+### Future work
+- Consider:
+  - Validation using FORBIDDEN_CHARACTERS on Linux and macOS
+  - Replaying a prefetched sound
+    - Different implications for diffferent OS's
+
+### Next steps
+- Remove prefecth delay
+  - Test this by showing game board in sync with bgm
+  - In other words, wait until sound is loaded to show the board
+
