@@ -1,6 +1,7 @@
 import { exec } from 'child_process';
 import { log } from 'console';
 import path from 'path';
+import readline from 'readline';
 
 const FORBIDDEN_CHARACTERS = /["`\n]/
 
@@ -23,31 +24,46 @@ export class WindowsSoundPlayer {
         $Duration = $MediaPlayer.NaturalDuration.TotalSeconds
       }
       while ($Duration -eq 0)
-      "\`n"  # Write a newline to inform sound ready
 
-      Read-Host  # TODO Avoid echo
-      $MediaPlayer.Play()
+      "ready"
 
-      Start-Sleep -Seconds $Duration
+      $Continue = $true
+      do
+      {
+        switch ([Console]::ReadLine())
+        {
+          'start' { $MediaPlayer.Play() }
+          'stop' { $Continue = false }
+        }
+      }
+      while ($Continue)
       `, { shell: 'powershell' }
     )
 
-    // mediaPlayerProcess.stdout.pause()
-    log(1)
-    mediaPlayerProcess.stdout.setEncoding(null)
-    return new Promise(resolve => {
-      log(2)
-      mediaPlayerProcess.stdout.on('data', (chunk) => {
-        log(3, soundFile, { chunk })
-        resolve({
-          start() {
-            mediaPlayerProcess.stdin.write('bla\n')
-          },
+    const subprocessOutput = readline.createInterface({
+      input: mediaPlayerProcess.stdout,
+    });
 
-          stop() {
-            mediaPlayerProcess.kill()
-          },
-        })
+    return new Promise(resolve => {
+      subprocessOutput.on('line', lineRead => {
+        log({ lineRead })
+        if (lineRead === 'ready') {
+          resolve({
+            start() {
+              mediaPlayerProcess.stdin.write('start\n')
+            },
+
+            stop() {
+              // TODO Decide between these implementation options
+
+              mediaPlayerProcess.stdin.write('stop\n')
+              // mediaPlayerProcess.kill()
+            },
+          })
+        }
+      })
+      subprocessOutput.on('close', () => {
+        subprocessOutput.removeAllListeners()
       })
     })
   }

@@ -1058,14 +1058,39 @@
     });
     ```
 
-### Future work
-- Consider:
-  - Validation using FORBIDDEN_CHARACTERS on Linux and macOS
-  - Replaying a prefetched sound
-    - Different implications for diffferent OS's
-
 ### Next steps
 - Remove prefecth delay
   - Test this by showing game board in sync with bgm
   - In other words, wait until sound is loaded to show the board
+
+## 2023-01-10
+
+### Planned goals
+- Change audio API to support prefetch/start/pause/resume/stop methods
+- Read-Host without echoing output
+- readline module to read from subprocess stdout
+
+### Findings
+- node:readline/promises
+  - Makes no sense
+  - Apparently, requires this idiom to read lines:
+    ```javascript
+    for await (const line of rl) {
+      // do something with line
+    }
+    ```
+
+### Achieved goals
+- Read-Host without echoing output
+- readline module to read from subprocess stdout
+
+### Next steps
+- Move prefetching sounds to sooner so that we can draw the game
+  board only when sounds are loaded
+- Check if we need stuff like:
+  ```javascript
+  subprocessOutput.on('close', () => {
+    subprocessOutput.removeAllListeners()
+  })
+  ```
 
