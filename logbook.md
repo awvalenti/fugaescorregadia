@@ -1017,7 +1017,7 @@
 - Split play() into async prefetch() and start()
 
 ### Next steps
-- Read above line 636 (mark m) to find out next steps
+- Read above line 636 to find out next steps
 - Pause/resume on Linux
 - Celebrate Xmas 🎄🎄!
 - Celebrate New Year 🎄🎄!
@@ -1059,7 +1059,7 @@
     ```
 
 ### Next steps
-- Remove prefecth delay
+- Remove prefetch delay
   - Test this by showing game board in sync with bgm
   - In other words, wait until sound is loaded to show the board
 
@@ -1093,4 +1093,25 @@
     subprocessOutput.removeAllListeners()
   })
   ```
+
+## 2023-01-11
+
+### Planned goals
+- Support pause/resume on Windows
+- Move prefetching sounds to sooner so that we can draw the game
+  board only when sounds are loaded
+
+### Achieved goals
+- Support pause/resume on Windows
+- Move prefetching sounds to sooner so that we can draw the game
+  board only when sounds are loaded
+- Game code refactored: variables are grouped and code is organized in functions
+- Audio implementation mostly done!
+
+### Next steps
+- On Linux, implement item collecting
+- Put two items on same level and collect them
+  - This will bring the need to implement replaying a prefetched sound
+    - …which should already be working on Windows
+    - …and should then be implemented on Linux
 

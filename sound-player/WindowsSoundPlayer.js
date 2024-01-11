@@ -1,5 +1,5 @@
 import { exec } from 'child_process';
-import { log } from 'console';
+// import { log } from 'console';
 import path from 'path';
 import readline from 'readline';
 
@@ -33,6 +33,8 @@ export class WindowsSoundPlayer {
         switch ([Console]::ReadLine())
         {
           'start' { $MediaPlayer.Play() }
+          'pause' { $MediaPlayer.Pause() }
+          'resume' { $MediaPlayer.Play() }
           'stop' { $Continue = false }
         }
       }
@@ -46,11 +48,19 @@ export class WindowsSoundPlayer {
 
     return new Promise(resolve => {
       subprocessOutput.on('line', lineRead => {
-        log({ lineRead })
+        // log({ lineRead })
         if (lineRead === 'ready') {
           resolve({
             start() {
               mediaPlayerProcess.stdin.write('start\n')
+            },
+
+            pause() {
+              mediaPlayerProcess.stdin.write('pause\n')
+            },
+
+            resume() {
+              mediaPlayerProcess.stdin.write('resume\n')
             },
 
             stop() {
