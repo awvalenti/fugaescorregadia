@@ -8,21 +8,24 @@ let
   deltaCol = 0, deltaRow = 0,
   oldPlayerCol = playerCol,
   oldPlayerRow = playerRow,
-  olderPlayerRow, olderPlayerCol
+  olderPlayerRow, olderPlayerCol,
+  points = 0
 
 const
   board = [
     ['█', '█', '█', '█', '█', '█', '█', '█'],
     [' ', ' ', ' ', ' ', ' ', '█', '█', '¤'],
-    [' ', '█', ' ', ' ', ' ', ' ', ' ', ' '],
+    ['$', '█', ' ', ' ', ' ', ' ', ' ', ' '],
     [' ', ' ', ' ', ' ', ' ', ' ', '█', ' '],
     [' ', ' ', ' ', ' ', '█', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', ' ', ' ', ' ', '@'],
+    ['@', ' ', ' ', '$', ' ', ' ', ' ', ' '],
     [' ', ' ', ' ', ' ', '█', ' ', ' ', '█'],
   ],
   minCol = 0, minRow = 0,
   maxCol = board[0].length - 1,
-  maxRow = board.length - 1
+  maxRow = board.length - 1,
+  pointsLine = maxRow + 4,
+  statusLine = maxRow + 3
 
 async function initVars() {
   term = terminalKit.terminal;
@@ -100,8 +103,17 @@ function printBorders() {
   term.color('gray').moveTo(1, board.length + 2, '║║║║║║║║║║║║║║║║║║║║');
 }
 
+function printPointsLine() {
+  term.color('blue').moveTo(1, pointsLine, `Points: ${points}`);
+}
+
+function printStaticContent() {
+  printBorders();
+  printPointsLine();
+}
+
 function printSingleChar(color, col, i, row, phrase) {
-  term.color(color).moveTo(2 * col + 1 + i, row + 1 + 1, phrase[i]);
+  term.color(color).moveTo(2 * col + 1 + i, row + 2, phrase[i]);
 }
 
 function printDoubledChar(color, row, col, char) {
@@ -150,6 +162,9 @@ function printBoardContents() {
         case '█':
           printDoubledChar('cyan', row, col, tile)
           break
+        case '$':
+          printDoubledChar('blue', row, col, tile)
+          break
       }
     }
   }
@@ -179,16 +194,22 @@ function gameLoop() {
     printDoubledChar('brightGreen', olderPlayerRow, olderPlayerCol, ' ');
     printDoubledChar('brightGreen', playerRow, playerCol, '@');
   }
+  const currentElement = board[playerRow][playerCol]
 
-  if (board[playerRow][playerCol] === '¤') {
+  if (currentElement === '¤') {
     bgm.stop();
     fx.start();
     setTimeout(() => {
-      animateText('white', maxRow + 2, 0, 'FINISH!', () => {
+      animateText('white', statusLine, 0, 'FINISH!', () => {
         term.processExit(0);
       });
     }, 200);
   } else {
+    if (currentElement === '$') {
+      points += 100
+      printPointsLine()
+      board[playerRow][playerCol] = ' '
+    }
     setTimeout(gameLoop, 50);
   }
 }
@@ -206,7 +227,7 @@ console.log('prefetching audio files...');
 await prefetchAudioFiles();
 
 setupTerminal();
-printBorders()
+printStaticContent()
 printBoardContents()
 
 bgm.start()

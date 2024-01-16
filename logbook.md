@@ -1115,3 +1115,9 @@
     - …which should already be working on Windows
     - …and should then be implemented on Linux
 
+## 2023-01-16
+
+### Planned goals
+- Implement item collecting
+- Play sound fx for it
+

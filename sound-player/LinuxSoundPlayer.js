@@ -1,9 +1,7 @@
 import { spawn } from 'child_process'
-import { log } from 'console'
-import { createWriteStream } from 'fs'
-import { mkdir, readFile } from 'fs/promises'
+import { createWriteStream, exists, fstat } from 'fs'
+import { access, mkdir, readFile } from 'fs/promises'
 import { MPEGDecoderWebWorker } from 'mpg123-decoder'
-import { mkdtemp } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { basename, dirname } from 'path'
@@ -22,13 +20,12 @@ export class LinuxSoundPlayer {
     ret._decoder = new MPEGDecoderWebWorker()
     // console.timeEnd('new MPEGDecoderWebWorker')
 
-    ret._decodedFilenamesCache = new Map();
+    // ret._decodedFilenamesCache = new Map();
+
+    ret._tmpDir = join(tmpdir(), 'sound-player')
 
     // console.time('decoder.ready')
-    [ret._tmpDir] = await Promise.all([
-      mkdtemp(join(tmpdir(), 'sound-player-')),
-      ret._decoder.ready,
-    ])
+    await ret._decoder.ready
     // console.timeEnd('decoder.ready')
 
     return ret
@@ -54,12 +51,14 @@ export class LinuxSoundPlayer {
       const baseName = basename(soundFile)
       tmpFilePath = join(tmpFileDirName, baseName)
 
-      if (!this._decodedFilenamesCache.has(soundFile)) {
+      try {
+        // Checks decoded file existence
+        await access(tmpFilePath)
+      } catch {
+        // If not exists, create it
         const writeStream = createWriteStream(tmpFilePath)
         await this._decodeAndInterleave(soundFile, writeStream)
-        this._decodedFilenamesCache.set(soundFile, tmpFilePath)
       }
-
     }
 
     return {
