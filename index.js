@@ -3,7 +3,7 @@ import { SoundPlayer } from './sound-player/SoundPlayer.js';
 
 let
   soundPlayer, term,
-  bgm, fx,
+  bgm, levelClearFx, itemFx,
   playerRow, playerCol,
   deltaCol = 0, deltaRow = 0,
   oldPlayerCol = playerCol,
@@ -18,8 +18,8 @@ const
     ['$', '█', ' ', ' ', ' ', ' ', ' ', ' '],
     [' ', ' ', ' ', ' ', ' ', ' ', '█', ' '],
     [' ', ' ', ' ', ' ', '█', ' ', ' ', ' '],
-    ['@', ' ', ' ', '$', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', '█', ' ', ' ', '█'],
+    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+    ['@', ' ', '$', ' ', ' ', ' ', '$', '█'],
   ],
   minCol = 0, minRow = 0,
   maxCol = board[0].length - 1,
@@ -198,7 +198,7 @@ function gameLoop() {
 
   if (currentElement === '¤') {
     bgm.stop();
-    fx.start();
+    levelClearFx.start();
     setTimeout(() => {
       animateText('white', statusLine, 0, 'FINISH!', () => {
         term.processExit(0);
@@ -206,6 +206,7 @@ function gameLoop() {
     }, 200);
   } else {
     if (currentElement === '$') {
+      itemFx.start()
       points += 100
       printPointsLine()
       board[playerRow][playerCol] = ' '
@@ -215,9 +216,10 @@ function gameLoop() {
 }
 
 async function prefetchAudioFiles() {
-  [bgm, fx] = await Promise.all([
+  [bgm, levelClearFx, itemFx] = await Promise.all([
     soundPlayer.prefetch('audio/adrift-bgm-cropped.mp3'),
     soundPlayer.prefetch('audio/sunflower-street-drumloop-85bpm-163900.mp3'),
+    soundPlayer.prefetch('audio/item.mp3'),
   ]);
 }
 
