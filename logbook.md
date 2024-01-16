@@ -1121,3 +1121,10 @@
 - Implement item collecting
 - Play sound fx for it
 
+### Achieved goals
+- Implement item collecting
+- Play sound fx for it
+
+### Next steps
+- Replay sound feature on Windows
+
