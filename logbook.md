@@ -1157,3 +1157,7 @@
   - Actually, one single PowerShell process may manage many instances of
     MediaPlayer
 
+### Achieved goals
+- Parallel playing feature on Windows
+- More than one level
+

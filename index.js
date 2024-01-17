@@ -1,18 +1,8 @@
 import terminalKit from 'terminal-kit';
 import { SoundPlayer } from './sound-player/SoundPlayer.js';
 
-let
-  soundPlayer, term,
-  bgm, levelClear, itemFx,
-  playerRow, playerCol,
-  deltaCol = 0, deltaRow = 0,
-  oldPlayerCol = playerCol,
-  oldPlayerRow = playerRow,
-  olderPlayerRow, olderPlayerCol,
-  points = 0
-
-const
-  board = [
+const levels = [
+  [
     ['█', '█', '█', '█', '█', '█', '█', '█'],
     [' ', ' ', ' ', ' ', ' ', '█', '█', '¤'],
     ['$', '█', ' ', ' ', ' ', ' ', ' ', ' '],
@@ -21,23 +11,53 @@ const
     [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
     ['@', '$', '$', ' ', ' ', ' ', ' ', '█'],
   ],
+  [
+    ['█', '█', '█', '█', '█', '█', '█', '█'],
+    ['@', '$', '$', ' ', ' ', ' ', ' ', '█'],
+    ['$', '█', ' ', ' ', ' ', ' ', ' ', ' '],
+    [' ', ' ', ' ', ' ', ' ', ' ', '█', ' '],
+    [' ', ' ', ' ', ' ', '█', ' ', ' ', ' '],
+    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+    [' ', ' ', ' ', ' ', ' ', '█', '█', '¤'],
+  ],
+]
+let
+  gameLooping = true,
+  soundPlayer, term,
+  bgm, levelClear, itemFx,
+  playerRow, playerCol,
+  deltaCol = 0, deltaRow = 0,
+  oldPlayerCol = playerCol,
+  oldPlayerRow = playerRow,
+  olderPlayerRow, olderPlayerCol,
+  points = 0,
+  levelIndex = 0,
+  board = levels[levelIndex]
+
+const
   minCol = 0, minRow = 0,
   maxCol = board[0].length - 1,
   maxRow = board.length - 1,
   pointsLine = maxRow + 4,
   statusLine = maxRow + 3
 
-async function initVars() {
-  term = terminalKit.terminal;
+function initLevel() {
+  board = levels[levelIndex];
 
   [deltaRow, deltaCol] = [0, 0];
 
   [olderPlayerRow, olderPlayerCol] =
     [oldPlayerRow, oldPlayerCol] =
     [playerRow, playerCol] =
-    findStartingPoint(board)
+    findStartingPoint(board);
+}
 
-  soundPlayer = await SoundPlayer.create()
+async function initVars() {
+  term = terminalKit.terminal;
+
+  soundPlayer = await SoundPlayer.create();
+
+  initLevel();
 }
 
 function setupTerminal() {
@@ -197,22 +217,30 @@ function gameLoop() {
   const currentElement = board[playerRow][playerCol]
 
   if (currentElement === '¤') {
-    bgm.stop();
+    bgm.pause();
     levelClear.start();
-    setTimeout(() => {
-      animateText('white', statusLine, 0, 'FINISH!', () => {
-        term.processExit(0);
-      });
-    }, 2000);
-  } else {
-    if (currentElement === '$') {
-      itemFx.start()
-      points += 100
-      printPointsLine()
-      board[playerRow][playerCol] = ' '
+    if (++levelIndex < levels.length) {
+      initLevel()
+      printBoardContents()
+      setTimeout(() => {
+        bgm.resume();
+      }, 3000);
+    } else {
+      gameLooping = false
+      setTimeout(() => {
+        animateText('white', statusLine, 0, 'FINISH!', () => {
+          term.processExit(0);
+        });
+      }, 1500);
     }
-    setTimeout(gameLoop, 50);
+  } else if (currentElement === '$') {
+    itemFx.start()
+    points += 100
+    printPointsLine()
+    board[playerRow][playerCol] = ' '
   }
+
+  if (gameLooping) setTimeout(gameLoop, 50);
 }
 
 async function prefetchAudioFiles() {
