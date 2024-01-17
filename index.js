@@ -3,7 +3,7 @@ import { SoundPlayer } from './sound-player/SoundPlayer.js';
 
 let
   soundPlayer, term,
-  bgm, levelClearFx, itemFx,
+  bgm, levelClear, itemFx,
   playerRow, playerCol,
   deltaCol = 0, deltaRow = 0,
   oldPlayerCol = playerCol,
@@ -198,12 +198,12 @@ function gameLoop() {
 
   if (currentElement === '¤') {
     bgm.stop();
-    levelClearFx.start();
+    levelClear.start();
     setTimeout(() => {
       animateText('white', statusLine, 0, 'FINISH!', () => {
         term.processExit(0);
       });
-    }, 200);
+    }, 2000);
   } else {
     if (currentElement === '$') {
       itemFx.start()
@@ -216,9 +216,9 @@ function gameLoop() {
 }
 
 async function prefetchAudioFiles() {
-  [bgm, levelClearFx, itemFx] = await Promise.all([
+  [bgm, levelClear, itemFx] = await Promise.all([
     soundPlayer.prefetch('audio/adrift-bgm-cropped.mp3'),
-    soundPlayer.prefetch('audio/sunflower-street-drumloop-85bpm-163900.mp3'),
+    soundPlayer.prefetch('audio/level-clear.mp3'),
     soundPlayer.prefetch('audio/item.mp3'),
   ]);
 }
