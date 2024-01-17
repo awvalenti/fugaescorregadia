@@ -1126,5 +1126,34 @@
 - Play sound fx for it
 
 ### Next steps
-- Replay sound feature on Windows
+- Parallel playing feature on Windows
+
+## 2023-01-17
+
+### Planned goals
+- Parallel playing feature on Windows
+- More than one level
+
+### Findings
+- We can make $MediaPlayer.Position = 0 to restart a sound
+  - This would be the simplest implementation
+  - However, pop noises may occur. Undesirable.
+- Other possibilities:
+  - Enqueing to play after sound finishes
+  - Pausing, sleeping for a few millisenconds and playing again
+    - Tried it and worked very well!
+  - Creating another MediaPlayer object with same properties and check
+    whether it loads sound immediately, relying on some cache
+    - Didn't work
+- MediaPlayer object has a property called PlaybackSession
+  - It has a property called PlaybackState
+    - Starts as None
+    - Moves to Paused when sound is loaded
+    - Moves to Playing when Play() is called
+    - Moves back to Paused when sound finishes playing
+- On a real scenario with many items together, sound experience is affected
+- Reconsidering the full, complex implementation of playing parallel sounds
+  - There might be a solution that does not require creating many processes
+  - Actually, one single PowerShell process may manage many instances of
+    MediaPlayer
 

@@ -1,5 +1,4 @@
 import { exec } from 'child_process';
-// import { log } from 'console';
 import path from 'path';
 import readline from 'readline';
 
@@ -32,7 +31,16 @@ export class WindowsSoundPlayer {
       {
         switch ([Console]::ReadLine())
         {
-          'start' { $MediaPlayer.Play() }
+          'start'
+          {
+            if ($MediaPlayer.PlaybackSession.PlaybackState -eq 'Playing')
+            {
+              $MediaPlayer.Pause()
+              $MediaPlayer.Position = 0
+              Sleep -Milliseconds 5
+            }
+            $MediaPlayer.Play()
+          }
           'pause' { $MediaPlayer.Pause() }
           'resume' { $MediaPlayer.Play() }
           'stop' { $Continue = false }
