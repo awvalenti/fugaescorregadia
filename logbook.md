@@ -1158,6 +1158,33 @@
     MediaPlayer
 
 ### Achieved goals
-- Parallel playing feature on Windows
+- "Parallel playing" feature on Windows (actually, only one at a time)
 - More than one level
+
+## 2023-01-18
+
+### Planned goals
+- Really parallel playing feature on Windows
+
+### Thoughts
+- Possibilities of implementation:
+  - Single subprocess managing single instance of some other media player class
+    - ...or another usage of Windows.Media.Playback.MediaPlayer that doesn't
+  - Single subprocess managing array of instances of Windows.Media.Playback.MediaPlayer
+  - Multiple subprocesses
+- Should evaluate possible high memory consumption
+
+### Findings
+- Single subprocess managing single instance of some other media player class
+  - Seems inviable
+- Memory consumption: almost 0!
+- Single subprocess managing array of instances of Windows.Media.Playback.MediaPlayer
+  - Worked like a charm!
+  - Play() on instance (index + 1) % count seems to work well
+
+### Achieved goals
+- Really parallel playing feature on Windows
+
+### Next steps
+- Fix pause/resume/stop features to work with many player instances
 

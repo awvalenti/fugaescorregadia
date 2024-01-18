@@ -20,8 +20,19 @@
   - ✅ Windows
   - Mac
 
+### Design
+- Replace duplicated characters with something that looks more like a single
+  element, like [], {} etc.
+  - This was most critical for items with $: $$$$ should be two adjacent items,
+    but look like four
+
+### Bugs
+- Linux: terminal changes color
+- All OSs: messes up terminal (e.g., loses cursor)
+
 ### Refactorings
 - Extract PowerShell code to .ps1 file
+- Create function to play sound and call it
 
 ### Possible fixes
 - Check if we need stuff like:

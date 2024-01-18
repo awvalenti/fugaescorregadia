@@ -6,7 +6,8 @@ const FORBIDDEN_CHARACTERS = /["`\n]/
 
 export class WindowsSoundPlayer {
 
-  async prefetch(soundFile) {
+  async prefetch(soundFile, maxInstances = 25) {
+    maxInstances = Number(maxInstances) || 1
     const resolvedPath = path.resolve(soundFile)
 
     if (FORBIDDEN_CHARACTERS.test(resolvedPath)) {
@@ -15,16 +16,24 @@ export class WindowsSoundPlayer {
 
     const mediaPlayerProcess = exec(`
       $FilePath = "${resolvedPath}"
-      $MediaPlayer = [Windows.Media.Playback.MediaPlayer, Windows.Media, ContentType = WindowsRuntime]::New()
-      $MediaPlayer.Source = [Windows.Media.Core.MediaSource]::CreateFromUri($FilePath)
+      $players = New-Object object[] ${maxInstances}
+      foreach ($i in 0..($players.count - 1)) {
+        $players[$i] = [Windows.Media.Playback.MediaPlayer, Windows.Media, ContentType = WindowsRuntime]::New()
+        $players[$i].Source = [Windows.Media.Core.MediaSource]::CreateFromUri($FilePath)
+      }
+      # $MediaPlayer = [Windows.Media.Playback.MediaPlayer, Windows.Media, ContentType = WindowsRuntime]::New()
+      # $MediaPlayer = New-Object Windows.Media.Playback.MediaPlayer
+      # $MediaPlayer = $players[0]
 
       do
       {
-        $Duration = $MediaPlayer.NaturalDuration.TotalSeconds
+        $Duration = $players[0].NaturalDuration.TotalSeconds
       }
       while ($Duration -eq 0)
 
-      "ready"
+      'ready'
+
+      $currentIndex = 0
 
       $Continue = $true
       do
@@ -33,16 +42,11 @@ export class WindowsSoundPlayer {
         {
           'start'
           {
-            if ($MediaPlayer.PlaybackSession.PlaybackState -eq 'Playing')
-            {
-              $MediaPlayer.Pause()
-              $MediaPlayer.Position = 0
-              Sleep -Milliseconds 5
-            }
-            $MediaPlayer.Play()
+            $players[$currentIndex].Play()
+            $currentIndex = ($currentIndex + 1) % $players.count
           }
-          'pause' { $MediaPlayer.Pause() }
-          'resume' { $MediaPlayer.Play() }
+          'pause' { $players[0].Pause() }
+          'resume' { $players[0].Play() }
           'stop' { $Continue = false }
         }
       }
