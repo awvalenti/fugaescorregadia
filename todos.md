@@ -29,6 +29,7 @@
 ### Bugs
 - Linux: terminal changes color
 - All OSs: messes up terminal (e.g., loses cursor)
+- When PoSh subprocess fails, should not end app
 
 ### Refactorings
 - Extract PowerShell code to .ps1 file
