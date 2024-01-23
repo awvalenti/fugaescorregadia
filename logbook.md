@@ -1209,6 +1209,10 @@
     should stop previous instance and start a new one? Or should the request
     simply be ignored?
 
+### Findings
+- To run .ps1 file externally, there may be restrictions. Details:
+  - https://www.netspi.com/blog/technical/network-penetration-testing/15-ways-to-bypass-the-powershell-execution-policy/
+
 ### Achieved goals
 - Fix pause/resume/stop features to work with many player instances
 - Rename prefetch to load
