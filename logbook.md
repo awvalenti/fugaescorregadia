@@ -1188,3 +1188,27 @@
 ### Next steps
 - Fix pause/resume/stop features to work with many player instances
 
+## 2023-01-23
+
+### Planned goals
+- Fix pause/resume/stop features to work with many player instances
+- Rename prefetch to load
+- Refactor powershell script code
+  - Extract to .ps1 file
+  - Rename vars
+  - Improve array code style
+  - Use New-Object instead of (...)::New()
+
+### Questions
+- Should levelClear sound have maxInstances = 1 or 2?
+  - What should happen if level is cleared, song starts and, before it
+    finishes, another level is cleared?
+  - Should two songs play in parallel?
+  - Should one song stop previous one and a new one start?
+  - Should maxInstances = 1 mean that starting an already playing sound
+    should stop previous instance and start a new one? Or should the request
+    simply be ignored?
+
+### Achieved goals
+- Fix pause/resume/stop features to work with many player instances
+- Rename prefetch to load

@@ -6,12 +6,12 @@ process.on('exit', () => {
 
 export class MacSoundPlayer {
 
-  async prefetch(soundFile) {
+  async load(filePath) {
     let afplayProcess
 
     return {
       start() {
-        afplayProcess = spawn('afplay', [soundFile])
+        afplayProcess = spawn('afplay', [filePath])
       },
 
       stop() {

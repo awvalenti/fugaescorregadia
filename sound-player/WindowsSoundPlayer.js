@@ -6,9 +6,9 @@ const FORBIDDEN_CHARACTERS = /["`\n]/
 
 export class WindowsSoundPlayer {
 
-  async prefetch(soundFile, maxInstances = 25) {
+  async load(filePath, { maxInstances } = {}) {
     maxInstances = Number(maxInstances) || 1
-    const resolvedPath = path.resolve(soundFile)
+    const resolvedPath = path.resolve(filePath)
 
     if (FORBIDDEN_CHARACTERS.test(resolvedPath)) {
       throw Error('Invalid sound file path: ' + resolvedPath)
@@ -33,7 +33,7 @@ export class WindowsSoundPlayer {
 
       'ready'
 
-      $currentIndex = 0
+      $currentIndex = -1
 
       $Continue = $true
       do
@@ -42,11 +42,11 @@ export class WindowsSoundPlayer {
         {
           'start'
           {
-            $players[$currentIndex].Play()
             $currentIndex = ($currentIndex + 1) % $players.count
+            $players[$currentIndex].Play()
           }
-          'pause' { $players[0].Pause() }
-          'resume' { $players[0].Play() }
+          'pause' { $players[$currentIndex].Pause() }
+          'resume' { $players[$currentIndex].Play() }
           'stop' { $Continue = false }
         }
       }
@@ -60,7 +60,6 @@ export class WindowsSoundPlayer {
 
     return new Promise(resolve => {
       subprocessOutput.on('line', lineRead => {
-        // log({ lineRead })
         if (lineRead === 'ready') {
           resolve({
             start() {

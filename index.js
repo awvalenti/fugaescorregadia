@@ -3,22 +3,31 @@ import { SoundPlayer } from './sound-player/SoundPlayer.js';
 
 const levels = [
   [
-    ['█', '█', '█', '█', '█', '█', '█', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '█'],
-    [' ', ' ', ' ', ' ', ' ', '█', '█', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '¤'],
-    ['$', '█', ' ', ' ', ' ', ' ', ' ', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', ' '],
-    [' ', ' ', ' ', ' ', ' ', ' ', '█', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', ' '],
-    [' ', ' ', ' ', ' ', '█', ' ', ' ', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', ' '],
-    [' ', ' ', ' ', ' ', ' ', ' ', ' ', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', ' '],
-    ['@', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '█'],
+    ['█', '█', '█', '█', '█', '█', '█', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$'],
+    [' ', ' ', ' ', ' ', ' ', '█', '█', '$', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
+    [' ', '█', ' ', ' ', ' ', ' ', ' ', '$', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
+    [' ', ' ', ' ', ' ', ' ', ' ', '█', '$', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
+    ['█', ' ', ' ', ' ', '█', ' ', ' ', '$', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
+    [' ', ' ', ' ', ' ', ' ', ' ', ' ', '¤', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
+    ['@', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$'],
   ],
   [
-    ['█', '█', '█', '█', '█', '█', '█', '█'],
-    ['@', '$', '$', ' ', ' ', ' ', ' ', '█'],
-    ['$', '█', ' ', ' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', ' ', ' ', '█', ' '],
-    [' ', ' ', ' ', ' ', '█', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
-    [' ', ' ', ' ', ' ', ' ', '█', '█', '¤'],
+    ['█', '█', '█', '█', '█', '█', '█', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$'],
+    [' ', ' ', ' ', ' ', ' ', '█', '█', '$', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
+    ['@', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$'],
+    [' ', '█', ' ', ' ', ' ', ' ', ' ', '$', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
+    [' ', ' ', ' ', ' ', ' ', ' ', '█', '$', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
+    [' ', ' ', ' ', ' ', '█', ' ', ' ', '$', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
+    [' ', ' ', ' ', ' ', ' ', ' ', ' ', '¤', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
+  ],
+  [
+    [' ', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$'],
+    ['@', '█', '█', '█', '█', '█', '█', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$'],
+    [' ', ' ', ' ', ' ', ' ', '█', '█', '$', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
+    [' ', '█', ' ', ' ', ' ', ' ', ' ', '$', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
+    [' ', ' ', ' ', ' ', ' ', ' ', '█', '$', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
+    [' ', ' ', ' ', ' ', '█', ' ', ' ', '$', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
+    [' ', ' ', ' ', ' ', ' ', ' ', ' ', '¤', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
   ],
 ]
 let
@@ -36,8 +45,7 @@ let
 
 const
   minCol = 0, minRow = 0,
-  maxCol = board[0].length - 1,
-  maxRow = board.length - 1,
+  maxCol = board[0].length - 1, maxRow = board.length - 1,
   pointsLine = maxRow + 4,
   statusLine = maxRow + 3
 
@@ -116,11 +124,22 @@ function setupTerminal() {
 }
 
 function printBorders() {
-  term.color('gray', '║║║║║║║║║║║║║║║║║║║║');
-  for (let i = 0; i <= board.length; ++i) {
-    term.color('gray').moveTo(1, i + 2, '║║                ║║');
+  let upperOrLowerRow = ''
+  for (let i = 0; i <= maxCol + 2; ++i) {
+    upperOrLowerRow += '║║'
   }
-  term.color('gray').moveTo(1, board.length + 2, '║║║║║║║║║║║║║║║║║║║║');
+
+  let innerRow = '║║'
+  for (let i = 0; i <= maxCol; ++i) {
+    innerRow += '  '
+  }
+  innerRow += '║║'
+
+  term.color('gray', upperOrLowerRow);
+  for (let i = 0; i <= board.length; ++i) {
+    term.color('gray').moveTo(1, i + 2, innerRow);
+  }
+  term.color('gray').moveTo(1, board.length + 2, upperOrLowerRow);
 }
 
 function printPointsLine() {
@@ -218,6 +237,8 @@ function gameLoop() {
 
   if (currentElement === '¤') {
     bgm.pause();
+    // TODO
+    // levelClear.pause();
     levelClear.start();
     if (++levelIndex < levels.length) {
       initLevel()
@@ -243,23 +264,23 @@ function gameLoop() {
   if (gameLooping) setTimeout(gameLoop, 50);
 }
 
-async function prefetchAudioFiles() {
+async function loadAudioFiles() {
   [bgm, levelClear, itemFx] = await Promise.all([
-    soundPlayer.prefetch('audio/adrift-bgm-cropped.mp3'),
-    soundPlayer.prefetch('audio/level-clear.mp3'),
-    soundPlayer.prefetch('audio/item.mp3'),
+    soundPlayer.load('audio/adrift-bgm-cropped.mp3'),
+    soundPlayer.load('audio/level-clear.mp3', { maxInstances: 2 }),
+    soundPlayer.load('audio/item.mp3', { maxInstances: 15 }),
   ]);
 }
 
 await initVars()
 
-console.log('prefetching audio files...');
-await prefetchAudioFiles();
+console.log('loading audio files...');
+await loadAudioFiles();
 
 setupTerminal();
 printStaticContent()
 printBoardContents()
 
-// bgm.start()
+bgm.start()
 
 gameLoop();

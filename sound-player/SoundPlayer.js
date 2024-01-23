@@ -24,8 +24,8 @@ export class SoundPlayer {
     return ret
   }
 
-  async prefetch(soundFile) {
-    return await this._innerPlayer.prefetch(soundFile)
+  async load(filePath, options) {
+    return await this._innerPlayer.load(filePath, options)
   }
 
   free() {

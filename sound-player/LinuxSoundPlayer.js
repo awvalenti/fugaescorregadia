@@ -35,7 +35,7 @@ export class LinuxSoundPlayer {
     this._decoder.free()
   }
 
-  async prefetch(soundFile) {
+  async load(filePath) {
     const createAplayArgs = (filePath, firstArgs = []) => [
       ...firstArgs,
       ...['-B', '50000', '-q', '--'],
@@ -44,11 +44,11 @@ export class LinuxSoundPlayer {
 
     let aplayProcess, tmpFilePath
 
-    if (!soundFile.endsWith('wav')) {
-      const dirName = dirname(soundFile)
+    if (!filePath.endsWith('wav')) {
+      const dirName = dirname(filePath)
       const tmpFileDirName = join(this._tmpDir, dirName)
       await mkdir(tmpFileDirName, { recursive: true })
-      const baseName = basename(soundFile)
+      const baseName = basename(filePath)
       tmpFilePath = join(tmpFileDirName, baseName)
 
       try {
@@ -57,14 +57,14 @@ export class LinuxSoundPlayer {
       } catch {
         // If not exists, create it
         const writeStream = createWriteStream(tmpFilePath)
-        await this._decodeAndInterleave(soundFile, writeStream)
+        await this._decodeAndInterleave(filePath, writeStream)
       }
     }
 
     return {
       start() {
-        if (soundFile.endsWith('wav')) {
-          aplayProcess = spawn('aplay', createAplayArgs(soundFile))
+        if (filePath.endsWith('wav')) {
+          aplayProcess = spawn('aplay', createAplayArgs(filePath))
 
         } else {
           aplayProcess = spawn('aplay', createAplayArgs(tmpFilePath,
@@ -87,20 +87,20 @@ export class LinuxSoundPlayer {
     }
   }
 
-  async _decodeAndInterleave(soundFile, writeStream) {
+  async _decodeAndInterleave(filePath, writeStream) {
     // // console.time('readfile')
-    const encodedBuffer = await readFile(soundFile)
+    const encodedBuffer = await readFile(filePath)
     // // console.timeEnd('readfile')
 
-    // console.time('decode ' + soundFile)
+    // console.time('decode ' + filePath)
     const decoded = await this._decoder.decode(encodedBuffer, {
       outputFormat: 's16',
       numberOfChannels: 2,
       sampleRate: 44100
     })
-    // console.timeEnd('decode ' + soundFile)
+    // console.timeEnd('decode ' + filePath)
 
-    console.time('interleave ' + soundFile)
+    console.time('interleave ' + filePath)
 
     return Promise.all([this._decoder.reset(), new Promise((resolve, reject) => {
       const
