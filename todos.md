@@ -7,7 +7,7 @@
   - ✅ Linux
   - ✅ Windows
   - ❓ Mac
-- Split play() method into two phases: async prefetch() and start()
+- Split play() method into two phases: async load() and start()
   - ✅ Linux
   - ✅ Windows
   - ❓ Mac
@@ -15,10 +15,11 @@
   - Linux
   - ✅ Windows
   - Mac
-- Replaying a prefetched sound
+- Replaying a sound
   - Linux
   - ✅ Windows
   - Mac
+- Preemptively playing a sound (stopping other instances, if running)
 
 ### Design
 - Replace duplicated characters with something that looks more like a single

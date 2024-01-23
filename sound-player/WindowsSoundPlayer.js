@@ -15,27 +15,26 @@ export class WindowsSoundPlayer {
     }
 
     const mediaPlayerProcess = exec(`
-      $FilePath = "${resolvedPath}"
+      $filePath = "${resolvedPath}"
       $players = New-Object object[] ${maxInstances}
       foreach ($i in 0..($players.count - 1)) {
+        # TODO Can we use New-Object Windows.Media.Playback.MediaPlayer?
         $players[$i] = [Windows.Media.Playback.MediaPlayer, Windows.Media, ContentType = WindowsRuntime]::New()
-        $players[$i].Source = [Windows.Media.Core.MediaSource]::CreateFromUri($FilePath)
+        $players[$i].Source = [Windows.Media.Core.MediaSource]::CreateFromUri($filePath)
       }
-      # $MediaPlayer = [Windows.Media.Playback.MediaPlayer, Windows.Media, ContentType = WindowsRuntime]::New()
-      # $MediaPlayer = New-Object Windows.Media.Playback.MediaPlayer
-      # $MediaPlayer = $players[0]
 
+      # TODO Some other way to check for readiness
       do
       {
-        $Duration = $players[0].NaturalDuration.TotalSeconds
+        $duration = $players[0].NaturalDuration.TotalSeconds
       }
-      while ($Duration -eq 0)
+      while ($duration -eq 0)
 
       'ready'
 
       $currentIndex = -1
 
-      $Continue = $true
+      $continue = $true
       do
       {
         switch ([Console]::ReadLine())
@@ -47,10 +46,10 @@ export class WindowsSoundPlayer {
           }
           'pause' { $players[$currentIndex].Pause() }
           'resume' { $players[$currentIndex].Play() }
-          'stop' { $Continue = false }
+          'stop' { $continue = false }
         }
       }
-      while ($Continue)
+      while ($continue)
       `, { shell: 'powershell' }
     )
 

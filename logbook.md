@@ -1210,9 +1210,18 @@
     simply be ignored?
 
 ### Findings
-- To run .ps1 file externally, there may be restrictions. Details:
-  - https://www.netspi.com/blog/technical/network-penetration-testing/15-ways-to-bypass-the-powershell-execution-policy/
+- Running .ps1 file externally:
+  - Can use $args[0] to know which file to load
+  - There may be security restrictions. Details:
+    - https://www.netspi.com/blog/technical/network-penetration-testing/15-ways-to-bypass-the-powershell-execution-policy/
 
 ### Achieved goals
 - Fix pause/resume/stop features to work with many player instances
 - Rename prefetch to load
+- Rename vars
+
+### Next steps
+- Assess viability of extracting .ps1 file
+- Some other way to check for readiness
+- Improve array code style
+- Use New-Object instead of (...)::New()
