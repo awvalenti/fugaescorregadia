@@ -1,4 +1,6 @@
 import { exec } from 'child_process';
+import { log } from 'console';
+import { readFile } from 'fs/promises';
 import path from 'path';
 import readline from 'readline';
 
@@ -14,44 +16,11 @@ export class WindowsSoundPlayer {
       throw Error('Invalid sound file path: ' + resolvedPath)
     }
 
-    const mediaPlayerProcess = exec(`
-      $filePath = "${resolvedPath}"
-      $players = New-Object object[] ${maxInstances}
-      foreach ($i in 0..($players.count - 1)) {
-        # TODO Can we use New-Object Windows.Media.Playback.MediaPlayer?
-        $players[$i] = [Windows.Media.Playback.MediaPlayer, Windows.Media, ContentType = WindowsRuntime]::New()
-        $players[$i].Source = [Windows.Media.Core.MediaSource]::CreateFromUri($filePath)
-      }
+    const code = String(await readFile('./sound-player/WindowsSoundPlayer.ps1'))
+      .replace('file-path-goes-here', resolvedPath)
+      .replace('max-instances-goes-here', maxInstances)
 
-      # TODO Some other way to check for readiness
-      do
-      {
-        $duration = $players[0].NaturalDuration.TotalSeconds
-      }
-      while ($duration -eq 0)
-
-      'ready'
-
-      $currentIndex = -1
-
-      $continue = $true
-      do
-      {
-        switch ([Console]::ReadLine())
-        {
-          'start'
-          {
-            $currentIndex = ($currentIndex + 1) % $players.count
-            $players[$currentIndex].Play()
-          }
-          'pause' { $players[$currentIndex].Pause() }
-          'resume' { $players[$currentIndex].Play() }
-          'stop' { $continue = false }
-        }
-      }
-      while ($continue)
-      `, { shell: 'powershell' }
-    )
+    const mediaPlayerProcess = exec(code, { shell: 'powershell' })
 
     const subprocessOutput = readline.createInterface({
       input: mediaPlayerProcess.stdout,
