@@ -1225,3 +1225,22 @@
 - Some other way to check for readiness
 - Improve array code style
 - Use New-Object instead of (...)::New()
+
+## 2023-01-24
+
+### Planned goals
+- Extract .ps1 file
+- Some other way to check for readiness
+- Improve array code style
+- Use New-Object instead of (...)::New()
+
+### Findings
+- Top-level await for an unsettled promise (returning undefined) makes NodeJS
+  exit with error code 13
+
+### Decisions
+- mediaPlayerProcess.kill() was chosen instead of sending a 'stop' command to
+  its stdin. It's faster.
+
+### Achieved goals
+- Extract .ps1 file and load it as string (not yet by calling powershell directly)

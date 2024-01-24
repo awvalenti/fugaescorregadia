@@ -26,34 +26,36 @@ export class WindowsSoundPlayer {
       input: mediaPlayerProcess.stdout,
     });
 
-    return new Promise(resolve => {
-      subprocessOutput.on('line', lineRead => {
-        if (lineRead === 'ready') {
-          resolve({
-            start() {
-              mediaPlayerProcess.stdin.write('start\n')
-            },
+    return new Promise(async (resolve, reject) => {
+      try {
+        for await (const lineRead of subprocessOutput) {
+          if (lineRead === 'ready') {
+            resolve({
+              start() {
+                mediaPlayerProcess.stdin.write('start\n')
+              },
 
-            pause() {
-              mediaPlayerProcess.stdin.write('pause\n')
-            },
+              pause() {
+                mediaPlayerProcess.stdin.write('pause\n')
+              },
 
-            resume() {
-              mediaPlayerProcess.stdin.write('resume\n')
-            },
+              resume() {
+                mediaPlayerProcess.stdin.write('resume\n')
+              },
 
-            stop() {
-              // TODO Decide between these implementation options
-
-              mediaPlayerProcess.stdin.write('stop\n')
-              // mediaPlayerProcess.kill()
-            },
-          })
+              stop() {
+                mediaPlayerProcess.kill()
+              },
+            })
+          }
         }
-      })
-      subprocessOutput.on('close', () => {
+
+      } catch (e) {
+        reject(e)
+
+      } finally {
         subprocessOutput.removeAllListeners()
-      })
+      }
     })
   }
 }

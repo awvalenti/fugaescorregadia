@@ -15,9 +15,8 @@ do {
 Write-Host 'ready'
 
 $currentIndex = -1
-$continue = $true
 
-do {
+for (;;) {
     switch ([Console]::ReadLine()) {
         'start' {
             $currentIndex = ($currentIndex + 1) % $players.count
@@ -25,6 +24,5 @@ do {
         }
         'pause' { $players[$currentIndex].Pause() }
         'resume' { $players[$currentIndex].Play() }
-        'stop' { $continue = $false }
     }
-} while ($continue)
+}
