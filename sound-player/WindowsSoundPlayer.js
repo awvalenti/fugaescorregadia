@@ -1,4 +1,4 @@
-import { exec } from 'child_process';
+import { exec, spawn } from 'child_process';
 import { log } from 'console';
 import { readFile } from 'fs/promises';
 import path from 'path';
@@ -16,38 +16,50 @@ export class WindowsSoundPlayer {
       throw Error('Invalid sound file path: ' + resolvedPath)
     }
 
-    const code = String(await readFile('./sound-player/WindowsSoundPlayer.ps1'))
-      .replace('file-path-goes-here', resolvedPath)
-      .replace('max-instances-goes-here', maxInstances)
-
-    const mediaPlayerProcess = exec(code, { shell: 'powershell' })
+    const mediaPlayerProcess = spawn('powershell', [
+      '-ExecutionPolicy',
+      'bypass',
+      './sound-player/WindowsSoundPlayer.ps1',
+      `"${resolvedPath}"`,
+      maxInstances,
+    ])
 
     const subprocessOutput = readline.createInterface({
       input: mediaPlayerProcess.stdout,
     });
 
+    // TODO
+    const subprocessErrors = readline.createInterface({
+      input: mediaPlayerProcess.stderr,
+      output: process.stderr
+    });
+    subprocessErrors.on('close', () => {
+      subprocessOutput.removeAllListeners()
+    })
+
     return new Promise(async (resolve, reject) => {
       try {
-        for await (const lineRead of subprocessOutput) {
-          if (lineRead === 'ready') {
-            resolve({
-              start() {
-                mediaPlayerProcess.stdin.write('start\n')
-              },
+        const iterator = subprocessOutput[Symbol.asyncIterator]()
+        let next = await iterator.next()
+        let lineRead = next.value
+        if (lineRead === 'ready') {
+          resolve({
+            start() {
+              mediaPlayerProcess.stdin.write('start\n')
+            },
 
-              pause() {
-                mediaPlayerProcess.stdin.write('pause\n')
-              },
+            pause() {
+              mediaPlayerProcess.stdin.write('pause\n')
+            },
 
-              resume() {
-                mediaPlayerProcess.stdin.write('resume\n')
-              },
+            resume() {
+              mediaPlayerProcess.stdin.write('resume\n')
+            },
 
-              stop() {
-                mediaPlayerProcess.kill()
-              },
-            })
-          }
+            stop() {
+              mediaPlayerProcess.kill()
+            },
+          })
         }
 
       } catch (e) {

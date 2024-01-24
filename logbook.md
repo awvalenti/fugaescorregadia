@@ -1237,6 +1237,11 @@
 ### Findings
 - Top-level await for an unsettled promise (returning undefined) makes NodeJS
   exit with error code 13
+- subprocessOutput.on('error') seemed not to work. But actually there were no
+  errors reading from stdout. The subprocess error was sent to its stderr.
+  - Actually, we need to read from stderr too. Added a draft code for that.
+- Running powershell:
+  - Via spawn: 1.3s ~ 1.5s to start playing bgm
 
 ### Decisions
 - mediaPlayerProcess.kill() was chosen instead of sending a 'stop' command to
