@@ -3,22 +3,26 @@
 ## Sound
 
 ### Features
+- Song loop
+  - Linux
+  - Mac
+  - Windows
 - Pause/resume
   - ✅ Linux
-  - ✅ Windows
   - ❓ Mac
+  - ✅ Windows
 - Split play() method into two phases: async load() and start()
   - ✅ Linux
-  - ✅ Windows
   - ❓ Mac
+  - ✅ Windows
 - Avoid code injection (e.g., by validating FORBIDDEN_CHARACTERS)
   - Linux
-  - ✅ Windows
   - Mac
+  - ✅ Windows
 - Replaying a sound
   - Linux
-  - ✅ Windows
   - Mac
+  - ✅ Windows
 - Preemptively playing a sound (stopping other instances, if running)
 
 ### Design
