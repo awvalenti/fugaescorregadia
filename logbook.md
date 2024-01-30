@@ -1241,8 +1241,10 @@
   errors reading from stdout. The subprocess error was sent to its stderr.
   - Actually, we need to read from stderr too. Added a draft code for that.
 - Running powershell:
-  - Via spawn, bypassing ExecutionPolicy: 1.3s ~ 1.5s to start playing bgm
-  - Via exec, replacing string: ~1.5s to start playing bgm
+  - Code as string inside js code: 1.3 ~ 1.4s to start playing bgm
+  - External .ps1 file:
+    - Via spawn, bypassing ExecutionPolicy: 1.3s ~ 1.5s to start playing bgm
+    - Via exec, replacing string: ~1.5s to start playing bgm
 
 ### Decisions
 - mediaPlayerProcess.kill() was chosen instead of sending a 'stop' command to
