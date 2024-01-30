@@ -1022,7 +1022,7 @@
 - Celebrate Xmas 🎄🎄!
 - Celebrate New Year 🎄🎄!
 
-## 2023-01-09
+## 2024-01-09
 
 ### Planned goals
 - On Windows:
@@ -1063,7 +1063,7 @@
   - Test this by showing game board in sync with bgm
   - In other words, wait until sound is loaded to show the board
 
-## 2023-01-10
+## 2024-01-10
 
 ### Planned goals
 - Change audio API to support prefetch/start/pause/resume/stop methods
@@ -1094,7 +1094,7 @@
   })
   ```
 
-## 2023-01-11
+## 2024-01-11
 
 ### Planned goals
 - Support pause/resume on Windows
@@ -1115,7 +1115,7 @@
     - …which should already be working on Windows
     - …and should then be implemented on Linux
 
-## 2023-01-16
+## 2024-01-16
 
 ### Planned goals
 - Implement item collecting
@@ -1128,7 +1128,7 @@
 ### Next steps
 - Parallel playing feature on Windows
 
-## 2023-01-17
+## 2024-01-17
 
 ### Planned goals
 - Parallel playing feature on Windows
@@ -1161,7 +1161,7 @@
 - "Parallel playing" feature on Windows (actually, only one at a time)
 - More than one level
 
-## 2023-01-18
+## 2024-01-18
 
 ### Planned goals
 - Really parallel playing feature on Windows
@@ -1188,7 +1188,7 @@
 ### Next steps
 - Fix pause/resume/stop features to work with many player instances
 
-## 2023-01-23
+## 2024-01-23
 
 ### Planned goals
 - Fix pause/resume/stop features to work with many player instances
@@ -1226,7 +1226,7 @@
 - Improve array code style
 - Use New-Object instead of (...)::New()
 
-## 2023-01-24
+## 2024-01-24
 
 ### Planned goals
 - Extract .ps1 file
@@ -1254,3 +1254,10 @@
 - Extract .ps1 file
   - Tried reading it as a string and passing it to exec
   - Tried passing file directly to powershell command
+
+## 2024-01-30
+
+### Planned goals
+- Fix bug: on Windows, when powershell process fails, finishes program
+- Resolve TODOs of powershell code
+
