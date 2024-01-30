@@ -24,50 +24,67 @@ export class WindowsSoundPlayer {
       maxInstances,
     ])
 
-    const subprocessOutput = readline.createInterface({
+    const subprocessStdout = readline.createInterface({
       input: mediaPlayerProcess.stdout,
     });
 
-    // TODO
-    const subprocessErrors = readline.createInterface({
-      input: mediaPlayerProcess.stderr,
-      output: process.stderr
-    });
-    subprocessErrors.on('close', () => {
-      subprocessOutput.removeAllListeners()
-    })
+    // // TODO
+    // const subprocessStderr = readline.createInterface({
+    //   input: mediaPlayerProcess.stderr,
+    //   // output: process.stderr
+    // });
+    // subprocessStderr.on('close', () => {
+    //   subprocessStdout.removeAllListeners()
+    // })
 
-    return new Promise(async (resolve, reject) => {
-      try {
-        const iterator = subprocessOutput[Symbol.asyncIterator]()
-        let next = await iterator.next()
-        let lineRead = next.value
-        if (lineRead === 'ready') {
-          resolve({
-            start() {
-              mediaPlayerProcess.stdin.write('start\n')
-            },
+    // FIXME Get OS encoding
+    // mediaPlayerProcess.stderr.setEncoding('utf8')
 
-            pause() {
-              mediaPlayerProcess.stdin.write('pause\n')
-            },
 
-            resume() {
-              mediaPlayerProcess.stdin.write('resume\n')
-            },
+    return Promise.race([
+      new Promise((_, reject) => {
+        let errorOutput = ''
+        mediaPlayerProcess.stderr.on('data', chunk => {
+          errorOutput += chunk
+        })
+        mediaPlayerProcess.stderr.on('end', () => {
+          reject(errorOutput)
+        })
+        setTimeout(() => {
+          reject('Timed out reading sound\n' + errorOutput)
+        }, 2000) // FIXME Increase timeout
+      }),
+      new Promise(async (resolve, reject) => {
+        try {
+          const iterator = subprocessStdout[Symbol.asyncIterator]()
+          let next = await iterator.next()
+          let lineRead = next.value
+          if (lineRead === 'ready') {
+            resolve({
+              start() {
+                mediaPlayerProcess.stdin.write('start\n')
+              },
 
-            stop() {
-              mediaPlayerProcess.kill()
-            },
-          })
+              pause() {
+                mediaPlayerProcess.stdin.write('pause\n')
+              },
+
+              resume() {
+                mediaPlayerProcess.stdin.write('resume\n')
+              },
+
+              stop() {
+                mediaPlayerProcess.kill()
+              },
+            })
+          }
+
+        } catch (e) {
+          reject(e)
+
+        } finally {
+          subprocessStdout.removeAllListeners()
         }
-
-      } catch (e) {
-        reject(e)
-
-      } finally {
-        subprocessOutput.removeAllListeners()
-      }
-    })
+      })])
   }
 }

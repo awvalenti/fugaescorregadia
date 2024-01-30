@@ -1261,3 +1261,22 @@
 - Fix bug: on Windows, when powershell process fails, finishes program
 - Resolve TODOs of powershell code
 
+### Findings
+- ReadableStream
+  - close event is always emitted (if it is created with the emitClose option)
+    - No more events will be emitted
+  - data event is emitted when there's data, after on('data') listener is added
+    - If readable.setEncoding() is called, receives String; otherwise, Buffer.
+  - end event is emitted after all data have been consumed
+  - error event can ben emitted at any time
+  - destroy(error?) method will close the stream
+
+### Questions
+- Does readableStream automatically removes all listeners on('close')?
+
+### Achieved goals
+- Fix bug: on Windows, when powershell process fails, finishes program
+- Resolve 1 TODO of powershell code
+
+### Next steps
+- Fix 2nd TODO: Some other way to check for readiness

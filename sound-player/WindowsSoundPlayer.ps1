@@ -2,7 +2,6 @@ $filePath = $args[0]
 $players = New-Object object[] $args[1]
 
 foreach ($i in 0..($players.count - 1)) {
-    # TODO Can we use New-Object Windows.Media.Playback.MediaPlayer?
     $players[$i] = [Windows.Media.Playback.MediaPlayer, Windows.Media, ContentType = WindowsRuntime]::New()
     $players[$i].Source = [Windows.Media.Core.MediaSource]::CreateFromUri($filePath)
 }

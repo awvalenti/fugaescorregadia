@@ -32,8 +32,11 @@
     but look like four
 
 ### Bugs
-- Windows: when powershell fails, exits program
-  - This is because load() promise finishes unsettled
+- Windows
+  - When powershell fails:
+    - Exits program
+      - This is because load() promise finishes unsettled
+    - Mojibake (shows wrong characters), must set character encoding correctly
 - Linux: terminal changes color
 - All OSs: messes up terminal (e.g., loses cursor)
 - When PoSh subprocess fails, should not end app
