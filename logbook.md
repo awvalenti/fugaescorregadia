@@ -1310,3 +1310,6 @@
 
 ### Achieved goals
 - Found that polling is only option to check for readiness
+
+### Next steps
+- Make check work for maxInstances > 1
