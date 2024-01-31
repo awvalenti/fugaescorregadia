@@ -1280,3 +1280,33 @@
 
 ### Next steps
 - Fix 2nd TODO: Some other way to check for readiness
+
+## 2024-01-31
+
+### Planned goals
+- Fix 2nd TODO: Some other way to check for readiness
+
+### Findings
+- The MediaPlayer class we're using belongs to WinRT / Windows Runtime API:
+  - https://learn.microsoft.com/en-us/uwp/api/windows.media.playback.mediaplayer
+- PowerShell (non-core) can't handle WinRT events
+- AutoPlay property supposedly allows autoplaying after medium file loads
+- For future compatibility, better use $mediaPlayer.PlaybackSession.PlaybackState instead of $mediaPlayer.CurrentState
+  - PlaybackState is a System.Enum
+- Enum comparison with -eq ignores case and accepts any prefix string, like None -eq 'non' :O
+- PowerShell allows selecting, cuting, copying and pasting text directly on
+  the terminal!! 👏
+  - …but unfortunately can't move cursor using mouse
+
+### POC
+- Following code tested busy-wait loop for polling sound loading:
+  ```powershell
+  $i=0;$filePath='C:\Users\andre\p\fugaescorregadia\audio\item.mp3';$players = New-Object object[] 1; $players[$i] = [Windows.Media.Playback.MediaPlayer, Windows.Media, ContentType = WindowsRuntime]::New();   $ultimo = $players[$i].PlaybackSession.PlaybackState;  $players[$i].Source = [Windows.Media.Core.MediaSource]::CreateFromUri($filePath); $j=0; write-host  $j $ultimo; for (; $j -lt 20000;++$j) { if ($ultimo -ne $players[$i].PlaybackSession.PlaybackState) {Write-Host $j $ultimo $players[$i].PlaybackSession.PlaybackState; $ultimo = $players[$i].PlaybackSession.PlaybackState}}write-host $j 'busy-wait iterations completed'
+  ```
+  - Found that, for item.mp3, a very short sound, states change as:
+    - Starts as None
+    - Moves to Opening when Source property is set
+    - Moves to Paused when sound finishes loading (6000~12000 iterations)
+
+### Achieved goals
+- Found that polling is only option to check for readiness

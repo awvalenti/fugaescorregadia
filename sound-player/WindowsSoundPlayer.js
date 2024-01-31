@@ -52,7 +52,7 @@ export class WindowsSoundPlayer {
         })
         setTimeout(() => {
           reject('Timed out reading sound\n' + errorOutput)
-        }, 2000) // FIXME Increase timeout
+        }, 10000)
       }),
       new Promise(async (resolve, reject) => {
         try {
