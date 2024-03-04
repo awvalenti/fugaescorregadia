@@ -30,6 +30,7 @@
   element, like [], {} etc.
   - This was most critical for items with $: $$$$ should be two adjacent items,
     but look like four
+- Add level clearing animation
 
 ### Bugs
 - Windows

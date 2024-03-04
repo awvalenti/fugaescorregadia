@@ -151,7 +151,11 @@ function printStaticContent() {
   printPointsLine();
 }
 
-function printSingleChar(color, col, i, row, phrase) {
+function printFullyDefinedElement(color, row, col, chars) {
+  term.color(color).moveTo(2 * col + 1 + 2, row + 1 + 1, chars);
+}
+
+function printTextChar(color, row, col, phrase, i) {
   term.color(color).moveTo(2 * col + 1 + i, row + 2, phrase[i]);
 }
 
@@ -162,7 +166,7 @@ function printDoubledChar(color, row, col, char) {
 function animateText(color, row, col, phrase, onFinish) {
   function loop(i) {
     if (i < phrase.length) {
-      printSingleChar(color, col, i, row, phrase);
+      printTextChar(color, row, col, phrase, i);
       setTimeout(() => {
         loop(i + 1)
       }, 120);
@@ -193,16 +197,20 @@ function printBoardContents() {
           printDoubledChar('black', row, col, tile)
           break
         case '@':
-          printDoubledChar('brightGreen', row, col, tile)
+          // printDoubledChar('brightGreen', row, col, tile)
+          printDoubledChar('brightGreen', row, col, ':;')
           break
         case '¤':
-          printDoubledChar('brightYellow', row, col, tile)
+          // printDoubledChar('brightYellow', row, col, tile)
+          printDoubledChar('brightYellow', row, col, '?!')
           break
         case '█':
-          printDoubledChar('cyan', row, col, tile)
+          // printDoubledChar('cyan', row, col, tile)
+          printFullyDefinedElement('cyan', row, col, '|?')
           break
         case '$':
-          printDoubledChar('blue', row, col, tile)
+          // printDoubledChar('blue', row, col, tile)
+          printFullyDefinedElement('blue', row, col, '?|')
           break
       }
     }

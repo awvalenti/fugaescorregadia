@@ -1313,3 +1313,40 @@
 
 ### Next steps
 - Make check work for maxInstances > 1
+
+## 2024-03-04
+- We're back!
+
+### Planned goals
+- Replace double characters with something that makes more sense
+
+### Findings
+- Currently, it's a little confusing that there are two different ways of
+  outputing characters/text:
+  - Game elements occupy two spaces each
+  - Real text occupies one space per character
+- Tried pairing characters:
+  - `[]`: looks like something's missing from inside it
+  - `{}`: looks like some alien object
+  - `()`: looks like a hole
+  - `<>`: looks like a sword or a spaceship
+  - `/\` and `\/`: look like arrows
+  - `$` followed by many symbols: don't make much sense
+  - `/|` and variations: don't look like anything
+  - `|>` and `<|`: look awesome when font has ligatures, but look bad
+  when it doesn't
+  - `)>`, `]>`, `}>`: looks kinda good with paren, bad with the other ones. Can
+  be left and right arrows.
+  - `!?`, `:;` and variations: bad
+  - `~^`: looks like a mountain
+    - `^~`: messes up with the shell!
+  - `^z`: looks like a wave
+  - `?|`, `|?`: look like ?-boxes, especially when in sequence
+- One possibility: nerd references:
+  - `~/`, `~1` etc.
+- This image suggests that we can put dots or underscores on empty
+spots and print nothing where we identify as dark, where the player doesn't
+know what is there: https://media.moddb.com/images/groups/1/8/7792/20u1imo.gif
+
+### Achieved goals
+- Studied posibilities for replacing double characters and documented findings
