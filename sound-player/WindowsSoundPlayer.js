@@ -9,8 +9,7 @@ const FORBIDDEN_CHARACTERS = /["`\n]/
 export class WindowsSoundPlayer {
 
   async load(filePath, { maxInstances } = {}) {
-    maxInstances = 1 // FIXME
-    // maxInstances = Number(maxInstances) || 1
+    maxInstances = Number(maxInstances) || 1
     const resolvedPath = path.resolve(filePath)
 
     if (FORBIDDEN_CHARACTERS.test(resolvedPath)) {
@@ -53,7 +52,7 @@ export class WindowsSoundPlayer {
         })
         setTimeout(() => {
           reject('Timed out reading sound\n' + errorOutput)
-        }, 10000)
+        }, 20000)
       }),
       new Promise(async (resolve, reject) => {
         try {

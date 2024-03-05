@@ -11,10 +11,17 @@ foreach ($i in 0..($players.count - 1)) {
     # $p = $players[0]
 }
 
-do {} while (
-    # FIXME Only works for size 1
-    $players | ForEach-Object { $_.PlaybackSession.PlaybackState -eq 'Paused' }
-)
+do {
+    $somePlayerIsStillLoading = $false
+    foreach ($p in $players) {
+        $loadedFinished = $p.PlaybackSession.PlaybackState -eq 'Paused'
+        if (!$loadedFinished) {
+            $somePlayerIsStillLoading = $true
+            Start-Sleep -Milliseconds 1
+            break
+        }
+    }
+} while ($somePlayerIsStillLoading)
 
 Write-Host 'ready'
 
