@@ -1350,3 +1350,30 @@ know what is there: https://media.moddb.com/images/groups/1/8/7792/20u1imo.gif
 
 ### Achieved goals
 - Studied posibilities for replacing double characters and documented findings
+
+## 2024-03-05
+
+### Planned goals
+- Replace double characters with something that makes more sense
+- Windows/PowerShell: load sounds without busy-wait loop
+  - Make it work with maxInstances > 1
+
+### Findings
+- How do characters look on Windows terminals:
+  - WT/GitBash: lighter, better-looking colors, especially for dark blue
+  - PurePowerShell: dark blue is almost invisible
+  - CMD: same colors of WT/GitBash, same font of PurePowerShell
+  - CMD and PureGitBash have same colors, but different fonts
+  - PurePowerShell and PureGitBash have similar colors, except dark blue
+  - To sum up:
+    - PurePowerShell looks the worst
+    - WT/PowerShell looks great, exactly the same as WT/GitBash
+- Fonts with ligatures:
+  - `<>`: looks great on Windows with Cascadia Code PL font
+  - On the other hand, even if two characters have different colors, if they
+  form a ligature, they are presented that way
+  - This will be a problem, especially when printing two different elements
+  - We should choose characters that don't form ligatures when adjacent
+
+### Achieved goals
+- Replace double characters with something that makes more sense

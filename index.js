@@ -3,31 +3,31 @@ import { SoundPlayer } from './sound-player/SoundPlayer.js';
 
 const levels = [
   [
-    ['█', '█', '█', '█', '█', '█', '█', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$'],
-    [' ', ' ', ' ', ' ', ' ', '█', '█', '$', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
-    [' ', '█', ' ', ' ', ' ', ' ', ' ', '$', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
-    [' ', ' ', ' ', ' ', ' ', ' ', '█', '$', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
-    ['█', ' ', ' ', ' ', '█', ' ', ' ', '$', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
-    [' ', ' ', ' ', ' ', ' ', ' ', ' ', '¤', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
-    ['@', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$'],
+    ['o', 'o', 'o', 'o', 'o', 'o', 'o', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i'],
+    [' ', ' ', ' ', ' ', ' ', 'o', 'o', 'i', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i'],
+    [' ', 'o', 'a', 'a', 'a', 'b', ' ', 'i', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i'],
+    [' ', ' ', 'a', ' ', ' ', 'b', 'o', 'i', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i'],
+    ['o', ' ', 'a', ' ', 'o', 'b', 'b', 'i', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i'],
+    [' ', ' ', ' ', ' ', ' ', ' ', ' ', 'g', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i'],
+    ['p', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i'],
   ],
   [
-    ['█', '█', '█', '█', '█', '█', '█', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$'],
-    [' ', ' ', ' ', ' ', ' ', '█', '█', '$', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
-    ['@', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$'],
-    [' ', '█', ' ', ' ', ' ', ' ', ' ', '$', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
-    [' ', ' ', ' ', ' ', ' ', ' ', '█', '$', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
-    [' ', ' ', ' ', ' ', '█', ' ', ' ', '$', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
-    [' ', ' ', ' ', ' ', ' ', ' ', ' ', '¤', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
+    ['o', 'o', 'o', 'o', 'o', 'o', 'o', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i'],
+    [' ', ' ', ' ', ' ', ' ', 'o', 'o', 'i', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i'],
+    ['p', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i'],
+    [' ', 'o', ' ', ' ', ' ', ' ', ' ', 'i', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i'],
+    [' ', ' ', ' ', ' ', ' ', ' ', 'o', 'i', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i'],
+    [' ', ' ', ' ', ' ', 'o', ' ', ' ', 'i', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i'],
+    [' ', ' ', ' ', ' ', ' ', ' ', ' ', 'g', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i'],
   ],
   [
-    [' ', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$'],
-    ['@', '█', '█', '█', '█', '█', '█', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$', '$'],
-    [' ', ' ', ' ', ' ', ' ', '█', '█', '$', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
-    [' ', '█', ' ', ' ', ' ', ' ', ' ', '$', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
-    [' ', ' ', ' ', ' ', ' ', ' ', '█', '$', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
-    [' ', ' ', ' ', ' ', '█', ' ', ' ', '$', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
-    [' ', ' ', ' ', ' ', ' ', ' ', ' ', '¤', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '$'],
+    [' ', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i'],
+    ['p', 'o', 'o', 'o', 'o', 'o', 'o', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i', 'i'],
+    [' ', ' ', ' ', ' ', ' ', 'o', 'o', 'i', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i'],
+    [' ', 'o', ' ', ' ', ' ', ' ', ' ', 'i', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i'],
+    [' ', ' ', ' ', ' ', ' ', ' ', 'o', 'i', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i'],
+    [' ', ' ', ' ', ' ', 'o', ' ', ' ', 'i', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i'],
+    [' ', ' ', ' ', ' ', ' ', ' ', ' ', 'g', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'i'],
   ],
 ]
 let
@@ -180,7 +180,7 @@ function animateText(color, row, col, phrase, onFinish) {
 function findStartingPoint(board) {
   for (let row = 0; row < board.length; ++row) {
     for (let col = 0; col < board[row].length; ++col) {
-      if (board[row][col] === '@') {
+      if (board[row][col] === 'p') {
         return [row, col]
       }
     }
@@ -191,29 +191,29 @@ function findStartingPoint(board) {
 function printBoardContents() {
   for (let row = 0; row < board.length; ++row) {
     for (let col = 0; col < board[row].length; ++col) {
-      const tile = board[row][col];
-      switch (tile) {
-        case ' ':
-          printDoubledChar('black', row, col, tile)
-          break
-        case '@':
-          // printDoubledChar('brightGreen', row, col, tile)
-          printDoubledChar('brightGreen', row, col, ':;')
-          break
-        case '¤':
-          // printDoubledChar('brightYellow', row, col, tile)
-          printDoubledChar('brightYellow', row, col, '?!')
-          break
-        case '█':
-          // printDoubledChar('cyan', row, col, tile)
-          printFullyDefinedElement('cyan', row, col, '|?')
-          break
-        case '$':
-          // printDoubledChar('blue', row, col, tile)
-          printFullyDefinedElement('blue', row, col, '?|')
-          break
-      }
+      const tileId = board[row][col];
+      printElement(tileId, row, col);
     }
+  }
+}
+
+function printElement(tileId, row, col) {
+  switch (tileId) {
+    case ' ':
+      printFullyDefinedElement('black', row, col, '  ');
+      break;
+    case 'p':
+      printFullyDefinedElement('brightGreen', row, col, '<>');
+      break;
+    case 'g':
+      printFullyDefinedElement('brightYellow', row, col, '()');
+      break;
+    case 'o':
+      printFullyDefinedElement('cyan', row, col, '██');
+      break;
+    case 'i':
+      printFullyDefinedElement('blue', row, col, '[]');
+      break;
   }
 }
 
@@ -230,7 +230,7 @@ function gameLoop() {
     && newPlayerCol <= maxCol
     && newPosRow >= minRow
     && newPosRow <= maxRow
-    && board[newPosRow][newPlayerCol] !== '█') {
+    && board[newPosRow][newPlayerCol] !== 'o') {
     [playerCol, playerRow] = [newPlayerCol, newPosRow];
     [oldPlayerCol, oldPlayerRow] = [playerCol, playerRow];
   } else {
@@ -238,12 +238,12 @@ function gameLoop() {
   }
 
   if (playerRow !== olderPlayerRow || playerCol !== olderPlayerCol) {
-    printDoubledChar('brightGreen', olderPlayerRow, olderPlayerCol, ' ');
-    printDoubledChar('brightGreen', playerRow, playerCol, '@');
+    printElement(' ', olderPlayerRow, olderPlayerCol);
+    printElement('p', playerRow, playerCol);
   }
   const currentElement = board[playerRow][playerCol]
 
-  if (currentElement === '¤') {
+  if (currentElement === 'g') {
     bgm.pause();
     // TODO
     // levelClear.pause();
@@ -262,7 +262,7 @@ function gameLoop() {
         });
       }, 1500);
     }
-  } else if (currentElement === '$') {
+  } else if (currentElement === 'i') {
     itemFx.start()
     points += 100
     printPointsLine()

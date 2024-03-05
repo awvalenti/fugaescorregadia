@@ -9,7 +9,8 @@ const FORBIDDEN_CHARACTERS = /["`\n]/
 export class WindowsSoundPlayer {
 
   async load(filePath, { maxInstances } = {}) {
-    maxInstances = Number(maxInstances) || 1
+    maxInstances = 1 // FIXME
+    // maxInstances = Number(maxInstances) || 1
     const resolvedPath = path.resolve(filePath)
 
     if (FORBIDDEN_CHARACTERS.test(resolvedPath)) {
