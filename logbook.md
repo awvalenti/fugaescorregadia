@@ -1389,3 +1389,20 @@ form a ligature, they are presented that way
 
 ### Next steps
 - Better evaluation of CPU and RAM consumption when loading sounds on Windows
+
+## 2024-03-06
+
+### Planned goals
+- Evaluation of CPU and RAM when loading sounds on Windows
+- Pick some todo item
+
+### Findings
+- On PowerShell, tried busy and idle waiting:
+  - `for (;;){}` consumes 14% CPU
+  - `for (;;){Start-Sleep -Milliseconds 1}` consumes 0%
+- Tried different values: 1ms, 500ms, 1s, 5s, 10s... All resulted in more or
+  less the same CPU usage. So, it's because of Windows's built-in sound loading
+  logic, not our .ps1 program.
+
+### Decisions
+- It seems any Sleep value makes it a little better than nothing. So, we'll just set it to 5ms.

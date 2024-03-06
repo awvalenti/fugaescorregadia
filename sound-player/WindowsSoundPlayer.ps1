@@ -17,7 +17,7 @@ do {
         $loadedFinished = $p.PlaybackSession.PlaybackState -eq 'Paused'
         if (!$loadedFinished) {
             $somePlayerIsStillLoading = $true
-            Start-Sleep -Milliseconds 1
+            Start-Sleep -Milliseconds 5
             break
         }
     }
