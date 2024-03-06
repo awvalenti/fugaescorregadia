@@ -8,8 +8,11 @@ const FORBIDDEN_CHARACTERS = /["`\n]/
 
 export class WindowsSoundPlayer {
 
-  async load(filePath, { maxInstances } = {}) {
-    maxInstances = Number(maxInstances) || 1
+  async load(filePath, options = {}) {
+    const defaultOptions = {
+      maxInstances: 1,
+      loop: false,
+    }
     const resolvedPath = path.resolve(filePath)
 
     if (FORBIDDEN_CHARACTERS.test(resolvedPath)) {
@@ -21,7 +24,8 @@ export class WindowsSoundPlayer {
       'bypass',
       './sound-player/WindowsSoundPlayer.ps1',
       `"${resolvedPath}"`,
-      maxInstances,
+      options.maxInstances ?? defaultOptions.maxInstances,
+      Number(options.loop ?? defaultOptions.loop),
     ])
 
     const subprocessStdout = readline.createInterface({

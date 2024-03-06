@@ -1394,15 +1394,21 @@ form a ligature, they are presented that way
 
 ### Planned goals
 - Evaluation of CPU and RAM when loading sounds on Windows
-- Pick some todo item
+- Audio looping on Windows
 
 ### Findings
 - On PowerShell, tried busy and idle waiting:
   - `for (;;){}` consumes 14% CPU
   - `for (;;){Start-Sleep -Milliseconds 1}` consumes 0%
 - Tried different values: 1ms, 500ms, 1s, 5s, 10s... All resulted in more or
-  less the same CPU usage. So, it's because of Windows's built-in sound loading
-  logic, not our .ps1 program.
+  less the same CPU usage.
+  - So, it's because of Windows's built-in sound loading, not our .ps1 program
+- It's awesomely simple to loop sounds on Windows: just set `IsLoopingEnabled`!
 
 ### Decisions
-- It seems any Sleep value makes it a little better than nothing. So, we'll just set it to 5ms.
+- It seems some Sleep value makes it a little better than nothing. So, we'll
+  just set it to 5ms.
+
+### Achieved goals
+- Evaluation of CPU and RAM when loading sounds on Windows
+- Audio looping on Windows

@@ -1,4 +1,5 @@
 # TODOs
+🧐: working on it
 
 ## Sound
 
@@ -6,7 +7,7 @@
 - Song loop
   - Linux
   - Mac
-  - 🧐 Windows
+  - ✅ Windows
 - Pause/resume
   - ✅ Linux
   - ❓ Mac

@@ -274,7 +274,7 @@ function gameLoop() {
 
 async function loadAudioFiles() {
   [bgm, levelClear, itemFx] = await Promise.all([
-    soundPlayer.load('audio/adrift-bgm-cropped.mp3'),
+    soundPlayer.load('audio/adrift-bgm-cropped.mp3', { loop: true }),
     soundPlayer.load('audio/level-clear.mp3', { maxInstances: 2 }),
     soundPlayer.load('audio/item.mp3', { maxInstances: Math.max(maxCol, maxRow) + 1 }),
   ]);

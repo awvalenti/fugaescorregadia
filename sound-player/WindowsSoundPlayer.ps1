@@ -1,14 +1,15 @@
-$filePath = $args[0]
-$players = New-Object object[] $args[1]
+$filePath = [string]$args[0]
+$maxInstances = [int]$args[1]
+$loop = [boolean]$args[2]
+
+$players = New-Object object[] $maxInstances
 
 foreach ($i in 0..($players.count - 1)) {
     # Uses WinRT / Windows Runtime API:
     # https://learn.microsoft.com/en-us/uwp/api/windows.media.playback.mediaplayer
-    # $players = New-Object object[] 1
-    # $i = 0
     $players[$i] = [Windows.Media.Playback.MediaPlayer, Windows.Media, ContentType = WindowsRuntime]::New()
+    $players[$i].IsLoopingEnabled = $loop
     $players[$i].Source = [Windows.Media.Core.MediaSource]::CreateFromUri($filePath)
-    # $p = $players[0]
 }
 
 do {
