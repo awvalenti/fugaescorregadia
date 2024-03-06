@@ -6,7 +6,7 @@
 - Song loop
   - Linux
   - Mac
-  - Windows
+  - 🧐 Windows
 - Pause/resume
   - ✅ Linux
   - ❓ Mac
@@ -26,10 +26,6 @@
 - Preemptively playing a sound (stopping other instances, if running)
 
 ### Design
-- Replace duplicated characters with something that looks more like a single
-  element, like [], {} etc.
-  - This was most critical for items with $: $$$$ should be two adjacent items,
-    but look like four
 - Add level clearing animation
 
 ### Bugs
@@ -43,8 +39,7 @@
 - When PoSh subprocess fails, should not end app
 
 ### Refactorings
-- Extract PowerShell code to .ps1 file
-- Create function to play sound and call it
+- Extract class to represent a sound being played
 
 ### Possible fixes
 - Check if we need stuff like:
