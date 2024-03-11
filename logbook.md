@@ -1417,9 +1417,26 @@ form a ligature, they are presented that way
 
 ### Planned goals
 - After game runs, terminal gets messed up (e.g., loses cursor)
-- Fix bug: if PowerShell fails:
-  - Exits program
+- Investigate bugs when PowerShell fails:
+  - Exits Node process
   - Shows wrong characters (mojibake)
+
+### Findings
+- term.hideCursor(false) shows the cursor again
+- term.processExit(0) and process.exit(0) both terminate Node process
+  - Don't know exactly the differences between them
+  - Only know that term.processExit prints an empty line on terminal and
+  process.exit doesn't. So, we're using the latter for now.
+- PowerShell process is taking some seconds to start running. Why?
+- Mojibake is the same for every terminal in Windows
+- mediaPlayerProcess.on('exit', errorCode) handles PowerShell failure
+  - 'close' too. Which one is better?
 
 ### Achieved goals
 - Fixed losing cursor on Windows
+- Investigate bugs when PowerShell fails:
+  - Exits Node process: because promise finishes unfulfilled
+  - Began writing solution for that
+
+### Next steps
+- PowerShell process is taking some seconds to start running. Why?

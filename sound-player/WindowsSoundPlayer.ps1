@@ -1,3 +1,5 @@
+throw "Mojibake here --> ã"
+
 $filePath = [string]$args[0]
 $maxInstances = [int]$args[1]
 $loop = [boolean]$args[2]

@@ -51,9 +51,16 @@ export class WindowsSoundPlayer {
         mediaPlayerProcess.stderr.on('data', chunk => {
           errorOutput += chunk
         })
-        mediaPlayerProcess.stderr.on('end', () => {
-          reject(errorOutput)
+        // exit or close, which one is better?
+        // mediaPlayerProcess.on('close', errorCode => {
+        mediaPlayerProcess.on('exit', errorCode => {
+          // TODO In the future, log these details
+          if (errorCode) reject(`Subprocess ended with code ${errorCode}. Details:\n${errorOutput}`)
         })
+        // mediaPlayerProcess.stderr.on('end', () => {
+        //   mediaPlayerProcess.
+        //   reject('my error')
+        // })
         setTimeout(() => {
           reject('Timed out reading sound\n' + errorOutput)
         }, 20000)
@@ -84,7 +91,7 @@ export class WindowsSoundPlayer {
           }
 
         } catch (e) {
-          reject(e)
+          reject(new Exception(`Error loading ${filePath}. Couldn't read subprocess stdout.`, { cause: e }))
 
         } finally {
           subprocessStdout.removeAllListeners()
