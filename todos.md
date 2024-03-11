@@ -30,13 +30,15 @@
 - Add level clearing animation
 
 ### Bugs
+- All OSs: messes up terminal (e.g., loses cursor)
+  - ✅ Windows: losing cursor
+  - ⏳ Linux
 - Windows
-  - When powershell fails:
+  - 🧐 When powershell fails:
     - Exits program
       - This is because load() promise finishes unsettled
     - Mojibake (shows wrong characters), must set character encoding correctly
 - Linux: terminal changes color
-- All OSs: messes up terminal (e.g., loses cursor)
 - When PoSh subprocess fails, should not end app
 
 ### Refactorings

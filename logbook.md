@@ -1412,3 +1412,14 @@ form a ligature, they are presented that way
 ### Achieved goals
 - Evaluation of CPU and RAM when loading sounds on Windows
 - Audio looping on Windows
+
+## 2024-03-11
+
+### Planned goals
+- After game runs, terminal gets messed up (e.g., loses cursor)
+- Fix bug: if PowerShell fails:
+  - Exits program
+  - Shows wrong characters (mojibake)
+
+### Achieved goals
+- Fixed losing cursor on Windows

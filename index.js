@@ -90,9 +90,7 @@ function setupTerminal() {
         }, 1000);
         break;
       case 'ESCAPE':
-        term.clear(); // doesn't work?
-        term.hideCursor();
-        term.processExit(0);
+        quitGame();
         break;
       case 'LEFT':
       case 'RIGHT':
@@ -121,6 +119,19 @@ function setupTerminal() {
         break;
     }
   });
+}
+
+function quitGame() {
+  term.clear();
+  term.hideCursor(false);
+
+  // Which of both forms below is more appopriate?
+
+  // This one prints an empty line on first line
+  // term.processExit(0);
+
+  // This one does not; we're using it for now
+  process.exit(0)
 }
 
 function printBorders() {
@@ -258,7 +269,7 @@ function gameLoop() {
       gameLooping = false
       setTimeout(() => {
         animateText('white', statusLine, 0, 'FINISH!', () => {
-          term.processExit(0);
+          quitGame()
         });
       }, 1500);
     }
@@ -273,11 +284,11 @@ function gameLoop() {
 }
 
 async function loadAudioFiles() {
-  [bgm, levelClear, itemFx] = await Promise.all([
-    soundPlayer.load('audio/adrift-bgm-cropped.mp3', { loop: true }),
-    soundPlayer.load('audio/level-clear.mp3', { maxInstances: 2 }),
-    soundPlayer.load('audio/item.mp3', { maxInstances: Math.max(maxCol, maxRow) + 1 }),
-  ]);
+[bgm, levelClear, itemFx] = await Promise.all([
+soundPlayer.load('audio/adrift-bgm-cropped.mp3', { loop: true }),
+soundPlayer.load('audio/level-clear.mp3', { maxInstances: 2 }),
+soundPlayer.load('audio/item.mp3', { maxInstances: Math.max(maxCol, maxRow) + 1 }),
+]);
 }
 
 await initVars()
