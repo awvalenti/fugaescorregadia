@@ -1440,3 +1440,10 @@ form a ligature, they are presented that way
 
 ### Next steps
 - PowerShell process is taking some seconds to start running. Why?
+
+## 2024-03-12
+
+### Planned goals
+- Recover original terminal colors on Linux
+- Loop song on Linux
+- (If we have spare time) Extract class to represent a sound being played

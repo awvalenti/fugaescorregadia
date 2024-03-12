@@ -32,14 +32,14 @@
 ### Bugs
 - All OSs: messes up terminal (e.g., loses cursor)
   - ✅ Windows: losing cursor
-  - ⏳ Linux
+  - ✅ Linux: losing cursor
+  - 🧐 Linux: terminal changes color
 - Windows
-  - 🧐 When powershell fails:
+  - When PoSh subprocess fails, should not end app
+  - ⏳ When powershell fails:
     - Exits program
       - This is because load() promise finishes unsettled
     - Mojibake (shows wrong characters), must set character encoding correctly
-- Linux: terminal changes color
-- When PoSh subprocess fails, should not end app
 
 ### Refactorings
 - Extract class to represent a sound being played
