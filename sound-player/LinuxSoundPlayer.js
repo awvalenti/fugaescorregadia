@@ -35,7 +35,7 @@ export class LinuxSoundPlayer {
     this._decoder.free()
   }
 
-  async load(filePath) {
+  async load(filePath, options) {
     const createAplayArgs = (filePath, firstArgs = []) => [
       ...firstArgs,
       ...['-B', '50000', '-q', '--'],
@@ -67,8 +67,15 @@ export class LinuxSoundPlayer {
           aplayProcess = spawn('aplay', createAplayArgs(filePath))
 
         } else {
+          spawnAplay()
+        }
+
+        function spawnAplay() {
           aplayProcess = spawn('aplay', createAplayArgs(tmpFilePath,
             ['-c', '2', '-f', 'float_le', '-r', '44100']))
+          if (options.loop) {
+            aplayProcess.on('close', () => { spawnAplay() })
+          }
         }
       },
 

@@ -1475,6 +1475,10 @@ form a ligature, they are presented that way
     brightwhite: 15
   } ;
   ```
+- According to ChatGPT and Gemini about subrprocesses in NodeJS:
+  - 'exit' event is fired when process starts to finish. It sends exit code.
+  - 'close' event is fired only when process has cleaned up its resources.
 
 ### Achieved goals
 - Recover original terminal colors (and whole state) on Linux
+- Loop song on Linux

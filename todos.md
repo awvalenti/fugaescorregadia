@@ -10,7 +10,7 @@
 
 ### Features
 - Song loop
-  - Linux
+  - ✅ Linux
   - Mac
   - ✅ Windows
 - Pause/resume
@@ -34,7 +34,7 @@
 ### Design
 - Add level clearing animation
 
-### Bugs
+## Bugs
 - All OSs: messes up terminal (e.g., loses cursor)
   - ✅ Windows: losing cursor
   - ✅ Linux: losing cursor
@@ -46,11 +46,14 @@
     - Exits program
       - This is because load() promise finishes unsettled
     - Mojibake (shows wrong characters), must set character encoding correctly
+- Decoded audio files are still named like *.mp3. Should use another extension.
+- Linux: decoding some mp3 files generates noise
 
-### Refactorings
+## Refactorings
 - Extract class to represent a sound being played
+- Handling default options in a standard, clean way
 
-### Possible fixes
+## Possible fixes
 - Check if we need stuff like:
   ```javascript
   subprocessOutput.on('close', () => {

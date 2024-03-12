@@ -24,7 +24,15 @@ export class SoundPlayer {
     return ret
   }
 
-  async load(filePath, options) {
+  async load(filePath, options = {}) {
+    const defaultOptions = {
+      maxInstances: 1,
+      loop: false,
+    }
+    // TODO Refactor
+    if (options.maxInstances == null) options.maxInstances = defaultOptions.maxInstances
+    if (options.loop == null) options.loop = defaultOptions.loop
+
     return await this._innerPlayer.load(filePath, options)
   }
 
