@@ -47,7 +47,9 @@
       - This is because load() promise finishes unsettled
     - Mojibake (shows wrong characters), must set character encoding correctly
 - Decoded audio files are still named like *.mp3. Should use another extension.
-- Linux: decoding some mp3 files generates noise
+- Linux
+  - Plays mostly noise for mp3 file with (apparently) corrupt header
+  - Should accept mp3 files that don't have 2 channels (`-c 2` arguments)
 
 ## Refactorings
 - Extract class to represent a sound being played
