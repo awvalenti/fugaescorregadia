@@ -1,5 +1,10 @@
 # TODOs
-🧐: working on it
+
+## Legend
+- 🧐: working on it
+- ✅: done
+- ❓: don't know yet
+- ⏳: shall be done soon
 
 ## Sound
 
@@ -33,7 +38,8 @@
 - All OSs: messes up terminal (e.g., loses cursor)
   - ✅ Windows: losing cursor
   - ✅ Linux: losing cursor
-  - 🧐 Linux: terminal changes color
+  - ✅ Linux: terminal changes color
+  - ❓ Mac
 - Windows
   - When PoSh subprocess fails, should not end app
   - ⏳ When powershell fails:

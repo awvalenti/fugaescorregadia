@@ -1447,3 +1447,34 @@ form a ligature, they are presented that way
 - Recover original terminal colors on Linux
 - Loop song on Linux
 - (If we have spare time) Extract class to represent a sound being played
+
+### Findings
+- terminal-kit ANSI colors:
+  ```javascript
+  const colorNameToIndexDict = {
+    // ANSI
+    black: 0 ,
+    red: 1 ,
+    green: 2 ,
+    yellow: 3 ,
+    blue: 4 ,
+    magenta: 5 ,
+    violet: 5 ,
+    cyan: 6 ,
+    white: 7 ,
+    grey: 8 ,
+    gray: 8 ,
+    brightblack: 8 ,
+    brightred: 9 ,
+    brightgreen: 10 ,
+    brightyellow: 11 ,
+    brightblue: 12 ,
+    brightmagenta: 13 ,
+    brightviolet: 13 ,
+    brightcyan: 14 ,
+    brightwhite: 15
+  } ;
+  ```
+
+### Achieved goals
+- Recover original terminal colors (and whole state) on Linux

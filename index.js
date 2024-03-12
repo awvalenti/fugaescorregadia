@@ -122,8 +122,14 @@ function setupTerminal() {
 }
 
 function quitGame() {
-  term.clear();
-  term.hideCursor(false);
+  // Option 1
+  term.reset();
+
+  // Option 2
+  // term.bgDefaultColor();
+  // term.clear();
+  // term.hideCursor(false);
+
 
   // Which of both forms below is more appopriate?
 
