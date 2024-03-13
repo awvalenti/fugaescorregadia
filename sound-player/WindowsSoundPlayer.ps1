@@ -1,4 +1,5 @@
-throw "Mojibake here --> ã"
+# Causing some error to test mojibake problem
+[q2h345897987]  = { asdzxcuvkyh iuasfd }
 
 $filePath = [string]$args[0]
 $maxInstances = [int]$args[1]

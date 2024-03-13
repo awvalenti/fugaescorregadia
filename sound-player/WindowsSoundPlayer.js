@@ -45,7 +45,8 @@ export class WindowsSoundPlayer {
       new Promise((_, reject) => {
         let errorOutput = ''
         mediaPlayerProcess.stderr.on('data', chunk => {
-          errorOutput += chunk
+          console.log(chunk)
+          errorOutput += chunk.toString('utf-8')
         })
         // exit or close, which one is better?
         // mediaPlayerProcess.on('close', errorCode => {
