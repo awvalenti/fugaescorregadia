@@ -1521,3 +1521,21 @@ form a ligature, they are presented that way
 ### Achieved goals
 - PowerShell process taking some seconds to start running
 - Understanding of the mojibake problem
+
+## 2024-03-18
+
+### Planned goals
+- Fix PowerShell mojibake
+
+### Findings
+- The mojibake problem has many layers of character encoding misuse
+- Running powershell from Git Bash/WT generates correct output on the terminal,
+  but wrong output when redirected to a file
+  - I say wrong because it's really messed up. It's not UTF-8/16/etc., not
+    Latin-1, not Windows-1252, not anything.
+- This problem is really complex and is not worth the effort to fix
+- In short, it's a wontfix
+
+### Achieved goals
+- Decided not to fix PowerShell mojibake bug
+

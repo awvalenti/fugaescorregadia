@@ -5,6 +5,7 @@
 - ✅: done
 - ❓: don't know yet
 - ⏳: shall be done soon
+- ❌: won't fix
 
 ## Sound
 
@@ -45,7 +46,7 @@
   - ⏳ When powershell fails:
     - Exits program
       - This is because load() promise finishes unsettled
-    - 🧐 Mojibake (shows wrong characters), must set character encoding correctly
+    - ❌ Mojibake (shows wrong characters), must set character encoding correctly
 - Decoded audio files are still named like *.mp3. Should use another extension.
 - Linux
   - Plays mostly noise for mp3 file with (apparently) corrupt header
