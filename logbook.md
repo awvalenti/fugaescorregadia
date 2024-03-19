@@ -1539,3 +1539,66 @@ form a ligature, they are presented that way
 ### Achieved goals
 - Decided not to fix PowerShell mojibake bug
 
+## 2024-03-19
+
+### Planned goals
+- Make a distributable version of the app (or at least study how to do it)
+
+### Findings
+- One thing to remember is: comply with licensing requirements
+- NodeJS is currently implementing a feature called
+  SEA - Single Executable Application
+  - Stability in    LTS version, v20 is   1: Experimental
+  - Stability in latest version, v21 is 1.1: Active development
+- pkg npm package is now deprecated in favor of NodeJS's SEA
+- nexe seems very easy to use on Linux. On Windows, it requires installation of
+  many other packages, or running a command as administrator which downloads
+  a script and installs everything. A little dangerous...
+- SEA:
+  - Requires to be in the destination OS to generate an executable for it
+  - Very easy to follow the tutorial, at least on Linux: https://nodejs.org/docs/latest-v20.x/api/single-executable-applications.html
+  - Outputs some warnings when running postject:
+  ```
+  warning: Can't find string offset for section name '.note.100'
+  warning: Can't find string offset for section name '.note'
+  ```
+  - At least on v20, generated binary outputs the warning:
+  ```
+  (node:38791) ExperimentalWarning: Single executable application is an experimental feature and might change at any time
+  (Use `hello --trace-warnings ...` to show where the warning was created)
+  ```
+    - We might have to run it using `2> /dev/null`
+  - `process.argv` on the generated binary works this way:
+    - [0] is full path to binary (e.g., /tmp/p21567/hello)
+    - [1] is the exact path typed to run the binary (e.g., ./p21567/hello)
+    - [2] and next ones are actual arguments passed to program
+    - It's like that because it mimicks the original NodeJS behavior:
+      - [0] is the Node binary
+      - [1] is the script being run
+      - [2] and next ones the actual arguments passed to the script
+  - Full command to generate executable:
+  ```sh
+  node --experimental-sea-config sea-config.json && cp $(command -v node) hello && npx postject hello NODE_SEA_BLOB sea-prep.blob     --sentinel-fuse NODE_SEA_FUSE_fce680ab2cc467b6e072b8b5df1996b2
+  ```
+  - To require installed packages, there are two ways:
+    - Recommended way is to minify the whole project as a single script
+    - Alternative way is to write this:
+      ```javascript
+      const { createRequire } = require('node:module');
+      require = createRequire(__filename);
+      ```
+      - Tried it and it worked only if executable is on the same folder as
+        node_modules
+      - Apparently, the createRequire method "extracts" the require command so
+        that it can be run by the generated binary, actually reading files from
+        the filesystem during runtime. Not what we want.
+    - In other words, we'll really want to minify the project before creating
+      the binary package
+- !! retrieves last command in terminal, even if as the end of a string!!
+  (just like that)
+
+### Achieved goals
+- Evaluation of possible tools to generate the distributable package
+- Working demo of a HelloWorld app
+- Confirmed the need for minifying the application
+
