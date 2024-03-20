@@ -7,6 +7,11 @@
 - ⏳: shall be done soon
 - ❌: won't fix
 
+## Single Executable Application
+- Set icon
+  - https://github.com/nodejs/single-executable/discussions/67
+- If run via file explorer, should a terminal automatically be opened?
+
 ## Sound
 
 ### Features

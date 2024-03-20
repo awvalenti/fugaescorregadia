@@ -1602,3 +1602,43 @@ form a ligature, they are presented that way
 - Working demo of a HelloWorld app
 - Confirmed the need for minifying the application
 
+## 2024-03-20
+
+### Planned goals
+- Make a distributable version of the app in Windows
+- Bundle entire app as a single js file, to be able to import packages
+
+### Findings
+- SEA:
+  - Windows NodeJS binary size: 67MB
+  - signtool mentioned in the SEA tutorial is not native, it must be downloaded
+  - If we don't use signtool: `warning: The signature seems corrupted!`
+  - Almost same warning message as Linux when app is run:
+    ```
+    (node:8416) ExperimentalWarning: Single executable application is an experimental feature and might change at any time
+    (Use `hello --trace-warnings ...` to show where the warning was created)
+    ```
+    (we actually can't pass `--trace-warnings` to hello.exe
+  - Windows NodeJS package generated like that automatically uses NodeJS icon
+- Bundlers:
+  - Main ones are Webpack, Rollup and Parcel
+  - Webpack is powerful but complex, Parcel is simple but limited,
+    Rollup is in-between them
+  - Code splitting is a feature that allows multiple entry points for the app,
+    improving startup time and allowing async importing of modules. May be
+    interesting for us.
+    - Rollup has it and apparently Parcel has it, too
+  - Rollup generated code that tried to access `window`. It seems to work
+    only for web-targeted apps.
+  - Apparently, Parcel has 10 dependencies and Rollup has 0!
+  - Rollup by default simply generated as a bundle almost the same as the input
+    file... No benefits there.
+    - Apparently, it needs package `@rollup/plugin-node-resolve`. But it still
+      didn't work after installing and configuring it.
+
+### Achieved goals
+- Make a distributable version of the app in Windows
+- Info about bundling entire app as a single js file
+
+### TODO
+- Write down Node binary executable size on Linux
