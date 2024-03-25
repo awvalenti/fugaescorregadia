@@ -1642,3 +1642,22 @@ form a ligature, they are presented that way
 
 ### TODO
 - Write down Node binary executable size on Linux
+
+## 2024-03-25
+
+### Planned goals
+- Bundle entire app as a single js file, able to import packages
+
+### Findings
+- Parcel:
+  - Installs lots of polyfills
+  - Seems promising when set to work as library:
+    https://parceljs.org/getting-started/library/
+  - Needs this option: https://parceljs.org/features/targets/#includenodemodules
+  - Command to build and run bundle: `npx parcel build && node dist/main.js`
+  - As I believe we've already seen previously, generated code uses incompatible
+    features, like octal numbers. So, maybe we should try another bundler.
+  - Changing terminal-kit to blessed didn't solve the problem
+
+### Next steps
+- Try webpack or other bundlers
