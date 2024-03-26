@@ -1661,3 +1661,24 @@ form a ligature, they are presented that way
 
 ### Next steps
 - Try webpack or other bundlers
+
+## 2024-03-26
+
+### Planned goals
+- Try webpack on Linux
+
+### Findings
+- It seems Webpack can work with console apps, but it's not designed for that.
+  So, it'll probably require some workarounds/hacks.
+- Tried Gulp, but it has lots of vulnerabilities in its dependencies
+- Tried Grunt, without success
+- Tried Parcel again, it almost worked with this snippet on package.json:
+  ```json
+  "targets": {
+    "main": {
+      "includeNodeModules": {},
+      "context": "node"
+    }
+  },
+  ```
+  ...but some `Cannot find module` errors still occur
