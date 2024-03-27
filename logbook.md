@@ -1682,3 +1682,33 @@ form a ligature, they are presented that way
   },
   ```
   ...but some `Cannot find module` errors still occur
+
+## 2024-03-27
+
+### Planned goals
+- Assess viability of Parcel, Rollup, Webpack and possibly other bundlers
+
+### Findings
+- Again, following error occured:
+  `SyntaxError: The requested module 'zlib' does not provide an export named
+  'Z_FINISH'`
+  - I think this error happened before we used `"context": "node"`
+- Babel can be used together with Rollup or Parcel. It may fix the problem.
+  - We tried the Babel plugin for Rollup, without success
+- Webpack
+  - Much better out-of-box behavior than the other ones
+  - Said that we need polyfills to require Node native modules
+  - We tried this tutorial: https://webpack.js.org/guides/getting-started
+    - And also this sample project: https://stackblitz.com/github/webpack/webpack.js.org/tree/main/examples/getting-started?file=README.md&terminal=
+    - And this polyfill lib: https://www.npmjs.com/package/node-polyfill-webpack-plugin
+    - And this config `target: 'node'` from https://stackoverflow.com/a/66306663/2141469
+  - There's a lot of errors to be fixed either for terminal-kit or blessed
+- Reminder: we can always try not to use a bundler and distribute our app as a
+  zip file containing node_modules. Not great, but works.
+  - We may want to do this at least for now, so we can distribute a 1st version
+
+### Next steps
+- We should probably do one of the following:
+  - Keep trying to use Webpack
+  - Try Parcel with Babel
+  - Give up and distribute a zip file containing node_modules for now
